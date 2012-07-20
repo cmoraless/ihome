@@ -1,2 +1,2 @@
-module ProfileHelper
+module ProfilesHelper
 end

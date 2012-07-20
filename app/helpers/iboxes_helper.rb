@@ -1,2 +1,2 @@
-module IboxHelper
+module IboxesHelper
 end

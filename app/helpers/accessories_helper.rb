@@ -1,2 +1,2 @@
-module AccessoryHelper
+module AccessoriesHelper
 end
