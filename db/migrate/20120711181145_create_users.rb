@@ -7,8 +7,10 @@ class CreateUsers < ActiveRecord::Migration
       t.string :address
       t.string :phone
       t.string :rut
-
+      t.references :house
       t.timestamps
     end
+
+    add_index :users, :house_id
   end
 end
