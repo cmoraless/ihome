@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    
+   
   end
   
  def signout
@@ -8,7 +8,7 @@ class HomeController < ApplicationController
   end
   
   def changeibox
-   @id = params[:id]
+   
   end
   
 end
