@@ -1,5 +1,5 @@
 class HousesController < ApplicationController
-
+  layout "homeadmin"
   def index
     @houses = House.all
     respond_to do |format|

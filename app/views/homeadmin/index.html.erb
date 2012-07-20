@@ -1,41 +1,12 @@
-<script type="text/javascript">
-	$(function() {
-		$("#accordion").accordion();
-		$(".collapse").collapse();
-		$(".collapse").collapse("hide");
-	});
-</script>
-<% content_for :navbar do %>
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container-fluid">
-			<%= image_tag("ihome_logo.jpg", :size => "120x120")%>
-    </div>
-  </div>
-</div>
-<% end %>
 
-<div id="accordion" class="row-fluid">
-	<h3><a href="#">Crear/modificar casas</a></h3>
-	<div>
-		<div class="span10"></div>
-		<div class="span10"></div>
-		<div class="span10"></div>
-		<div class="span10"></div>
-		<div class="span10"></div>
-		<div class="span10"></div>
-		<div class="span10"></div>
-		<div class="span10"></div>
-		<div class="span10"></div>
-		
-		
-	</div>
-	<h3><a href="#">Agregar tipo de accesorios</a></h3>
-	<div>
-		
-	</div>
-	<h3><a href="#">Navegar como</a></h3>
-	<div>
-		
-	</div>
-</div>
+<%content_for :houses do%>
+<% link_to "Crear nueva casa", :controller=>"houses", :action=>"index"%>
+<%end%>
+
+<%content_for :accessories do%>
+ACCESORIOS
+<%end%>
+
+<%content_for :browseas do%>
+NAVEGARCOMO
+<%end%>
