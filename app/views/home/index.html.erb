@@ -1,0 +1,68 @@
+<script type="text/javascript">
+	$(function() {
+		$( "#accordion" ).accordion();
+	});
+</script>
+
+<!-- Contenido navbar (barra de arriba) -->
+<% content_for :navbar do %>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+     	<%= image_tag("ihome_logo.jpg", :size => "120x120")%>
+      <div class="btn-group pull-right">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+          <i class="icon-user"></i> Username
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <!--<li><a href="#">Profile</a></li>
+          <li class="divider"></li> -->
+          <li><%=link_to "Sign Out",:controller => "home",:action => "signout" %></li>
+        </ul>
+      </div>
+      <div class="btn-group pull-right">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+          <i class="icon-list"></i> IBox
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><%=link_to "ibox1",{:controller => "home",:action => "changeibox", :id=>"1"} %></li>
+          <li class="divider"></li>
+          <li><a href="#">ibox2</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<div id="accordion" class="row-fluid">
+	<h3><a href="#">Section 1</a></h3>
+	<div>
+		<div class="span10"></div>
+		<div class="span10"></div>
+		<div class="span10"></div>
+		<div class="span10"></div>
+		<div class="span10"></div>
+		<div class="span10"></div>
+		<div class="span10"></div>
+		<div class="span10"></div>
+		<div class="span10"></div>
+		
+		
+	</div>
+	<h3><a href="#">Section 2</a></h3>
+	<div>
+		
+	</div>
+	<h3><a href="#">Section 3</a></h3>
+	<div>
+		
+	</div>
+	<h3><a href="#">Section 4</a></h3>
+	<div>
+		
+	</div>
+</div>
+

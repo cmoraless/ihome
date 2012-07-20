@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  email: 
+  password: MyString
+  nombre: MyString
+  esAdmin: false
+  direccion: MyString
+  fono: 1.5
+  rut: 1.5
+
+two:
+  email: 
+  password: MyString
+  nombre: MyString
+  esAdmin: false
+  direccion: MyString
+  fono: 1.5
+  rut: 1.5

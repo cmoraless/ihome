@@ -1,0 +1,40 @@
+<% content_for :navbar do %>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+			<%= image_tag("ihome_logo.jpg", :size => "120x120")%>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<div class="hero-unit">
+	<h1> Bienvenido </h1>
+	<div class="row-fluid">
+		<div class="span12"></div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12"></div>
+	</div>
+	<div class="row">
+		<div class="span8 offset4">
+			<%= form_tag :controller => 'start', :action => 'login' %> 
+			<table>
+				<tr>
+					<td><h4>Email:</h4></td> 
+					<td><%= text_field_tag 'email' %></td>
+				</tr>
+				<p></p>
+				<tr>
+					<td><h4>Contraseña:</h4></td>
+					<td><%= password_field_tag 'password' %></td>
+				</tr>
+				<tr>
+					<td><%= submit_tag "Login", :class=>"btn"%></td>
+				</tr>	
+			</table>
+		</div>
+	</div>
+</div>
+	  
+	

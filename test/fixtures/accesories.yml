@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  state: false
+  isScheduled: false
+
+two:
+  name: MyString
+  state: false
+  isScheduled: false

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ihome</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<%= yield :navbar %>
+	<div class="row-fluid">	
+		<div class="span12"></div>
+	</div>
+	<div class="row-fluid">	
+		<div class="span12"></div>
+	</div>
+	<div class="row-fluid">	
+		<div class="span12"></div>
+	</div>
+	<%= yield :profiles %>
+	<div class="container-fluid">
+  	<%= yield %>
+		<%= yield :camaras %>
+		<div class="row">
+			<div class="span3 offset6">&copy; Bissen</div>
+  	</div>
+	</div>
+
+	
+</body>
+</html>

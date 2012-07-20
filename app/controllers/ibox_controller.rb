@@ -1,0 +1,2 @@
+class IboxController < ApplicationController
+end
