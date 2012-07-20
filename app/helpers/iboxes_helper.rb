@@ -1,0 +1,2 @@
+module IboxesHelper
+end

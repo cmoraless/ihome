@@ -1,4 +1,6 @@
 Ihome::Application.routes.draw do
+  get "homeadmin/index"
+
   get "start/index"
 
   #get "house/index"
@@ -21,7 +23,7 @@ Ihome::Application.routes.draw do
   # This route can be invoked with purchase_url(:id => product.id)
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  resources :houses
 
   # Sample resource route with options:
   #   resources :products do
