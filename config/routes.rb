@@ -1,4 +1,6 @@
 Ihome::Application.routes.draw do
+  get "homeadmin/index"
+
   get "start/index"
 
   #get "house/index"
