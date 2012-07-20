@@ -1,3 +1,4 @@
+<% content_for :houses do%>
 <%= form_for(@house) do |f| %>
   <% if @house.errors.any? %>
   <div id="errorExplanation">
@@ -18,3 +19,4 @@
     <%= f.submit %>
   </div>
 <% end %>
+<%end%>

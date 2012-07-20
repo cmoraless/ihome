@@ -11,43 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120713161813) do
-
-  create_table "accesories", :force => true do |t|
-    t.string   "name"
-    t.boolean  "state"
-    t.boolean  "isScheduled"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
+ActiveRecord::Schema.define(:version => 20120711182733) do
 
   create_table "accesory_types", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "actions", :force => true do |t|
-    t.datetime "hour"
-    t.boolean  "state"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "houses", :force => true do |t|
-    t.string   "address"
-    t.boolean  "state"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "ibox_accesories_container_accesories", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "ibox_accesories_containers", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -56,18 +22,6 @@ ActiveRecord::Schema.define(:version => 20120713161813) do
   create_table "iboxes", :force => true do |t|
     t.string   "name"
     t.boolean  "isActive"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "profile_accesories_container_accesories", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "profile_accesories_containers", :force => true do |t|
-    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
