@@ -7,8 +7,4 @@ class HomeController < ApplicationController
     redirect_to :controller=>"start", :action=>"index"
   end
   
-  def changeibox
-   
-  end
-  
 end

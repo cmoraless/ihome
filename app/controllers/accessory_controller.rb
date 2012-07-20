@@ -1,2 +1,0 @@
-class AccessoryController < ApplicationController
-end
