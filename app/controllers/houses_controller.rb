@@ -32,7 +32,15 @@ class HousesController < ApplicationController
   def show
     @house = House.find(params[:id]) 
     respond_to do |format|
-      format.html  # show.html.erb
+      format.html { } # show.html.erb
+      format.json  { render :json => @house }
+    end
+  end
+
+  def adduser
+    @house = House.find(params[:id]) 
+    respond_to do |format|
+      format.html { } # show.html.erb
       format.json  { render :json => @house }
     end
   end

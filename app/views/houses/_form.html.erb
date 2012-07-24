@@ -1,17 +1,4 @@
-<% content_for :houses do%>
 <%= form_for(@house) do |f| %>
-  <% if @house.errors.any? %>
-  <div id="errorExplanation">
-    <h2><%= pluralize(@post.errors.count, "error") %> prohibited
-        this post from being saved:</h2>
-    <ul>
-    <% @house.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-  <% end %>
- 
   <div class="field">
     <%= f.label :address %>   <%= f.text_field :address %>
   </div>
@@ -19,4 +6,4 @@
     <%= f.submit %>
   </div>
 <% end %>
-<%end%>
+

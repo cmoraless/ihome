@@ -1,11 +1,10 @@
 <%content_for :houses do%>
-<h1>Controlador de Casas</h1>
+<h1>Casas</h1>
 
 <table>
   <tr>
-    <th>Id</th>
-    <th>Direccion</th>
-    <th></th>
+    <th>ID</th>
+    <th>Dirección</th>
     <th></th>
     <th></th>
   </tr>
@@ -14,7 +13,6 @@
   <tr>
     <td><%= house.id %></td>
     <td><%= house.address %></td>
-    <td><%= link_to 'Show', house %></td>
     <td><%= link_to 'Edit', edit_house_path(house) %></td>
     <td><%= link_to 'Destroy', house, :confirm => 'Are you sure?',
                                      :method => :delete %></td>
@@ -27,5 +25,6 @@
 
 <%= link_to "crear nueva casa", new_house_path %>
 <%end%>
+
 
 

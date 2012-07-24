@@ -1,10 +1,17 @@
-<% content_for :houses do%>
+<%content_for :houses do%>
 <p id="notice"><%= notice %></p>
  
 <p>
-  <b>Address:</b>
+  <b>Debe añadir Usuario Adminitrativo para: </b>
+</p>
+<p>
   <%= @house.address %>
 </p>
+ <%= render @house.users %>
  
-<%= link_to 'Back', houses_path %>
+<h2>Añadir usuario:</h2>
+<%= render "users/form" %>
+
+<%= link_to 'Edit House', edit_house_path(@house) %> |
+<%= link_to 'Back', houses_path %> |
 <%end%>

@@ -1,7 +1,5 @@
 <% content_for :houses do%>
-<h1>new house 1!</h1>
-
-<%= render 'form' %>
- 
-<%= link_to 'Back', houses_path %>
-<%end%>
+<h1>Crear nueva Casa!</h1>
+<%= render :partial =>'form' %>
+<%= link_to 'Atrás', houses_path %>
+<% end%>
