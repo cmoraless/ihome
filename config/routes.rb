@@ -1,4 +1,6 @@
 Ihome::Application.routes.draw do
+  resources :iboxes
+
   resources :accessories
 
   resources :accessory_types

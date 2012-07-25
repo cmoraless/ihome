@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   # asociaciones:
-  belongs_to :house
+  has_and_belongs_to_many :iboxes
   has_many :profiles
   # atributos:
   set_primary_key "email"
