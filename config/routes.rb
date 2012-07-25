@@ -5,12 +5,8 @@ Ihome::Application.routes.draw do
 
   resources :users
 
-  resources :homeadmin do
-    resources :houses do
-      resources :users
-    end
-  end
-
+  resources :homeadmin
+  
   resources :houses do
     resources :users
   end  
