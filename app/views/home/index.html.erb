@@ -170,8 +170,11 @@ $(".collapse").collapse("hide");
 	</div>
 <% end %>
 <div id="accordion" class="row-fluid">
-	<h3><a href="#">Section 1</a></h3>
-	<div>
+	
+	<% @accessory_types.each do |accessory_type| %>
+	  <h3><a href="#"><%= accessory_type.name %></a></h3>
+	  <div>
+		<div class="span10">33</div>
 		<div class="span10"></div>
 		<div class="span10"></div>
 		<div class="span10"></div>
@@ -180,22 +183,9 @@ $(".collapse").collapse("hide");
 		<div class="span10"></div>
 		<div class="span10"></div>
 		<div class="span10"></div>
-		<div class="span10"></div>
-		
-		
-	</div>
-	<h3><a href="#">Section 2</a></h3>
-	<div>
-		
-	</div>
-	<h3><a href="#">Section 3</a></h3>
-	<div>
-		
-	</div>
-	<h3><a href="#">Section 4</a></h3>
-	<div>
-		
-	</div>
+      </div>
+    <% end %>
+
 </div>
 
 

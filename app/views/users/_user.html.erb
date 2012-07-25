@@ -1,0 +1,15 @@
+<p>
+  <b>Email:</b>
+  <%= user.email %>
+</p>
+ 
+<p>
+  <b>User:</b>
+  <%= user.name %>
+</p>
+ 
+<p>
+  <%= link_to 'Destroy User', [user.house, user],
+               :confirm => 'Are you sure?',
+               :method => :delete %>
+</p>

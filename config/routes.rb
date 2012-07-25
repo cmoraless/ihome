@@ -1,9 +1,14 @@
 Ihome::Application.routes.draw do
-  resources :accesory_types
+  resources :accessories
+
+  resources :accessory_types
 
   resources :users
 
-  resources :homeadmin do 
+  resources :homeadmin do
+    resources :houses do
+      resources :users
+    end
   end
 
   resources :houses do

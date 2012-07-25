@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-   
+    @accessory_types = AccessoryType.all
   end
   
  def signout

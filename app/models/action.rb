@@ -1,7 +1,7 @@
 class Action < ActiveRecord::Base
   # asociaciones:
-  belongs_to :profile_accesories_container
-  has_one :accesory_type
+  belongs_to :profile_accessories_container
+  has_one :accessory_type
   # atributos
   attr_accessible :hour, :state
 end

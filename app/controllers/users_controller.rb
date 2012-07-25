@@ -41,8 +41,14 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @house = House.find(params[:house_id])
+    #if params[:isAdmin] == true 
+    #  @user = @house.users.create(params[:user])
+    #  redirect_to house_path(@house)
+    #else 
+    #  redirect_to house_path(@house)
+    #end 
     @user = @house.users.create(params[:user])
-    redirect_to house_path(@house) 
+    redirect_to house_path(@house)
   end
 
   # PUT /users/1

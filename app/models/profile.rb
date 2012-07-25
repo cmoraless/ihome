@@ -3,8 +3,8 @@ class Profile < ActiveRecord::Base
   belongs_to :user
   belongs_to :ibox
   # has_many :through
-  has_many :profile_accesories_containers
-  has_many :accesory_types, :through => :profile_accesories_containers
+  has_many :profile_accessories_containers
+  has_many :accessory_types, :through => :profile_accessories_containers
   # atributos
   attr_accessible :isActive, :name
 end
