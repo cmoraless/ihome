@@ -1,16 +1,10 @@
 <%= form_for(@ibox) do |f| %>
-  <% if @ibox.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@ibox.errors.count, "error") %> prohibited this ibox from being saved:</h2>
-
-      <ul>
-      <% @ibox.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+   <div class="field">
+    <%= f.label :Nombre %>   <%= f.text_field :name %>
+    <%= f.label :IP %>   <%= f.text_field :ip %>
+    <%= f.label :Puerto %>   <%= f.text_field :port %>
+   	
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

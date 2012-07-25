@@ -2,6 +2,9 @@
 
 <table>
   <tr>
+    <th>Nombre</th>
+    <th>IP</th>
+    <th>Puerto</th>
     <th></th>
     <th></th>
     <th></th>
@@ -9,6 +12,9 @@
 
 <% @iboxes.each do |ibox| %>
   <tr>
+  	<td><%= ibox.name %></td>
+    <td><%= ibox.ip %></td>
+    <td><%= ibox.port %></td>
     <td><%= link_to 'Show', ibox %></td>
     <td><%= link_to 'Edit', edit_ibox_path(ibox) %></td>
     <td><%= link_to 'Destroy', ibox, method: :delete, data: { confirm: 'Are you sure?' } %></td>
