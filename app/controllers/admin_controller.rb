@@ -2,6 +2,7 @@ class AdminController < ApplicationController
   layout "admin"
   def index
     @users = User.all
+    @iboxes = Ibox.all
     respond_to do |format|
       format.html 
       format.json { render :json => @houses }

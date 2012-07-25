@@ -1,6 +1,7 @@
 class IboxesController < ApplicationController
   # GET /iboxes
   # GET /iboxes.json
+  layout "admin"
   def index
     @iboxes = Ibox.all
 
