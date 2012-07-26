@@ -157,7 +157,7 @@ $(".collapse").collapse("hide");
 <div id="myCollapsibleExample"><ul class="nav nav-pills nav-stacked"><li class="active"><a href="#camaras" data-toggle="collapse">C&aacutemaras</a></li></ul></div>  
 	<div id="camaras" class="collapse">  
 		<!-- <div class="hero-unit"> -->
-		      	<div id="rotating-item-wrapper" class="offset4">  
+		      	<div id="rotating-item-wrapper" class="offset3">  
 			      <a href="javascript:void(0);"><%= image_tag("camara.jpg", :class=>"rotating-item swipe")%></a>
 			      <a href="javascript:void(0);"><%= image_tag("camara.jpg", :class=>"rotating-item swipe")%></a>
 			      <a href="javascript:void(0);"><%= image_tag("camara.jpg", :class=>"rotating-item swipe")%></a>
@@ -169,23 +169,28 @@ $(".collapse").collapse("hide");
 				</div> 
 	</div>
 <% end %>
+<%= @accessories.length %>
+<% @resto = @accessories.length%3 %>
 <div id="accordion" class="row-fluid">
 	
-	<% @accessory_types.each do |accessory_type| %>
-	  <h3><a href="#"><%= accessory_type.name %></a></h3>
-	  <div>
-		<div class="span10">33</div>
-		<div class="span10"></div>
-		<div class="span10"></div>
-		<div class="span10"></div>
-		<div class="span10"></div>
-		<div class="span10"></div>
-		<div class="span10"></div>
-		<div class="span10"></div>
-		<div class="span10"></div>
-      </div>
-    <% end %>
-
+  <h3><a href="#">Todos</a></h3>
+  <div>
+  	<%for i in 0..@accessories.length/3-1 %>
+  	<div class="row-fluid">
+  		<% for j in 3*i..(3*i)+2%>
+  			<div class="hero-unit span4"><%= j %></div>
+  		<%end%>
+  	</div>
+  	<%end%>
+  	<%if @resto > 0%>
+	  	<div class="row-fluid">
+	  	<%for i in (@accessories.length/3)..(@accessories.length/3+@resto)-1 %>
+	  		<div class="hero-unit span4"><%= i %></div>
+	  	<%end%>
+	  	</div>
+  	<%end%>
+  </div>
+      
 </div>
 
 
