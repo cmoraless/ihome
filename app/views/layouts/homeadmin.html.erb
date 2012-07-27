@@ -33,15 +33,15 @@
 		<!--<div class="span10 offset1"> -->
 <div id="accordion" class="row-fluid">
 	<h3><a href="#">Crear/modificar casas</a></h3>
-	<div>
+	<div id="houses">
 		<%= yield :houses %>
 	</div>
 	<h3><a href="#">Agregar tipo de accesorios</a></h3>
-	<div>
+	<div id="accessories">
 		<%= yield :accessories %>
 	</div>
 	<h3><a href="#">Navegar como</a></h3>
-	<div>
+	<div id="browseas">
 		<%= yield :browseas %>
 	</div>
 </div>		<!--</div>-->
@@ -49,7 +49,7 @@
 			<div class="span3 offset6">&copy; Bissen</div>
   	</div>
 	</div>
-
+<%= yield %>
 	
 </body>
 </html>
