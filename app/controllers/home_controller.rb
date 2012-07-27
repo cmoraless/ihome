@@ -5,13 +5,8 @@ class HomeController < ApplicationController
     require 'net/http'
     require 'uri'
     ip = '200.28.166.104'
-<<<<<<< HEAD
     port = '1166'
     ws = 'http://' + ip + ':' + port
-=======
-    port = 1166
-    ws = 'http://' + ip + ':' + port.to_s
->>>>>>> 4db4ab55c93377b628e7510e95011d66ee3723ac
     url = URI.parse(ws)
     begin
       req = Net::HTTP::Get.new(url.path + '/cgi-bin/Get.cgi?get=SET')
