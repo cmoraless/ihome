@@ -177,11 +177,7 @@ $(".collapse").collapse("hide");
   	<%for i in 0..@accessories.length/3-1 %>
   	<div class="row-fluid">
   		<% for j in 3*i..(3*i)+2%>
-<<<<<<< HEAD
   			<div class="hero-unit span4"><%= @accessories[j][:zid] %><%= " " %> <%=@accessories[j][:kind]%></div>
-=======
-  			<div class="span4"><%= @accessories[j][:zid] %></div>
->>>>>>> 4db4ab55c93377b628e7510e95011d66ee3723ac
   		<%end%>
   	</div>
   	<%end%>
