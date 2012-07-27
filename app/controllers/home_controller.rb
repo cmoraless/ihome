@@ -4,9 +4,9 @@ class HomeController < ApplicationController
     #leer la caja
     require 'net/http'
     require 'uri'
-    ip = '192.168.0.198'
-    port = 1166
-    ws = 'http://' + ip + ':' + port.to_s
+    ip = '200.28.166.104'
+    port = '1166'
+    ws = 'http://' + ip + ':' + port
     url = URI.parse(ws)
     begin
       req = Net::HTTP::Get.new(url.path + '/cgi-bin/Get.cgi?get=SET')
@@ -24,8 +24,8 @@ class HomeController < ApplicationController
         end
       end
       @accessories = [] #conoce todos los accesorios
-      for i in 0..res.length/12-1 #divido en 12 ya que son 12 parametros por accesorios 
-        #guardo en accessories con los parametros que se usaran
+      for i in 0..res.length/12-1 #divido en 12 ya que son 12 parametros por accesorio
+        #guardo en accessories los parametros que se usaran de los accesorios
         @accessories << {:zid => res[0+12*i].to_s.split('=')[1], 
           :kind => res[1+12*i].to_s.split('=')[1], 
           :alias => res[2+12*i].to_s.split('=')[1], 
