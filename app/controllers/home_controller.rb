@@ -1,7 +1,9 @@
 class HomeController < ApplicationController
   def index
-    #@accessory_types = AccessoryType.all
+    @accessories = Accessory.all
     #leer la caja
+=begin    
+  
     require 'net/http'
     require 'uri'
     ip = '200.28.166.104'
@@ -38,6 +40,7 @@ class HomeController < ApplicationController
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
       flash[:notice] = "Lo sentimos, el servicio no se encuentra disponible actualmente."
     end
+=end
   end
   
  def signout

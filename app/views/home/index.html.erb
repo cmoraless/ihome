@@ -174,20 +174,7 @@ $(".collapse").collapse("hide");
 	
   <h3><a href="#">Todos</a></h3>
   <div>
-  	<%for i in 0..@accessories.length/3-1 %>
-  	<div class="row-fluid">
-  		<% for j in 3*i..(3*i)+2%>
-  			<div class="hero-unit span4"><%= @accessories[j][:zid] %><%= " " %> <%=@accessories[j][:kind]%></div>
-  		<%end%>
-  	</div>
-  	<%end%>
-  	<%if @resto > 0%>
-	  	<div class="row-fluid">
-	  	<%for i in (@accessories.length/3)..(@accessories.length/3+@resto)-1 %>
-	  		<div class="hero-unit span4"><%=  %></div>
-	  	<%end%>
-	  	</div>
-  	<%end%>
+  	<%= render :partial =>"accessories/all" %>
   </div>
       
 </div>
