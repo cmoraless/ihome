@@ -85,27 +85,18 @@ class IboxesController < ApplicationController
 
   def enable
     @ibox = Ibox.find(params[:ibox_id])
-    @ibox.update_attribute(:isActive, true)
-
     respond_to do |format|
-      format.html { redirect_to @ibox }
-      format.json { head :no_content }
-    end
-  end
-  
-  def enabled
-    respond_to do |format|
-      if @ibox.update_attributes(params[:ibox])
-
-      format.html { redirect_to :action => "index" }
-      format.json { head :no_content }
+      if @ibox.update_attribute(:isActive, true)
+        format.html { redirect_to :action => "addDefaultAccessories" }
+        format.json { head :no_content }
       end
     end
   end
   
-  def listenAccessories
-    #@accessory_types = AccessoryType.all
+=begin
+  def addDefaultAccessories
     #leer la caja
+
     require 'net/http'
     require 'uri'
     ip = '200.28.166.104'
@@ -135,12 +126,26 @@ class IboxesController < ApplicationController
           :alias => res[2+12*i].to_s.split('=')[1], 
           :cmdclass => res[10+12*i].to_s.split('=')[1]
           }
+        @accessory = Accessory.new
+        @accessory.update_attribute(:zid, res[0+12*i].to_s.split('=')[1])
+        @accessory.update_attribute(:zid, res[1+12*i].to_s.split('=')[1])
+        @accessory.update_attribute(:zid, res[2+12*i].to_s.split('=')[1])
+        @accessory.update_attribute(:zid, res[10+12*i].to_s.split('=')[1])
+        @accessory.save
         
       end
       @body = @accessories
     rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
       flash[:notice] = "Lo sentimos, el servicio no se encuentra disponible actualmente."
+    end
+=end
+
+  def addDefaultAccessories 
+    @accessories = Accessory.all
+    respond_to do |format|
+      format.html
+      format.json { head :no_content }
     end
   end
   

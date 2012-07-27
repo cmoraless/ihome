@@ -1,5 +1,7 @@
 Ihome::Application.routes.draw do
-  resources :iboxes
+  resources :iboxes do
+    resources :accessories
+  end
 
   resources :accessories
 
@@ -11,7 +13,7 @@ Ihome::Application.routes.draw do
   
   resources :houses do
     resources :users
-  end  
+  end
 
   get "start/index"
 
@@ -76,5 +78,6 @@ Ihome::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
 	match ':controller(/:action(/:id))(.:format)'
+
 	#resources :house
 end

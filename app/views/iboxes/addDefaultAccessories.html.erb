@@ -1,0 +1,24 @@
+<% content_for :ibox do%>
+<h1>Accesorios</h1>
+
+<table>
+  <tr>
+    <th>ID accesorio</th>
+    <th>ZID accesorio</th>
+
+  </tr>
+ 
+<% @accessories.each do |accessory| %>
+  <tr>
+    <td><%= accessory.id %></td>
+    <td><%= accessory.zid %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+ 
+
+
+
+<%end%>
