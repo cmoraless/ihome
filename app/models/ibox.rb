@@ -6,5 +6,5 @@ class Ibox < ActiveRecord::Base
   has_many :ibox_accessories_containers
   has_many :accessory_types, :through => :ibox_accessories_containers  
   # atributos
-  attr_accessible :isActive, :name, :ip, :port
+  attr_accessible :isActive, :name, :ip, :port, :isActive
 end

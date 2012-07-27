@@ -169,7 +169,6 @@ $(".collapse").collapse("hide");
 				</div> 
 	</div>
 <% end %>
-<%= @accessories.length %>
 <% @resto = @accessories.length%3 %>
 <div id="accordion" class="row-fluid">
 	
@@ -178,14 +177,18 @@ $(".collapse").collapse("hide");
   	<%for i in 0..@accessories.length/3-1 %>
   	<div class="row-fluid">
   		<% for j in 3*i..(3*i)+2%>
+<<<<<<< HEAD
+  			<div class="hero-unit span4"><%= @accessories[j][:zid] %><%= " " %> <%=@accessories[j][:kind]%></div>
+=======
   			<div class="span4"><%= @accessories[j][:zid] %></div>
+>>>>>>> 4db4ab55c93377b628e7510e95011d66ee3723ac
   		<%end%>
   	</div>
   	<%end%>
   	<%if @resto > 0%>
 	  	<div class="row-fluid">
 	  	<%for i in (@accessories.length/3)..(@accessories.length/3+@resto)-1 %>
-	  		<div class="hero-unit span4"><%= i %></div>
+	  		<div class="hero-unit span4"><%=  %></div>
 	  	<%end%>
 	  	</div>
   	<%end%>

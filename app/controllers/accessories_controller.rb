@@ -80,4 +80,29 @@ class AccessoriesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def control
+    require 'net/http'
+    require 'uri'
+    ip = '200.28.166.104'
+    port = '1166'
+    ws = 'http://' + ip + ':' + port
+    url = URI.parse(ws)
+    #params[:zid] = '0016E62703';
+    #params[:value] = '1' 
+    begin
+      if params[:kind] == 'MultiLevelSwitch'
+        req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?VALUE=' + params[:value] + '&ZID=' + params[:zid])
+      end
+      if params[:kind] == 'BinarySwitch' or params[:kind] == 'BinarySensor'
+        req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?OP=' + params[:value] + '&ZID=' + params[:zid])
+      end
+      req.basic_auth 'root', ''
+      res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+      @body = res.body      
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+      Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
+      flash[:notice] = "Lo sentimos, el servicio no se encuentra disponible actualmente."
+    end
+  end
 end

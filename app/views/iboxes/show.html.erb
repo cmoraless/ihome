@@ -1,6 +1,14 @@
 <% content_for :ibox do%>
 <p id="notice"><%= notice %></p>
 
+<p>
+  <b>Ibox id:</b>
+  <%= @ibox.id %>
+</p>
+<p>
+  <b>Esta activo?:</b>
+    <%= @ibox.isActive ? 'si' : 'no' %>
+</p>
 
 <%= link_to 'Edit', edit_ibox_path(@ibox) %> |
 <%= link_to 'Back', iboxes_path %>
