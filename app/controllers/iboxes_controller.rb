@@ -87,7 +87,7 @@ class IboxesController < ApplicationController
     @ibox = Ibox.find(params[:ibox_id])
     respond_to do |format|
       if @ibox.update_attribute(:isActive, true)
-        format.html { redirect_to :action => "addDefaultAccessories" }
+        format.html { redirect_to :action => "addDefaultAccessories", :id => @ibox   }
         format.json { head :no_content }
       end
     end
@@ -128,9 +128,9 @@ class IboxesController < ApplicationController
           }
         @accessory = Accessory.new
         @accessory.update_attribute(:zid, res[0+12*i].to_s.split('=')[1])
-        @accessory.update_attribute(:zid, res[1+12*i].to_s.split('=')[1])
-        @accessory.update_attribute(:zid, res[2+12*i].to_s.split('=')[1])
-        @accessory.update_attribute(:zid, res[10+12*i].to_s.split('=')[1])
+        @accessory.update_attribute(:kind, res[1+12*i].to_s.split('=')[1])
+        @accessory.update_attribute(:alias, res[2+12*i].to_s.split('=')[1])
+        @accessory.update_attribute(:cmdclass, res[10+12*i].to_s.split('=')[1])
         @accessory.save
         
       end
@@ -142,6 +142,48 @@ class IboxesController < ApplicationController
 =end
 
   def addDefaultAccessories 
+   require 'net/http'
+    require 'uri'
+    ip = '200.28.166.104'
+    port = 1166
+    ws = 'http://' + ip + ':' + port.to_s
+    url = URI.parse(ws)
+    begin
+      req = Net::HTTP::Get.new(url.path + '/cgi-bin/Get.cgi?get=SET')
+      req.basic_auth 'root', ''
+      res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+      #escribo archivo de texto con la salida del web service
+      path = Rails.root + 'tmp/server.txt'
+      f_out = File.new(path,'w')
+      f_out.puts res.body
+      f_out.close
+      res = Array.new
+      f_in = File.open(path,'r') do |f|
+        while line = f.gets
+          res << line.to_s.chomp
+        end
+      end
+      @accessories = [] #conoce todos los accesorios
+      for i in 0..res.length/12-1 #divido en 12 ya que son 12 parametros por accesorios 
+        #guardo en accessories con los parametros que se usaran
+        @accessories << {:zid => res[0+12*i].to_s.split('=')[1], 
+          :kind => res[1+12*i].to_s.split('=')[1], 
+          :alias => res[2+12*i].to_s.split('=')[1], 
+          :cmdclass => res[10+12*i].to_s.split('=')[1]
+          }
+        @accessory = Accessory.new
+        @accessory.update_attribute(:zid, res[0+12*i].to_s.split('=')[1])
+        @accessory.update_attribute(:kind, res[1+12*i].to_s.split('=')[1])
+        @accessory.update_attribute(:alias, res[2+12*i].to_s.split('=')[1])
+        @accessory.update_attribute(:cmdclass, res[10+12*i].to_s.split('=')[1])
+        @accessory.save
+        
+      end
+      @body = @accessories
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+      Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
+      flash[:notice] = "Lo sentimos, el servicio no se encuentra disponible actualmente."
+    end
     @accessories = Accessory.all
     respond_to do |format|
       format.html
