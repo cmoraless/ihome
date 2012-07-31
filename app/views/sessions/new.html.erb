@@ -17,21 +17,17 @@
 	</div>
 	<div class="row">
 		<div class="span8 offset4">
-			<%= form_tag :controller => 'start', :action => 'login' %> 
-			<table>
-				<tr>
-					<td><h4>Email:</h4></td> 
-					<td><%= text_field_tag 'email' %></td>
-				</tr>
-				<p></p>
-				<tr>
-					<td><h4>Contraseña:</h4></td>
-					<td><%= password_field_tag 'password' %></td>
-				</tr>
-				<tr>
-					<td><%= submit_tag "Login", :class=>"btn"%></td>
-				</tr>	
-			</table>
+			<%= form_tag sessions_path do %>
+			  <p>
+			    <%= label_tag :email %><br />
+			    <%= text_field_tag :email, params[:email] %>
+			  </p>
+			  <p>
+			    <%= label_tag :password %><br />
+			    <%= password_field_tag :password %>
+			  </p>
+			  <p class="button"><%= submit_tag "Log in" %></p>
+			<% end %>
 		</div>
 	</div>
 </div>

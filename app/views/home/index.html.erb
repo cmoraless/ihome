@@ -15,13 +15,13 @@ $(".collapse").collapse("hide");
      	<%= image_tag("ihome_logo.jpg", :size => "120x120")%>
       <div class="btn-group pull-right">
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-          <i class="icon-user"></i> Username
+          <i class="icon-user"></i> <% if current_user %> <%= current_user.email %> <% end %>
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
           <!--<li><a href="#">Profile</a></li>
           <li class="divider"></li> -->
-          <li><%=link_to "Sign Out",:controller => "home",:action => "signout" %></li>
+          <li><%=link_to "Log Out",log_out_path %></li>
         </ul>
       </div>
       <div class="btn-group pull-right">

@@ -1,4 +1,11 @@
 class HomeController < ApplicationController
+  before_filter :check_auth
+  def check_auth
+    if session[:user_id] == nil
+      redirect_to(root_path)
+    end
+  end
+  
   def index
     @accessories = Accessory.all
     #leer la caja

@@ -44,7 +44,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to :controller=>"users", :action => "index", notice: 'Post was successfully created.' }
+        format.html { redirect_to :controller=>"home", :action => "index"}
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
