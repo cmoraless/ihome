@@ -30,7 +30,7 @@ $(".collapse").collapse("hide");
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-          <li><%=link_to "ibox1",{:controller => "home",:action => "index", :id=>"1"} %></li>
+          <li><a href="#">ibox1</a></li>
           <li class="divider"></li>
           <li><a href="#">ibox2</a></li>
         </ul>
@@ -65,10 +65,20 @@ $(".collapse").collapse("hide");
 				</div> 
 	</div>
 <% end %>
-<% @resto = @accessories.length%3 %>
 <div id="accordion" class="row-fluid">
-	
-  <h3><a href="#">Todos</a></h3>
+	<h3><a href="#">Luces</a></h3>
+  <div>
+  </div>
+  <h3><a href="#">Riego</a></h3>
+  <div>
+  </div>
+  <h3><a href="#">Cortinas</a></h3>
+  <div>
+  </div>
+  <h3><a href="#">Climatizaci&oacute;n</a></h3>
+  <div>
+  </div>
+  <h3><a href="#">Otros</a></h3>
   <div>
   	<%= render :partial =>"accessories/all" %>
   </div>

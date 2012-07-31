@@ -4,11 +4,11 @@
 	<tr>
 	<td><%= accessory.alias %></td>
 	<%if accessory.kind == 'MultiLevelSwitch'%>
-	<td><%= link_to "On", {:controller=>"accessories", :action=>"control",:zid=> accessory.zid, :value=> '9',:kind=>accessory.kind}, :remote=>true%></td>
+	<td><%= link_to "On", {:controller=>"accessories", :action=>"control",:zid=> accessory.zid, :value=> '9',:kind=>accessory.kind}, :remote=>true, :id=>"lala"%></td>
 	<td><%= link_to "Off", {:controller=>"accessories", :action=>"control",:zid=> accessory.zid, :value=> '0',:kind=>accessory.kind}, :remote=>true%></td>
 	<%end%>
 	<% if accessory.kind == 'BinarySwitch' or accessory.kind == 'BinarySensor'%>
-	<td><%= link_to "On", {:controller=>"accessories", :action=>"control",:zid=> accessory.zid, :value=> '1',:kind=>accessory.kind}, :remote=>true%></td>
+	<td><%= link_to "On", {:controller=>"accessories", :action=>"control",:zid=> accessory.zid, :value=> '1',:kind=>accessory.kind}, :remote=>true,:id=>"lala"%></td>
 	<td><%= link_to "Off", {:controller=>"accessories", :action=>"control",:zid=> accessory.zid, :value=> '0',:kind=>accessory.kind}, :remote=>true%></td>
 	<%end%>
 	</tr>
