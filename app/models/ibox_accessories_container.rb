@@ -1,7 +1,8 @@
 class IboxAccessoriesContainer < ActiveRecord::Base
   # asociaciones:
-  has_many :ibox_accessories_container_accessories
-  has_many :accessories, :through => :ibox_accessories_container_accessories
+  belongs_to :ibox
+  belongs_to :accessory_type
+  has_and_belongs_to_many :accessories
   # atributos:
   attr_accessible :name
 end

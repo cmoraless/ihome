@@ -1,10 +1,9 @@
 class CreateAccessories < ActiveRecord::Migration
   def change
     create_table :accessories do |t|
-      t.string :name
+      t.string :name # alias
       t.string :zid
-      t.string :kind
-      t.string :alias
+      t.integer :value
       t.string :cmdclass
       t.boolean :state
       t.boolean :isScheduled
@@ -12,7 +11,6 @@ class CreateAccessories < ActiveRecord::Migration
 
       t.timestamps
     end
-
-      add_index :accessories, :accessory_type_id
+    add_index :accessories, :accessory_type_id
   end
 end

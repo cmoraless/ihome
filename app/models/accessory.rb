@@ -1,13 +1,9 @@
 class Accessory < ActiveRecord::Base
   # asociaciones:
-  #belongs_to :accessory_types
-  # has_many :through para perfiles
-  #has_many :profile_accessories_container_accessories
-  #has_many :profile_accessories_containers, :throught => :profile_accessories_container_accessories
-  # has_many :through para iboxs
-  #has_many :ibox_accessories_container_accessories
-  #has_many :ibox_accessories_containers, :throught => :ibox_accessories_container_accessories
+  belongs_to :accessory_types
+  has_and_belongs_to_many :profile_accessories_containers
+  has_and_belongs_to_many :ibox_accessories_containers
   # atributos
-  attr_accessible :isScheduled, :name, :zid, :kind, :alias, :cmdclass, :state, :isScheduled
+  attr_accessible :name, :zid, :value, :cmdclass, :state, :isScheduled
   
 end
