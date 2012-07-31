@@ -16,6 +16,9 @@
 		<div class="span12"></div>
 	</div>
 	<div class="row">
+		<% if flash[:notice]%>
+		<div> <%= render :text=> "Email o contraseña inválida" %> </div>
+		<% end %>
 		<div class="span8 offset4">
 			<%= form_tag sessions_path do %>
 			  <p>

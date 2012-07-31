@@ -12,10 +12,6 @@ Ihome::Application.routes.draw do
   resources :users
 
   resources :homeadmin
-  
-  resources :houses do
-    resources :users
-  end
 
   resources :sessions
   get "log_out" => "sessions#destroy", :as => "log_out"
