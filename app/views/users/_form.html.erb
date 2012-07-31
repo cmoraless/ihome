@@ -1,30 +1,34 @@
-<%= form_for([@house, @house.users.build]) do |f| %>
+<%= form_for(@user) do |user_form| %>
  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
+    <%= user_form.label :email %><br />
+    <%= user_form.email_field :email %>
+  </div>
+  <div class="field">
+  	<%= user_form.label :contraseña %><br />
+  	<%= user_form.password_field :password %>
   </div>
  <div class="field">
-    <%= f.label :name%><br />
-    <%= f.text_field :name %>
+    <%= user_form.label :name%><br />
+    <%= user_form.text_field :name %>
   </div>
  <div class="field">
- 	<%= f.label :isAdmin%>
-    <%= f.check_box :isAdmin%>
+ 	<%= user_form.label :isAdmin%>
+    <%= user_form.check_box :isAdmin%>
   </div>
    <div class="field">
-    <%= f.label :Dirección %><br />
-    <%= f.text_field :address %>
+    <%= user_form.label :Dirección %><br />
+    <%= user_form.text_field :address %>
   </div>
  <div class="field">
-    <%= f.label :Telefono %><br />
-    <%= f.text_field :phone %>
+    <%= user_form.label :Telefono %><br />
+    <%= user_form.text_field :phone %>
   </div>
  <div class="field">
-    <%= f.label :rut %><br />
-    <%= f.text_field :rut %>
+    <%= user_form.label :rut %><br />
+    <%= user_form.text_field :rut %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= user_form.submit %>
   </div>
 <% end %>

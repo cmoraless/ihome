@@ -173,8 +173,8 @@ class IboxesController < ApplicationController
           }
         @accessory = Accessory.new
         @accessory.update_attribute(:zid, res[0+12*i].to_s.split('=')[1])
-        @accessory.update_attribute(:kind, res[1+12*i].to_s.split('=')[1])
-        @accessory.update_attribute(:alias, res[2+12*i].to_s.split('=')[1])
+        #@accessory.update_attribute(:kind, res[1+12*i].to_s.split('=')[1])
+        @accessory.update_attribute(:name, res[2+12*i].to_s.split('=')[1])
         @accessory.update_attribute(:cmdclass, res[10+12*i].to_s.split('=')[1])
         @accessory.save
         

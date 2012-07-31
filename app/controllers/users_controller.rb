@@ -40,15 +40,17 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @house = House.find(params[:house_id])
-    #if params[:isAdmin] == true 
-    #  @user = @house.users.create(params[:user])
-    #  redirect_to house_path(@house)
-    #else 
-    #  redirect_to house_path(@house)
-    #end 
-    @user = @house.users.create(params[:user])
-    redirect_to house_path(@house)
+    @user = User.new(params[:user])
+
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to :controller=>"users", :action => "index", notice: 'Post was successfully created.' }
+        format.json { render json: @user, status: :created, location: @user }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PUT /users/1
@@ -70,8 +72,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @house = House.find(params[:house_id])
-    @user = @house.users.find(params[:id])
+    @user = User.find(params[:id])
     @user.destroy
     redirect_to house_path(@house)
   end
