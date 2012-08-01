@@ -1,10 +1,12 @@
 <script type="text/javascript">
-
+function hola(){
+	alert("hola");
+}
 $(function() {
 $("#accordion").accordion();
-//$(".collapse").collapse();
-//$(".collapse").collapse("hide");
-
+$(".collapse").collapse();
+$(".collapse").collapse("hide");
+$("#on").button('toggle');
 });
 </script>
 <!-- Contenido navbar (barra de arriba) -->
@@ -88,7 +90,10 @@ $("#accordion").accordion();
   <div>
   	<%= render :partial =>"accessories/all" %>
   </div>
-      
+     
 </div>
-
+<div class="btn-group" data-toggle="buttons-radio">
+  <button id="on" class="btn btn-success">On</button>
+  <button id= "off" class="btn btn-danger" data-toggle="button" onclick="javascript:hola();">Off</button>
+</div>
 
