@@ -84,19 +84,24 @@ class IboxesController < ApplicationController
   
 
   def enable
-    @ibox = Ibox.find(params[:ibox_id])
-    @user = User.find(session[:user_id])
-    if @ibox.users.where(:email => session[:user_id]).exists?
-      flash[:notice] = "ya existe la relacion"
-    else
-      @ibox.update_attribute(:isActive, true)
-      @ibox.users << @user
-      flash[:notice] = "hice el match"
-    end
-    respond_to do |format|
-        format.js
-        format.html
+    if Ibox.exists?(params[:ibox_id])
+      @ibox = Ibox.find(params[:ibox_id])
+      @user = User.find(session[:user_id])
+      if @ibox.users.where(:email => session[:user_id]).exists?
+        flash[:notice] = "ya existe la relacion"
+      else
+        @ibox.update_attribute(:isActive, true)
+        @ibox.users << @user
+        flash[:notice] = "hice el match"
       end
+    else  
+      flash[:notice] = "No hemos encontrado el ibox especificado"
+    end
+    
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
   
 =begin
