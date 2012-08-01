@@ -1,11 +1,9 @@
 Ihome::Application.routes.draw do
   get "sessions/new"
-
+  
   resources :iboxes do
     resources :accessories
   end
-
-  #resources :accessories 
 
   resources :accessory_types
 
@@ -14,10 +12,14 @@ Ihome::Application.routes.draw do
   resources :homeadmin
 
   resources :sessions
+  
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
   root :to => "sessions#new"
+  get "new_admin" => "users#newAdmin", :as => "new_admin"
+  get "new_no_admin" => "users#newNoAdmin", :as => "new_no_admin"
+  get "add_user_to_ibox" => "iboxes#addUser", :as=> "add_user_to_ibox"
   #get "house/index"
 
   #get "user/index"

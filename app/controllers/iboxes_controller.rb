@@ -191,4 +191,15 @@ class IboxesController < ApplicationController
     end
   end
   
+  def addUser
+    @ibox = Ibox.find(1)
+    @user = User.find(session[:user_id])
+    if @ibox.users.where(:email => session[:user_id]).exists?
+      flash[:notice] = "ya existe"
+    else
+      @ibox.update_attribute(:isActive, true)
+      @ibox.users << @user
+    end
+  end
+  
 end

@@ -23,9 +23,17 @@ class UsersController < ApplicationController
 
   # GET /users/new
   # GET /users/new.json
-  def new
+  def newAdmin
     @user = User.new
 
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @user }
+    end
+  end
+  
+  def newNoAdmin
+    @user = User.new
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
@@ -76,4 +84,5 @@ class UsersController < ApplicationController
     @user.destroy
     redirect_to house_path(@house)
   end
+  
 end
