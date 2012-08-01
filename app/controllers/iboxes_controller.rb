@@ -85,12 +85,18 @@ class IboxesController < ApplicationController
 
   def enable
     @ibox = Ibox.find(params[:ibox_id])
-    respond_to do |format|
-      if @ibox.update_attribute(:isActive, true)
-        format.html { redirect_to :action => "addDefaultAccessories", :id => @ibox   }
-        format.json { head :no_content }
-      end
+    @user = User.find(session[:user_id])
+    if @ibox.users.where(:email => session[:user_id]).exists?
+      flash[:notice] = "ya existe la relacion"
+    else
+      @ibox.update_attribute(:isActive, true)
+      @ibox.users << @user
+      flash[:notice] = "hice el match"
     end
+    respond_to do |format|
+        format.js
+        format.html
+      end
   end
   
 =begin
@@ -191,6 +197,7 @@ class IboxesController < ApplicationController
     end
   end
   
+=begin
   def addUser
     @ibox = Ibox.find(1)
     @user = User.find(session[:user_id])
@@ -201,5 +208,6 @@ class IboxesController < ApplicationController
       @ibox.users << @user
     end
   end
+=end
   
 end

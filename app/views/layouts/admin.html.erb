@@ -12,13 +12,8 @@
 		$("#accordion").accordion();
 	});
 	</script>
-	<!--<div class="navbar navbar-fixed-top">
-	  <div class="navbar-inner">
-	    <div class="container-fluid">
-			<%= image_tag("ihome_logo.jpg", :size => "120x120")%>
-	    </div>
-	  </div>
-	</div> 
+	<%= yield :navbar %>
+	
 	<div class="row-fluid">	
 		<div class="span12"></div>
 	</div>
@@ -27,7 +22,7 @@
 	</div>
 	<div class="row-fluid">	
 		<div class="span12"></div>
-	</div> -->
+	</div>
 	
 <div class="container-fluid span10 offset1">
 		<!--<div class="span10 offset1"> -->

@@ -1,5 +1,5 @@
 
-<%= form_tag  url_for(:controller => 'iboxes', :action => 'enable'), :method=>'post' do %>
+<%= form_tag  url_for(:controller => 'iboxes', :action => 'enable'), :method=>'post',:remote=>true do %>
   <%= label_tag(:ibox_id, "Ingrese el ID del Ibox a Habilitar:") %>
   <%= text_field_tag(:ibox_id) %>
   <%= submit_tag("Habilitar") %>

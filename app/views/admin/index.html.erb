@@ -1,5 +1,37 @@
+<% content_for :navbar do %>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+     	<%= image_tag("ihome_logo.jpg", :size => "120x120")%>
+      <div class="btn-group pull-right">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+          <i class="icon-user"></i> <% if current_user %> <%= current_user.email %> <% end %>
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <!--<li><a href="#">Profile</a></li>
+          <li class="divider"></li> -->
+          <li><%=link_to "Log Out",log_out_path %></li>
+        </ul>
+      </div>
+      <div class="btn-group pull-right">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+          <i class="icon-list"></i> IBox
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="#">ibox1</a></li>
+          <li class="divider"></li>
+          <li><a href="#">ibox2</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+
 <%content_for :ibox do%>
-<%= link_to "Agregar Ibox", add_user_to_ibox_path %>
+<%= render "iboxes/enable" %>
 <%end%>
 
 <%content_for :users do%>
