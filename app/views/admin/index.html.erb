@@ -1,12 +1,9 @@
-
-<%content_for :users do%>
-<%= render :partial => "users/all" %>
+<%content_for :ibox do%>
+<%= link_to "Agregar Ibox", add_user_to_ibox_path %>
 <%end%>
 
-<%content_for :ibox do%>
-<%= render :partial => "iboxes/enable"%> 
+<%content_for :users do%>
 <%end%>
 
 <%content_for :accessories do%>
-Agregar Accesorio
 <%end%>

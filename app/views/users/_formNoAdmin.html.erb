@@ -16,8 +16,7 @@
     <%= user_form.text_field :name %>
   </div>
  <div class="field">
- 	<%= user_form.label :isAdmin%>
-    <%= user_form.check_box :isAdmin%>
+    <%= user_form.hidden_field :isAdmin, :value => false %>
   </div>
    <div class="field">
     <%= user_form.label :Dirección %><br />
