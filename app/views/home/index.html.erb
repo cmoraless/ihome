@@ -12,7 +12,7 @@ $("#accordion").accordion();
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container-fluid">
-     	<%= image_tag("ihome_logo.jpg", :size => "120x120")%>
+      <a class="brand" href="#">iHome</a>
       <div class="btn-group pull-right">
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
           <i class="icon-user"></i> <% if current_user %> <%= current_user.email %> <% end %>
@@ -33,6 +33,12 @@ $("#accordion").accordion();
           <li><a href="#">ibox1</a></li>
           <li class="divider"></li>
           <li><a href="#">ibox2</a></li>
+        </ul>
+      </div>
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li class="active"><%= link_to "Control", :controller=>"home", :action=>"index"%></li>
+          <li><%= link_to "Administración", :controller=>"admin", :action=>"index"%></li>
         </ul>
       </div>
     </div>
