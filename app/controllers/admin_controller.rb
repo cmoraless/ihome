@@ -10,7 +10,6 @@ class AdminController < ApplicationController
   end
   
   def view
-    @houses = House.all 
     respond_to do |format|
       format.html { } # show.html.erb
       format.json  { render :json => @house }

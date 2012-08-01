@@ -1,4 +1,4 @@
-<%= form_for(@accessory_type) do |f| %>
+<%= form_for(@accessory_type, :remote => true) do |f| %>
 
   <div class="field">
     <%= f.label :name %>   <%= f.text_field :name %>

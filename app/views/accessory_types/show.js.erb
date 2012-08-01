@@ -1,0 +1,6 @@
+
+$('#accessories').empty();
+
+$('#accessories').html("<h1>Muestra</h1>").append("<%= escape_javascript(render(:partial => @accessory_type) ) %>");
+
+$('#accessories').append("<%= escape_javascript(link_to 'Back', :back) %>");

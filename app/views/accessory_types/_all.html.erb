@@ -12,16 +12,16 @@
 <% @accessory_types.each do |accessory_type| %>
   <tr>
     <td><%= accessory_type.name %></td>
-    <td><%= link_to 'Show', accessory_type %></td>
-    <td><%= link_to 'Edit', edit_accessory_type_path(accessory_type) %></td>
-    <td><%= link_to 'Destroy', accessory_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', accessory_type, :remote => true %></td>
+    <td><%= link_to 'Edit', edit_accessory_type_path(accessory_type), :remote => true %></td>
+    <td><%= link_to 'Destroy', accessory_type, method: :delete, :remote =>true, :class=>'delete_accessory_type' %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
  
-<%= link_to 'Crear Tipo de Accesorio', new_accessory_type_path %>
+<%= link_to 'Crear Tipo de Accesorio', new_accessory_type_path, :remote => true %>
 <%end%>
 
 

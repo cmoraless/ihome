@@ -1,0 +1,7 @@
+
+$('#accessories').empty();
+
+$('#accessories').html("<h1>New accessory_type</h1>").append("<%= escape_javascript(render('form')) %>");
+
+$('#accessories').append("<%= escape_javascript(link_to 'Back', :back) %>");
+

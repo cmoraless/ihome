@@ -14,3 +14,7 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
+	
+$('.delete_accessory_type').bind('ajax:success', function() {  
+    $(this).closest('tr').fadeOut();  
+});  
