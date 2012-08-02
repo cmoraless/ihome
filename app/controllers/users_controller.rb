@@ -52,7 +52,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to :controller=>"home", :action => "index"}
+        format.html { redirect_to :controller=>"sessions", :action => "new"}
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
