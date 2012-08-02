@@ -87,8 +87,8 @@ class IboxesController < ApplicationController
     if Ibox.exists?(params[:ibox_id])
       @ibox = Ibox.find(params[:ibox_id])
       @user = User.find(session[:user_id])
-      if @ibox.users.where(:email => session[:user_id]).exists? #puedo asignar mas de un usuario al ibox que chucha esa wea
-        flash[:notice] = "ya existe la relacion"
+      if @ibox.isActive == true
+        flash[:notice] = "El ibox seleccionado ya esta activo"
       else
         @ibox.update_attribute(:isActive, true)
         @ibox.users << @user
