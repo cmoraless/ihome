@@ -35,9 +35,11 @@ $('.carousel').carousel({
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-          <li><a href="#">ibox1</a></li>
-          <li class="divider"></li>
-          <li><a href="#">ibox2</a></li>
+          <% if @iboxes.length > 0%>
+	          <% for i in 0..@iboxes.length-1 %>
+	          <li><a href="#"><%= @iboxes[i][:name]%></a></li>
+	        	<%end%>
+        	<%end%>
         </ul>
       </div>
       <div class="nav-collapse">
@@ -50,7 +52,7 @@ $('.carousel').carousel({
   </div>
 </div>
 <% end %>
-
+<%if @iboxes.length > 0%>
 <%content_for :profiles do%>
 <div id="myCollapsibleExample"><ul class="nav nav-pills nav-stacked"><li class="active"><a href="#perfiles" data-toggle="collapse">Perfiles</a></li></ul></div>  
 	<div id="perfiles" class="collapse">  
@@ -113,4 +115,6 @@ $('.carousel').carousel({
   <button id="on" class="btn btn-success">On</button>
   <button id= "off" class="btn btn-danger" data-toggle="button" onclick="javascript:hola();">Off</button>
 </div>
-
+<%else%>
+Usted no tiene ningun Ibox relacionado. Vaya a administración para activarlo.
+<%end%>

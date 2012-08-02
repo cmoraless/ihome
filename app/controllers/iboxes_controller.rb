@@ -104,6 +104,14 @@ class IboxesController < ApplicationController
     end
   end
   
+  def addUserToEnableIbox
+    if Ibox.exists?(params[:ibox_id])
+      @ibox = Ibox.find(params[:ibox_id])
+      @user = User.find(session[:user_id])
+      
+    end
+  end
+  
 =begin
   def addDefaultAccessories
     #leer la caja
