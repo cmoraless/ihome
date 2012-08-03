@@ -7,6 +7,7 @@ class AdminController < ApplicationController
   end
   
   def view
+  
   end
     
 end
