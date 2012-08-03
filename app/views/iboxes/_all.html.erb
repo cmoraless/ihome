@@ -3,6 +3,7 @@
 
 <table>
   <tr>
+ 	<th>Id</th>
     <th>Nombre</th>
     <th>IP</th>
     <th>Puerto</th>
@@ -14,6 +15,7 @@
 
 <% @iboxes.each do |ibox| %>
   <tr>
+  	<td><%= ibox.id %></td>
   	<td><%= ibox.name %></td>
     <td><%= ibox.ip %></td>
     <td><%= ibox.port %></td>

@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  layout "homeadmin"
-
   # GET /users
   # GET /users.json
   def index
@@ -20,7 +18,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
-      format.js #added
     end
   end
 
@@ -32,7 +29,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
-      format.js #added
     end
   end
   
@@ -47,9 +43,7 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
-    respond_to do |format|
-      format.js #added
-    end
+
   end
 
   # POST /users
@@ -59,13 +53,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to :controller=>"sessions", :action => "new"}
+        format.html { redirect_to @user, notice: 'user was successfully created.'}
         format.json { render json: @user, status: :created, location: @user }
-        format.js #added
       else
-        format.html { render action: "new" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
-        format.js #added
       end
     end
   end
@@ -79,13 +70,9 @@ class UsersController < ApplicationController
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
-        format.js #added
-
       else
         format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
-        format.js #added
-
       end
     end
   end
