@@ -7,38 +7,51 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<script type="text/javascript">
-	$(function() {
-		$("#accordion").accordion();
-	});
-	</script>
-	<%= yield :navbar %>
-	<!--
-	<div class="row-fluid">	
-		<div class="span12"></div>
-	</div>
-	<div class="row-fluid">	
-		<div class="span12"></div>
-	</div>
-	<div class="row-fluid">	
-		<div class="span12"></div>
-	</div>
-	-->
-<div class="container-fluid span10 offset1">
-		<!--<div class="span10 offset1"> -->
-<div id="accordion" class="row-fluid">
-	<h3><a href="#">Agregar Ibox</a></h3>
-	<div>
-		<%= yield :ibox%>
-	</div>
-		<%= yield :users %>
 	
-		<%= yield :browseas %>
-</div>		<!--</div>-->
-		<div class="row">
-			<div class="span3 offset6">&copy; Bissen</div>
-  	</div>
+	<%= yield :navbar %>
+	
+	<div class="container-fluid span10 offset1">
+		<div class="accordion" id="accordion">
+			<div class="accordion-group">
+			  <div class="accordion-heading">
+			    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#iboxes">
+			      Ibox
+			    </a>
+			  </div>
+			  <div id="iboxes" class="accordion-body collapse in">
+			    <div class="accordion-inner">
+					<%= yield :iboxes %>
+			    </div>
+			  </div>
+			</div>
+			<div class="accordion-group">
+			  <div class="accordion-heading">
+			    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#users">
+			     Usuarios
+			    </a>
+			  </div>
+			  <div id="users" class="accordion-body collapse">
+			    <div class="accordion-inner">
+						<%= yield :users %>	    
+					</div>
+			  </div>
+			</div>
+			<div class="accordion-group">
+			  <div class="accordion-heading">
+			    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#browseas">
+			     Navegar como
+			    </a>
+			  </div>
+			  <div id="browseas" class="accordion-body collapse">
+			    <div class="accordion-inner">
+					<%= yield :browseas%>
+			    </div>
+			  </div>
+			</div>
+		</div>
 	</div>
-
+	<div class="row">
+		<div class="span3 offset6">&copy; Bissen</div>
+	</div>
 </body>
 </html>
