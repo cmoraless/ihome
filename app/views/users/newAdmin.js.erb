@@ -1,0 +1,6 @@
+
+$('#users').empty();
+
+$('#users').html("<h1>Crear nuevo Usuario Administrativo</h1>").append("<%= escape_javascript(render('formAdmin')) %>");
+
+$('#users').append("<%= escape_javascript(link_to 'Back', :back) %>");

@@ -1,10 +1,8 @@
-<% content_for :accessories do%>
 
-<h1>Editing accessory_type</h1>
+$('#accessories').empty();
 
-<%= render 'form' %>
+$('#accessories').html("<h1>Editando tipo de accesorio</h1>").append("<%= escape_javascript(render('form')) %>");
 
-<%= link_to 'Show', @accessory_type, :remote => true %> |
-<%= link_to 'Back', accessory_types_path, :remote => true %>
+$('#accessories').append("<%= escape_javascript(link_to 'Back', :back) %>");
 
-<%end%>
+

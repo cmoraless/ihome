@@ -1,4 +1,4 @@
-<%= form_for(@ibox) do |f| %>
+<%= form_for(@ibox, :remote => true) do |f| %>
    <div class="field">
     <%= f.label :Nombre %>   <%= f.text_field :name %>
     <%= f.label :IP %>   <%= f.text_field :ip %>

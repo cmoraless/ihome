@@ -1,0 +1,5 @@
+
+$('#users').empty();
+
+$('#users').html("<h1>Muestra</h1>").append("<%= escape_javascript(render(:partial => @user) ) %>");
+

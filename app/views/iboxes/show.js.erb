@@ -1,0 +1,5 @@
+
+$('#iboxes').empty();
+
+$('#iboxes').html("<h1>Muestra</h1>").append("<%= escape_javascript(render(:partial => @ibox) ) %>");
+

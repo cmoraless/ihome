@@ -1,11 +1,13 @@
 
 <%content_for :iboxes do%>
+<%= render :partial => "iboxes/all" %>
+
 <%end%>
 
-<%content_for :accessories do%>
+<%content_for :accessory_type do%>
 <%= render :partial => "accessory_types/all" %>
 <%end%>
 
-<%content_for :browseas do%>
-
+<%content_for :users do%>
+<%= render :partial => "users/all" %>
 <%end%>

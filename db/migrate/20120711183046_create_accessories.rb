@@ -4,6 +4,7 @@ class CreateAccessories < ActiveRecord::Migration
       t.string :name # alias
       t.string :zid
       t.integer :value
+      t.string :kind
       t.string :cmdclass
       t.boolean :state
       t.boolean :isScheduled

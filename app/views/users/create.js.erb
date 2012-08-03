@@ -1,0 +1,8 @@
+$('#users').empty();
+
+$('#users').html("<h1>Se agrego el siguiente Usuario Administrativo:</h1>");  
+
+$('#users').append("<%= escape_javascript(@user.email) %>");  
+
+$('#users').append("<%= escape_javascript(link_to 'Back', :back) %>");
+

@@ -1,0 +1,11 @@
+<p>
+  <b>Ibox id:</b>
+  <%= @ibox.id %>
+</p>
+<p>
+  <b>Esta activo?:</b>
+    <%= @ibox.isActive ? 'si' : 'no' %>
+</p>
+
+<%= link_to 'Edit', edit_ibox_path(@ibox), :remote => true %> |
+<%= link_to 'Back', :back %>

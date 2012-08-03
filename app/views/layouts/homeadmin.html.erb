@@ -13,30 +13,21 @@
 	});
 	</script>
 	<% yield :navbar %>
-	<!--<div class="row-fluid">	
-		<div class="span12"></div>
-	</div>
-	<div class="row-fluid">	
-		<div class="span12"></div>
-	</div>
-	<div class="row-fluid">	
-		<div class="span12"></div>
-	</div> -->
 	
 	<div class="container-fluid span10 offset1">
 		<!--<div class="span10 offset1"> -->
 <div id="accordion" class="row-fluid">
 	<h3><a href="#">Crear Ibox</a></h3>
-	<div id="iboxes	">
+	<div id="iboxes">
 		<%= yield :iboxes %>
 	</div>
 	<h3><a href="#">Agregar tipo de accesorios</a></h3>
 	<div id="accessories">
-		<%= yield :accessories %>
+		<%= yield :accessory_type %>
 	</div>
-	<h3><a href="#">Navegar como</a></h3>
-	<div id="browseas">
-		<%= yield :browseas %>
+	<h3><a href="#">Crear Usuarios Admin</a></h3>
+	<div id="users">
+		<%= yield :users %>
 	</div>
 </div>		<!--</div>-->
 		<div class="row">
