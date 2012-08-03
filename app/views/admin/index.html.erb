@@ -20,9 +20,11 @@
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-          <li><a href="#">ibox1</a></li>
-          <li class="divider"></li>
-          <li><a href="#">ibox2</a></li>
+		<% if @iboxes.length > 0%>
+			<% for i in 0..@iboxes.length-1 %>
+  				<li><a href="#"><%= @iboxes[i][:name]%></a></li>
+			<%end%>
+		<%end%>
         </ul>
       </div>
       <div class="nav-collapse">
