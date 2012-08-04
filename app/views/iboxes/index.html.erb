@@ -22,14 +22,14 @@
     <td><%= ibox.isActive ? 'si' : 'no' %></td>
     <td><%= link_to 'Show', ibox %></td>
     <td><%= link_to 'Edit', edit_ibox_path(ibox) %></td>
-    <td><%= link_to 'Destroy', ibox, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Destroy', ibox, :method=> :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Ibox', new_ibox_path %>
+<%= link_to 'New Ibox', new_ibox_path, :remote=>true %>
 
 
 <% end %>

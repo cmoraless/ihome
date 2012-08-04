@@ -100,18 +100,21 @@ class IboxesController < ApplicationController
       @user = User.find(session[:user_id])
       if @ibox.isActive == true
         flash[:notice] = "El ibox seleccionado ya esta activo"
+        respond_to do |format|
+          format.js {}
+          #format.html { redirect_to :action => "addDefaultAccessories", :id => @ibox   }
+        end
       else
         @ibox.update_attribute(:isActive, true)
         @ibox.users << @user
-        flash[:notice] = "hice el match"
+        respond_to do |format|
+          format.js { redirect_to :action => "addDefaultAccessories", :id => @ibox   }
+          #format.html { redirect_to :action => "addDefaultAccessories", :id => @ibox   }
+        end
       end
+      
     else  
       flash[:notice] = "No hemos encontrado el ibox especificado"
-    end
-    
-    respond_to do |format|
-      format.js { redirect_to :action => "addDefaultAccessories", :id => @ibox   }
-      format.html { redirect_to :action => "addDefaultAccessories", :id => @ibox   }
     end
   end
   
