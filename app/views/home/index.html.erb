@@ -1,16 +1,4 @@
-<script type="text/javascript">
-/*function init (){
-	$('.accordion').collapse('hide');
-	$('#myCarousel').carousel({
-  		interval: 5
-	});
-}
-window.onload = init;*/
-$(function() {
-$('.accordion-toggle').collapse('hide');
-alert("1");
-});
-</script>
+
 <!-- Contenido navbar (barra de arriba) -->
 <% content_for :navbar do %>
 <div class="navbar navbar-fixed-top">
@@ -52,117 +40,117 @@ alert("1");
 </div>
 <% end %>
 <%if @iboxes.length > 0%>
-<%content_for :profiles do%>
-<div class="accordion">
-	<div class="accordion-group">
-		<div class="accordion-heading">
-			<a class="accordion-toggle" href="#perfiles" data-toggle="collapse">Perfiles</a>
-		</div> 
-		<div id="perfiles" class="collapse">  
-			<div class="accordion-body collapse in">
-				<div class="accordion-inner">
-					sdfsdfdsffdsfsdfsdfsfs
+	<%content_for :profiles do%>
+	<div class="accordion">
+		<div class="accordion-group">
+			<div class="accordion-heading">
+				<a class="accordion-toggle" href="#perfiles" data-toggle="collapse">Perfiles</a>
+			</div> 
+			<div id="perfiles" class="collapse">  
+				<div class="accordion-body collapse in">
+					<div class="accordion-inner">
+						sdfsdfdsffdsfsdfsdfsfs
+					</div>
 				</div>
-			</div>
-		</div>  
-	</div>
-</div> 
-<% end %>
-<% content_for :cameras do %>
-<div class="accordion">
-	<div class="accordion-group">
-		<div class="accordion-heading">
-			<a class="accordion-toggle" href="#camaras" data-toggle="collapse">Camaras</a>
-		</div> 
-		<div id="camaras" class="collapse">  
-			<div class="accordion-body collapse in">
-				<div class="accordion-inner">
-					<div class="span6 columns offset2">
-						<div id="myCarousel" class="carousel slide">
-						  <!-- Carousel items -->
-						  <div class="carousel-inner">
-						    <div class="active item offset1"><a href="javascript:void(0);"><%= image_tag("camara.jpg", :class=>"rotating-item swipe")%></a></div>
-						    <div class="item offset1"><a href="javascript:void(0);"><%= image_tag("camara.jpg", :class=>"rotating-item swipe")%></a></div>
-						    <div class="item offset1"><a href="javascript:void(0);"><%= image_tag("camara.jpg", :class=>"rotating-item swipe")%></a></div>
-						    <div class="item offset1"><a href="javascript:void(0);"><%= image_tag("camara.jpg", :class=>"rotating-item swipe")%></a></div>
-						  </div>
-						  <!-- Carousel nav -->
-						  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-						  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+			</div>  
+		</div>
+	</div> 
+	<% end %>
+	<% content_for :cameras do %>
+	<div class="accordion">
+		<div class="accordion-group">
+			<div class="accordion-heading">
+				<a class="accordion-toggle" href="#camaras" data-toggle="collapse">Camaras</a>
+			</div> 
+			<div id="camaras" class="collapse">  
+				<div class="accordion-body collapse in">
+					<div class="accordion-inner">
+						<div class="span6 columns offset2">
+							<div id="myCarousel" class="carousel slide">
+							  <!-- Carousel items -->
+							  <div class="carousel-inner">
+							    <div class="active item offset1"><a href="javascript:void(0);"><%= image_tag("camara.jpg", :class=>"rotating-item swipe")%></a></div>
+							    <div class="item offset1"><a href="javascript:void(0);"><%= image_tag("camara.jpg", :class=>"rotating-item swipe")%></a></div>
+							    <div class="item offset1"><a href="javascript:void(0);"><%= image_tag("camara.jpg", :class=>"rotating-item swipe")%></a></div>
+							    <div class="item offset1"><a href="javascript:void(0);"><%= image_tag("camara.jpg", :class=>"rotating-item swipe")%></a></div>
+							  </div>
+							  <!-- Carousel nav -->
+							  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+							  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>  
+			</div>  
+		</div>
+	</div> 
+	<% end %>
+	<div class="accordion" id="accordion">
+		<div class="accordion-group">
+		  <div class="accordion-heading">
+		    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#luces">
+		      Luces
+		    </a>
+		  </div>
+		  <div id="luces" class="accordion-body collapse in">
+		    <div class="accordion-inner">
+		      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+		    </div>
+		  </div>
+		</div>
+		<div class="accordion-group">
+		  <div class="accordion-heading">
+		    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#cortinas">
+		      Cortinas
+		    </a>
+		  </div>
+		  <div id="cortinas" class="accordion-body collapse">
+		    <div class="accordion-inner">
+		      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+		    </div>
+		  </div>
+		</div>
+		<div class="accordion-group">
+		  <div class="accordion-heading">
+		    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#climatizacion">
+		      Climatizacion
+		    </a>
+		  </div>
+		  <div id="climatizacion" class="accordion-body collapse">
+		    <div class="accordion-inner">
+		      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+		    </div>
+		  </div>
+		</div>
+		<div class="accordion-group">
+		  <div class="accordion-heading">
+		    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#riego">
+		      Riego
+		    </a>
+		  </div>
+		  <div id="riego" class="accordion-body collapse">
+		    <div class="accordion-inner">
+		      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+		    </div>
+		  </div>
+		</div>
+		<div class="accordion-group">
+		  <div class="accordion-heading">
+		    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#otros">
+		      Otros
+		    </a>
+		  </div>
+		  <div id="otros" class="accordion-body collapse">
+		    <div class="accordion-inner">
+		      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+		    </div>
+		  </div>
+		</div>
 	</div>
-</div> 
-<% end %>
-<div class="accordion" id="accordion">
-	<div class="accordion-group">
-	  <div class="accordion-heading">
-	    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#luces">
-	      Luces
-	    </a>
-	  </div>
-	  <div id="luces" class="accordion-body collapse in">
-	    <div class="accordion-inner">
-	      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-	    </div>
-	  </div>
+	<div class="btn-group" data-toggle="buttons-radio">
+	  <button id="on" class="btn btn-success">On</button>
+	  <button id= "off" class="btn btn-danger" data-toggle="button" onclick="javascript:hola();">Off</button>
 	</div>
-	<div class="accordion-group">
-	  <div class="accordion-heading">
-	    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#cortinas">
-	      Cortinas
-	    </a>
-	  </div>
-	  <div id="cortinas" class="accordion-body collapse">
-	    <div class="accordion-inner">
-	      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-	    </div>
-	  </div>
-	</div>
-	<div class="accordion-group">
-	  <div class="accordion-heading">
-	    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#climatizacion">
-	      Climatizacion
-	    </a>
-	  </div>
-	  <div id="climatizacion" class="accordion-body collapse">
-	    <div class="accordion-inner">
-	      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-	    </div>
-	  </div>
-	</div>
-	<div class="accordion-group">
-	  <div class="accordion-heading">
-	    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#riego">
-	      Riego
-	    </a>
-	  </div>
-	  <div id="riego" class="accordion-body collapse">
-	    <div class="accordion-inner">
-	      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-	    </div>
-	  </div>
-	</div>
-	<div class="accordion-group">
-	  <div class="accordion-heading">
-	    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#otros">
-	      Otros
-	    </a>
-	  </div>
-	  <div id="otros" class="accordion-body collapse">
-	    <div class="accordion-inner">
-	      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-	    </div>
-	  </div>
-	</div>
-</div>
-<div class="btn-group" data-toggle="buttons-radio">
-  <button id="on" class="btn btn-success">On</button>
-  <button id= "off" class="btn btn-danger" data-toggle="button" onclick="javascript:hola();">Off</button>
-</div>
 <%else%>
-Usted no tiene ningun Ibox relacionado. Vaya a administración para activarlo.
+	Usted no tiene ningun Ibox relacionado. Vaya a administración para activarlo.
 <%end%>
