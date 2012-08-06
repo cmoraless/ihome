@@ -109,14 +109,7 @@ class IboxesController < ApplicationController
     end
     redirect_to :action => 'addDefaultAccessories', :id => @ibox.id
   end
-  
-  def addUserToEnableIbox
-    if Ibox.exists?(params[:ibox_id])
-      @ibox = Ibox.find(params[:ibox_id])
-      @user = User.find(session[:user_id])
-    
-    end
-  end
+
   
   def addDefaultAccessories
     require 'net/http'
@@ -174,12 +167,13 @@ class IboxesController < ApplicationController
         @accessory.accessory_type = @accessory_type
         @accessory.save
 
-        #Se asigna el accesorio al contenedor Ibox
+        #Se busca el contenedor del Ibox y tipo
         @container = IboxAccessoriesContainer.find_by_ibox_id_and_accessory_type_id(@ibox.id, @accessory_type.id)
+        #se le cambia el nombre al contenedor
         @container.update_attribute(:name, @accessory_type.name)
+        #Se agrega el accesorio determinado
         @container.accessories << @accessory
-        #@ibox.ibox_accessories_container()
-        #@ibox.accessory_types 
+
       end
       rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e

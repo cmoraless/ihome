@@ -7,49 +7,21 @@ class HomeController < ApplicationController
   end
   
   def index
-    @accessories = Accessory.all
     @user = User.find(session[:user_id])
     @iboxes = @user.iboxes
-    #leer la caja
-=begin    
-  
-    require 'net/http'
-    require 'uri'
-    ip = '200.28.166.104'
-    port = '1166'
-    ws = 'http://' + ip + ':' + port
-    url = URI.parse(ws)
-    begin
-      req = Net::HTTP::Get.new(url.path + '/cgi-bin/Get.cgi?get=SET')
-      req.basic_auth 'root', ''
-      res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
-      #escribo archivo de texto con la salida del web service
-      path = Rails.root + 'tmp/server.txt'
-      f_out = File.new(path,'w')
-      f_out.puts res.body
-      f_out.close
-      res = Array.new
-      f_in = File.open(path,'r') do |f|
-        while line = f.gets
-          res << line.to_s.chomp
-        end
-      end
-      @accessories = [] #conoce todos los accesorios
-      for i in 0..res.length/12-1 #divido en 12 ya que son 12 parametros por accesorio
-        #guardo en accessories los parametros que se usaran de los accesorios
-        @accessories << {:zid => res[0+12*i].to_s.split('=')[1], 
-          :kind => res[1+12*i].to_s.split('=')[1], 
-          :alias => res[2+12*i].to_s.split('=')[1], 
-          :cmdclass => res[10+12*i].to_s.split('=')[1]
-          }
-        
-      end
-      @body = @accessories
-    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
-      Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
-      flash[:notice] = "Lo sentimos, el servicio no se encuentra disponible actualmente."
+
+    # Toma ibox seleccionado o por defecto el primero
+    if (params[:id])
+      @ibox = Ibox.find(params[:id])
+    else
+      @ibox = @user.iboxes.first
     end
-=end
+    session[:ibox_id] = @ibox.id
+
+    
+    # Toma todos los contenedores del ibox
+    @containers = IboxAccessoriesContainer.find_by_ibox_id(@ibox.id)
+
   end
   
  def signout

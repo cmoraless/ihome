@@ -24,7 +24,7 @@
         <ul class="dropdown-menu">
 		<% if @iboxes.length > 0%>
           	<% for i in 0..@iboxes.length-1 %>
-	          <li><a href="#"><%= @iboxes[i][:name]%></a></li>
+          	  <li><%= link_to @iboxes[i][:name], :controller => "home", :action => "index", :id => @iboxes[i][:id] %></li>
     		<%end%>
 		<%end%>
         </ul>
@@ -86,66 +86,22 @@
 	</div> 
 	<% end %>
 	<div class="accordion" id="accordion">
-		<div class="accordion-group">
-		  <div class="accordion-heading">
-		    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#luces">
-		      Luces
-		    </a>
-		  </div>
-		  <div id="luces" class="accordion-body collapse in">
-		    <div class="accordion-inner">
-		      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-		    </div>
-		  </div>
-		</div>
-		<div class="accordion-group">
-		  <div class="accordion-heading">
-		    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#cortinas">
-		      Cortinas
-		    </a>
-		  </div>
-		  <div id="cortinas" class="accordion-body collapse">
-		    <div class="accordion-inner">
-		      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-		    </div>
-		  </div>
-		</div>
-		<div class="accordion-group">
-		  <div class="accordion-heading">
-		    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#climatizacion">
-		      Climatizacion
-		    </a>
-		  </div>
-		  <div id="climatizacion" class="accordion-body collapse">
-		    <div class="accordion-inner">
-		      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-		    </div>
-		  </div>
-		</div>
-		<div class="accordion-group">
-		  <div class="accordion-heading">
-		    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#riego">
-		      Riego
-		    </a>
-		  </div>
-		  <div id="riego" class="accordion-body collapse">
-		    <div class="accordion-inner">
-		      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-		    </div>
-		  </div>
-		</div>
-		<div class="accordion-group">
-		  <div class="accordion-heading">
-		    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#otros">
-		      Otros
-		    </a>
-		  </div>
-		  <div id="otros" class="accordion-body collapse">
-		    <div class="accordion-inner">
-		      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-		    </div>
-		  </div>
-		</div>
+
+		<% @iboxes.each do |ibox| %>
+			<div class="accordion-group">
+		  		<div class="accordion-heading">
+		    		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#luces">
+		      			<%= ibox.name %>
+		    		</a>
+				</div>
+				<div id="luces" class="accordion-body collapse in">
+		    		<div class="accordion-inner">
+		      			Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+		    		</div>
+				</div>
+			</div>
+		<% end %>
+		
 	</div>
 	<div class="btn-group" data-toggle="buttons-radio">
 	  <button id="on" class="btn btn-success">On</button>
