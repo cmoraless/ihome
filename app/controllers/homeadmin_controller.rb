@@ -5,7 +5,7 @@ class HomeadminController < ApplicationController
     @users = User.all
     respond_to do |format|
       format.html  # index.html.erb
-      format.json  { render :json => @houses }
+      format.json  { }
     end
   end
   

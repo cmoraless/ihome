@@ -103,7 +103,6 @@ class IboxesController < ApplicationController
       else
         @ibox.update_attribute(:isActive, true)
         @ibox.users << @user
-        flash[:notice] = "hice el match"
       end
     else  
       flash[:notice] = "No hemos encontrado el ibox especificado"

@@ -39,19 +39,19 @@
 <% end %>
 
 <%content_for :iboxes do%>
-<%= render "iboxes/enable" %>
+	<%= render "iboxes/enable" %>
 <%end%>
 <%if @iboxes.length > 0 %>
-<%content_for :users do%>
-<h3><a href="#">Editar Usuarios</a></h3>
-	<div>
-	
-	</div>
+	<%content_for :users do%>
+	<h3><a href="#">Editar Usuarios</a></h3>
+		<div>
+		
+		</div>
 <%end%>
-
+	
 <%content_for :accessories do%>
-<h3><a href="#">Agregar Accesorios</a></h3>
-<div>
-</div>
+	<h3><a href="#">Agregar Accesorios</a></h3>
+	<div>
+	</div>
 <%end%>
 <%end%>

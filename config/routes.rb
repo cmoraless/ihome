@@ -20,7 +20,7 @@ Ihome::Application.routes.draw do
   root :to => "sessions#new"
   get "new_admin" => "users#newAdmin", :as => "new_admin"
   get "new_no_admin" => "users#newNoAdmin", :as => "new_no_admin"
-  get "add_user_to_ibox" => "iboxes#addUser", :as=> "add_user_to_ibox"
+  #get "add_user_to_ibox" => "iboxes#addUser", :as=> "add_user_to_ibox"
   #get "house/index"
 
   #get "user/index"
