@@ -43,10 +43,10 @@
 <%end%>
 <%if @iboxes.length > 0 %>
 	<%content_for :users do%>
-	<h3><a href="#">Editar Usuarios</a></h3>
-		<div>
-		
-		</div>
+	<div>
+		<%= render "users/all"%>
+		<%= link_to "Agregar nuevo usuario", new_no_admin_path%>		
+	</div>
 <%end%>
 	
 <%content_for :accessories do%>

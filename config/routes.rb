@@ -11,6 +11,9 @@ Ihome::Application.routes.draw do
   resources :accessory_types
 
   resources :users
+  resources :home
+  resources :homeadmin
+
 
   resources :sessions
   
