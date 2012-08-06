@@ -10,6 +10,7 @@ class AdminController < ApplicationController
       redirect_to(root_path)
     end    
   end
+  
   def index
     @user = User.find(session[:user_id])
     @iboxes = @user.iboxes

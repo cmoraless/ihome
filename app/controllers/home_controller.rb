@@ -15,9 +15,8 @@ class HomeController < ApplicationController
       @ibox = Ibox.find(params[:id])
     else
       @ibox = @user.iboxes.first
-      
+    end  
     session[:ibox_id] = @ibox.id
-
     # Toma todos los contenedores del ibox
     @containers = IboxAccessoriesContainer.find_by_ibox_id(@ibox.id)
   end
