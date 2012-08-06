@@ -32,9 +32,12 @@
       <div class="nav-collapse">
         <ul class="nav">
           <li class="active"><%= link_to "Control", :controller=>"home", :action=>"index"%></li>
+          <% if @user.isAdmin %>
           <li><%= link_to "Administración", :controller=>"admin", :action=>"index"%></li>
+        	<%end%>
         </ul>
       </div>
+	      
     </div>
   </div>
 </div>

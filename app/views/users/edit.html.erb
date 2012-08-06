@@ -1,6 +1,8 @@
 <h1>Editing user</h1>
-
-<%= render 'form' %>
-
+<%if @user.isAdmin%>
+<%= render 'formAdmin' %>
+<% else %>
+<%= render 'formNoAdmin' %>
+<%end%>
 <%= link_to 'Show', @user %> |
 <%= link_to 'Back', users_path %>

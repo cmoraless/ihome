@@ -10,6 +10,10 @@ class HomeController < ApplicationController
     @accessories = Accessory.all
     @user = User.find(session[:user_id])
     @iboxes = @user.iboxes
+    if @iboxes.length > 0
+      session[:ibox_id] = @iboxes.first[:id]
+    end
+    
     #leer la caja
 =begin    
   
