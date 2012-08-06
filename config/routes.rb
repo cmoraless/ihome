@@ -9,7 +9,7 @@ Ihome::Application.routes.draw do
   end
 
   resources :accessory_types
-
+  resources :ibox_accessories_containers
   resources :users
   resources :home
   resources :homeadmin
