@@ -71,11 +71,11 @@ class IboxesController < ApplicationController
       if @ibox.update_attributes(params[:ibox])
         format.html { redirect_to @ibox, notice: 'Ibox was successfully updated.' }
         format.json { head :no_content }
-        format.js #added
+        format.js 
       else
         format.html { render action: "edit" }
         format.json { render json: @ibox.errors, status: :unprocessable_entity }
-        format.js #added
+        format.js 
       end
     end
   end
@@ -89,7 +89,7 @@ class IboxesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to iboxes_url }
       format.json { head :no_content }
-      format.js #added
+      format.js 
     end
   end
   
@@ -100,34 +100,26 @@ class IboxesController < ApplicationController
       @user = User.find(session[:user_id])
       if @ibox.isActive == true
         flash[:notice] = "El ibox seleccionado ya esta activo"
-        respond_to do |format|
-          format.js {}
-          #format.html { redirect_to :action => "addDefaultAccessories", :id => @ibox   }
-        end
       else
         @ibox.update_attribute(:isActive, true)
         @ibox.users << @user
-        respond_to do |format|
-          format.js { redirect_to :action => "addDefaultAccessories", :id => @ibox   }
-          #format.html { redirect_to :action => "addDefaultAccessories", :id => @ibox   }
-        end
       end
-      
     else  
       flash[:notice] = "No hemos encontrado el ibox especificado"
     end
+    redirect_to :action => 'addDefaultAccessories', :id => @ibox.id
   end
   
   def addUserToEnableIbox
     if Ibox.exists?(params[:ibox_id])
       @ibox = Ibox.find(params[:ibox_id])
       @user = User.find(session[:user_id])
-      
+    
     end
   end
   
-  def addDefaultAccessories 
-   require 'net/http'
+  def addDefaultAccessories
+    require 'net/http'
     require 'uri'
     ip = '200.28.166.104'
     port = 1166
@@ -148,52 +140,54 @@ class IboxesController < ApplicationController
           res << line.to_s.chomp
         end
       end
-      @accessories = [] #conoce todos los accesorios
-      for i in 0..res.length/12-1 #divido en 12 ya que son 12 parametros por accesorios 
-        #guardo en accessories con los parametros que se usaran
+      @ibox = Ibox.find(params[:id])
+      #Se dividen obtiene los 12 parametros por accesorio
+      for i in 0..res.length/12-1
+        #Se crea el accessorio 
         @accessory = Accessory.new
         @accessory.update_attribute(:zid, res[0+12*i].to_s.split('=')[1])
         @accessory.update_attribute(:kind, res[1+12*i].to_s.split('=')[1])
         @accessory.update_attribute(:name, res[2+12*i].to_s.split('=')[1])
         @accessory.update_attribute(:cmdclass, res[10+12*i].to_s.split('=')[1])
-        @accessory.save
-
-        #creo el tipo
+        
+        #Se determina el tipo de accesorio del accesorio
         if (@accessory.kind == "BinarySwitch")
-          @ibox << @accessory_type = AccessoryType.where(:name => "luces")
+          @accessory_type = AccessoryType.find_by_name("Luces")
         end
         if (@accessory.kind == "MultiLevelSwitch")
-          if (@accessory.cmdclass.lenght != 0)
-            @ibox << @accessory_type = AccessoryType.where(:name => "dimmer")
-          end
-          if (@accessory.cmdclass.lenght == 0 )
-            @ibox << @accessory_type = AccessoryType.where(:name => "cortinas")
+          if (@accessory.cmdclass == "AllOnOff,Configuration")
+            @accessory_type = AccessoryType.find_by_name("Dimmers")
+          else
+            @accessory_type = AccessoryType.find_by_name("Cortinas")
           end
         end
+        if (@accessory.kind == "BinarySensor")
+          @accessory_type = AccessoryType.find_by_name("Sensores")
+        end
+        
+        #Si no existe se crea el contenedor del tipo de accesorio en el Ibox
+        if (!@ibox.accessory_types.find_by_name(@accessory_type.name))
+          @ibox.accessory_types << @accessory_type
+        end
+        
+        #Se asgina el tipo de accesorio al accesorio y se guarda
+        @accessory.accessory_type = @accessory_type
+        @accessory.save
+
+        #Se asigna el accesorio al contenedor Ibox
+        @container = IboxAccessoriesContainer.find_by_ibox_id_and_accessory_type_id(@ibox.id, @accessory_type.id)
+        @container.update_attribute(:name, @accessory_type.name)
+        @container.accessories << @accessory
+        #@ibox.ibox_accessories_container()
+        #@ibox.accessory_types 
       end
-      @body = @accessories
-    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+      rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
       flash[:notice] = "Lo sentimos, el servicio no se encuentra disponible actualmente."
     end
-    @accessories = Accessory.all
     respond_to do |format|
-      format.html
-      format.json { head :no_content }
-    end
-  end
-  
-=begin
-  def addUser
-    @ibox = Ibox.find(1)
-    @user = User.find(session[:user_id])
-    if @ibox.users.where(:email => session[:user_id]).exists?
-      flash[:notice] = "ya existe"
-    else
-      @ibox.update_attribute(:isActive, true)
-      @ibox.users << @user
-    end
-  end
-=end
+      format.js
+    end 
+  end  
   
 end

@@ -1,1 +1,7 @@
+$('#iboxes').empty();
+
 alert("<%= flash[:notice]%>");
+
+$('#iboxes').html("<h1>Muestra</h1>").append("<%= escape_javascript(render(:partial => @ibox) ) %>");
+
+$('#iboxes').append("<%= escape_javascript(link_to 'Agregar nuevo accesorio', {:action => "addDefaultAccessories",:id => @ibox.id}, :remote => true) %>");

@@ -3,13 +3,19 @@ Ihome::Application.routes.draw do
   
   resources :iboxes do
     resources :accessories
+    member do
+      get 'addDefaultAccessories'
+    end
   end
 
   resources :accessory_types
 
   resources :users
+<<<<<<< HEAD
   resources :home
   resources :homeadmin
+=======
+>>>>>>> 4c23fc42c7ce0da750ff3cc810c61013bae4391b
 
   resources :sessions
   
