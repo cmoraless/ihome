@@ -90,16 +90,16 @@
 	<% end %>
 	<div class="accordion" id="accordion">
 
-		<% @iboxes.each do |ibox| %>
+		<% @containers.each do |container| %>
 			<div class="accordion-group">
 		  		<div class="accordion-heading">
-		    		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#luces">
-		      			<%= ibox.name %>
+		    		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#<%= container.name %>">
+		      			<%= container.name %>
 		    		</a>
 				</div>
-				<div id="luces" class="accordion-body collapse in">
+				<div id="<%= container.name %>" class="accordion-body collapse in">
 		    		<div class="accordion-inner">
-		      			Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+						<%= render container.accessories %>
 		    		</div>
 				</div>
 			</div>
