@@ -150,10 +150,10 @@ class IboxesController < ApplicationController
         @accessory.update_attribute(:cmdclass, res[10+12*i].to_s.split('=')[1])
         
         reqacc = Net::HTTP::Get.new(url.path + '/cgi-bin/Status.cgi?ZID=' + @accessory.zid)
-        eq.basic_auth 'root', ''
+        req.basic_auth 'root', ''
         resacc = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
         #escribo archivo de texto con la salida del web service
-        pathacc = Rails.root + 'tmp/acc'+ i +'.txt'
+        pathacc = Rails.root + 'tmp/accesory.txt'
         f_out = File.new(pathacc,'w')
         f_out.puts resacc.body
         f_out.close
@@ -200,7 +200,7 @@ class IboxesController < ApplicationController
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
       flash[:error] = "Lo sentimos, el servicio no se encuentra disponible actualmente."
     end
-    #flash[:notice] = "Hemos habilitado exitosamente el Ibox!"
+    flash[:notice] = "Hemos habilitado exitosamente el Ibox!"
     respond_to do |format|
       format.js
     end 
