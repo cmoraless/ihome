@@ -149,6 +149,22 @@ class IboxesController < ApplicationController
         @accessory.update_attribute(:name, res[2+12*i].to_s.split('=')[1])
         @accessory.update_attribute(:cmdclass, res[10+12*i].to_s.split('=')[1])
         
+        reqacc = Net::HTTP::Get.new(url.path + '/cgi-bin/Status.cgi?ZID=' + @accessory.zid)
+        eq.basic_auth 'root', ''
+        resacc = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+        #escribo archivo de texto con la salida del web service
+        pathacc = Rails.root + 'tmp/acc'+ i +'.txt'
+        f_out = File.new(pathacc,'w')
+        f_out.puts resacc.body
+        f_out.close
+        resacc = Array.new
+        f_in = File.open(pathacc,'r') do |f|
+          while line = f.gets
+            resacc << line.to_s.chomp
+          end
+        end
+        @accessory.update_attribute(:value, resacc[2].to_s.split('=')[1])
+        
         #Se determina el tipo de accesorio del accesorio
         if (@accessory.kind == "BinarySwitch")
           @accessory_type = AccessoryType.find_by_name("Luces")
@@ -184,7 +200,7 @@ class IboxesController < ApplicationController
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
       flash[:error] = "Lo sentimos, el servicio no se encuentra disponible actualmente."
     end
-    flash[:notice] = "Hemos habilitado exitosamente el Ibox!"
+    #flash[:notice] = "Hemos habilitado exitosamente el Ibox!"
     respond_to do |format|
       format.js
     end 

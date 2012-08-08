@@ -1,21 +1,41 @@
-
-/* accessories */
-
-section {
-  overflow: auto;
+ul.entries { list-style: none; }
+ul.entries li {
+  margin: 5px 0;
+  border: 2px solid black;
+  border-radius: 6px;
+  width: 500px;
+}
+ul.entries .title {
+  margin: 0 10px;
+  float: left;
+  width: 380px;
+}
+ul.entries .thumb {
+  float: right;
+  margin-left: 20px;
+  width: 90px;
+  /* todo: color, background + padding-left declarations for thumb icons */
 }
 
-textarea {
-  resize: vertical;
+.hero-unit {
+  padding: 60px;
+  margin-bottom: 30px;
+  background-color: #eeeeee;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
 }
 
-.center {
-  text-align: center;
+.hero-unit h1 {
+  margin-bottom: 0;
+  font-size: 60px;
+  line-height: 1;
+  letter-spacing: -1px;
+  color: inherit;
 }
 
-.center h1 {
-  margin-bottom: 10px;
-}
-
-
-
+.hero-unit p {
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 27px;
+  color: inherit
