@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  layout 'homeadmin', :only => [:newAdmin]
   # GET /users
   # GET /users.json
   def index
@@ -33,6 +34,7 @@ class UsersController < ApplicationController
   def newNoAdmin
     logger.debug "######## ENTRE A NEW NO ADMIN #######"
     @user = User.new
+    render :layout => "admin"
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }

@@ -1,35 +1,36 @@
 <%content_for :users do%>
-<h1>Usuarios</h1>
-
-<table>
-  <tr>
-    <th>Correo</th>
-    <th>Nombre</th>
-    <th>Direccion</th>
-    <th>Telefono</th>
-    <th>Rut</th>
-    <th></th>
-    <th></th>
-  </tr>
- 
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.email %></td>
-    <td><%= user.name %></td>
-    <td><%= user.address %></td>
-    <td><%= user.phone %></td>
-    <td><%= user.rut %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <% if user.isAdmin == false %>
-    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?',
-                                     :method => :delete %></td>
-   	<%end%>
-  </tr>
-<% end %>
-</table>
-
-<br />
- 
+	<% if @iboxes.lenght > 0%>
+		<h1>Usuarios</h1>
+		
+		<table>
+		  <tr>
+		    <th>Correo</th>
+		    <th>Nombre</th>
+		    <th>Direccion</th>
+		    <th>Telefono</th>
+		    <th>Rut</th>
+		    <th></th>
+		    <th></th>
+		  </tr>
+		 
+		<% @users.each do |user| %>
+		  <tr>
+		    <td><%= user.email %></td>
+		    <td><%= user.name %></td>
+		    <td><%= user.address %></td>
+		    <td><%= user.phone %></td>
+		    <td><%= user.rut %></td>
+		    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+		    <% if user.isAdmin == false %>
+		    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?',
+		                                     :method => :delete %></td>
+		   	<%end%>
+		  </tr>
+		<% end %>
+		</table>
+		
+		<br />		
+	<%end%>
 <%end%>
 
 

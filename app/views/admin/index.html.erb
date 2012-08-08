@@ -59,4 +59,8 @@
 		<div>
 		</div>
 	<%end%>
+<%else%>
+	<%content_for :users do%>
+		<%= render 'shared/flash_messages' %>
+	<%end%>
 <%end%>
