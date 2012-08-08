@@ -105,7 +105,6 @@ class IboxesController < ApplicationController
         else
           @ibox.update_attribute(:isActive, true)
           @ibox.users << @user
-          flash[:notice] = "Hemos habilitado el ibox satisfactoriamente."
           format.js {redirect_to :action => 'addDefaultAccessories', :id => @ibox.id}
         end
       else  
@@ -140,6 +139,7 @@ class IboxesController < ApplicationController
         end
       end
       @ibox = Ibox.find(params[:id])
+      session[:ibox_id] = @ibox.id
       #Se dividen obtiene los 12 parametros por accesorio
       for i in 0..res.length/12-1
         #Se crea el accessorio 
@@ -179,12 +179,12 @@ class IboxesController < ApplicationController
         @container.update_attribute(:name, @accessory_type.name)
         #Se agrega el accesorio determinado
         @container.accessories << @accessory
-
       end
       rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
-      flash[:notice] = "Lo sentimos, el servicio no se encuentra disponible actualmente."
+      flash[:error] = "Lo sentimos, el servicio no se encuentra disponible actualmente."
     end
+    flash[:notice] = "Hemos habilitado exitosamente el Ibox!"
     respond_to do |format|
       format.js
     end 

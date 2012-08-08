@@ -1,8 +1,9 @@
 $('#iboxes').empty();
 
-$('#iboxes').html("<h1>Se agrego el siguiente Ibox al sistema:</h1>");  
+$('#iboxes').append('<%=j render 'shared/flash_messages' %>');
 
-$('#iboxes').append("<%= escape_javascript(@ibox.name) %>");  
+$('#iboxes').html("<h1>Ibox</h1>").append("<%= escape_javascript(render(:partial => @ibox) ) %>");
+
 
 $('#iboxes').append("<%= escape_javascript(link_to 'Back', :back) %>");
 

@@ -17,10 +17,14 @@ class HomeController < ApplicationController
     else
       @ibox = @user.iboxes.first
     end  
-    
+
     # Toma todos los contenedores del ibox
-    @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
-    
+    if !@ibox.nil?
+      session[:ibox_id] = @ibox.id
+      @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+    else
+      flash[:notice] = "Debe habilitar su Ibox en Administracion"
+    end
   end
   
  def signout

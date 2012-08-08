@@ -13,6 +13,7 @@ Ihome::Application.routes.draw do
   resources :users
   resources :home
   resources :homeadmin
+  resources :admin
 
 
   resources :sessions
