@@ -95,21 +95,27 @@ class IboxesController < ApplicationController
   
 
   def enable
-    if Ibox.exists?(params[:ibox_id])
-      @ibox = Ibox.find(params[:ibox_id])
-      @user = User.find(session[:user_id])
-      if @ibox.isActive == true
-        flash[:notice] = "El ibox seleccionado ya esta activo"
-      else
-        @ibox.update_attribute(:isActive, true)
-        @ibox.users << @user
+    respond_to do |format|
+      if Ibox.exists?(params[:ibox_id])
+        @ibox = Ibox.find(params[:ibox_id])
+        @user = User.find(session[:user_id])
+        if @ibox.isActive == true
+          flash[:notice] = "El ibox seleccionado ya esta activo."
+          format.js
+        else
+          @ibox.update_attribute(:isActive, true)
+          @ibox.users << @user
+          flash[:notice] = "Hemos habilitado el ibox satisfactoriamente."
+          format.js {redirect_to :action => 'addDefaultAccessories', :id => @ibox.id}
+        end
+      else  
+        flash[:notice] = "No hemos encontrado el ibox especificado"
+        format.js
       end
-    else  
-      flash[:notice] = "No hemos encontrado el ibox especificado"
+      
     end
-    redirect_to :action => 'addDefaultAccessories', :id => @ibox.id
   end
-
+  
   
   def addDefaultAccessories
     require 'net/http'
