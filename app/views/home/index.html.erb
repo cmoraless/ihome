@@ -111,5 +111,5 @@
 	  <button id= "off" class="btn btn-danger" data-toggle="button" onclick="javascript:hola();">Off</button>
 	</div>
 <%else%>
-	Usted no tiene ningun Ibox relacionado. Vaya a administración para activarlo.
+	<%= render 'shared/flash_messages' %>
 <%end%>
