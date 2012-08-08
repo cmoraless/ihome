@@ -1,7 +1,7 @@
 
 <li>
-  <span class="content"><%= accessory.name %></span>
-  <span class="actions">
+  <span class="title"><%= accessory.name %></span>
+  <a class="action">
 	<%if accessory.kind == 'MultiLevelSwitch'%>
 		<%= link_to "On", {:controller=>"accessories", :action=>"control",:zid=> accessory.zid, :value=> '9',:kind=>accessory.kind}, :remote=>true%>
 		<%= link_to "Off", {:controller=>"accessories", :action=>"control",:zid=> accessory.zid, :value=> '0',:kind=>accessory.kind}, :remote=>true%>
