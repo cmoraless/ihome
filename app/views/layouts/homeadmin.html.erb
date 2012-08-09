@@ -11,59 +11,60 @@
 <body>
 	
 	<% yield :navbar %>
-	
 	<div class="container-fluid span10 offset1">
 		<div class="accordion" id="accordion">
 			<div class="accordion-group">
 			  <div class="accordion-heading">
-			    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#iboxes">
+			    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#iboxitos">
 			      Ibox
 			    </a>
 			  </div>
-			  <div id="iboxes" class="accordion-body collapse in">
-			    <div class="accordion-inner">
+			  <div id="iboxitos" class="accordion-body collapse">
+			    <div id="iboxes" class="accordion-inner">
 					<%= yield :iboxes %>
 			    </div>
 			  </div>
 			</div>
 			<div class="accordion-group">
 			  <div class="accordion-heading">
-			    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accessories">
-			     Tipos de accessorios
+			    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accessoritos">
+			      Tipos de accesorios
 			    </a>
 			  </div>
-			  <div id="accessories" class="accordion-body collapse">
-			    <div class="accordion-inner">
-						<%= yield :accessories %>	    
-					</div>
-			  </div>
-			</div>
-			<div class="accordion-group">
-			  <div class="accordion-heading">
-			    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#users">
-			     Usuarios
-			    </a>
-			  </div>
-			  <div id="users" class="accordion-body collapse">
-			    <div class="accordion-inner">
-					<%= yield :users %>
+			  <div id="accessoritos" class="accordion-body collapse">
+			    <div id="accessories" class="accordion-inner">
+					<%= yield :accessories %>
 			    </div>
 			  </div>
 			</div>
 			<div class="accordion-group">
 			  <div class="accordion-heading">
-			    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#browseas">
-			     Navegar como
+			    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#usuaritos">
+			     Agregar/Editar Usuarios
 			    </a>
 			  </div>
-			  <div id="browseas" class="accordion-body collapse">
-			    <div class="accordion-inner">
+			  <div id="usuaritos" class="accordion-body collapse">
+			    <div id="users" class="accordion-inner">
+						<%= yield :users %>	    
+					</div>
+			  </div>
+			</div>
+			<div class="accordion-group">
+			  <div class="accordion-heading">
+			    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#browseasito">
+			      Navegar como
+			    </a>
+			  </div>
+			  <div id="browseasito" class="accordion-body collapse">
+			    <div id="browseas" class="accordion-inner">
 					<%= yield :browseas %>
 			    </div>
 			  </div>
 			</div>
 		</div>
 	</div>
+	
+	
 	<div class="row">
 		<div class="span3 offset6">&copy; Bissen</div>
 	</div>
