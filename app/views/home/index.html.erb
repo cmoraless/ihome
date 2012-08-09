@@ -107,11 +107,34 @@
 			</div>
 		<% end %>
 		
-	</div>
 
-</script>
-
+	</div>  
 
 <%else%>
 	<%= render 'shared/flash_messages' %>
+	 <script type="text/javascript" charset="utf-8">
+    $(window).load(function() {
+      $('.12 :checkbox').iphoneStyle();
+      $('#12').attr('checked','checked');
+      var onchange_checkbox = ($('.on_off :checkbox')).iphoneStyle({
+        onChange: function(elem, value) { 
+          if (value == true){
+          	$('#label').html("on");
+          }else{
+          	$('#label').html("off");
+          }
+        }
+      });
+      
+      
+    });
+  </script>
+	<table>
+    <tr class="on_off">
+      <th><label id="label">Default On</label></th>
+      <td>
+        <input type="checkbox" id="12"/>
+      </td>
+    </tr>
+  </table>
 <%end%>
