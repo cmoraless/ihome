@@ -9,28 +9,18 @@
 	<% if accessory.kind == 'BinarySwitch' or accessory.kind == 'BinarySensor'%>
 	</a>
 
-	<a class="on_off">
+		<a class="on_off">
     	<input class="checkbox" type="checkbox" id="<%= accessory.zid%>" />
     </a>
 	
-<!--		<table>
-	    <tr class="on_off_<%=accessory.zid%>">
-	      <th><label id="label_<%=accessory.zid%>">Default On</label></th>
-	      <td>
-	        <input type="checkbox" id="<%= accessory.zid%>"/>
-	      </td>
-	    </tr>
-</table> -->
 		<script type="text/javascript" charset="utf-8">
 			//alert("hola");
 			$('.<%=accessory.zid%> :checkbox').iphoneStyle();
       var onchange_checkbox = ($('.on_off :checkbox')).iphoneStyle({
         onChange: function(elem, value) { 
           if (value == true){
-          	$('#label_<%=accessory.zid%>').html("on");
           	$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '1', kind: '<%=accessory.kind%>'});
           }else{
-          	$('#label_<%=accessory.zid%>').html("off");
           	$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '0', kind: '<%=accessory.kind%>'});
           }
         }

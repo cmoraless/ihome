@@ -82,6 +82,7 @@ class AccessoriesController < ApplicationController
   end
   
   def control
+    #logger.debug "######## ENTRE A CONTROL #######"
     require 'net/http'
     require 'uri'
     ip = '200.28.166.104'

@@ -50,7 +50,7 @@
 	<%content_for :users do%>
 		<div>
 			<%= render "users/all"%>
-			<%= link_to "Agregar nuevo usuario", new_no_admin_path%>		
+			<%= link_to "Agregar nuevo usuario", new_no_admin_path, :remote=>true%>		
 		</div>
 	<%end%>
 	
@@ -62,5 +62,6 @@
 <%else%>
 	<%content_for :users do%>
 		<%= render 'shared/flash_messages' %>
+		<%=link_to "Crear nuevo admin", new_no_admin_path, :remote=>true %>
 	<%end%>
 <%end%>

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   layout 'homeadmin', :only => [:newAdmin]
+  layout 'admin', :only => [:newNoAdmin]
   # GET /users
   # GET /users.json
   def index
@@ -25,19 +26,18 @@ class UsersController < ApplicationController
   def newAdmin
     @user = User.new
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @user }
+      #format.html # new.html.erb
+      #format.json { render json: @user }
       format.js
     end
   end
   
   def newNoAdmin
-    logger.debug "######## ENTRE A NEW NO ADMIN #######"
+    #logger.debug "######## ENTRE A NEW NO ADMIN #######"
     @user = User.new
-    render :layout => "admin"
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @user }
+      #format.html # new.html.erb
+      #format.json { render json: @user }
       format.js
     end
   end
@@ -57,8 +57,8 @@ class UsersController < ApplicationController
           @ibox = Ibox.find(session[:ibox_id])
           @ibox.users << @user
         end
-        format.html { redirect_to @user, notice: 'user was successfully created.'}
-        format.json { render json: @user, status: :created, location: @user }
+        format.html { redirect_to :controller=>'admin', :action=>'index'}
+        #format.json { render json: @user, status: :created, location: @user }
       else
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
