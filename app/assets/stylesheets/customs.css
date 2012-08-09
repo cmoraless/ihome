@@ -1,11 +1,9 @@
 ul.entries { list-style: none; }
 ul.entries li {
-  margin: 5px 0;
-  border: 2px ;
-  width: 800px;
+  margin: 5px 50px;
+  width: 600px;
   
-  
-  padding: 6px;
+  padding: 20px;
   margin-bottom: 10px;
   background-color: #eeeeee;
   -webkit-border-radius: 8px;
@@ -13,35 +11,34 @@ ul.entries li {
           border-radius: 8px;
 }
 ul.entries .title {
-  margin: 0 20px;
+  margin-top: 0px;
   float: left;
-  width: 700px;
+  width: 150px;
   
-  margin-bottom: 0;
-  font-size: 15px;
-  line-height: 1;
-  letter-spacing: 0px;
-  color: inherit;
-  
+  font-size: 18px;
+  line-height: 1px;
+  letter-spacing: -1px;
+  color: inherit; 
 }
-ul.entries .action {
+
+ul.entries .on_off {
+  margin-top: -12px;
   float: right;
-  margin-left: 50px;
-  width: 90px;
+  margin-right: 100px;
+  width: 10px;
+
+  /* todo: color, background + padding-left declarations for thumb icons */
+}
+
+ul.entries .action {
+  float: middle;
+  t: middle;
+  margin-top: 5px;
+  margin-left: 0px;
+  width: 0px;
   /* todo: color, background + padding-left declarations for thumb icons */
 }
 
 
-.hero-unit h1 {
-  margin-bottom: 0;
-  font-size: 60px;
-  line-height: 1;
-  letter-spacing: -1px;
-  color: inherit;
-}
 
-.hero-unit p {
-  font-size: 18px;
-  font-weight: 200;
-  line-height: 27px;
-  color: inherit
+
