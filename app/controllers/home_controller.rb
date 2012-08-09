@@ -26,9 +26,5 @@ class HomeController < ApplicationController
       flash[:notice] = "Debe habilitar su Ibox en Administracion"
     end
   end
-  
- def signout
-    redirect_to :controller=>"start", :action=>"index"
-  end
-  
+ 
 end

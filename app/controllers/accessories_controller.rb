@@ -100,7 +100,9 @@ class AccessoriesController < ApplicationController
       end
       req.basic_auth 'root', ''
       res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
-      @body = res.body      
+      @body = res.body
+      @accessory = Accessory.find_by_zid(params[:zid])
+      @accessory.update_attribute(:value, params[:value].to_i)      
     rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
       flash[:notice] = "Lo sentimos, el servicio no se encuentra disponible actualmente."

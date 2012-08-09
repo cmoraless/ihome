@@ -1,20 +1,42 @@
-
 <li>
   <span class="title"><%= accessory.name %></span>
-  <a class="action">
-	<%if accessory.kind == 'MultiLevelSwitch'%>
-		<%= link_to "On", {:controller=>"accessories", :action=>"control",:zid=> accessory.zid, :value=> '9',:kind=>accessory.kind}, :remote=>true%>
-		<%= link_to "Off", {:controller=>"accessories", :action=>"control",:zid=> accessory.zid, :value=> '0',:kind=>accessory.kind}, :remote=>true%>
+	<%if accessory.kind == 'MultiLevelSwitch'%>		
+		<%if accessory.cmdclass == "AllOnOff,Configuration"%> <!-- Dimmers -->
+			<a class="action">
+				<%= link_to "On", {:controller=>"accessories", :action=>"control",:zid=> accessory.zid, :value=> '9',:kind=>accessory.kind}, :remote=>true%>
+				<%= link_to "Off", {:controller=>"accessories", :action=>"control",:zid=> accessory.zid, :value=> '0',:kind=>accessory.kind}, :remote=>true%>
+			</a>
+		<% else %> <!-- Cortinas -->
+			<a class="on_off">
+				<% if accessory.value == 0 %>
+	    	<input class="checkbox" type="checkbox" id="<%= accessory.zid%>" />
+	    	<%else%>
+	    	<input class="checkbox" type="checkbox" checked="checked" id="<%= accessory.zid%>" />
+	    	<%end%>
+	    </a>
+	    <script type="text/javascript" charset="utf-8">
+			$('.<%=accessory.zid%> :checkbox').iphoneStyle();
+      var onchange_checkbox = ($('.on_off :checkbox')).iphoneStyle({
+        onChange: function(elem, value) { 
+          if (value == true){
+          	$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '9', kind: '<%=accessory.kind%>'});
+          }else{
+          	$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '0', kind: '<%=accessory.kind%>'});
+          }
+        }
+      });
+		</script>
+		<%end%>
 	<%end%>
 	<% if accessory.kind == 'BinarySwitch' or accessory.kind == 'BinarySensor'%>
-	</a>
-
 		<a class="on_off">
-    	<input class="checkbox" type="checkbox" id="<%= accessory.zid%>" />
+    	<% if accessory.value == 0 %>
+	    	<input class="checkbox" type="checkbox" id="<%= accessory.zid%>" />
+    	<%else%>
+	    	<input class="checkbox" type="checkbox" checked="checked" id="<%= accessory.zid%>" />
+    	<%end%>
     </a>
-	
 		<script type="text/javascript" charset="utf-8">
-			//alert("hola");
 			$('.<%=accessory.zid%> :checkbox').iphoneStyle();
       var onchange_checkbox = ($('.on_off :checkbox')).iphoneStyle({
         onChange: function(elem, value) { 
@@ -25,8 +47,6 @@
           }
         }
       });
-			
-			
 		</script>
 	<%end%>
   </span>
