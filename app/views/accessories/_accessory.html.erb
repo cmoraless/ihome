@@ -3,10 +3,21 @@
   <span class="title"><%= accessory.name %></span>
 	<%if accessory.kind == 'MultiLevelSwitch'%>		
 		<%if accessory.cmdclass == "AllOnOff,Configuration"%> <!-- Dimmers -->
-			<a class="action">
-				<%= link_to "On", {:controller=>"accessories", :action=>"control",:zid=> accessory.zid, :value=> '9',:kind=>accessory.kind}, :remote=>true%>
-				<%= link_to "Off", {:controller=>"accessories", :action=>"control",:zid=> accessory.zid, :value=> '0',:kind=>accessory.kind}, :remote=>true%>
-			</a>
+			<script type="text/javascript">
+				$(function() {
+					$( "#<%=accessory.zid%>" ).slider({
+						value: <%=accessory.value%>,
+						min: 0,
+						max: 9,
+						step: 1,
+						slide: function( event, ui ) {
+							$.post('accessories/control', { zid: '<%=accessory.zid%>', value: ui.value, kind: '<%=accessory.kind%>'});
+						}
+					});
+				});
+			</script>
+			<div class="span1 offset2" id="<%=accessory.zid%>">
+			</div>
 		<% else %> <!-- Cortinas -->
 			<div class="on_off">
 				<% if accessory.value == 0 %>

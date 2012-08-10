@@ -47,10 +47,8 @@
 <%end%>
 <%if @iboxes.length > 0 %>
 	<%content_for :users do%>
-		<div>
-			<%= render "users/all"%>
-			<%= link_to "Agregar nuevo usuario", new_no_admin_path, :remote=>true%>		
-		</div>
+		<%= render "users/all"%>
+		<%= link_to "Agregar nuevo usuario", new_no_admin_path, :remote=>true%>		
 	<%end%>
 	<%content_for :accessories do%>
 		<h3><a href="#">Agregar Accesorios</a></h3>
