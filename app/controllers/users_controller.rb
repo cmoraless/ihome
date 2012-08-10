@@ -34,6 +34,7 @@ class UsersController < ApplicationController
   
   def newNoAdmin
     #logger.debug "######## ENTRE A NEW NO ADMIN #######"
+    @remoto = false
     @user = User.new
     respond_to do |format|
       #format.html # new.html.erb
@@ -44,6 +45,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @remoto = true
     @user = User.find(params[:id])
     respond_to do |format|
       format.js
@@ -60,6 +62,7 @@ class UsersController < ApplicationController
           @ibox = Ibox.find(session[:ibox_id])
           @ibox.users << @user
           format.html { redirect_to :controller=>'admin', :action=>'index'}
+          format.js
         else 
           format.html { redirect_to :controller=>'homeadmin', :action=>'index'}
         end
@@ -72,6 +75,7 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
+    @remoto = true
     @user = User.find(params[:id])
     if @user.isAdmin == false
       @ibox = Ibox.find(session[:ibox_id])

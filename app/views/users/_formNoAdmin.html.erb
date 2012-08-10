@@ -1,4 +1,4 @@
-<%= form_for(@user,:remote=>true) do |user_form| %>
+<%= form_for(@user,:remote=>@remoto) do |user_form| %>
  <div class="field">
     <%= user_form.label :email %>
     <%= user_form.email_field :email %>
