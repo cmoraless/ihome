@@ -1,7 +1,3 @@
 $('#iboxes').empty();
-$('#iboxes').html("<h1>Se actualizó el siguiente Ibox en el sistema:</h1>");  
-
-$('#iboxes').append("<%= escape_javascript(@ibox.name) %>");  
-
-$('#iboxes').append("<%= escape_javascript(link_to 'Back', :back) %>");
+$('#iboxes').append('<%= escape_javascript(render(:partial => "iboxes/all") ) %>');
 

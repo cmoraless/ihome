@@ -1,6 +1,4 @@
-<%content_for :accessories do%>
 <h1>Tipos de Accesorios</h1>
-
 <table>
   <tr>
     <th>Nombre</th>
@@ -8,12 +6,11 @@
     <th></th>
     <th></th>
   </tr>
- 
 <% @accessory_types.each do |accessory_type| %>
   <tr>
     <td><%= accessory_type.name %></td>
     <td><%= link_to 'Editar', edit_accessory_type_path(accessory_type), :remote => true %></td>
-    <td><%= link_to 'Eliminar', accessory_type, :method=> :delete, data: { confirm: '¿Estás seguro?'},:remote =>true %></td>
+    <td><%= link_to 'Eliminar', accessory_type, :method=> :delete, data: { confirm: '¿Estás seguro?'},:remote=>true %></td>
   </tr>
 <% end %>
 </table>
@@ -21,6 +18,5 @@
 <br />
  
 <%= link_to 'Crear Tipo de Accesorio', new_accessory_type_path, :remote => true %>
-<%end%>
 
 

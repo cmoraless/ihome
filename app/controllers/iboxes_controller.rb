@@ -1,18 +1,13 @@
 class IboxesController < ApplicationController
-  # GET /iboxes
-  # GET /iboxes.json
-    layout "homeadmin"
+  layout "homeadmin"
   def index
     @iboxes = Ibox.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @iboxes }
     end
   end
 
-  # GET /iboxes/1
-  # GET /iboxes/1.json
   def show
     @ibox = Ibox.find(params[:id])
 
@@ -23,8 +18,6 @@ class IboxesController < ApplicationController
     end
   end
 
-  # GET /iboxes/new
-  # GET /iboxes/new.json
   def new
     @ibox = Ibox.new
 
@@ -35,61 +28,46 @@ class IboxesController < ApplicationController
     end
   end
 
-  # GET /iboxes/1/edit
   def edit
     @ibox = Ibox.find(params[:id])
     respond_to do |format|
+      @iboxes = Ibox.all
       format.js #added
     end
   end
 
-  # POST /iboxes
-  # POST /iboxes.json
   def create
     @ibox = Ibox.new(params[:ibox])
 
     respond_to do |format|
       if @ibox.save
-        format.html { redirect_to @ibox, notice: 'Ibox was successfully created.' }
-        format.json { render json: @ibox, status: :created, location: @ibox }
-        format.js #added
-
+        @iboxes = Ibox.all
+        format.js
       else
-        format.html { render action: "new" }
-        format.json { render json: @ibox.errors, status: :unprocessable_entity }
-        format.js #added
+        format.js
       end
     end
   end
 
-  # PUT /iboxes/1
-  # PUT /iboxes/1.json
   def update
     @ibox = Ibox.find(params[:id])
 
     respond_to do |format|
       if @ibox.update_attributes(params[:ibox])
-        format.html { redirect_to @ibox, notice: 'Ibox was successfully updated.' }
-        format.json { head :no_content }
+        @iboxes = Ibox.all
         format.js 
       else
-        format.html { render action: "edit" }
-        format.json { render json: @ibox.errors, status: :unprocessable_entity }
         format.js 
       end
     end
   end
 
-  # DELETE /iboxes/1
-  # DELETE /iboxes/1.json
   def destroy
     @ibox = Ibox.find(params[:id])
     @ibox.destroy
-
+    @iboxes = Ibox.all
     respond_to do |format|
-      format.html { redirect_to iboxes_url }
-      format.json { head :no_content }
-      format.js 
+     format.js 
     end
   end
   

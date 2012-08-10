@@ -59,9 +59,10 @@ class UsersController < ApplicationController
         if @user.isAdmin == false
           @ibox = Ibox.find(session[:ibox_id])
           @ibox.users << @user
+          format.html { redirect_to :controller=>'admin', :action=>'index'}
+        else 
+          format.html { redirect_to :controller=>'homeadmin', :action=>'index'}
         end
-        format.html { redirect_to :controller=>'admin', :action=>'index'}
-        #format.json { render json: @user, status: :created, location: @user }
       else
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end

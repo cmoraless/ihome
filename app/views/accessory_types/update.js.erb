@@ -1,7 +1,3 @@
 $('#accessories').empty();
-$('#accessories').html("<h1>Se actualizó el siguiente Tipo de Accesorio en el sistema:</h1>");  
-
-$('#accessories').append("<%= escape_javascript(@accessory_type.name) %>");  
-
-$('#accessories').append("<%= escape_javascript(link_to 'Back', :back) %>");
+$('#accessories').append('<%= escape_javascript(render(:partial => "accessory_types/all") ) %>');
 
