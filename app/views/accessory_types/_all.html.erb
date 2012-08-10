@@ -12,9 +12,8 @@
 <% @accessory_types.each do |accessory_type| %>
   <tr>
     <td><%= accessory_type.name %></td>
-    <td><%= link_to 'Show', accessory_type, :remote => true %></td>
-    <td><%= link_to 'Edit', edit_accessory_type_path(accessory_type), :remote => true %></td>
-    <td><%= link_to 'Destroy', accessory_type, method: :delete, :remote =>true, :class=>'delete_accessory_type' %></td>
+    <td><%= link_to 'Editar', edit_accessory_type_path(accessory_type), :remote => true %></td>
+    <td><%= link_to 'Eliminar', accessory_type, :method=> :delete, data: { confirm: '¿Estás seguro?'},:remote =>true %></td>
   </tr>
 <% end %>
 </table>

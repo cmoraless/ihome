@@ -1,36 +1,35 @@
 <%= form_for(@user) do |user_form| %>
  <div class="field">
-    <%= user_form.label :email %><br />
+    <%= user_form.label :email %>
     <%= user_form.email_field :email %>
   </div>
   <div class="field">
-  	<%= user_form.label :contraseña %><br />
+  	<%= user_form.label :contraseña %>
   	<%= user_form.password_field :password %>
   </div>
   <div class="field">
-  	<%= user_form.label :confirmación_contraseña %><br />
+  	<%= user_form.label :confirmación_contraseña %>
   	<%= user_form.password_field :password_confirmation %>
   </div>
  <div class="field">
-    <%= user_form.label :name%><br />
+    <%= user_form.label :name%>
     <%= user_form.text_field :name %>
   </div>
  <div class="field">
     <%= user_form.hidden_field :isAdmin, :value => false %>
   </div>
    <div class="field">
-    <%= user_form.label :Dirección %><br />
+    <%= user_form.label :Dirección %>
     <%= user_form.text_field :address %>
   </div>
  <div class="field">
-    <%= user_form.label :Telefono %><br />
+    <%= user_form.label :Telefono %>
     <%= user_form.text_field :phone %>
   </div>
  <div class="field">
-    <%= user_form.label :rut %><br />
+    <%= user_form.label :rut %>
     <%= user_form.text_field :rut %>
   </div>
-
   <div class="actions">
     <%= user_form.submit %>
   </div>

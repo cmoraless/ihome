@@ -89,18 +89,18 @@
 	<% end %>
 	<div class="accordion" id="accordion">
 		<% @containers.each do |container| %>
-			<div class="accordion-group">
-		  		<div class="accordion-heading">
-		    		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#<%= container.name %>">
-		      			<h3><%= container.name %></h3>
-		    		</a>
+    	<div class="accordion-group">
+	  		<div class="accordion-heading">
+	    		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#<%= container.name %>">
+	      			<h3><%= container.name %></h3>
+	    		</a>
 				</div>
-				<div id="<%= container.name %>" class="accordion-body collapse">
-		    		<div class="accordion-inner">
-		    			<ul class="entries"> 
-								<%= render container.accessories %>
-							</ul>
-		    		</div>
+	    	<div id="<%= container.name %>" class="accordion-body collapse">  
+	    		<div class="accordion-inner">
+	    			<ul class="entries"> 
+							<%= render container.accessories %>
+						</ul>
+	    		</div>
 				</div>
 			</div>
 		<% end %>

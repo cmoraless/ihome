@@ -1,0 +1,9 @@
+$('#users').empty();
+$('#users').append('<h1>Editando Usuario <%= @user.email %></h1>');
+$('#users').append('<div class="row-fluid"><div class="span12"></div></div>');
+<%if @user.isAdmin%>
+	$('#users').append('<%= escape_javascript(render(:partial => 'formAdmin'))%>');
+<% else %>
+	$('#users').append('<%= escape_javascript(render(:partial => 'formNoAdmin'))%>');
+<%end%>
+$('#users').append('<%= link_to 'Back', :back %>');

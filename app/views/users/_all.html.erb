@@ -20,9 +20,9 @@
 		    <td><%= user.address %></td>
 		    <td><%= user.phone %></td>
 		    <td><%= user.rut %></td>
-		    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+		    <td><%= link_to 'Edit', edit_user_path(user), :remote=>true %></td>
 		    <% if user.isAdmin == false %>
-		    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?',
+		    <td><%= link_to 'Destroy', user, :confirm => '¿Estás seguro?',
 		                                     :method => :delete %></td>
 		   	<%end%>
 		  </tr>
