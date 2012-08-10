@@ -1,7 +1,7 @@
-ul.entries { list-style: none; }
+ul.entries{list-style:none;}
 ul.entries li {
-  margin: 5px 50px;
-  width: 600px;
+  margin: 5px 20px;
+  width: 80%;
   
   padding: 20px;
   margin-bottom: 10px;
@@ -17,7 +17,7 @@ ul.entries .title {
   
   font-size: 18px;
   line-height: 1px;
-  letter-spacing: -1px;
+  letter-spacing: 0px;
   color: inherit; 
 }
 

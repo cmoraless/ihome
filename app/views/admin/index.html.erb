@@ -1,7 +1,7 @@
 <% content_for :navbar do %>
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
-    <div class="container-fluid">
+    <div class="container-fluid span9 offset1">
       <a class="brand" href="#">iHome</a>
       <div class="btn-group pull-right">
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -61,7 +61,10 @@
 	<%end%>
 <%else%>
 	<%content_for :users do%>
-		<%= render 'shared/flash_messages' %>
-		<%=link_to "Crear nuevo admin", new_no_admin_path, :remote=>true %>
+		<%if @iboxes.length > 0%>
+			<%=link_to "Crear nuevo admin", new_no_admin_path, :remote=>true %>
+		<%else%>
+			<%= render 'shared/flash_messages' %>
+		<%end%>
 	<%end%>
 <%end%>

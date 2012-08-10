@@ -1,4 +1,6 @@
+<div class="span6">
 <li>
+	
   <span class="title"><%= accessory.name %></span>
 	<%if accessory.kind == 'MultiLevelSwitch'%>		
 		<%if accessory.cmdclass == "AllOnOff,Configuration"%> <!-- Dimmers -->
@@ -7,13 +9,13 @@
 				<%= link_to "Off", {:controller=>"accessories", :action=>"control",:zid=> accessory.zid, :value=> '0',:kind=>accessory.kind}, :remote=>true%>
 			</a>
 		<% else %> <!-- Cortinas -->
-			<a class="on_off">
+			<div class="on_off">
 				<% if accessory.value == 0 %>
 	    	<input class="checkbox" type="checkbox" id="<%= accessory.zid%>" />
 	    	<%else%>
 	    	<input class="checkbox" type="checkbox" checked="checked" id="<%= accessory.zid%>" />
 	    	<%end%>
-	    </a>
+	    </div>
 	    <script type="text/javascript" charset="utf-8">
 			$('.<%=accessory.zid%> :checkbox').iphoneStyle();
       var onchange_checkbox = ($('.on_off :checkbox')).iphoneStyle({
@@ -28,14 +30,14 @@
 		</script>
 		<%end%>
 	<%end%>
-	<% if accessory.kind == 'BinarySwitch' or accessory.kind == 'BinarySensor'%>
-		<a class="on_off">
+	<% if accessory.kind == 'BinarySwitch' %>
+		<div class="on_off">
     	<% if accessory.value == 0 %>
 	    	<input class="checkbox" type="checkbox" id="<%= accessory.zid%>" />
     	<%else%>
 	    	<input class="checkbox" type="checkbox" checked="checked" id="<%= accessory.zid%>" />
     	<%end%>
-    </a>
+    </div>
 		<script type="text/javascript" charset="utf-8">
 			$('.<%=accessory.zid%> :checkbox').iphoneStyle();
       var onchange_checkbox = ($('.on_off :checkbox')).iphoneStyle({
@@ -50,4 +52,6 @@
 		</script>
 	<%end%>
   </span>
+  
 </li>
+</div>
