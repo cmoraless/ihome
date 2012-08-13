@@ -10,12 +10,13 @@ Ihome::Application.routes.draw do
 
   resources :accessory_types
   resources :ibox_accessories_containers
-  resources :users
+  resources :users do 
+    resources :profiles
+  end
   resources :home
   resources :homeadmin
   resources :admin
-
-
+  resources :profiles
   resources :sessions
   
   get "log_out" => "sessions#destroy", :as => "log_out"

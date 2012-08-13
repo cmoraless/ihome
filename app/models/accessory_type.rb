@@ -5,5 +5,5 @@ class AccessoryType < ActiveRecord::Base
   has_many :profile_accessories_containers
   has_many :iboxes, :through => :ibox_accessories_containers
   # atributos
-  attr_accessible :name, :kind
+  attr_accessible :name
 end

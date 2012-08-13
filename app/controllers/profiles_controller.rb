@@ -3,7 +3,8 @@ class ProfilesController < ApplicationController
   # GET /profiles.json
   def index
     @profiles = Profile.all
-
+    @user = User.find(session[:user_id])
+    @perfiles = @user.profiles
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @profiles }
@@ -25,7 +26,8 @@ class ProfilesController < ApplicationController
   # GET /profiles/new.json
   def new
     @profile = Profile.new
-
+    @user = User.find(session[:user_id])
+    @ibox = Ibox.find(session[:ibox_id])
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @profile }
@@ -41,9 +43,12 @@ class ProfilesController < ApplicationController
   # POST /profiles.json
   def create
     @profile = Profile.new(params[:profile])
-
+    @user = User.find(session[:user_id])
+    @ibox = Ibox.find(session[:ibox_id])
     respond_to do |format|
       if @profile.save
+        @user.profiles << @profile
+        @ibox.profiles << @profile
         format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
         format.json { render json: @profile, status: :created, location: @profile }
       else

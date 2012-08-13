@@ -11,7 +11,18 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+<%= form_for(@profile) do |profile_form| %>
+  
+ 	<div class="field">
+    <%= profile_form.label :name%>
+    <%= profile_form.text_field :name %>
   </div>
+ 	<div class="field">
+    <%= profile_form.hidden_field :isActive, :value => false %>
+ 	</div>
+ 	
+  <div class="actions">
+    <%= profile_form.submit %>
+  </div>
+<% end %>
 <% end %>
