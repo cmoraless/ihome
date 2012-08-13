@@ -2,7 +2,7 @@ class CreateActions < ActiveRecord::Migration
   def change
     create_table :actions do |t|
       t.datetime :hour
-      t.boolean :state
+      t.integer :value
       t.references :profile_accessories_container
       t.references :accessory_type
 
