@@ -1,4 +1,6 @@
 Ihome::Application.routes.draw do
+  resources :cameras
+
   get "sessions/new"
   
   resources :iboxes do
