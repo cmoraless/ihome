@@ -97,7 +97,7 @@ class IboxesController < ApplicationController
   def addDefaultAccessories
     require 'net/http'
     require 'uri'
-    ip = '200.28.166.104'
+    ip = '192.168.0.198'
     port = 1166
     ws = 'http://' + ip + ':' + port.to_s
     url = URI.parse(ws)

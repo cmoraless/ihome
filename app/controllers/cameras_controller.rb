@@ -41,9 +41,10 @@ class CamerasController < ApplicationController
   # POST /cameras.json
   def create
     @camera = Camera.new(params[:camera])
-
     respond_to do |format|
       if @camera.save
+        @ibox = Ibox.find(session[:ibox_id])
+        @ibox.cameras << @camera
         format.html { redirect_to @camera, notice: 'Camera was successfully created.' }
         format.json { render json: @camera, status: :created, location: @camera }
       else

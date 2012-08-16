@@ -6,7 +6,7 @@ class CreateCameras < ActiveRecord::Migration
       t.string :port
       t.string :user
       t.string :password
-
+      t.references :ibox
       t.timestamps
     end
   end
