@@ -1,6 +1,9 @@
 
 $('#iboxes').empty();
 
+$('#iboxes').html('200.28.166.104')
+$('#iboxes').html('1166')
+
 $('#iboxes').html("<h1>Crear nuevo Ibox</h1>").append("<%= escape_javascript(render('form')) %>");
 
 $('#iboxes').append("<%= escape_javascript(link_to 'Back', :back) %>");

@@ -12,6 +12,7 @@
 	<%= yield :navbar %>
 	<div class="container-fluid span9 offset1">
 		<div class="accordion" id="accordion">
+			
 			<div class="accordion-group">
 			  <div class="accordion-heading">
 			    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#iboxitos">
@@ -24,6 +25,7 @@
 			    </div>
 			  </div>
 			</div>
+			
 			<div class="accordion-group">
 			  <div class="accordion-heading">
 			    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#usuaritos">
@@ -36,6 +38,20 @@
 					</div>
 			  </div>
 			</div>
+			
+			<div class="accordion-group">
+			  <div class="accordion-heading">
+			    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accessories-body">
+			     <h3>Agregar/Editar Accesorios</h3>
+			    </a>
+			  </div>
+			  <div id="accessories-body" class="accordion-body collapse">
+			    <div id="accessories" class="accordion-inner">
+						<%= yield :accessories %>	    
+					</div>
+			  </div>
+			</div>
+			
 		</div>
 	</div>
 	<div class="row">

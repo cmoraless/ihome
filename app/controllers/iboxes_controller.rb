@@ -70,13 +70,13 @@ class IboxesController < ApplicationController
      format.js 
     end
   end
-  
 
   def enable
-    respond_to do |format|
+      respond_to do |format|
       if Ibox.exists?(params[:ibox_id])
         @ibox = Ibox.find(params[:ibox_id])
         @user = User.find(session[:user_id])
+        session[:ibox_id] = @ibox.id
         if @ibox.isActive == true
           flash[:notice] = "El ibox seleccionado ya esta activo."
           format.js
@@ -93,33 +93,46 @@ class IboxesController < ApplicationController
     end
   end
   
-  
   def addDefaultAccessories
-    require 'net/http'
-    require 'uri'
-    ip = '200.28.166.104'
-    port = 1166
-    ws = 'http://' + ip + ':' + port.to_s
-    url = URI.parse(ws)
-    begin
-      req = Net::HTTP::Get.new(url.path + '/cgi-bin/Get.cgi?get=SET')
-      req.basic_auth 'root', ''
-      res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
-      #escribo archivo de texto con la salida del web service
-      path = Rails.root + 'tmp/server.txt'
-      f_out = File.new(path,'w')
-      f_out.puts res.body
-      f_out.close
-      res = Array.new
-      f_in = File.open(path,'r') do |f|
-        while line = f.gets
-          res << line.to_s.chomp
-        end
+    @ibox = Ibox.find(session[:ibox_id])
+    if addAccessories(@ibox.id) 
+      flash[:notice] = "Hemos habilitado exitosamente el Ibox y agregado tus nuevos accesorios!"
+    else
+      flash[:error] = "Hemos habilitado exitosamente el Ibox, pero no hemos encontrado nuevos accesorios!"
+    end
+  end
+
+  def listen
+    @ibox = Ibox.find(session[:ibox_id])
+    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Mode.cgi?MODE=A')
+    if res[0] == "Success"
+      begin
+        res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE')
+      end while (res[0] == 'MODE=READY')
+      sleep 2
+      if addAccessories(@ibox.id)
+        flash[:notice] = "Se ha agregado el nuevo accesorio"
+      else
+        flash[:error] = "No se ha agregado el nuevo accesorio"
       end
-      @ibox = Ibox.find(params[:id])
-      session[:ibox_id] = @ibox.id
-      #Se dividen obtiene los 12 parametros por accesorio
-      for i in 0..res.length/12-1
+    else
+      flash[:error] = "ERROR"
+    end 
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  # Función 
+  # Entrada: 
+  # Salida: 
+  def addAccessories(ibox_id)
+    ret = false
+    @ibox = Ibox.find(ibox_id)
+    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Get.cgi?get=SET')
+    for i in 0..res.length/12-1
+      #Si no esta asociado el accesorio al Ibox
+      if (!isSavedAccessory(ibox_id, res[0+12*i].to_s.split('=')[1])) 
         #Se crea el accessorio 
         @accessory = Accessory.new
         @accessory.update_attribute(:zid, res[0+12*i].to_s.split('=')[1])
@@ -127,23 +140,10 @@ class IboxesController < ApplicationController
         @accessory.update_attribute(:name, res[2+12*i].to_s.split('=')[1])
         @accessory.update_attribute(:cmdclass, res[10+12*i].to_s.split('=')[1])
         
-
-        reqacc = Net::HTTP::Get.new(url.path + '/cgi-bin/Status.cgi?ZID=' + @accessory.zid)
-        req.basic_auth 'root', ''
-        resacc = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
-        #escribo archivo de texto con la salida del web service
-        pathacc = Rails.root + 'tmp/accesory.txt'
-        f_out = File.new(pathacc,'w')
-        f_out.puts resacc.body
-        f_out.close
-        resacc = Array.new
-        f_in = File.open(pathacc,'r') do |f|
-          while line = f.gets
-            resacc << line.to_s.chomp
-          end
-        end
+        resacc = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + @accessory.zid)
+      
         @accessory.update_attribute(:value, resacc[2].to_s.split('=')[1])
-        
+       
         #Se determina el tipo de accesorio del accesorio
         if (@accessory.kind == "BinarySwitch")
           @accessory_type = AccessoryType.find_by_name("Luces")
@@ -163,26 +163,63 @@ class IboxesController < ApplicationController
         if (!@ibox.accessory_types.find_by_name(@accessory_type.name))
           @ibox.accessory_types << @accessory_type
         end
-        
+      
         #Se asgina el tipo de accesorio al accesorio y se guarda
         @accessory.accessory_type = @accessory_type
         @accessory.save
-
         #Se busca el contenedor del Ibox y tipo
         @container = IboxAccessoriesContainer.find_by_ibox_id_and_accessory_type_id(@ibox.id, @accessory_type.id)
         #se le cambia el nombre al contenedor
         @container.update_attribute(:name, @accessory_type.name)
         #Se agrega el accesorio determinado
         @container.accessories << @accessory
+        ret = true
       end
-      rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
-      Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
-      flash[:error] = "Lo sentimos, el servicio no se encuentra disponible actualmente."
     end
-    flash[:notice] = "Hemos habilitado exitosamente el Ibox!"
-    respond_to do |format|
-      format.js
-    end 
+    ret 
+  end
+ 
+  # Descripción: Función que busca si el accesorio está en la base de datos
+  # Entrada: 
+  # Salida: True si lo encontró, False si no.
+  def isSavedAccessory(ibox_id, zid)
+    ret = false
+    @ibox = Ibox.find(ibox_id)
+    @ibox.ibox_accessories_containers.each do |container|
+      if (container.accessories.find_by_zid(zid))
+        ret = true
+      end
+    end
+    ret
   end  
+
+  # Descripción: Función que ejecuta comandos para un determinado Ibox
+  # Entrada: 
+  # Salida: Arreglo con la salida del comando
+  def iboxExecute(ibox_ip, ibox_port, instruction)
+    require 'net/http'
+    require 'uri'
+    ws = 'http://' + ibox_ip + ':' + ibox_port
+    url = URI.parse(ws)
+    begin
+      req = Net::HTTP::Get.new(url.path + instruction )
+      req.basic_auth 'root', ''
+      res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+      #escribo archivo de texto con la salida del web service
+      path = Rails.root + 'tmp/server.txt'
+      f_out = File.new(path,'w')
+      f_out.puts res.body
+      f_out.close
+      res = Array.new
+      f_in = File.open(path,'r') do |f|
+        while line = f.gets
+          res << line.to_s.chomp
+        end
+      end
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+      Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
+    end
+    res
+  end   
   
 end
