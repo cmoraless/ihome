@@ -1,0 +1,3 @@
+$('#cameras').empty();
+$('#cameras').append('<%= escape_javascript(render(:partial => "cameras/all") ) %>')
+$('#cameras').append('<%= link_to "Agregar nueva cámara", new_camera_path, :remote=>true%>');

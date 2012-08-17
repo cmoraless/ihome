@@ -55,6 +55,14 @@
 		<div>
 		</div>
 	<%end%>
+	<%content_for :cameras do%>
+		<%if @iboxes.length > 0%>
+			<%= render 'cameras/all'%>
+			<%=link_to "Agregar nueva cámara", new_camera_path, :remote=>true %>
+		<%else%>
+			<%= render 'shared/flash_messages' %>
+		<%end%>
+	<%end%>
 <%else%>
 	<%content_for :users do%>
 		<%if @iboxes.length > 0%>
