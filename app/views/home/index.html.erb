@@ -62,6 +62,9 @@
 		<% if @cameras %>
 			<% if @cameras.length > 0%>
 				<script type="text/javascript">
+				$('#myCarousel').carousel({
+  				interval: 999999
+				});
 				var ver = function(id,ip,port){
 					$('#camera_'+id).attr('src','http://'+ip+':'+port+'/video.cgi');
 					$('#link_'+id).html("PARAR STREAMING");

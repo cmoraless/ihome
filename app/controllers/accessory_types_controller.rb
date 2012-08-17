@@ -2,7 +2,6 @@ class AccessoryTypesController < ApplicationController
   layout "homeadmin"
   def index
     @accessory_types = AccessoryType.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @accessory_types }
