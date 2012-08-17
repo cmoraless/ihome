@@ -113,17 +113,18 @@
 	    		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#<%= container.name %>">
 	      			<h3><%= container.name %></h3>
 	    		</a>
-				</div>
+			</div>
 	    	<div id="<%= container.name %>" class="accordion-body collapse">  
 	    		<div class="accordion-inner">
 	    			<ul class="entries"> 
 							<%= render container.accessories %>
-						</ul>
+					</ul>
 	    		</div>
-				</div>
 			</div>
+		</div>
 		<% end %>
-	</div>  
+	</div>
+	  
 <%else%>
 	<%= render 'shared/flash_messages' %>
 <%end%>

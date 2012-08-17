@@ -53,8 +53,9 @@
 	<%end%>
 	
 	<%content_for :accessories do%>
-		<%= render "iboxes/addNewAccessory" %>
+		<%= render "iboxes/editAccessories" %>
 	<%end%>
+	
 	<%content_for :cameras do%>
 		<%if @iboxes.length > 0%>
 			<%= render 'cameras/all'%>
@@ -63,6 +64,7 @@
 			<%= render 'shared/flash_messages' %>
 		<%end%>
 	<%end%>
+	
 <%else%>
 	<%content_for :users do%>
 		<%if @iboxes.length > 0%>

@@ -1,8 +1,20 @@
 <div class="span6 offset1">
 <li>
-  <span class="title"><%= accessory.name %></span>
-	<%if accessory.kind == 'MultiLevelSwitch'%>		
-		<%if accessory.cmdclass == "AllOnOff,Configuration"%> <!-- Dimmers -->
+
+	<%if accessory.kind == 'MultiLevelSwitch'%>
+	
+		<!--  -->
+		<!-- Dimmers -->
+		<!--  -->
+		<%if accessory.cmdclass == "AllOnOff,Configuration"%>
+			
+			<!-- Icono -->
+			<span class="icon"> <%= image_tag("bulb_off.png", :ratio => ".5")%></span>
+
+			<!-- Nombre -->
+			<span class="title"><%= accessory.name %></span>
+			
+			<!-- Script Controlador AJAX -->
 			<script type="text/javascript">
 				$(function() {
 					$( "#<%=accessory.zid%>" ).slider({
@@ -16,51 +28,80 @@
 					});
 				});
 			</script>
-			<div class="span1 offset2" id="<%=accessory.zid%>">
-			</div>
-		<% else %> <!-- Cortinas -->
+			<!-- DIV del Controlador AJAX -->
+			<div class="span1 offset2" id="<%=accessory.zid%>">	</div>
+			
+		<!--  -->
+		<!-- Cortinas -->
+		<!--  -->
+		<% else %>
+		
+			<!-- Icono -->
+			<span class="icon"> <%= image_tag("curtains.png", :ratio => ".5")%></span>
+
+			<!-- Nombre -->
+			<span class="title"><%= accessory.name %></span>
+
+			<!-- DIV del Controlador AJAX -->
 			<div class="on_off">
 				<% if accessory.value == 0 %>
-	    	<input class="checkbox" type="checkbox" id="<%= accessory.zid%>" />
-	    	<%else%>
-	    	<input class="checkbox" type="checkbox" checked="checked" id="<%= accessory.zid%>" />
-	    	<%end%>
-	    </div>
-	    <script type="text/javascript" charset="utf-8">
-			$('.<%=accessory.zid%> :checkbox').iphoneStyle();
-      var onchange_checkbox = ($('.on_off :checkbox')).iphoneStyle({
-        onChange: function(elem, value) { 
-          if (value == true){
-          	$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '9', kind: '<%=accessory.kind%>'});
-          }else{
-          	$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '0', kind: '<%=accessory.kind%>'});
-          }
-        }
-      });
-		</script>
+	    			<input class="checkbox" type="checkbox" id="<%= accessory.zid%>" />
+	    		<%else%>
+	    			<input class="checkbox" type="checkbox" checked="checked" id="<%= accessory.zid%>" />
+	    		<%end%>
+	    	</div>
+
+			<!-- Script Controlador AJAX -->
+	    	<script type="text/javascript" charset="utf-8">
+				$('.<%=accessory.zid%> :checkbox').iphoneStyle();
+      			var onchange_checkbox = ($('.on_off :checkbox')).iphoneStyle({
+        			onChange: function(elem, value) { 
+          				if (value == true){
+          					$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '9', kind: '<%=accessory.kind%>'});
+          				}else{
+          					$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '0', kind: '<%=accessory.kind%>'});
+          				}
+        			}
+      			});
+			</script>
 		<%end%>
 	<%end%>
+	
+	<!--  -->
+	<!-- Luces -->
+	<!--  -->
 	<% if accessory.kind == 'BinarySwitch' %>
+	
+		<!-- Icono -->
+		<span class="icon"> <%= image_tag("bulb_off.png", :ratio => ".5")%></span>
+
+		<!-- Nombre -->
+		<span class="title"><%= accessory.name %></span>	
+
+		<!-- DIV del Controlador AJAX -->	
 		<div class="on_off">
     	<% if accessory.value == 0 %>
 	    	<input class="checkbox" type="checkbox" id="<%= accessory.zid%>" />
     	<%else%>
 	    	<input class="checkbox" type="checkbox" checked="checked" id="<%= accessory.zid%>" />
     	<%end%>
-    </div>
+    	</div>
+    	
+		<!-- Script Controlador AJAX -->
 		<script type="text/javascript" charset="utf-8">
 			$('.<%=accessory.zid%> :checkbox').iphoneStyle();
-      var onchange_checkbox = ($('.on_off :checkbox')).iphoneStyle({
-        onChange: function(elem, value) { 
-          if (value == true){
-          	$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '1', kind: '<%=accessory.kind%>'});
-          }else{
-          	$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '0', kind: '<%=accessory.kind%>'});
-          }
-        }
-      });
+      		var onchange_checkbox = ($('.on_off :checkbox')).iphoneStyle({
+        		onChange: function(elem, value) { 
+          			if (value == true){
+          				$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '1', kind: '<%=accessory.kind%>'});
+          			}else{
+	          			$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '0', kind: '<%=accessory.kind%>'});
+    	      		}
+        		}
+      		});
 		</script>
 	<%end%>
+	
   </span>
 </li>
 </div>
