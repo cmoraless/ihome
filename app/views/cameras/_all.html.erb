@@ -1,0 +1,33 @@
+	
+	<% if @cameras %>
+		<h1>C&aacutemaras</h1>
+		<table>
+		  <tr>
+		    <th>Nombre</th>
+		    <th>IP</th>
+		    <th>Puerto</th>
+		    <th>Login</th>
+		    <th>Password</th>
+		  	<th></th>  
+				<th></th>
+		  </tr>
+		 
+		<% @cameras.each do |camera| %>
+			  <tr>
+			    <td><%= camera.name %></td>
+			    <td><%= camera.ip %></td>
+			    <td><%= camera.port %></td>
+			    <td><%= camera.user %></td>
+			    <td><%= camera.password %></td>
+			    <td><%= link_to 'Editar', edit_camera_path(camera), :remote=>true %></td>
+			    <td><%= link_to 'Eliminar', camera, :confirm => '¿Estás seguro?',
+			                                     :method => :delete, :remote=>true %></td>	   	
+			  </tr>
+		<% end %>
+		</table>
+	<%else%>
+		<%= render 'shared/flash_messages' %>
+	<%end%>
+	<br />		
+
+

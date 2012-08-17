@@ -9,7 +9,6 @@ class HomeController < ApplicationController
   def index
     @user = User.find(session[:user_id])
     @iboxes = @user.iboxes
-
     # Toma ibox seleccionado o por defecto el primero
     if (params[:id])
       @ibox = Ibox.find(params[:id])
@@ -17,11 +16,12 @@ class HomeController < ApplicationController
     else
       @ibox = @user.iboxes.first
     end  
-
+    
     # Toma todos los contenedores del ibox
     if !@ibox.nil?
       session[:ibox_id] = @ibox.id
       @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+      @cameras = @ibox.cameras
     else
       flash[:notice] = "Debe habilitar su Ibox en Administracion"
     end

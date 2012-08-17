@@ -5,7 +5,6 @@ class CreateIboxes < ActiveRecord::Migration
       t.string :ip
       t.string :port
       t.boolean :isActive
-
       t.timestamps
     end
   end

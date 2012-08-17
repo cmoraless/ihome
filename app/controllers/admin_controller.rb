@@ -19,7 +19,8 @@ class AdminController < ApplicationController
       flash[:notice] = "Debe tener por lo menos un IBox para agregar/editar usuarios."
     elsif session[:ibox_id]
       @ibox = Ibox.find(session[:ibox_id])
-      @users = @ibox.users  
+      @users = @ibox.users
+      @cameras = @ibox.cameras  
     end
   #  if @iboxes.length == 0
   #    flash[:notice] = "Debe tener por lo menos un IBox para agregar/editar usuarios."

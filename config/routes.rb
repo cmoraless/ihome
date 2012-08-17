@@ -1,13 +1,12 @@
 Ihome::Application.routes.draw do
+  
   get "sessions/new"
   
   resources :iboxes do
     resources :accessories
-    member do
-      get 'addDefaultAccessories'
-    end
+    resources :cameras
   end
-
+  resources :cameras
   resources :accessory_types
   resources :ibox_accessories_containers
   resources :users do 

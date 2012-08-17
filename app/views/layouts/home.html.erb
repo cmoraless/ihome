@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ihome</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0;" />
+  <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> -->
+</head>
+<body>
+	<%= yield :navbar %>
+	<div class="container-fluid span9 offset1">
+		<%= yield :profiles %>
+  		<%= yield %>
+		<%= yield :cameras %>
+	</div>
+	<!-- FOOTER -->
+	<div class="row">
+		<div class="span3 offset6">&copy; Bissen</div>
+	</div>
+</body>
+</html>

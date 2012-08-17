@@ -1,0 +1,31 @@
+<h1>Listing cameras</h1>
+
+<table>
+  <tr>
+    <th>Ip</th>
+    <th>Name</th>
+    <th>Port</th>
+    <th>User</th>
+    <th>Password</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @cameras.each do |camera| %>
+  <tr>
+    <td><%= camera.ip %></td>
+    <td><%= camera.name %></td>
+    <td><%= camera.port %></td>
+    <td><%= camera.user %></td>
+    <td><%= camera.password %></td>
+    <td><%= link_to 'Show', camera %></td>
+    <td><%= link_to 'Edit', edit_camera_path(camera) %></td>
+    <td><%= link_to 'Destroy', camera, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Camera', new_camera_path %>
