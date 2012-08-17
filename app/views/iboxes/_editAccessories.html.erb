@@ -1,0 +1,15 @@
+<ul class="entries">
+	<div class="span6 offset1">
+		<li>
+			<span class="icon"> <%= image_tag("bulb_off.png", :ratio => ".5")%></span>
+  			<span class="title"> Agregar Accesorio </span>
+			<span class="action"> <%= button_to "Escuchar Agregar", { :controller => "iboxes", :action => "listenToAddAccessory"}, :remote => 'true' %> </span>
+
+		</li>
+		<li>
+  			<span class="title">Eliminar Accesorio</span>
+			<span class="action"><%= button_to "Escuchar Eliminar", { :controller => "iboxes", :action => "listenToRemoveAccessory"}, :remote => 'true' %></span>
+		</li>
+	</div>
+</ul>
+

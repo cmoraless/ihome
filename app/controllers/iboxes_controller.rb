@@ -102,12 +102,13 @@ class IboxesController < ApplicationController
     end
   end
 
-  def listen
+  def listenToAddAccessory
     @ibox = Ibox.find(session[:ibox_id])
     res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Mode.cgi?MODE=A')
     if res[0] == "Success"
       begin
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE')
+        sleep 2
       end while (res[0] == 'MODE=READY')
       sleep 2
       if addAccessories(@ibox.id)
@@ -121,6 +122,50 @@ class IboxesController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def listenToRemoveAccessory
+    @ibox = Ibox.find(session[:ibox_id])
+    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Mode.cgi?MODE=R')
+    if res[0] == "Success"
+      begin
+        res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE')
+      end while (res[0] == 'MODE=READY')
+      sleep 2
+      
+      if removeAccessories(@ibox.id)
+        flash[:notice] = "Se ha eliminado el nuevo accesorio"
+      else
+        flash[:error] = "No se ha eliminado el nuevo accesorio"
+      end
+
+    else
+      flash[:error] = "ERROR"
+    end
+ 
+    respond_to do |format|
+      format.js
+    end
+  end
+  
+  # Función 
+  # Entrada: 
+  # Salida: 
+  def removeAccessories(ibox_id)
+    ret = false
+    @ibox = Ibox.find(ibox_id)
+    @containers = @ibox.ibox_accessories_containers.all
+    @containers.each do |container|
+      container.accessories.each do |accessory|
+        if (!isConectedAccessory(ibox_id, accessory.zid) )
+          accessory.destroy
+          ret = true
+        end
+        logger.debug "################# #{accessory.zid} " 
+        logger.debug "################# #{ret} "
+      end
+    end
+    ret
   end
 
   # Función 
@@ -179,7 +224,7 @@ class IboxesController < ApplicationController
     ret 
   end
  
-  # Descripción: Función que busca si el accesorio está en la base de datos
+  # Descripción: Función que busca si el accesorio conectado al ibox está en la base de datos
   # Entrada: 
   # Salida: True si lo encontró, False si no.
   def isSavedAccessory(ibox_id, zid)
@@ -189,6 +234,20 @@ class IboxesController < ApplicationController
       if (container.accessories.find_by_zid(zid))
         ret = true
       end
+    end
+    ret
+  end  
+  
+  # Descripción: Función que busca si el accesorio conectado al ibox está en la base de datos
+  # Entrada: 
+  # Salida: True si lo encontró, False si no.
+  def isConectedAccessory(ibox_id, zid)
+    ret = true
+    @ibox = Ibox.find(ibox_id)
+    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + zid )
+    logger.debug "################# #{res[0]} " 
+    if (res[0] == 'Fail:501') 
+      ret = false
     end
     ret
   end  

@@ -10,10 +10,20 @@ ul.entries li {
      -moz-border-radius: 8px;
           border-radius: 8px;
 }
+
+ul.entries .icon {
+  margin-top: 0px;
+  float: left;
+  width: 25px;
+  margin-top: -12px;
+  
+}
+
 ul.entries .title {
   margin-top: 0px;
   float: left;
-  width: 150px;
+  margin-left: 20px;
+  width: 200px;
   
   font-size: 18px;
   line-height: 1px;
@@ -24,17 +34,16 @@ ul.entries .title {
 ul.entries .on_off {
   margin-top: -12px;
   float: right;
-  margin-right: 100px;
+  margin-right: 130px;
   width: 10px;
 
   /* todo: color, background + padding-left declarations for thumb icons */
 }
 
 ul.entries .action {
-  float: middle;
-  t: middle;
-  margin-top: 5px;
-  margin-left: 0px;
+  margin-top: -12px;
+  float: right;
+  margin-right: 130px;
   width: 0px;
   /* todo: color, background + padding-left declarations for thumb icons */
 }
