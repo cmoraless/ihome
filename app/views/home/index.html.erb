@@ -1,5 +1,5 @@
-
 <!-- Contenido navbar (barra de arriba) -->
+
 <% content_for :navbar do %>
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
@@ -62,9 +62,10 @@
 		<% if @cameras %>
 			<% if @cameras.length > 0%>
 				<script type="text/javascript">
-				$('#myCarousel').carousel({
-  				interval: 999999
-				});
+				function pauseCarousel(){
+					$("#myCarousel").carousel('pause');
+				}
+				window.onload = pauseCarousel;
 				var ver = function(id,ip,port){
 					$('#camera_'+id).attr('src','http://'+ip+':'+port+'/video.cgi');
 					$('#link_'+id).html("PARAR STREAMING");
@@ -88,13 +89,7 @@
 										<div id="myCarousel" class="carousel slide">
 										  <!-- Carousel items -->
 										  <div class="carousel-inner">
-										    <% for i in 0..@cameras.length-1%>
-										    	<% if i == 0 %>
-										    		<div class="active item offset1"><img id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='http://<%= @cameras[i][:ip] + ':' + @cameras[i][:port]%>/image/jpeg.cgi'><div class="carousel-caption span2"><a id='link_<%=@cameras[i][:id].to_s %>' href='javascript:ver("<%= @cameras[i][:id].to_s %>","<%=@cameras[i][:ip]%>","<%=@cameras[i][:port]%>")'>VER STREAMING</a></div></div>
-										    	<%else%>
-										    		<div class="item offset1"><img id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='http://<%= @cameras[i][:ip] + ':' + @cameras[i][:port]%>/image/jpeg.cgi'><div class="carousel-caption span2"><a id='link_<%=@cameras[i][:id].to_s %>' href='javascript:ver("<%= @cameras[i][:id].to_s %>","<%=@cameras[i][:ip]%>","<%=@cameras[i][:port]%>")'>VER STREAMING</a></div></div>
-										    	<%end%>
-										    <%end%>
+										    <%= render @ibox.cameras %>										    
 										  </div>
 										  <!-- Carousel nav -->
 										  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
@@ -131,3 +126,4 @@
 <%else%>
 	<%= render 'shared/flash_messages' %>
 <%end%>
+
