@@ -23,6 +23,7 @@ class HomeController < ApplicationController
       @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
       @cameras = @ibox.cameras
       #Consumo servicio de camaras para autentificarme
+=begin      
       require 'net/http'
       require 'uri'  
       for i in 0..@cameras.length-1
@@ -38,6 +39,7 @@ class HomeController < ApplicationController
           Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
         end
       end
+=end      
       #logger.debug "########### CAMERAS #{@cameras}"
     else
       flash[:notice] = "Debe habilitar su Ibox en Administracion"
