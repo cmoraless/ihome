@@ -4,9 +4,6 @@
 	  <tr>
 	    <th>Correo</th>
 	    <th>Nombre</th>
-	    <th>Direccion</th>
-	    <th>Telefono</th>
-	    <th>Rut</th>
 	    <th></th>
 	    <th></th>
 	  </tr>
@@ -16,9 +13,6 @@
 		  <tr>
 		    <td><%= user.email %></td>
 		    <td><%= user.name %></td>
-		    <td><%= user.address %></td>
-		    <td><%= user.phone %></td>
-		    <td><%= user.rut %></td>
 		    <td><%= link_to 'Editar', edit_user_path(user), :remote=>true %></td>
 		    <td><%= link_to 'Eliminar', user, :confirm => '¿Estás seguro?',
 		                                     :method => :delete, :remote=>true %></td>	   	
