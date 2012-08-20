@@ -35,24 +35,15 @@
 		</div>
 		
 		<div class="control-group">
-        	<%= user_form.label :Dirección, :class => "control-label" %>
-        	<div class="controls">
-            	<%= user_form.text_field :address, :class => "input-xlarge" %>
-            </div>
-		</div>		
-		
-		<div class="control-group">
-        	<%= user_form.label :Telefono, :class => "control-label" %>
-        	<div class="controls">
-            	<%= user_form.text_field :phone, :class => "input-xlarge" %>
-            </div>
+        	<%= user_form.hidden_field :address, :value => 'address' %>
 		</div>
 		
 		<div class="control-group">
-        	<%= user_form.label :rut, :class => "control-label" %>
-        	<div class="controls">
-            	<%= user_form.text_field :rut, :class => "input-xlarge" %>
-            </div>
+        	<%= user_form.hidden_field :phone, :value => 'phone' %>
+		</div>
+		
+		<div class="control-group">
+        	<%= user_form.hidden_field :rut, :value => 'rut' %>
 		</div>
 		
 		<div class="form-actions">

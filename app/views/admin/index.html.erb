@@ -41,7 +41,11 @@
 	<div style="visibility: hidden;" class="row-fluid">.</div>
 	<div class="row-fluid">
 		<div class="span8 offset1">
-			<%= render "iboxes/enable" %>
+			<%if @iboxes.length > 0 %>
+				<%= render "iboxes/all2" %>
+				<br />
+			<%end%>
+			<%= link_to "Habilitar Ibox", show_enable_path, {:remote => true} %>
 		</div>
 	</div>
 <%end%>
