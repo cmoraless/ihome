@@ -11,7 +11,9 @@ class HomeadminController < ApplicationController
       @accessory = AccessoryType.new(:name=>'Dimmers')
       @accessory.save
       @accessory = AccessoryType.new(:name=>'Sensores')
-      @accessory.save      
+      @accessory.save
+      @accessory = AccessoryType.new(:name=>'Riego')
+      @accessory.save  
     end
     @accessory_types = AccessoryType.all
     @users = User.all

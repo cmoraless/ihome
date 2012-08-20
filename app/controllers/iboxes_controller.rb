@@ -117,7 +117,7 @@ class IboxesController < ApplicationController
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE')
         sleep 2
       end while (res[0] == 'MODE=READY')
-      sleep 2
+      sleep 4
       if addAccessories(@ibox.id)
         flash[:notice] = "Se ha agregado el nuevo accesorio"
       else
@@ -138,8 +138,9 @@ class IboxesController < ApplicationController
     if res[0] == "Success"
       begin
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE')
+        sleep 2
       end while (res[0] == 'MODE=READY')
-      sleep 2
+      sleep 4
       
       if removeAccessories(@ibox.id)
         flash[:notice] = "Se pudo eliminar el nuevo accesorio"
@@ -199,8 +200,13 @@ class IboxesController < ApplicationController
        
         #Se determina el tipo de accesorio del accesorio
         if (@accessory.kind == "BinarySwitch")
-          @accessory_type = AccessoryType.find_by_name("Luces")
-          @accessory.update_attribute(:name, "luz 0"+i.to_s)
+          if (res[3+12*i].to_s.split('=')[1] == "400")
+            @accessory_type = AccessoryType.find_by_name("Riego")
+            @accessory.update_attribute(:name, "aspersor 0"+i.to_s)
+          else
+            @accessory_type = AccessoryType.find_by_name("Luces")
+            @accessory.update_attribute(:name, "luces 0"+i.to_s)
+          end
         end
         if (@accessory.kind == "MultiLevelSwitch")
           if (@accessory.cmdclass == "AllOnOff,Configuration")
