@@ -1,0 +1,25 @@
+	
+	<% if @accessories %>
+		<h1>Accesorios</h1>
+		<table class="table table-striped">
+		  <tr>
+		    <th>Nombre</th>
+		    <th>Tipo</th>
+		    <th></th>
+		  </tr>
+		<% for i in 0..@accessories.length-1 %>
+			  <% for j in 0..@accessories[i].length-1%>
+			  <tr>
+			  	<th><%= @accessories[i][j][:name] %></th>
+			  	<th><%= @containers[i][:name] %></th>
+			  	<th><%= link_to "Editar", edit_accessory_path(@accessories[i][j]), :remote=>true%></th>
+			  </tr>
+			  <% end%>
+		<% end %>
+		</table>
+	<%else%>
+		<%= render 'shared/flash_messages' %>
+	<%end%>
+	<br />		
+
+

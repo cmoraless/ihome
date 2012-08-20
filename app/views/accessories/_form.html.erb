@@ -1,4 +1,7 @@
 <%= form_for(@accessory,:remote=>true) do |f| %>
+  <div class="field">
+    <%= f.label :Nombre %>   <%= f.text_field :name %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

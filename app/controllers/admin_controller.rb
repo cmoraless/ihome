@@ -20,7 +20,14 @@ class AdminController < ApplicationController
     elsif session[:ibox_id]
       @ibox = Ibox.find(session[:ibox_id])
       @users = @ibox.users
-      @cameras = @ibox.cameras  
+      @cameras = @ibox.cameras
+      @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+      @accessories = []
+      @containers.each do |container|
+        @accessories << container.accessories
+        logger.debug "############### #{container.accessories[0][:name]}"
+      end  
+      #logger.debug "############### #{@accessories}"
     end
   #  if @iboxes.length == 0
   #    flash[:notice] = "Debe tener por lo menos un IBox para agregar/editar usuarios."

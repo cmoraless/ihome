@@ -60,8 +60,14 @@ class AccessoriesController < ApplicationController
 
     respond_to do |format|
       if @accessory.update_attributes(params[:accessory])
-        format.html { redirect_to @accessory, notice: 'Accessory was successfully updated.' }
-        format.json { head :no_content }
+        @ibox = Ibox.find(session[:ibox_id])
+        @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+        @accessories = []
+        @containers.each do |container|
+        @accessories << container.accessories
+        logger.debug "############### #{container.accessories[0][:name]}"
+      end  
+        format.js
       else
         format.html { render action: "edit" }
         format.json { render json: @accessory.errors, status: :unprocessable_entity }

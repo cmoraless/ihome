@@ -1,0 +1,5 @@
+$('#accessories').empty();
+$('#accessories').append('<h1>Editando Usuario <%= @accessory.name %></h1>');
+$('#accessories').append('<div class="row-fluid"><div class="span12"></div></div>');
+$('#accessories').append('<%= escape_javascript(render(:partial => 'form'))%>');
+$('#accessories').append('<%= link_to 'Back', :back %>');
