@@ -1,8 +1,13 @@
 <%= form_for(@accessory,:remote=>true) do |f| %>
-  <div class="field">
-    <%= f.label :Nombre %>   <%= f.text_field :name %>
+  <fieldset>
+  <div class="control-group">
+    <%= f.label :Nombre, :class=>"control-label"%>   
+    <div class="controls">
+    	<%= f.text_field :name %>
+  	</div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.submit :Actualizar, :class => "btn btn-primary" %>
   </div>
+  </fieldset>
 <% end %>
