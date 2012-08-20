@@ -1,10 +1,26 @@
 class HomeController < ApplicationController
   before_filter :check_auth
+  before_filter :check_mobile, :only => [:index]
   def check_auth
     if session[:user_id] == nil
       redirect_to(root_path)
     end
   end
+  
+  def check_mobile
+    if request.user_agent =~ /Android/i
+      session[:mobile] = true
+    elsif request.user_agent =~ /BlackBerry/i
+      session[:mobile] = true
+    elsif request.user_agent =~ /iPhone|iPad|iPod/i
+      session[:mobile] = true
+    elsif request.user_agent =~ /IEMobile/i
+      session[:mobile] = true
+    else
+      session[:mobile] = false
+    end
+  end
+  
   
   def index
     @user = User.find(session[:user_id])
@@ -16,7 +32,6 @@ class HomeController < ApplicationController
     else
       @ibox = @user.iboxes.first
     end  
-    
     # Toma todos los contenedores del ibox
     if !@ibox.nil?
       session[:ibox_id] = @ibox.id

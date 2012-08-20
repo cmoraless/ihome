@@ -1,26 +1,26 @@
-
 <% if camera.id == @ibox.cameras[0][:id] %>
-<div class="active item offset1">
+	<div class="active item offset1">
 <%else%>
-<div class="item offset1">
+	<div class="item offset1">
 <%end%>
-<form action="http://<%= camera.ip + ':' + camera.port%>/Jview.htm" method="POST"></form>
-  <table border="0" cellspacing="0" cellpadding="0">
-	  <tbody>
-	  <tr>
-	  <td bgcolor="black"><font color="white"><%= camera.name %><br></font></td>
-	  </tr>
-	  <tr>
-	    <td colspan="2" align="center" bgcolor="white">
-	      <applet name="cvcs" codebase="http://<%= camera.ip + ':' + camera.port%>/" code="xplug.class" width="320" height="240">
-	      <param name="RemotePort" value="<%= camera.port %>">
-	      <param name="Timeout" value="5000">
-	      <param name="RotateAngle" value="0">
-	      <param name="PreviewFrameRate" value="2">
-	      <param name="DeviceSerialNo" value="">
-	      </applet>
-	    </td>
-	  </tr>
-	  </tbody>
-</table>
-</div>
+	<form action="http://<%= camera.ip + ':' + camera.port%>/Jview.htm" method="POST"></form>
+	  <table border="0" cellspacing="0" cellpadding="0">
+		  <tbody>
+		  <tr>
+		  <td bgcolor="black"><font color="white"><%= camera.name %><br></font></td>
+		  </tr>
+		  <tr>
+		    <td colspan="2" align="center" bgcolor="white">
+		      <applet name="cvcs" codebase="http://<%= camera.ip + ':' + camera.port%>/" code="xplug.class" width="320" height="240">
+		      <param name="RemotePort" value="<%= camera.port %>">
+		      <param name="Timeout" value="5000">
+		      <param name="RotateAngle" value="0">
+		      <param name="PreviewFrameRate" value="2">
+		      <param name="DeviceSerialNo" value="">
+		      </applet>
+		    </td>
+		  </tr>
+		  </tbody>
+		</table>
+	</div>
+
