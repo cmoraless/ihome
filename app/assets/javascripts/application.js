@@ -18,3 +18,4 @@
 $('.delete_accessory_type').bind('ajax:success', function() {  
     $(this).closest('tr').fadeOut();  
 });  
+

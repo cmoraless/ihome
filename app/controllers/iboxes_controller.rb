@@ -61,6 +61,13 @@ class IboxesController < ApplicationController
       end
     end
   end
+  
+  def get_content_to_display
+    #Place code here
+    render :update do |page|
+      page.replace_html "display_ajax", :partial => 'waiting'
+    end
+  end
 
   def destroy
     @ibox = Ibox.find(params[:id])
@@ -114,7 +121,8 @@ class IboxesController < ApplicationController
       if addAccessories(@ibox.id)
         flash[:notice] = "Se ha agregado el nuevo accesorio"
       else
-        flash[:error] = "No se ha agregado el nuevo accesorio"
+        res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE')
+        flash[:error] = "No se pudo agregar el nuevo accesorio"
       end
     else
       flash[:error] = "ERROR"
@@ -134,8 +142,9 @@ class IboxesController < ApplicationController
       sleep 2
       
       if removeAccessories(@ibox.id)
-        flash[:notice] = "Se ha eliminado el nuevo accesorio"
+        flash[:notice] = "Se pudo eliminar el nuevo accesorio"
       else
+        res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE')
         flash[:error] = "No se ha eliminado el nuevo accesorio"
       end
 
@@ -182,7 +191,6 @@ class IboxesController < ApplicationController
         @accessory = Accessory.new
         @accessory.update_attribute(:zid, res[0+12*i].to_s.split('=')[1])
         @accessory.update_attribute(:kind, res[1+12*i].to_s.split('=')[1])
-        @accessory.update_attribute(:name, res[2+12*i].to_s.split('=')[1])
         @accessory.update_attribute(:cmdclass, res[10+12*i].to_s.split('=')[1])
         
         resacc = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + @accessory.zid)
@@ -192,16 +200,20 @@ class IboxesController < ApplicationController
         #Se determina el tipo de accesorio del accesorio
         if (@accessory.kind == "BinarySwitch")
           @accessory_type = AccessoryType.find_by_name("Luces")
+          @accessory.update_attribute(:name, "luz 0"+i.to_s)
         end
         if (@accessory.kind == "MultiLevelSwitch")
           if (@accessory.cmdclass == "AllOnOff,Configuration")
             @accessory_type = AccessoryType.find_by_name("Dimmers")
+            @accessory.update_attribute(:name, "dimmer 0"+i.to_s)
           else
             @accessory_type = AccessoryType.find_by_name("Cortinas")
+            @accessory.update_attribute(:name, "cortina 0"+i.to_s)
           end
         end
         if (@accessory.kind == "BinarySensor")
           @accessory_type = AccessoryType.find_by_name("Sensores")
+          @accessory.update_attribute(:name, "sensor 0"+i.to_s)
         end
         
         #Si no existe se crea el contenedor del tipo de accesorio en el Ibox
