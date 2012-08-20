@@ -100,6 +100,12 @@ class IboxesController < ApplicationController
     end
   end
   
+  def showEnable
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   def addDefaultAccessories
     @ibox = Ibox.find(session[:ibox_id])
     if addAccessories(@ibox.id) 

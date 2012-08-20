@@ -1,6 +1,8 @@
 
 <%content_for :iboxes do%>
 <%= render :partial => "iboxes/all" %>
+<br />
+<%= link_to "Crear Ibox", new_ibox_path, :remote => true %>
 <%end%>
 
 <%content_for :accessories do%>

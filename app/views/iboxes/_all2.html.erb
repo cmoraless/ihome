@@ -1,13 +1,12 @@
+<!-- PARTIAL PARA LISTAR IBOXES DE UN USUARIO -->
 <h1>Iboxs creados</h1>
 
 <table>
   <tr>
- 	<th>Id</th>
+ 		<th>Id</th>
     <th>Nombre</th>
     <th>IP</th>
     <th>Puerto</th>
-    <th>Activo</th>    
-    <th></th>
     <th></th>
     <th></th>
   </tr>
@@ -18,10 +17,8 @@
   	<td><%= ibox.name %></td>
     <td><%= ibox.ip %></td>
     <td><%= ibox.port %></td>
-    <td><%= ibox.isActive ? 'si' : 'no' %><td>
-
+		<td></td>
     <td><%= link_to 'Edit', edit_ibox_path(ibox), :remote => true %></td>
-    <td><%= link_to 'Destroy', ibox, method: :delete, :remote => true, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
