@@ -11,7 +11,7 @@
 		  </tr>
 		  <tr>
 		    <td colspan="2" align="center" bgcolor="white">
-		      <applet name="cvcs" codebase="http://<%= camera.ip + ':' + camera.port%>/" code="xplug.class" width="320" height="240">
+		      <applet id="camera_<%= camera.id.to_s %>" name="cvcs_<%= camera.id.to_s %>" codebase="http://<%= camera.ip + ':' + camera.port%>/" code="xplug.class" width="320" height="240">
 		      <param name="RemotePort" value="<%= camera.port %>">
 		      <param name="Timeout" value="5000">
 		      <param name="RotateAngle" value="0">
