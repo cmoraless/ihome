@@ -23,7 +23,7 @@
         <ul class="dropdown-menu">
 		<% if @iboxes.length > 0%>
           	<% for i in 0..@iboxes.length-1 %>
-          	  <li><%= link_to @iboxes[i][:name], :controller => "home", :action => "index", :id => @iboxes[i][:id] %></li>
+          	  <li><%= link_to @iboxes[i][:name], :controller => "home", :action => "changeIbox", :id => @iboxes[i][:id] %></li>
     		<%end%>
 		<%end%>
         </ul>

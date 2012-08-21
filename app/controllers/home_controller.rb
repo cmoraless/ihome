@@ -21,42 +21,26 @@ class HomeController < ApplicationController
     end
   end
   
+  def changeIbox
+    session[:ibox_id] = params[:id]
+    redirect_to :controller=> "home", :action=>"index"
+  end
   
   def index
     @user = User.find(session[:user_id])
     @iboxes = @user.iboxes
-    # Toma ibox seleccionado o por defecto el primero
-    if (params[:id])
-      @ibox = Ibox.find(params[:id])
-      session[:ibox_id] = @ibox.id
+    #si existe la session[:ibox_id] lo busca, si no pesca el primer ibox del usuario
+    if session[:ibox_id]
+      @ibox = Ibox.find(session[:ibox_id])
     else
       @ibox = @user.iboxes.first
-    end  
-    # Toma todos los contenedores del ibox
-    if !@ibox.nil?
+    end
+    
+    if !@ibox.nil? #si existe el ibox del usuario agarrado anteriormente =>  Toma todos los contenedores del ibox
       session[:ibox_id] = @ibox.id
       @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
       @cameras = @ibox.cameras
-      #Consumo servicio de camaras para autentificarme
-=begin      
-      require 'net/http'
-      require 'uri'  
-      for i in 0..@cameras.length-1
-        ws = 'http://' + @cameras[i][:ip] + ':' + @cameras[i][:port]
-        uri = URI.parse(ws)
-        begin
-          http = Net::HTTP.new(uri.host, uri.port)
-          request = Net::HTTP::Get.new(uri.request_uri)
-          request.basic_auth(@cameras[i][:user], @cameras[i][:password])
-          response = http.request(request)
-          logger.debug "#########RESPONSEEE #{response}"
-        rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
-          Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
-        end
-      end
-=end      
-      #logger.debug "########### CAMERAS #{@cameras}"
-    else
+   else
       flash[:notice] = "Debe habilitar su Ibox en Administracion"
     end
   end
