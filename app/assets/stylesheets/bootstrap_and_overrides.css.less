@@ -3,6 +3,7 @@ body {
 	padding-top: 60px;
 	padding-left: 20px;
 	//background-image:url('cielo.png');
+	background-image:url('fondo4.jpg');
 }
 
 @import "twitter/bootstrap/responsive";
@@ -31,11 +32,25 @@ body {
 // See http://twitter.github.com/bootstrap/less.html for their names and documentation
 //
 // Example:
-// @linkColor: #ff0000;
-// @bodyBackground : @black;
-// @heroUnitBackground : @gray;
-// @navbarBackground : @black;
-//@bodyBackground : @grayDark;
+ @linkColor: @grayDark;
+ @bodyBackground : @black;
+ @heroUnitBackground : @gray;
+ //@navbarBackground : @black;
+ //@bodyBackground : @grayDark;
+ 
+ .fill {
+  #translucent > .background(@blue, 0.2);
+  .border-radius(0px);
+  margin-top: -20px; 
+  }
+  
+  .accordion{
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    #translucent > .background(@white, 0.7);
+    .border-radius(5px);
+  }
 
 
 
