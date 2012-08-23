@@ -13,23 +13,18 @@
 
 			<!-- Nombre -->
 			<span class="title"><%= accessory.name %></span>
-			
+			 <input class="span2" type="range" name="<%=accessory.zid%>" id="<%=accessory.zid%>" value="<%=accessory.value%>" min="0" max="9" />
+
 			<!-- Script Controlador AJAX -->
 			<script type="text/javascript">
 				$(function() {
-					$( "#<%=accessory.zid%>" ).slider({
-						value: <%=accessory.value%>,
-						min: 0,
-						max: 9,
-						step: 1,
-						slide: function( event, ui ) {
-							$.post('accessories/control', { zid: '<%=accessory.zid%>', value: ui.value, kind: '<%=accessory.kind%>'});
-						}
+					$("input#<%=accessory.zid%>").slider();
+					$("input#<%=accessory.zid%>").bind("change",function(event,ui) {
+						$.post('accessories/control', { zid: '<%=accessory.zid%>', value: $("input#<%=accessory.zid%>").val(), kind: '<%=accessory.kind%>'});
 					});
 				});
 			</script>
-			<!-- DIV del Controlador AJAX -->
-			<div class="span1 offset2" id="<%=accessory.zid%>">	</div>
+			
 			
 		<!--  -->
 		<!-- Cortinas -->
