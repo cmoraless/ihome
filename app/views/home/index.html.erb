@@ -25,21 +25,36 @@
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-		<% if @iboxes.length > 0%>
-          	<% for i in 0..@iboxes.length-1 %>
-          	  <li><%= link_to @iboxes[i][:name], :controller => "home", :action => "changeIbox", :id => @iboxes[i][:id] %></li>
-    		<%end%>
-		<%end%>
+					<% if @iboxes.length > 0%>
+						<% for i in 0..@iboxes.length-1 %>
+			    	  <li><%= link_to @iboxes[i][:name], :controller => "home", :action => "changeIbox", :id => @iboxes[i][:id] %></li>
+			  		<%end%>
+					<%end%>
         </ul>
       </div>
-      <div class="nav-collapse">
-        <ul class="nav">
+      <% if session[:mobile] == true %>
+      	<ul class="nav">
+	        <li class="dropdown">  
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+	      		Control
+	      		<b class="caret"></b>
+	    		</a>
+	          <ul class="dropdown-menu"
+	          <li><%= link_to "Control", :controller=>"home", :action=>"index"%></li>
+	          <% if @user.isAdmin %>
+	          	<li><%= link_to "Administración", :controller=>"admin", :action=>"index"%></li>
+	        	<%end%>
+	      		</ul>
+	      	</li>
+        </ul>
+     	<% else %>
+	     	<ul class="nav">
           <li class="active"><%= link_to "Control", :controller=>"home", :action=>"index"%></li>
           <% if @user.isAdmin %>
-          <li><%= link_to "Administración", :controller=>"admin", :action=>"index"%></li>
+          	<li><%= link_to "Administración", :controller=>"admin", :action=>"index"%></li>
         	<%end%>
         </ul>
-      </div>
+    	<%end%>
     </div>
   </div>
 </div>
@@ -67,7 +82,7 @@
 				<script type="text/javascript">
 				function pauseCarousel(){
 					$("#myCarousel").carousel('pause');
-				}
+				}				
 				window.onload = pauseCarousel;
 				var ver = function(id,ip,port){
 					$('#camera_'+id).attr('src','http://'+ip+':'+port+'/video.cgi');
@@ -95,7 +110,7 @@
 										    <% if session[:mobile] == false %>
 										    	<%= render @ibox.cameras %>										    
 										  	<% else %>
-											  	<% for i in 0..@cameras.length-1%>
+											  	<% for i in 0..@cameras.length-1%>											    	
 											    	<% if i == 0 %>
 											    		<div class="active item offset1"><img id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='http://<%= @cameras[i][:ip] + ':' + @cameras[i][:port]%>/image/jpeg.cgi'><div class="carousel-caption span2"><a id='link_<%=@cameras[i][:id].to_s %>' href='javascript:ver("<%= @cameras[i][:id].to_s %>","<%=@cameras[i][:ip]%>","<%=@cameras[i][:port]%>")'>VER STREAMING</a></div></div>
 											    	<%else%>

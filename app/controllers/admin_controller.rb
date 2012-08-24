@@ -11,6 +11,11 @@ class AdminController < ApplicationController
     end    
   end
   
+  def changeIbox
+    session[:ibox_id] = params[:id]
+    redirect_to :controller=> "admin", :action=>"index"
+  end
+  
   def index
     @user = User.find(session[:user_id])
     @iboxes = @user.iboxes
