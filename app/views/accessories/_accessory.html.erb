@@ -1,5 +1,5 @@
 <div class="span6 offset1">
-<li>
+<li> 
 
 	<%if accessory.kind == 'MultiLevelSwitch'%>
 	
@@ -13,8 +13,12 @@
 
 			<!-- Nombre -->
 			<span class="title"><%= accessory.name %></span>
-			 <input class="span2" type="range" name="<%=accessory.zid%>" id="<%=accessory.zid%>" value="<%=accessory.value%>" min="0" max="9" />
-
+			<!-- Input Controlador AJAX -->
+			<div class="on_off">
+				<div class="span2">
+					<input style ="display: none !important;" type="range" name="<%=accessory.zid%>" id="<%=accessory.zid%>" value="<%=accessory.value%>" min="0" max="9" data-theme="a" data-track-theme="b" />
+				</div>
+			</div>
 			<!-- Script Controlador AJAX -->
 			<script type="text/javascript">
 				$(function() {
