@@ -29,6 +29,7 @@ class HomeController < ApplicationController
   def index
     @user = User.find(session[:user_id])
     @iboxes = @user.iboxes
+    @profiles = @user.profiles
     #si existe la session[:ibox_id] lo busca, si no pesca el primer ibox del usuario
     if session[:ibox_id]
       @ibox = Ibox.find(session[:ibox_id])

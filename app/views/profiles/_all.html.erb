@@ -1,0 +1,29 @@
+
+<h1>Perfiles</h1>
+
+<table class="table table-striped">
+  <tr>
+ 	<th>Id</th>
+    <th>Nombre</th>
+    <th>Activo</th>    
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @profiles.each do |profile| %>
+  <tr>
+  	<td><%= profile.id %></td>
+  	<td><%= profile.name %></td>
+    <td><%= profile.isActive ? 'si' : 'no' %><td>
+
+    <td><%= link_to 'Show', profile, :remote => :true %></td>
+    <td><%= link_to 'Edit', edit_profile_path(profile), :remote => :true %></td>
+    <td><%= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' }, :remote => :true %></td>
+  </tr>
+<% end %>
+</table>
+
+
+
+

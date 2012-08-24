@@ -8,6 +8,7 @@ class CreateAccessories < ActiveRecord::Migration
       t.string :cmdclass
       t.boolean :state
       t.boolean :isScheduled
+      t.boolean :isPublic
       t.references :accessory_type
 
       t.timestamps

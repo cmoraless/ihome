@@ -4,15 +4,17 @@
 		<table class="table table-striped">
 		  <tr>
 		    <th>Nombre</th>
-		    <th>Tipo</th>
+		    <th>Tipo</th><br />		    
+		    <th>Público</th>
 		    <th></th>
 		  </tr>
 		<% for i in 0..@accessories.length-1 %>
 			  <% for j in 0..@accessories[i].length-1%>
 			  <tr>
-			  	<th><%= @accessories[i][j][:name] %></th>
-			  	<th><%= @containers[i][:name] %></th>
-			  	<th><%= link_to "Editar", edit_accessory_path(@accessories[i][j]), :remote=>true%></th>
+			  	<td><%= @accessories[i][j][:name] %></td>
+			  	<td><%= @containers[i][:name] %></td>
+			  	<td><%= @accessories[i][j][:isPublic] ? 'si' : 'no'  %></td>
+			  	<td><%= link_to "Editar", edit_accessory_path(@accessories[i][j]), :remote=>true%></td><br />
 			  </tr>
 			  <% end%>
 		<% end %>
