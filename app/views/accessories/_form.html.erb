@@ -1,11 +1,44 @@
 <%= form_for(@accessory,:remote=>true, :html => {:class => "form-horizontal"}) do |f| %>
-  <fieldset>
-  <div class="control-group">
-    <%= f.label :Nombre, :class=> "control-label" %>   
-    <div class="controls">
-    	<%= f.text_field :name, :class => "input-xlarge" %>
+  	<fieldset>
+  	
+  	<div class="control-group">
+    	<%= f.label :Nombre, :class=> "control-label" %>   
+    	<div class="controls">
+    		<%= f.text_field :name, :class => "input-xlarge" %>
+	  	</div>
   	</div>
-  </div>
+
+  	<div class="control-group">
+    	<%= f.label :Privacidad, :class=> "control-label" %>   
+    	<div class="controls">
+    	
+    		<%= f.hidden_field :isPublic, :value => false %>
+    		<div class="btn-group" data-toggle-name="isPublic" data-toggle="buttons-radio" >
+				<button type="button" value="0" class="btn" data-toggle="button">Publico</button>
+  				<button type="button" value="1" class="btn" data-toggle="button">Privado</button>
+			</div>
+   			<script type="text/javascript"> 	
+    		jQuery(function($) {
+ 				 $('div.btn-group[data-toggle-name=*]').each(function(){
+    				var group   = $(this);
+    				var form    = group.parents('form').eq(0);
+    				var name    = group.attr('data-toggle-name');
+    				var hidden  = $('input[name="' + name + '"]', form);
+    				$('button', group).each(function(){
+      					var button = $(this);
+      					button.live('click', function(){
+          					hidden.val($(this).val());
+	      				});
+    	  				if(button.val() == hidden.val()) {
+        					button.addClass('active');
+      					}
+    				});
+  				});
+			});
+    		</script>
+  		</div>
+  	</div>
+  
   <div class="form-actions">
     <%= f.submit :Actualizar, :class => "btn btn-primary" %>
   </div>

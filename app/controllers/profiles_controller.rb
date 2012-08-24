@@ -29,8 +29,7 @@ class ProfilesController < ApplicationController
     @user = User.find(session[:user_id])
     @ibox = Ibox.find(session[:ibox_id])
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @profile }
+      format.js
     end
   end
 
@@ -81,8 +80,8 @@ class ProfilesController < ApplicationController
     @profile.destroy
 
     respond_to do |format|
-      format.html { redirect_to profiles_url }
-      format.json { head :no_content }
+      format.js 
+
     end
   end
 end

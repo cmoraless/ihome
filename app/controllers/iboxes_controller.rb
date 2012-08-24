@@ -178,7 +178,6 @@ class IboxesController < ApplicationController
           ret = true
         end
         logger.debug "################# #{accessory.zid} " 
-        logger.debug "################# #{ret} "
       end
     end
     ret
@@ -203,6 +202,9 @@ class IboxesController < ApplicationController
         resacc = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + @accessory.zid)
       
         @accessory.update_attribute(:value, resacc[2].to_s.split('=')[1])
+        #has no owner => is public
+        @accessory.update_attribute(:isPublic, true)
+        @accessory.update_attribute(:isScheduled, false)
        
         #Se determina el tipo de accesorio del accesorio
         if (@accessory.kind == "BinarySwitch")
@@ -269,7 +271,6 @@ class IboxesController < ApplicationController
     ret = true
     @ibox = Ibox.find(ibox_id)
     res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + zid )
-    logger.debug "################# #{res[0]} " 
     if (res[0] == 'Fail:501') 
       ret = false
     end

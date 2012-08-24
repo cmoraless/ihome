@@ -1,28 +1,26 @@
-<%= form_for(@profile) do |f| %>
-  <% if @profile.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
-
-      <ul>
-      <% @profile.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-<%= form_for(@profile) do |profile_form| %>
+<%= form_for(@profile, :remote => true) do |profile_form| %>
   
  	<div class="field">
-    <%= profile_form.label :name%>
-    <%= profile_form.text_field :name %>
-  </div>
+    	<%= profile_form.label :name%>
+    	<%= profile_form.text_field :name %>
+  	</div>
  	<div class="field">
-    <%= profile_form.hidden_field :isActive, :value => false %>
+    	<%= profile_form.hidden_field :isActive, :value => false %>
  	</div>
  	
-  <div class="actions">
-    <%= profile_form.submit %>
-  </div>
-<% end %>
+	<div class="actions">
+		<%= profile_form.submit %>
+	</div>
+	
+	<select id='disabled-attribute' disabled='disabled' multiple='multiple'>
+
+
+ <!-- TOOOOOOOOOOOOOOOOOODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO-->
+	<% @user.accessories.each do |accessory| %>
+		<option value='fr'>accessory.</option>
+
+    <% end %>
+    
+    </select>
+
 <% end %>
