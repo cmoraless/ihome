@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   
   # atributos:
   #set_primary_key 'email'
-  attr_accessible :address, :email, :password, :password_confirmation, :isAdmin, :name, :phone, :rut
+  attr_accessible :address, :email, :password, :password_confirmation, :isAdmin, :name, :phone, :rut, :accessory_ids
   attr_accessor :password
   before_save :encrypt_password
   
