@@ -1,0 +1,38 @@
+<div class="span6 offset1">
+<li> 
+	<!-- Icono -->
+	<span class="icon"> <%= image_tag("scene.png", :ratio => ".3")%></span>
+	<!-- Nombre -->
+	<span class="title"><%= profile.name %></span>
+	<!-- Input Controlador AJAX -->
+	<div class="profile">
+		<% if profile.isActive == false %>
+	    	<input class="checkbox" type="checkbox" id="<%= profile.id%>" />
+		<%else%>
+	    	<input class="checkbox" type="checkbox" checked="checked" id="<%= profile.id%>" />
+		<%end%>
+	</div>
+	<!-- Script Controlador AJAX -->
+	<script type="text/javascript" charset="utf-8">
+		$('.<%=profile.id%> :checkbox').iphoneStyle();
+  		var onchange_checkbox = ($('.profile :checkbox')).iphoneStyle({
+    		onChange: function(elem, value) { 
+      			if (value == true){
+      				$.post('profiles/control', { id: '<%=profile.id%>', value: true});
+      			}else{
+          			$.post('profiles/control', { id: '<%=profile.id%>', value: false});
+	      		}
+    		}
+  		});
+	</script>
+
+	<span class="edit">
+		<%= link_to 'Editar', edit_profile_path(profile), :class => 'btn btn-mini', :remote=>true %>
+	</span>
+	
+	<span class="delete">
+		<%= link_to 'Eliminar', profile, :confirm => '¿Estás seguro?', :method => :delete, :class => 'btn btn-mini btn-danger', :remote=>true %>
+	</span>
+
+</li>
+</div>

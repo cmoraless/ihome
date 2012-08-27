@@ -1,6 +1,7 @@
 <%= form_for(@accessory,:remote=>true, :html => {:class => "form-horizontal"}) do |f| %>
+
   	<fieldset>
-  	
+	
   		<div class="control-group">
     		<%= f.label :Nombre, :class=> "control-label" %>   
     		<div class="controls">
@@ -37,12 +38,8 @@
             		    <%= check_box_tag "accessory[user_ids][]", user.id, @accessory.users.include?(user) %>
                 		<%= user.name %>
         			</div>
-   <% end %>
-   
-   
-   
-     				<!-- <%=f.collection_select 'users', User.all, :id, :name,  {}, {:multiple => true} %>-->
-  				</div>
+   					<% end %>  
+   				</div>
   			
  			</div>
 

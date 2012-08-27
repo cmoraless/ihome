@@ -1,5 +1,5 @@
 
-<h1>Perfiles</h1>
+<h3>Perfiles</h3>
 
 <table class="table table-striped">
   <tr>
@@ -22,7 +22,10 @@
     <td><%= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' }, :remote => :true %></td>
   </tr>
 <% end %>
+
 </table>
+
+<%= link_to 'Crear Perfil', new_profile_path, :remote => true %>
 
 
 

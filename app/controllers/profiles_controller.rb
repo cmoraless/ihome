@@ -10,6 +10,13 @@ class ProfilesController < ApplicationController
       format.json { render json: @profiles }
     end
   end
+  
+  
+  def control
+    @profile = Profile.find_by_id(params[:id])
+    @profile.update_attribute(:isActive, params[:value])   
+  end
+
 
   # GET /profiles/1
   # GET /profiles/1.json
@@ -84,4 +91,6 @@ class ProfilesController < ApplicationController
 
     end
   end
+  
+  
 end
