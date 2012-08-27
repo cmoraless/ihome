@@ -6,9 +6,9 @@
  	<th>Id</th>
     <th>Nombre</th>
     <th>IP</th>
-    <th></th>
-    <th></th>
     <th>Puerto</th>
+    <th>Usuario</th>
+    <th>Contraseña</th>
     <th>Acciones</th>
   </tr>
 
@@ -18,14 +18,9 @@
   	<td><%= ibox.name %></td>
     <td><%= ibox.ip %></td>
     <td><%= ibox.port %></td>
-<<<<<<< HEAD
     <td><%= ibox.user %></td>
     <td><%= ibox.password %></td>
-		<td></td>
-    <td><%= link_to 'Editar', edit_ibox_path(ibox), :remote => true %></td>
-=======
     <td><%= link_to 'Editar', edit_ibox_path(ibox), :class => 'btn btn-mini', :remote => true %></td>
->>>>>>> 8506edda6ea2b8b89f0d9da037214b32f2f17efa
   </tr>
 <% end %>
 </table>
