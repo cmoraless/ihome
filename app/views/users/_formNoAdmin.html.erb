@@ -1,7 +1,10 @@
-<%= form_for(@user,:remote=>@remoto, :html => {:class => "form-horizontal"}) do |user_form| %>
+<%= form_for(@user,:remote=>true, :html => {:class => "form-horizontal"}) do |user_form| %>
+	
 	<fieldset>
 		<legend>Usuario</legend>
-		
+		<% if user_form.error_messages != nil%>
+   		<%= render "shared/flash_messages"%>
+ 		<%end%>
 		<div class="control-group">
         	<%= user_form.label :email, :class => "control-label" %>
         	<div class="controls">
@@ -33,7 +36,9 @@
 		<div class="control-group">
         	<%= user_form.hidden_field :isAdmin, :value => false %>
 		</div>
-		
+		<div class="control-group">
+        	<%= user_form.hidden_field :isSuperAdmin, :value => false %>
+		</div>
 		<div class="control-group">
         	<%= user_form.hidden_field :address, :value => 'address' %>
 		</div>
@@ -47,7 +52,7 @@
 		</div>
 		
 		<div class="form-actions">
-            <%= user_form.submit :Crear, :class => "btn btn-primary" %>
+            <%= user_form.submit :class => "btn btn-primary" %>
         </div>
 				
  	</fieldset>

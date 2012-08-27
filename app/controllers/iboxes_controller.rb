@@ -44,7 +44,8 @@ class IboxesController < ApplicationController
         @iboxes = Ibox.all
         format.js
       else
-        format.js
+        flash[:error] = "Ha ocurrido un error al guardar el Ibox. Porfavor revise los atributos."
+        format.js {render :action => 'new'}
       end
     end
   end
@@ -55,9 +56,11 @@ class IboxesController < ApplicationController
     respond_to do |format|
       if @ibox.update_attributes(params[:ibox])
         @iboxes = Ibox.all
+        @user = User.find(session[:user_id])
         format.js 
       else
-        format.js 
+        flash[:error] = "Ha ocurrido un error al editar el Ibox. Porfavor revise los atributos."
+        format.js {render :action => 'edit'}
       end
     end
   end
@@ -117,17 +120,17 @@ class IboxesController < ApplicationController
 
   def listenToAddAccessory
     @ibox = Ibox.find(session[:ibox_id])
-    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Mode.cgi?MODE=A')
+    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Mode.cgi?MODE=A',@ibox.user,@ibox.password)
     if res[0] == "Success"
       begin
-        res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE')
+        res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
         sleep 2
       end while (res[0] == 'MODE=READY')
       sleep 4
       if addAccessories(@ibox.id)
         flash[:notice] = "Se ha agregado el nuevo accesorio"
       else
-        res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE')
+        res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
         flash[:error] = "No se pudo agregar el nuevo accesorio"
       end
     else
@@ -140,10 +143,10 @@ class IboxesController < ApplicationController
 
   def listenToRemoveAccessory
     @ibox = Ibox.find(session[:ibox_id])
-    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Mode.cgi?MODE=R')
+    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Mode.cgi?MODE=R',@ibox.user,@ibox.password)
     if res[0] == "Success"
       begin
-        res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE')
+        res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
         sleep 2
       end while (res[0] == 'MODE=READY')
       sleep 4
@@ -151,7 +154,7 @@ class IboxesController < ApplicationController
       if removeAccessories(@ibox.id)
         flash[:notice] = "Se pudo eliminar el nuevo accesorio"
       else
-        res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE')
+        res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
         flash[:error] = "No se ha eliminado el nuevo accesorio"
       end
 
@@ -177,7 +180,7 @@ class IboxesController < ApplicationController
           accessory.destroy
           ret = true
         end
-        logger.debug "################# #{accessory.zid} " 
+        logger.debug "################# #{accessory.zid}" 
       end
     end
     ret
@@ -189,7 +192,7 @@ class IboxesController < ApplicationController
   def addAccessories(ibox_id)
     ret = false
     @ibox = Ibox.find(ibox_id)
-    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Get.cgi?get=SET')
+    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Get.cgi?get=SET',@ibox.user,@ibox.password)
     for i in 0..res.length/12-1
       #Si no esta asociado el accesorio al Ibox
       if (!isSavedAccessory(ibox_id, res[0+12*i].to_s.split('=')[1])) 
@@ -199,7 +202,7 @@ class IboxesController < ApplicationController
         @accessory.update_attribute(:kind, res[1+12*i].to_s.split('=')[1])
         @accessory.update_attribute(:cmdclass, res[10+12*i].to_s.split('=')[1])
         
-        resacc = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + @accessory.zid)
+        resacc = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + @accessory.zid,@ibox.user,@ibox.password)
       
         @accessory.update_attribute(:value, resacc[2].to_s.split('=')[1])
         #has no owner => is public
@@ -270,7 +273,7 @@ class IboxesController < ApplicationController
   def isConectedAccessory(ibox_id, zid)
     ret = true
     @ibox = Ibox.find(ibox_id)
-    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + zid )
+    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + zid,@ibox.user,@ibox.password)
     if (res[0] == 'Fail:501') 
       ret = false
     end
@@ -280,14 +283,14 @@ class IboxesController < ApplicationController
   # Descripción: Función que ejecuta comandos para un determinado Ibox
   # Entrada: 
   # Salida: Arreglo con la salida del comando
-  def iboxExecute(ibox_ip, ibox_port, instruction)
+  def iboxExecute(ibox_ip, ibox_port, instruction, user, password)
     require 'net/http'
     require 'uri'
     ws = 'http://' + ibox_ip + ':' + ibox_port
     url = URI.parse(ws)
     begin
       req = Net::HTTP::Get.new(url.path + instruction )
-      req.basic_auth 'root', ''
+      req.basic_auth user, password
       res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
       #escribo archivo de texto con la salida del web service
       path = Rails.root + 'tmp/server.txt'

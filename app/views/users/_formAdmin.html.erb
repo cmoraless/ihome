@@ -1,4 +1,7 @@
-<%= form_for(@user) do |user_form| %>
+<%= form_for(@user, :remote => true) do |user_form| %>
+ <% if user_form.error_messages%>
+   	<%= render "shared/flash_messages"%>
+ <%end%>
  <div class="field">
     <%= user_form.label :email %>
     <%= user_form.email_field :email %>
@@ -17,6 +20,9 @@
   </div>
  <div class="field">
     <%= user_form.hidden_field :isAdmin, :value => true %>
+  </div>
+  <div class="field">
+    <%= user_form.hidden_field :isSuperAdmin, :value => false %>
   </div>
    <div class="field">
     <%= user_form.label :Dirección %>

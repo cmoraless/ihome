@@ -1,3 +1,6 @@
 $('#iboxes').empty();
-$('#iboxes').append('<%= escape_javascript(render(:partial => "iboxes/all") ) %>');
-
+<% if @user.isSuperAdmin %>
+	$('#iboxes').append('<%= escape_javascript(render(:partial => "iboxes/all") ) %>');
+<% elsif @user.isSuperAdmin == false and @user.isAdmin == true %>
+	$('#iboxes').append('<%= escape_javascript(render(:partial => "iboxes/all2") ) %>');
+<%end%>

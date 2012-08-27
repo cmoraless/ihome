@@ -1,3 +1,4 @@
 $('#users').empty();
-$('#users').append('<%= escape_javascript(render(:partial => "users/all") ) %>')
+$('#users').append('<%= escape_javascript(render(:partial => "shared/flash_messages") ) %>');
+$('#users').append('<%= escape_javascript(render(:partial => "users/all") ) %>');
 $('#users').append('<%= link_to "Agregar nuevo usuario", new_no_admin_path, :remote=>true%>');

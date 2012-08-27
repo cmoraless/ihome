@@ -1,4 +1,17 @@
 class HomeadminController < ApplicationController
+  before_filter :check_auth
+  def check_auth
+    if User.exists?(session[:user_id])
+      @user = User.find(session[:user_id])
+      if @user.isSuperAdmin == false 
+        redirect_to(root_path)
+      end  
+    else
+      redirect_to(root_path)
+    end    
+  end
+  
+  
   def index
     @iboxes = Ibox.all
     @accessory_types = AccessoryType.all

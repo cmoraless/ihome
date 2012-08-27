@@ -1,4 +1,4 @@
-<h1>Iboxs creados</h1>
+<h1>Iboxs Creados</h1>
 
 <table class="table table-striped">
   <tr>
@@ -6,7 +6,9 @@
     <th>Nombre</th>
     <th>IP</th>
     <th>Puerto</th>
-    <th>Activo</th>    
+    <th>Usuario</th>    
+    <th>Contraseña</th>
+		<th>Activo</th>
     <th></th>
     <th></th>
     <th></th>
@@ -18,14 +20,17 @@
   	<td><%= ibox.name %></td>
     <td><%= ibox.ip %></td>
     <td><%= ibox.port %></td>
+    <td><%= ibox.user %></td>
+    <td><%= ibox.password %></td>
     <td><%= ibox.isActive ? 'si' : 'no' %><td>
-
+			
     <td><%= link_to 'Edit', edit_ibox_path(ibox), :remote => true %></td>
     <td><%= link_to 'Destroy', ibox, method: :delete, :remote => true, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
-
+<br />
+<%= link_to "Crear Ibox", new_ibox_path, :remote => true %>
 
 
 

@@ -6,6 +6,8 @@
  		<th>Id</th>
     <th>Nombre</th>
     <th>IP</th>
+    <th></th>
+    <th></th>
     <th>Puerto</th>
     <th></th>
     <th></th>
@@ -17,6 +19,8 @@
   	<td><%= ibox.name %></td>
     <td><%= ibox.ip %></td>
     <td><%= ibox.port %></td>
+    <td><%= ibox.user %></td>
+    <td><%= ibox.password %></td>
 		<td></td>
     <td><%= link_to 'Editar', edit_ibox_path(ibox), :remote => true %></td>
   </tr>

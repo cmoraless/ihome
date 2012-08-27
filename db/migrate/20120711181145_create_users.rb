@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :password_salt
       t.string :name
       t.boolean :isAdmin
+      t.boolean :isSuperAdmin
       t.string :address
       t.string :phone
       t.string :rut

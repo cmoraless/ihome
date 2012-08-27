@@ -4,6 +4,8 @@ class CreateIboxes < ActiveRecord::Migration
       t.string :name
       t.string :ip
       t.string :port
+      t.string :user
+      t.string :password
       t.boolean :isActive
       t.timestamps
     end
