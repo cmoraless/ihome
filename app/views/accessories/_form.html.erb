@@ -1,46 +1,54 @@
 <%= form_for(@accessory,:remote=>true, :html => {:class => "form-horizontal"}) do |f| %>
-  	<fieldset>
-  	
-  	<div class="control-group">
-    	<%= f.label :Nombre, :class=> "control-label" %>   
-    	<div class="controls">
-    		<%= f.text_field :name, :class => "input-xlarge" %>
-	  	</div>
-  	</div>
 
-  	<div class="control-group">
-    	<%= f.label :Privacidad, :class=> "control-label" %>   
-    	<div class="controls">
-    	
-    		<%= f.hidden_field :isPublic, :value => false %>
-    		<div class="btn-group" data-toggle-name="isPublic" data-toggle="buttons-radio" >
-				<button type="button" value="0" class="btn" data-toggle="button">Publico</button>
-  				<button type="button" value="1" class="btn" data-toggle="button">Privado</button>
-			</div>
-   			<script type="text/javascript"> 	
-    		jQuery(function($) {
- 				 $('div.btn-group[data-toggle-name=*]').each(function(){
-    				var group   = $(this);
-    				var form    = group.parents('form').eq(0);
-    				var name    = group.attr('data-toggle-name');
-    				var hidden  = $('input[name="' + name + '"]', form);
-    				$('button', group).each(function(){
-      					var button = $(this);
-      					button.live('click', function(){
-          					hidden.val($(this).val());
-	      				});
-    	  				if(button.val() == hidden.val()) {
-        					button.addClass('active');
-      					}
-    				});
-  				});
-			});
-    		</script>
+  	<fieldset>
+	
+  		<div class="control-group">
+    		<%= f.label :Nombre, :class=> "control-label" %>   
+    		<div class="controls">
+    			<%= f.text_field :name, :class => "input-xlarge" %>
+	  		</div>
   		</div>
-  	</div>
+
+
+		<div class="control-group">
+    		<%= f.label :Privacidad, :class=> "control-label" %>   
+    		<div class="controls">
+    			<%= f.radio_button :isPublic, true%> Público
+   				<%= f.radio_button :isPublic, false%> Privado
+
+
+				<script type="text/javascript">
+ 					$("div.controls > input:radio").live("change", function() {
+						var pub = document.getElementById("accessory_isPublic_true");
+						var priv = document.getElementById("accessory_isPublic_false");
+						var user = document.getElementById("usersOwners");
+						if (priv.checked == true){ 
+ 							user.style.display = "block";
+						}
+						if (pub.checked == true){
+							user.style.display = "none";
+						}
+  					});
+				</script>
+
+	  			<div id="usersOwners" style="display: none">
+  					<h3>seleccione los usuarios a cargo del accesorio</h3>
+  					<% for user in User.find(:all) %>
+			        <div>
+            		    <%= check_box_tag "accessory[user_ids][]", user.id, @accessory.users.include?(user) %>
+                		<%= user.name %>
+        			</div>
+   					<% end %>  
+   				</div>
+  			
+ 			</div>
+
+		</div>
+		
+		
   
-  <div class="form-actions">
-    <%= f.submit :Actualizar, :class => "btn btn-primary" %>
-  </div>
-  </fieldset>
+		<div class="form-actions">
+    		<%= f.submit :Actualizar, :class => "btn btn-primary" %>
+  		</div>
+  	</fieldset>
 <% end %>

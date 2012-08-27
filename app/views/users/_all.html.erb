@@ -4,8 +4,7 @@
 	  <tr>
 	    <th>Correo</th>
 	    <th>Nombre</th>
-	    <th></th>
-	    <th></th>
+	    <th>Acciones</th>
 	  </tr>
 	 
 	<% @users.each do |user| %>
@@ -13,9 +12,10 @@
 		  <tr>
 		    <td><%= user.email %></td>
 		    <td><%= user.name %></td>
-		    <td><%= link_to 'Editar', edit_user_path(user), :remote=>true %></td>
-		    <td><%= link_to 'Eliminar', user, :confirm => '¿Estás seguro?',
-		                                     :method => :delete, :remote=>true %></td>	   	
+		    <td>
+		    	<%= link_to 'Editar', edit_user_path(user), :class => 'btn btn-mini', :remote=>true %>
+		    	<%= link_to 'Eliminar', user, :confirm => '¿Estás seguro?', :method => :delete, :class => 'btn btn-mini btn-danger', :remote=>true %>
+		    </td>	
 		  </tr>
 	  <%end%>
 	<% end %>

@@ -1,26 +1,37 @@
-<%= form_for(@profile, :remote => true) do |profile_form| %>
+<%= form_for(@profile, :remote => true, :html => {:class => "form-horizontal"}) do |profile_form| %>
   
- 	<div class="field">
-    	<%= profile_form.label :name%>
-    	<%= profile_form.text_field :name %>
-  	</div>
- 	<div class="field">
-    	<%= profile_form.hidden_field :isActive, :value => false %>
- 	</div>
+  	<fieldset>  
+  		
+  		<div class="control-group">
+    		<%= profile_form.label :Nombre, :class=> "control-label" %>   
+    		<div class="controls">
+    			<%= profile_form.text_field :name, :class => "input-xlarge" %>
+	  		</div>
+  		</div>
+  		
+  		<div class="control-group">
+    		<div class="controls">
+    			<%= profile_form.hidden_field :isActive, :value => false %>
+	  		</div>
+  		</div>
+
+		<div class="control-group">
+    		<%= profile_form.label :Privacidad, :class=> "control-label" %>   
+    		<div clas="controls">
+				<h3>seleccione los acessorios para el perfil</h3>
+				<% for accessory in Accessory.find(:all) %>
+           		    <%= check_box_tag "profile[accessory_ids][]", accessory.id, @profile.accessories.include?(accessory) %>
+               		<%= accessory.name %>
+   				<% end %>  
+   			</div>
+  			
+ 		</div>
  	
-	<div class="actions">
-		<%= profile_form.submit %>
-	</div>
-	
-	<select id='disabled-attribute' disabled='disabled' multiple='multiple'>
-
-
- <!-- TOOOOOOOOOOOOOOOOOODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO-->
-	<% @user.accessories.each do |accessory| %>
-		<option value='fr'>accessory.</option>
-
-    <% end %>
+  
+		<div class="form-actions">
+    		<%= profile_form.submit :Actualizar, :class => "btn btn-primary" %>
+  		</div>
+  		
+  	</fieldset>
     
-    </select>
-
 <% end %>

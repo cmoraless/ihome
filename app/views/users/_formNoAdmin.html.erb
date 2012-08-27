@@ -6,6 +6,13 @@
    		<%= render "shared/flash_messages"%>
  		<%end%>
 		<div class="control-group">
+        	<%= user_form.label :Nombre, :class => "control-label" %>
+        	<div class="controls">
+            	<%= user_form.text_field :name, :class => "input-xlarge" %>
+            </div>
+		</div>
+		
+		<div class="control-group">
         	<%= user_form.label :email, :class => "control-label" %>
         	<div class="controls">
             	<%= user_form.email_field :email, :class => "input-xlarge" %>
@@ -25,31 +32,22 @@
             	<%= user_form.password_field :password_confirmation, :class => "input-xlarge" %>
             </div>
 		</div>
-
-		<div class="control-group">
-        	<%= user_form.label :Nombre, :class => "control-label" %>
-        	<div class="controls">
-            	<%= user_form.text_field :name, :class => "input-xlarge" %>
-            </div>
-		</div>
 		
-		<div class="control-group">
         	<%= user_form.hidden_field :isAdmin, :value => false %>
+<<<<<<< HEAD
 		</div>
 		<div class="control-group">
         	<%= user_form.hidden_field :isSuperAdmin, :value => false %>
 		</div>
 		<div class="control-group">
+=======
+		
+>>>>>>> 8506edda6ea2b8b89f0d9da037214b32f2f17efa
         	<%= user_form.hidden_field :address, :value => 'address' %>
-		</div>
 		
-		<div class="control-group">
         	<%= user_form.hidden_field :phone, :value => 'phone' %>
-		</div>
 		
-		<div class="control-group">
         	<%= user_form.hidden_field :rut, :value => 'rut' %>
-		</div>
 		
 		<div class="form-actions">
             <%= user_form.submit :class => "btn btn-primary" %>
