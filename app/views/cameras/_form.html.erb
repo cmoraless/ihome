@@ -1,19 +1,13 @@
 <%= form_for(@camera, :remote=>true, :html => {:class => "form-horizontal"}) do |f| %>
-  <% if @camera.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@camera.errors.count, "error") %> prohibited this camera from being saved:</h2>
-
-      <ul>
-      <% @camera.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  
-	<fieldset>
-		<legend>Nueva Cámara Web</legend>
-		
+ 	<fieldset>
+		<% if @edit %>
+			<legend>Editando Cámara Web</legend>			
+		<%else%>
+			<legend>Nueva Cámara Web</legend>
+		<%end%>
+		<% if f.error_messages %>
+			<%= render "shared/flash_messages" %>
+		<%end%>
 		<div class="control-group">
         	<%= f.label :nombre_cámara, :class => "control-label" %>
         	<div class="controls">
@@ -50,7 +44,11 @@
 		</div>
 		
 		<div class="form-actions">
-            <%= f.submit :Crear, :class => "btn btn-primary" %>
-        </div>
+    	<% if @edit %>
+    		<%= f.submit :Editar, :class => "btn btn-primary" %>
+  		<%else%>
+  			<%= f.submit :Crear, :class => "btn btn-primary" %>
+  		<%end%>
+    </div>
 		
 <% end %>

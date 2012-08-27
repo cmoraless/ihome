@@ -1,0 +1,18 @@
+<script type="text/javascript">
+	$(function() {
+		var correos = [];
+		<% for i in 0..@usersAdmin.length-1 %>
+			correos.push("<%= @usersAdmin[i][:email]%>");
+		<%end%>			
+		$( "#emails" ).autocomplete({
+			source: correos
+		});
+	});
+</script>
+
+
+<div class="ui-widget">
+	<%= form_tag('/homeadmin/browseAs', :remote=>true)%>
+	<%= label_tag 'Correo' %> <%= text_field_tag 'emails' %>
+	<%= submit_tag "Navegar" %>	
+</div>

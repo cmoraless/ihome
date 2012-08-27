@@ -3,7 +3,7 @@ class AdminController < ApplicationController
   def check_auth
     if User.exists?(session[:user_id])
       @user = User.find(session[:user_id])
-      if @user.isAdmin == false 
+      if @user.isAdmin == false or @user.isSuperAdmin == true
         redirect_to(home_index_path)
       end  
     else

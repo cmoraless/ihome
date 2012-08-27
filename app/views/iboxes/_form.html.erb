@@ -6,9 +6,13 @@
     <%= f.label :Nombre %>   <%= f.text_field :name %>
     <%= f.label :IP %>   <%= f.text_field :ip %>
     <%= f.label :Puerto %>   <%= f.text_field :port %>
-    <%= f.label :Usuario %>   <%= f.text_field :user %>
-   	<%= f.label :Contraseña %> <%= f.password_field :password %>
-   	<%= f.hidden_field :isActive, :value => false %>
+   	<%= f.hidden_field :user, :value=>'root' %>
+   	<%= f.hidden_field :password, :value =>'' %>
+   	<% if @create %>
+   		<%= f.hidden_field :isActive, :value => false %>
+   	<%else %>
+   		<%= f.hidden_field :isActive, :value => @ibox.isActive %>
+   	<%end%>
   </div>
   <div class="actions">
     <%= f.submit %>

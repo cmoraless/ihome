@@ -1,6 +1,8 @@
 $('#iboxes').empty();
 <% if @user.isSuperAdmin %>
+	$('#iboxes').append('<%= escape_javascript(render(:partial => "shared/flash_messages") ) %>');
 	$('#iboxes').append('<%= escape_javascript(render(:partial => "iboxes/all") ) %>');
 <% elsif @user.isSuperAdmin == false and @user.isAdmin == true %>
+	$('#iboxes').append('<%= escape_javascript(render(:partial => "shared/flash_messages") ) %>');
 	$('#iboxes').append('<%= escape_javascript(render(:partial => "iboxes/all2") ) %>');
 <%end%>

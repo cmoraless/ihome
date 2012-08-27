@@ -1,9 +1,12 @@
 class SessionsController < ApplicationController
   def new
     reset_session
-    @superAdmin = User.new(:email=>'superadmin@bissen.cl',:password=>'super123',:password_confirmation=>'super123', :name=>'1', :isAdmin=> false, :address=>'1',
-    :phone=>'1', :rut=>'1', :isSuperAdmin=>true) 
-    @superAdmin.save
+    @users = User.all
+    if @users.length == 0
+      @superAdmin = User.new(:email=>'superadmin@bissen.cl',:password=>'super123',:password_confirmation=>'super123', :name=>'1', :isAdmin=> false, :address=>'1',
+      :phone=>'1', :rut=>'1', :isSuperAdmin=>true) 
+      @superAdmin.save
+    end
   end
 
   def create

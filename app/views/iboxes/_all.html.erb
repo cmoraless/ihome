@@ -5,9 +5,7 @@
  	<th>Id</th>
     <th>Nombre</th>
     <th>IP</th>
-    <th>Puerto</th>
-    <th>Usuario</th>    
-    <th>Contraseña</th>
+    <th>Puerto</th>    
 		<th>Activo</th>
     <th></th>
     <th></th>
@@ -19,9 +17,7 @@
   	<td><%= ibox.id %></td>
   	<td><%= ibox.name %></td>
     <td><%= ibox.ip %></td>
-    <td><%= ibox.port %></td>
-    <td><%= ibox.user %></td>
-    <td><%= ibox.password %></td>
+    <td><%= ibox.port %></td>    
     <td><%= ibox.isActive ? 'si' : 'no' %><td>
 			
     <td><%= link_to 'Edit', edit_ibox_path(ibox), :remote => true %></td>

@@ -11,5 +11,4 @@ class Ibox < ActiveRecord::Base
   validates :name, :presence => true
   validates :ip, :presence => true
   validates :port, :presence => true
-  validates :user, :presence => true
 end

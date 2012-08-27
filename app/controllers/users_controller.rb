@@ -26,9 +26,8 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def newAdmin
     flash[:notice] = ""
-    flash[:error] = ""
     @user = User.new
-    logger.debug "######## ENTRE A NEW ADMIN #######"
+    #logger.debug "######## ENTRE A NEW ADMIN #######"
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
@@ -37,6 +36,7 @@ class UsersController < ApplicationController
   end
   
   def newNoAdmin
+    flash[:notice] = ""
     #logger.debug "######## ENTRE A NEW NO ADMIN #######"
     #@remoto = false
     @user = User.new
@@ -49,6 +49,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    flash[:notice] = ""
     #@remoto = true
     @user = User.find(params[:id])
     respond_to do |format|
@@ -66,16 +67,18 @@ class UsersController < ApplicationController
           @ibox = Ibox.find(session[:ibox_id])
           @ibox.users << @user
           @users = @ibox.users
+          flash[:error] = ""
+          flash[:notice] = "Se ha creado correctamente el usuario."
           #format.html { redirect_to :controller=>'admin', :action=>'index'}
           format.js
         else 
           #format.html { redirect_to :controller=>'homeadmin', :action=>'index'}
           flash[:error] = ""
-          flash[:notice] = "El usuario se ha creado correctamente."
+          flash[:notice] = "Se ha creado correctamente el usuario."
           format.js
         end
       else
-        flash[:error] = "Ha ocurrido un error al guardar el Usuario. Porfavor revise los atributos."
+        flash[:error] = "Ha ocurrido un error al guardar el usuario. Porfavor revise los atributos."
         flash[:notice] = ""
         if @user.isAdmin
           format.js {render :action => 'newAdmin'}        

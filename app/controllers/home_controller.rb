@@ -4,6 +4,11 @@ class HomeController < ApplicationController
   def check_auth
     if session[:user_id] == nil
       redirect_to(root_path)
+    else
+      @user = User.find(session[:user_id])
+      if @user.isSuperAdmin
+        redirect_to(root_path)
+      end
     end
   end
   

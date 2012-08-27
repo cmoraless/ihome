@@ -17,7 +17,8 @@ class CamerasController < ApplicationController
       @ibox = Ibox.find(session[:ibox_id])
       @cameras = @ibox.cameras
     else
-      flash[:notice] = "Debe habilitar su Ibox."
+      flash[:error] = "Debe habilitar su Ibox en administracion."
+      flash[:notice] = ""
     end
     respond_to do |format|
       format.html # index.html.erb
@@ -48,6 +49,7 @@ class CamerasController < ApplicationController
 
   # GET /cameras/1/edit
   def edit
+    @edit = true
     @camera = Camera.find(params[:id])
     respond_to do |format|
       @ibox = Ibox.find(session[:ibox_id])
@@ -65,10 +67,14 @@ class CamerasController < ApplicationController
         @ibox = Ibox.find(session[:ibox_id])
         @ibox.cameras << @camera
         @cameras = @ibox.cameras
+        flash[:notice] = "Se ha creado correctamente la camara."
+        flash[:error] = ""
         format.js
       else
-        format.html { render action: "new" }
-        format.json { render json: @camera.errors, status: :unprocessable_entity }
+        flash[:error] = "Ha ocurrido un error al crear la camara. Porfavor revise los atributos."
+        flash[:notice] = ""
+        format.js {render :action => 'new'}
+        
       end
     end
   end
@@ -81,10 +87,14 @@ class CamerasController < ApplicationController
       if @camera.update_attributes(params[:camera])
         @ibox = Ibox.find(session[:ibox_id])
         @cameras = @ibox.cameras
+        flash[:notice] = "Se ha actualizado correctamente la camara."
+        flash[:error] = ""
         format.js
       else
-        format.html { render action: "edit" }
-        format.json { render json: @camera.errors, status: :unprocessable_entity }
+        flash[:error] = "Ha ocurrido un error al editar la camara. Porfavor revise los atributos."
+        flash[:notice] = ""
+        @edit = true
+        format.js {render :action => 'edit'}
       end
     end
   end
