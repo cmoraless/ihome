@@ -10,33 +10,7 @@ class CamerasController < ApplicationController
       redirect_to(root_path)
     end    
   end
-  # GET /cameras
-  # GET /cameras.json
-=begin
-  def index
-    if session[:ibox_id]
-      @ibox = Ibox.find(session[:ibox_id])
-      @cameras = @ibox.cameras
-    else
-      flash[:error] = "Debe habilitar su Ibox en administracion."
-      flash[:notice] = ""
-    end
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @cameras }
-    end
-  end
 
-  # GET /cameras/1
-  # GET /cameras/1.json
-  def show
-    @camera = Camera.find(params[:id])
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @camera }
-    end
-  end
-=end
   # GET /cameras/new
   # GET /cameras/new.json
   def new
