@@ -54,6 +54,7 @@ class HomeadminController < ApplicationController
     else
       respond_to do |format|
         @usersAdmin = User.where(:isAdmin => true)
+        flash[:notice] = ""
         flash[:error] = "Hubo un error al intentar navegar con el usuario especificado."
         format.js
       end

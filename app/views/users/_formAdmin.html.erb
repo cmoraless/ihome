@@ -1,5 +1,5 @@
 <%= form_for(@user, :remote => true) do |user_form| %>
- <% if user_form.error_messages%>
+ <% if user_form.error_messages.length > 0 %>
    	<%= render "shared/flash_messages"%>
  <%end%>
  <div class="field">

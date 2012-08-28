@@ -9,6 +9,6 @@ class Ibox < ActiveRecord::Base
   attr_accessible :isActive, :name, :ip, :port, :user, :password
   #validaciones
   validates :name, :presence => true
-  validates :ip, :presence => true
-  validates :port, :presence => true
+  validates :ip, :presence => true, :format=> {:with => /^\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3}$/}
+  validates :port, :presence => true, :format=> {:with => /^\d+$/}
 end

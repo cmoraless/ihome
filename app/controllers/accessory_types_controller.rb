@@ -1,23 +1,7 @@
 class AccessoryTypesController < ApplicationController
   layout "homeadmin"
-  def index
-    @accessory_types = AccessoryType.all
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @accessory_types }
-      format.js #added
-    end
-  end
-
-  def show
-    @accessory_type = AccessoryType.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.js
-    end
-  end
-
+  #ACA HACER LOS BEFORE FILTERS !!
+  
   def new
     @accessory_type = AccessoryType.new
 

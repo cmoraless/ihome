@@ -12,6 +12,7 @@ class CamerasController < ApplicationController
   end
   # GET /cameras
   # GET /cameras.json
+=begin
   def index
     if session[:ibox_id]
       @ibox = Ibox.find(session[:ibox_id])
@@ -35,7 +36,7 @@ class CamerasController < ApplicationController
       format.json { render json: @camera }
     end
   end
-
+=end
   # GET /cameras/new
   # GET /cameras/new.json
   def new

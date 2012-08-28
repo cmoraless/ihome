@@ -1,5 +1,5 @@
 <%= form_for(@ibox, :remote => true) do |f| %>
-   <% if f.error_messages%>
+   <% if f.error_messages.length > 0 %>
    	<%= render "shared/flash_messages"%>
    <%end%>
    <div class="field">

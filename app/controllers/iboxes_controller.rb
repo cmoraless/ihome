@@ -1,25 +1,8 @@
 class IboxesController < ApplicationController
   layout "homeadmin"
-  def index
-    @iboxes = Ibox.all
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @iboxes }
-    end
-  end
-
-  def show
-    @ibox = Ibox.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @ibox }
-      format.js #added
-    end
-  end
-
+  #ACA HACER LOS BEFORE FILTERS
+  
   def new
-    flash[:notice] = ""
     @ibox = Ibox.new
     @create = true
     respond_to do |format|
@@ -30,7 +13,6 @@ class IboxesController < ApplicationController
   end
 
   def edit
-    flash[:notice] = ""
     @ibox = Ibox.find(params[:id])
     respond_to do |format|
       @iboxes = Ibox.all      
@@ -44,12 +26,10 @@ class IboxesController < ApplicationController
     respond_to do |format|
       if @ibox.save
         @iboxes = Ibox.all
-        flash[:error] = ""
         flash[:notice] = "Se ha creado correctamente el Ibox."
         format.js
       else
-        flash[:error] = "Ha ocurrido un error al guardar el Ibox. Porfavor revise los atributos."
-        flash[:notice] = ""
+        flash[:error] = "Ha ocurrido un error al crear el Ibox. Porfavor revise los atributos."
         format.js {render :action => 'new'}
       end
     end
@@ -63,11 +43,9 @@ class IboxesController < ApplicationController
         @iboxes = Ibox.all
         @user = User.find(session[:user_id])
         flash[:notice] = "Se ha actualizado correctamente el Ibox."
-        flash[:error] = ""
         format.js 
       else
         flash[:error] = "Ha ocurrido un error al editar el Ibox. Porfavor revise los atributos."
-        flash[:notice] = ""
         format.js {render :action => 'edit'}
       end
     end
@@ -96,8 +74,7 @@ class IboxesController < ApplicationController
         @user = User.find(session[:user_id])
         session[:ibox_id] = @ibox.id
         if @ibox.isActive == true
-          flash[:notice] = "El ibox seleccionado ya esta activo."
-          flash[:error] = ""
+          flash[:error] = "El ibox seleccionado ya esta activo."
           format.js
         else
           @ibox.update_attribute(:isActive, true)
@@ -105,8 +82,7 @@ class IboxesController < ApplicationController
           format.js {redirect_to :action => 'addDefaultAccessories', :id => @ibox.id}
         end
       else  
-        flash[:notice] = "No hemos encontrado el Ibox especificado."
-        flash[:error] = ""
+        flash[:error] = "No hemos encontrado el Ibox especificado."
         format.js
       end
     end
@@ -122,10 +98,8 @@ class IboxesController < ApplicationController
     @ibox = Ibox.find(session[:ibox_id])
     if addAccessories(@ibox.id) 
       flash[:notice] = "Hemos habilitado exitosamente el Ibox y agregado tus nuevos accesorios."
-      flash[:error] = ""
     else
-      flash[:error] = "Hemos habilitado exitosamente el Ibox, pero no hemos encontrado nuevos accesorios."
-      flash[:notice] = ""
+      flash[:notice] = "Hemos habilitado exitosamente el Ibox, pero no hemos encontrado nuevos accesorios."
     end
   end
 
@@ -140,15 +114,12 @@ class IboxesController < ApplicationController
       sleep 4
       if addAccessories(@ibox.id)
         flash[:notice] = "Se ha agregado el nuevo accesorio."
-        flash[:error] = ""
       else
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
         flash[:error] = "No se pudo agregar el nuevo accesorio."
-        flash[:notice] = ""
       end
     else
       flash[:error] = "ERROR"
-      flash[:notice] = ""
     end 
     respond_to do |format|
       format.js
@@ -166,17 +137,14 @@ class IboxesController < ApplicationController
       sleep 4
       
       if removeAccessories(@ibox.id)
-        flash[:error] = "Se pudo eliminar el nuevo accesorio."
-        flash[:notice] = ""
+        flash[:notice] = "Se pudo eliminar el nuevo accesorio."
       else
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
         flash[:error] = "No se ha eliminado el nuevo accesorio"
-        flash[:notice] = ""
       end
 
     else
       flash[:error] = "ERROR"
-      flash[:notice] = ""
     end
  
     respond_to do |format|

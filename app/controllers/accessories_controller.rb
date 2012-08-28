@@ -1,26 +1,6 @@
 class AccessoriesController < ApplicationController
-  # GET /accessories
-  # GET /accessories.json
-  def index
-    @accessories = Accessory.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @accessories }
-    end
-  end
-
-  # GET /accessories/1
-  # GET /accessories/1.json
-  def show
-    @accessory = Accessory.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @accessory }
-    end
-  end
-
+  #ACA HACER LOS BEFORE FILTERS
+  
   # GET /accessories/new
   # GET /accessories/new.json
   def new
