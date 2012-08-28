@@ -49,8 +49,8 @@ class AccessoriesController < ApplicationController
       end  
         format.js
       else
-        format.html { render action: "edit" }
-        format.json { render json: @accessory.errors, status: :unprocessable_entity }
+        flash[:error] = "Ha ocurrido un error al editar el accesorio. Porfavor revise los atributos."
+        format.js { render :action => "edit" }
       end
     end
   end

@@ -44,9 +44,6 @@ class HomeadminController < ApplicationController
   def browseAs
     user = User.where(:email => params[:emails])
     @usersAdmin = User.where(:isAdmin => true)
-    #logger.debug "####### user = #{user[0].id}"
-    #logger.debug "######## params[:emails] = #{params[:emails]}"
-    #logger.debug "######## user.id = #{user[0].id}"
     if user[0]      
       @user = User.find(user[0].id)
       respond_to do |format|
@@ -67,5 +64,25 @@ class HomeadminController < ApplicationController
       end
     end
   end
-    
+  
+  def searchIboxes
+    user = User.where(:email => params[:emailsIbox])
+    @usersAdmin = User.where(:isAdmin => true)
+    respond_to do |format|
+      if user[0]
+        if user[0].isAdmin
+          @iboxes = user[0].iboxes
+          format.js
+        else
+          flash[:notice] = ""
+          flash[:error] = "El usuario especificado no es un administrador."
+          format.js
+        end     
+      else
+        flash[:notice] = ""
+        flash[:error] = "Hubo un error al intentar buscar Iboxes con el usuario especificado."
+        format.js
+      end
+    end
+  end 
 end

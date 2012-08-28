@@ -68,7 +68,6 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    #@remoto = true
     @user = User.find(params[:id])
     if @user.isAdmin == false
       @ibox = Ibox.find(session[:ibox_id])
@@ -86,9 +85,11 @@ class UsersController < ApplicationController
           format.js {render :action=> 'edit'}        
         end
       else
-        flash[:error] = "Tiene que ingresar la nueva contrasena"
+        logger.debug "############# ERROR CONTRASENA"
+        @error_contrasena = true
+        flash[:error] = "Ha ocurrido un error al actualizar el usuario. Revise los campos."
         flash[:notice] = ""
-        format.js {render :action=> 'edit'}
+        format.js {render :action=> 'edit'}     
       end
     end
   end

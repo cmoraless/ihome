@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # asociaciones:
   has_and_belongs_to_many :iboxes
-  has_many :profiles
+  has_many :profiles, :dependent => :destroy
   
   # atributos:
   #set_primary_key 'email'
@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   #validaciones
   validates_confirmation_of :password
   validates_presence_of :password_confirmation
-  validates_presence_of :password, :on => :create
+  validates_presence_of :password
   validates_presence_of :email,:name,:phone,:rut
   validates_uniqueness_of :email
   
