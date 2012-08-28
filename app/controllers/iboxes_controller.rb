@@ -64,11 +64,13 @@ class IboxesController < ApplicationController
     end
   end
 
-  def destroy #elimina el ibox y todos sus usuarios
+  def destroy #elimina el ibox y todos sus usuarios no administrativos
     @ibox = Ibox.find(params[:id])
     @usersIbox = @ibox.users
     for i in 0..@usersIbox.length-1
-      @usersIbox[i].destroy
+      if @usersIbox[i].isAdmin == false
+        @usersIbox[i].destroy
+      end
     end
     @ibox.destroy
     @iboxes = Ibox.all
