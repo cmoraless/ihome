@@ -1,0 +1,4 @@
+$('#profiles').empty();
+$('#profiles').append('<%= escape_javascript(render(:partial => "shared/flash_messages")) %>');
+$('#profiles').append('<%= escape_javascript(render(:partial => "all")) %>');
+$('#profiles').append('<%= link_to "Agregar nuevo usuario", new_no_admin_path, :remote=>true%>');

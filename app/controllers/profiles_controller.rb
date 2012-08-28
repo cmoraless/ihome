@@ -42,7 +42,11 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
+    @user = User.find(session[:user_id])
     @profile = Profile.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
   end
 
   # POST /profiles
@@ -57,6 +61,7 @@ class ProfilesController < ApplicationController
         @ibox.profiles << @profile
         format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
         format.json { render json: @profile, status: :created, location: @profile }
+        format.js 
       else
         format.html { render action: "new" }
         format.json { render json: @profile.errors, status: :unprocessable_entity }
@@ -68,17 +73,21 @@ class ProfilesController < ApplicationController
   # PUT /profiles/1.json
   def update
     @profile = Profile.find(params[:id])
-
+    @user = User.find(session[:user_id])
     respond_to do |format|
       if @profile.update_attributes(params[:profile])
-        format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
-        format.json { head :no_content }
+        flash[:error] = ""
+        flash[:notice] = "El usuario se ha actualizado correctamente."
+        format.js   
       else
-        format.html { render action: "edit" }
-        format.json { render json: @profile.errors, status: :unprocessable_entity }
+        flash[:error] = "Ha ocurrido un error al actualizar el usuario. Revise los campos."
+        flash[:notice] = ""
+        #format.js {render :partial => "profile", :collection => @user.profiles}  
+        format.js
       end
     end
   end
+  
 
   # DELETE /profiles/1
   # DELETE /profiles/1.json

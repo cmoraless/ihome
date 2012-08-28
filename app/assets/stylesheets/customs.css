@@ -57,14 +57,14 @@ ul.entries .profile {
 }
 
 ul.entries .edit {
-  margin-top: -12px;
+  margin-top: -10px;
   float: right;
   margin-right: -190px;
   width: 0px;
   /* todo: color, background + padding-left declarations for thumb icons */
 }
 ul.entries .delete {
-  margin-top: -12px;
+  margin-top: -10px;
   float: right;
   margin-right: -130px;
   width: 0px;
