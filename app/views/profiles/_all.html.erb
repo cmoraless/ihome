@@ -1,32 +1,22 @@
 
-<h3>Perfiles</h3>
-
-<table class="table table-striped">
-  <tr>
- 	<th>Id</th>
-    <th>Nombre</th>
-    <th>Activo</th>    
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @profiles.each do |profile| %>
-  <tr>
-  	<td><%= profile.id %></td>
-  	<td><%= profile.name %></td>
-    <td><%= profile.isActive ? 'si' : 'no' %><td>
-
-    <td><%= link_to 'Show', profile, :remote => :true %></td>
-    <td><%= link_to 'Edit', edit_profile_path(profile), :remote => :true %></td>
-    <td><%= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' }, :remote => :true %></td>
-  </tr>
-<% end %>
-
-</table>
-
-<%= link_to 'Crear Perfil', new_profile_path, :remote => true %>
-
-
-
-
+	<div class="accordion-body collapse in">
+		<div class="accordion-inner">
+			<ul class="entries"> 
+				<%= render @user.profiles %>
+				<div class="span6 offset1">
+					<li> 
+						<!-- Icono -->
+						<span class="icon"> <%= image_tag("scene.png", :ratio => ".3")%></span>
+						
+						<!-- Nombre -->
+						<span class="title">Agregar nuevo perfil</span>
+						<!-- Input Controlador AJAX -->
+						<div class="new">
+							<%= link_to 'Crear Perfil', new_profile_path, :class => 'btn btn-primary', :remote => true %>
+						</div>
+									
+					</li>
+				</div>
+			</ul>
+		</div>
+	</div>

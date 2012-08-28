@@ -41,20 +41,34 @@ body {
  //@navbarBackground : @black;
  //@bodyBackground : @grayDark;
  
+ body {
+  //min-height: 90%;
+  height: 90%;
+  width: 90%;
+  position: absolute;
+} 
+ 
  .fill {
   #translucent > .background(@blue, 0.2);
   .border-radius(0px);
   margin-top: -20px; 
-  }
-  
-  .accordion{
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-    #translucent > .background(@white, 0.7);
-    .border-radius(5px);
+  height: 100%;
+  height: inherit;
   }
 
+ .accordion{
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  .border-radius(5px);
+  }
 
 
 
+ .accordion-heading{
+  #translucent > .background(@white, 0.7);
+  }
+
+ .accordion-body{
+  #translucent > .background(@white, 0.6);
+  }
