@@ -49,7 +49,6 @@ class AccessoriesController < ApplicationController
       end  
         format.js
       else
-        flash[:error] = "Ha ocurrido un error al editar el accesorio. Porfavor revise los atributos."
         format.js { render :action => "edit" }
       end
     end
@@ -71,8 +70,9 @@ class AccessoriesController < ApplicationController
     #logger.debug "######## ENTRE A CONTROL #######"
     require 'net/http'
     require 'uri'
-    ip = '200.28.166.104'
-    port = '1166'
+    ibox = Ibox.find(session[:ibox_id])
+    ip = ibox.ip
+    port = ibox.port
     ws = 'http://' + ip + ':' + port
     url = URI.parse(ws)
     #params[:zid] = '0016E62703';

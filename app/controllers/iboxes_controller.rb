@@ -28,9 +28,9 @@ class IboxesController < ApplicationController
         @iboxes = Ibox.all
         @usersAdmin = User.where(:isAdmin => true)
         flash[:notice] = "Se ha creado correctamente el Ibox."
+        flash[:error] = ""
         format.js
       else
-        flash[:error] = "Ha ocurrido un error al crear el Ibox. Porfavor revise los atributos."
         format.js {render :action => 'new'}
       end
     end
@@ -49,9 +49,9 @@ class IboxesController < ApplicationController
           @iboxes = @user.iboxes
         end
         flash[:notice] = "Se ha actualizado correctamente el Ibox."
+        flash[:error] = ""
         format.js 
       else
-        flash[:error] = "Ha ocurrido un error al editar el Ibox. Porfavor revise los atributos."
         format.js {render :action => 'edit'}
       end
     end
@@ -76,6 +76,7 @@ class IboxesController < ApplicationController
     @iboxes = Ibox.all
     @usersAdmin = User.where(:isAdmin => true)
     flash[:notice] = "Se ha eliminado correctamente el Ibox."
+    flash[:error] = ""    
     respond_to do |format|
      format.js 
     end
@@ -89,6 +90,7 @@ class IboxesController < ApplicationController
         session[:ibox_id] = @ibox.id
         if @ibox.isActive == true
           flash[:error] = "El ibox seleccionado ya esta activo."
+          flash[:notice] = ""
           format.js
         else
           @ibox.update_attribute(:isActive, true)
@@ -97,6 +99,7 @@ class IboxesController < ApplicationController
         end
       else  
         flash[:error] = "No hemos encontrado el Ibox especificado."
+        flash[:notice] = ""
         format.js
       end
     end
@@ -112,8 +115,10 @@ class IboxesController < ApplicationController
     @ibox = Ibox.find(session[:ibox_id])
     if addAccessories(@ibox.id) 
       flash[:notice] = "Hemos habilitado exitosamente el Ibox y agregado tus nuevos accesorios."
+      flash[:error] = ""
     else
       flash[:notice] = "Hemos habilitado exitosamente el Ibox, pero no hemos encontrado nuevos accesorios."
+      flash[:error] = ""
     end
   end
 
@@ -128,12 +133,15 @@ class IboxesController < ApplicationController
       sleep 4
       if addAccessories(@ibox.id)
         flash[:notice] = "Se ha agregado el nuevo accesorio."
+        flash[:error] = ""
       else
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
         flash[:error] = "No se pudo agregar el nuevo accesorio."
+        flash[:notice] = ""
       end
     else
       flash[:error] = "ERROR"
+      flash[:notice] = ""
     end 
     respond_to do |format|
       format.js
@@ -152,13 +160,16 @@ class IboxesController < ApplicationController
       
       if removeAccessories(@ibox.id)
         flash[:notice] = "Se pudo eliminar el nuevo accesorio."
+        flash[:error] = ""
       else
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
         flash[:error] = "No se ha eliminado el nuevo accesorio"
+        flash[:notice] = ""
       end
 
     else
       flash[:error] = "ERROR"
+      flash[:notice] = ""
     end
  
     respond_to do |format|
@@ -179,7 +190,6 @@ class IboxesController < ApplicationController
           accessory.destroy
           ret = true
         end
-        logger.debug "################# #{accessory.zid}" 
       end
     end
     ret

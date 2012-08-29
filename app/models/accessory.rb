@@ -8,6 +8,6 @@ class Accessory < ActiveRecord::Base
   # atributos
   attr_accessible :name, :zid, :kind, :value, :cmdclass, :state, :isScheduled, :isPublic, :user_ids
   # validaciones
-  validates :name, :presence => true
+  validates :name, :presence => {:message=> "^El nombre no puede estar vacio."}
  # validates :isPublic, :presence => true
 end

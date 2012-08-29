@@ -3,7 +3,9 @@
 	<fieldset>
 		<legend>Usuario</legend>
 		<% if user_form.error_messages.length > 0 or @error_contrasena %>
-   		<%= render "shared/flash_messages"%>
+   		<%= user_form.error_messages :header_message => "Usuario inválido",
+  			:message => "",
+  			:header_tag => :h3 %>  
  		<%end%>
 		<div class="control-group">
         	<%= user_form.label :Nombre, :class => "control-label" %>

@@ -1,7 +1,6 @@
 $("#users").empty();
 <% if @user.isAdmin %>
-	$("#users").append('<%= j render "shared/flash_messages" %>');
-	$("#users").append('<%= j render "users/newAdmin" %>');
+	$("#users").append('<%= j render "homeadmin/indexUser" %>');
 <%else%>
 	$("#users").append('<%= j render "users/all" %>');
 	$("#users").append('<%= link_to "Agregar nuevo usuario", new_no_admin_path, :remote=>true%>');	

@@ -1,7 +1,11 @@
 <%= form_for(@profile, :remote => true, :html => {:class => "form-horizontal"}) do |profile_form| %>
   
   	<fieldset>  
-  		
+  		<% if f.error_messages.length > 0 %>
+				<%= f.error_messages :header_message => "Perfil inválido",
+	  			:message => "",
+	  			:header_tag => :h3 %> 
+			<%end%>
   		<div class="control-group">
     		<%= profile_form.label :Nombre, :class=> "control-label" %>   
     		<div class="controls">

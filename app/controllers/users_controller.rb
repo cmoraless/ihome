@@ -19,6 +19,7 @@ class UsersController < ApplicationController
   def newNoAdmin
     #logger.debug "######## ENTRE A NEW NO ADMIN #######"
     #@remoto = false
+    flash[:notice] = ""
     @user = User.new
     respond_to do |format|
       #format.html # new.html.erb
@@ -47,15 +48,17 @@ class UsersController < ApplicationController
           @ibox.users << @user
           @users = @ibox.users
           flash[:notice] = "Se ha creado correctamente el usuario."
+          flash[:error] = ""
           #format.html { redirect_to :controller=>'admin', :action=>'index'}
           format.js
         else 
           #format.html { redirect_to :controller=>'homeadmin', :action=>'index'}
+          @usersAdmin = User.where(:isAdmin => true)
+          flash[:error] = ""
           flash[:notice] = "Se ha creado correctamente el usuario."
           format.js
         end
       else
-        flash[:error] = "Ha ocurrido un error al guardar el usuario. Porfavor revise los atributos."
         if @user.isAdmin
           format.js {render :action => 'newAdmin'}        
         else
@@ -76,19 +79,15 @@ class UsersController < ApplicationController
     respond_to do |format|
       if params[:user][:password] != "" and params[:user][:password_confirmation] != ""
         if @user.update_attributes(params[:user])
-          flash[:error] = ""
           flash[:notice] = "El usuario se ha actualizado correctamente."
+          flash[:error] = ""
+          @usersAdmin = User.where(:isAdmin => true)
           format.js         
         else
-          flash[:error] = "Ha ocurrido un error al actualizar el usuario. Revise los campos."
-          flash[:notice] = ""
           format.js {render :action=> 'edit'}        
         end
       else
-        logger.debug "############# ERROR CONTRASENA"
         @error_contrasena = true
-        flash[:error] = "Ha ocurrido un error al actualizar el usuario. Revise los campos."
-        flash[:notice] = ""
         format.js {render :action=> 'edit'}     
       end
     end
@@ -108,6 +107,7 @@ class UsersController < ApplicationController
       @users = @ibox.users
     end
     respond_to do |format|
+      @usersAdmin = User.where(:isAdmin => true)
       format.js
     end
   end

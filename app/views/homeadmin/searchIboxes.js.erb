@@ -1,8 +1,7 @@
-<% if @iboxes %>
 $('#division').empty();
+<% if @iboxes %>
 $('#division').append('<%= j render "iboxes/all" %>');
 <%else%>
-$('#division').empty();
 $('#division').append('<%= j render "shared/flash_messages" %>');
 $('#division').append('<%= j render "homeadmin/searchIboxForm" %>');
 <%end%>

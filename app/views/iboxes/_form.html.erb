@@ -1,19 +1,21 @@
 <%= form_for(@ibox, :remote => true) do |f| %>
-   <% if f.error_messages.length > 0 %>
-   	<%= render "shared/flash_messages"%>
-   <%end%>
-   <div class="field">
-    <%= f.label :Nombre %>   <%= f.text_field :name %>
-    <%= f.label :IP %>   <%= f.text_field :ip %>
-    <%= f.label :Puerto %>   <%= f.text_field :port %>
-   	<%= f.hidden_field :user, :value=>'root' %>
-   	<%= f.hidden_field :password, :value =>'' %>
-   	<% if @create %>
-   		<%= f.hidden_field :isActive, :value => false %>
-   	<%else %>
-   		<%= f.hidden_field :isActive, :value => @ibox.isActive %>
-   	<%end%>
-  </div>
+	<% if f.error_messages.length > 0 %>
+		<%= f.error_messages :header_message => "Ibox inválido",
+  :message => "",
+  :header_tag => :h3 %>   
+	<%end%>
+	<div class="field">
+		<%= f.label :Nombre %>   <%= f.text_field :name %>
+		<%= f.label :IP %>   <%= f.text_field :ip %>
+		<%= f.label :Puerto %>   <%= f.text_field :port %>
+		<%= f.hidden_field :user, :value=>'root' %>
+		<%= f.hidden_field :password, :value =>'' %>
+		<% if @create %>
+			<%= f.hidden_field :isActive, :value => false %>
+		<%else %>
+			<%= f.hidden_field :isActive, :value => @ibox.isActive %>
+		<%end%>
+	</div>
   <div class="actions">
     <%= f.submit %>
   </div>

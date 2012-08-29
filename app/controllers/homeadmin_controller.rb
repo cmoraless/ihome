@@ -13,6 +13,8 @@ class HomeadminController < ApplicationController
   
   
   def index
+    flash[:notice] = ""
+    flash[:error] = ""
     @iboxes = Ibox.all
     @accessory_types = AccessoryType.all
     #logger.debug "####################ACCESSORY TYPES   #{@accessory_types.length}"
@@ -68,6 +70,7 @@ class HomeadminController < ApplicationController
   def searchIboxes
     user = User.where(:email => params[:emailsIbox])
     @usersAdmin = User.where(:isAdmin => true)
+    @user = user[0]
     respond_to do |format|
       if user[0]
         if user[0].isAdmin
@@ -84,5 +87,27 @@ class HomeadminController < ApplicationController
         format.js
       end
     end
-  end 
+  end
+  
+  def searchUsers
+    user = User.where(:email => params[:emailsUser])
+    @usersAdmin = User.where(:isAdmin => true)
+    respond_to do |format|
+      if user[0]
+        if user[0].isAdmin
+          @user = user[0]
+          format.js
+        else
+          flash[:notice] = ""
+          flash[:error] = "El usuario especificado no es un administrador."
+          format.js
+        end     
+      else
+        flash[:notice] = ""
+        flash[:error] = "Hubo un error al intentar buscar el Usuario con el correo especificado."
+        format.js
+      end
+    end
+  end
+   
 end

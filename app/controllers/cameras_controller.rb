@@ -43,11 +43,10 @@ class CamerasController < ApplicationController
         @ibox.cameras << @camera
         @cameras = @ibox.cameras
         flash[:notice] = "Se ha creado correctamente la camara."
+        flash[:error] = ""
         format.js
       else
-        flash[:error] = "Ha ocurrido un error al crear la camara. Porfavor revise los atributos."
-        format.js {render :action => 'new'}
-        
+        format.js {render :action => 'new'}        
       end
     end
   end
@@ -61,9 +60,9 @@ class CamerasController < ApplicationController
         @ibox = Ibox.find(session[:ibox_id])
         @cameras = @ibox.cameras
         flash[:notice] = "Se ha actualizado correctamente la camara."
+        flash[:error] = ""
         format.js
       else
-        flash[:error] = "Ha ocurrido un error al editar la camara. Porfavor revise los atributos."
         @edit = true
         format.js {render :action => 'edit'}
       end

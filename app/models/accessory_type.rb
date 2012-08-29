@@ -6,4 +6,6 @@ class AccessoryType < ActiveRecord::Base
   has_many :iboxes, :through => :ibox_accessories_containers
   # atributos
   attr_accessible :name
+  # validaciones
+  validates_presence_of :name, :message => "^El nombre no puede estar en blanco."
 end

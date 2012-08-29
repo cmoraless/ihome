@@ -1,15 +1,13 @@
-<h1>Iboxs para usuario <%= %></h1>
+<h1>Iboxs Inactivos</h1>
 
 <table class="table table-striped">
   <tr>
- 	<th>Id</th>
+ 		<th>Id</th>
     <th>Nombre</th>
     <th>IP</th>
     <th>Puerto</th>    
 		<th>Activo</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Acciones</th>
   </tr>
 
 <% @iboxes.each do |ibox| %>
@@ -19,15 +17,13 @@
 	  	<td><%= ibox.name %></td>
 	    <td><%= ibox.ip %></td>
 	    <td><%= ibox.port %></td>    
-	    <td><%= ibox.isActive ? 'si' : 'no' %><td>
-				
-	    <td><%= link_to 'Editar', edit_ibox_path(ibox), :remote => true %></td>
-	    <td><%= link_to 'Eliminar', ibox, method: :delete, :remote => true, data: { confirm: 'Are you sure?' } %></td>
+	    <td><%= ibox.isActive ? 'si' : 'no' %></td>				
+	    <td><%= link_to 'Editar', edit_ibox_path(ibox), :remote => true, :class => 'btn btn-mini' %>
+	    <%= link_to 'Eliminar', ibox, method: :delete, :remote => true, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
 	  </tr>
   <%end%>
 <% end %>
 </table>
-<br />
 
 
 

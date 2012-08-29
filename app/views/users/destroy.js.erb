@@ -1,3 +1,7 @@
 $('#users').empty();
+<% if @user.isAdmin == false%>
 $('#users').append('<%= escape_javascript(render(:partial => "users/all") ) %>')
 $('#users').append('<%= link_to "Agregar nuevo usuario", new_no_admin_path, :remote=>true%>');
+<%else%>
+$("#users").append('<%= j render "homeadmin/indexUser" %>');
+<%end%>

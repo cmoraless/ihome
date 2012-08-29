@@ -2,15 +2,13 @@
 <table class="table table-striped">
   <tr>
     <th>Nombre</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Acciones</th>    
   </tr>
 <% @accessory_types.each do |accessory_type| %>
   <tr>
     <td><%= accessory_type.name %></td>
-    <td><%= link_to 'Editar', edit_accessory_type_path(accessory_type), :remote => true %></td>
-    <td><%= link_to 'Eliminar', accessory_type, :method=> :delete, data: { confirm: '¿Estás seguro?'},:remote=>true %></td>
+    <td><%= link_to 'Editar', edit_accessory_type_path(accessory_type), :remote => true, :class => 'btn btn-mini' %>
+    <%= link_to 'Eliminar', accessory_type, :method=> :delete, data: { confirm: '¿Estás seguro?'},:remote=>true, :class => 'btn btn-mini btn-danger' %></td>
   </tr>
 <% end %>
 </table>

@@ -6,7 +6,9 @@
 			<legend>Nueva Cámara Web</legend>
 		<%end%>
 		<% if f.error_messages.length > 0 %>
-			<%= render "shared/flash_messages" %>
+			<%= f.error_messages :header_message => "Cámara inválida",
+  			:message => "Necesitas arreglar los siguientes atributos:",
+  			:header_tag => :h3 %> 
 		<%end%>
 		<div class="control-group">
         	<%= f.label :nombre_cámara, :class => "control-label" %>

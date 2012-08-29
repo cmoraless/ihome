@@ -1,6 +1,8 @@
 <%= form_for(@user, :remote => true) do |user_form| %>
  <% if user_form.error_messages.length > 0 %>
-   	<%= render "shared/flash_messages"%>
+   	<%= user_form.error_messages :header_message => "Usuario inválido",
+  :message=> "",
+  :header_tag => :h3 %>  
  <%end%>
  <div class="field">
     <%= user_form.label :email %>

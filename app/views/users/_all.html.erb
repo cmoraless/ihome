@@ -13,7 +13,6 @@
 		    <td><%= user.name %></td>
 		    <td><%= user.email %></td>
 		    <td>
-		    	<%= link_to 'Editar', edit_user_path(user), :class => 'btn btn-mini', :remote=>true %>
 		    	<%= link_to 'Eliminar', user, :confirm => '¿Estás seguro?', :method => :delete, :class => 'btn btn-mini btn-danger', :remote=>true %>
 		    </td>	
 		  </tr>

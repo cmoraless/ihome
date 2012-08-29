@@ -11,10 +11,13 @@ class User < ActiveRecord::Base
   
   #validaciones
   validates_confirmation_of :password
-  validates_presence_of :password_confirmation
-  validates_presence_of :password
-  validates_presence_of :email,:name,:phone,:rut
-  validates_uniqueness_of :email
+  validates_presence_of :password_confirmation, :message=>"^El password no puede estar en blanco."
+  validates_presence_of :password,:message=>"^La confirmacion del password no puede estar en blanco."
+  validates_presence_of :email, :message=>"^El correo no puede estar en blanco."
+  validates_presence_of :name, :message=>"^El nombre no puede estar en blanco."
+  validates_presence_of :phone, :message=>"^El telefono no puede estar en blanco."
+  validates_presence_of :rut, :message=>"^El rut no puede estar en blanco."
+  validates_uniqueness_of :email, :message=>"^El correo ingresado ya existe."
   
   #autenticacion
   def self.authenticate(email, password)
