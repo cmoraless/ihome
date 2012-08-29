@@ -50,7 +50,7 @@ class ProfilesController < ApplicationController
   end
 
   # GET /profiles/1/edit
-  def schedule  
+  def schedules  
     @user = User.find(session[:user_id])
     @profile = Profile.find(params[:id])
     respond_to do |format|
