@@ -33,7 +33,7 @@
 	</span>
 	
 	<span class="schedule">
-		<%= link_to "Programar", :controller => "profiles", :action => "schedule", :id => profile.id%>
+	    <%= link_to "Programar", { :controller => "profiles" , :action => "schedules", :id => profile.id }, :class => "btn btn-mini btn-primary", :remote => true %>
 
 	</span>
 
