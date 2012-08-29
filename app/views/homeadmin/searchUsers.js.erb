@@ -1,0 +1,8 @@
+<% if @user %>
+$('#division2').empty();
+$('#division2').append('<%= j render "users/admin" %>');
+<%else%>
+$('#division2').empty();
+$('#division2').append('<%= j render "shared/flash_messages" %>');
+$('#division2').append('<%= j render "homeadmin/searchUserForm" %>');
+<%end%>

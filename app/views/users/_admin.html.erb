@@ -1,0 +1,23 @@
+<h1>Usuario </h1>
+	
+	<table class="table table-striped">
+	  <tr>
+	    <th>Nombre</th>
+	    <th>Correo</th>
+	    <th>Dirección</th>
+	    <th>Teléfono</th>
+	    <th>Rut</th>
+	    <th>Acciones</th>
+	  </tr>	 
+	  <tr>
+	    <td><%= @user.name %></td>
+	    <td><%= @user.email %></td>
+	    <td><%= @user.address %></td>
+	    <td><%= @user.phone %></td>
+	    <td><%= @user.rut %></td>
+	    <td>
+	    	<%= link_to 'Editar', edit_user_path(@user), :class => 'btn btn-mini', :remote=>true %>
+	    	<%= link_to 'Eliminar', @user, :confirm => '¿Estás seguro?', :method => :delete, :class => 'btn btn-mini btn-danger', :remote=>true %>
+	    </td>	
+	  </tr>
+	</table>
