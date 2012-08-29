@@ -1,0 +1,15 @@
+
+<ul class="entries"> 
+	<%= render @user.profiles %>
+	<div class="span6 offset1">
+		<li>			
+			<!-- Nombre -->
+			<span class="title">Agregar nuevo perfil</span>
+			<!-- Input Controlador AJAX -->
+			<div class="new">
+				<%= link_to 'Crear Perfil', new_profile_path, :class => 'btn btn-primary', :remote => true %>
+			</div>
+						
+		</li>
+	</div>
+</ul>

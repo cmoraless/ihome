@@ -49,6 +49,15 @@ class ProfilesController < ApplicationController
     end
   end
 
+  # GET /profiles/1/edit
+  def schedule  
+    @user = User.find(session[:user_id])
+    @profile = Profile.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # POST /profiles
   # POST /profiles.json
   def create
@@ -93,6 +102,7 @@ class ProfilesController < ApplicationController
   # DELETE /profiles/1.json
   def destroy
     @profile = Profile.find(params[:id])
+    @user = User.find(session[:user_id])
     @profile.destroy
 
     respond_to do |format|

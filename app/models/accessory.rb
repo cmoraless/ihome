@@ -1,7 +1,7 @@
 class Accessory < ActiveRecord::Base
   # asociaciones:
   belongs_to :accessory_type
-  has_and_belongs_to_many :profiles
+  has_many :profiles, :through => :schedules
   has_and_belongs_to_many :users
   has_and_belongs_to_many :ibox_accessories_containers
   # atributos

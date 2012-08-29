@@ -1,6 +1,4 @@
 
-$('#profiles').empty();
-
-$('#profiles').html("<h3>Crear nuevo Perfil</h3>").append("<%= escape_javascript(render('form')) %>");
-
-$('#profiles').append("<%= escape_javascript(link_to 'Back', :back) %>");
+$('#profiles_content').empty();
+$('#profiles_content').html("<h3>Crear nuevo Perfil</h3>").append("<%= escape_javascript(render('form')) %>");
+$('#profiles_content').append("<%= escape_javascript(link_to 'Back', :back) %>");

@@ -59,16 +59,11 @@
 </div>
 <% end %>
 <%content_for :iboxes do%>
-	<div style="visibility: hidden;" class="row-fluid">.</div>
-	<div class="row-fluid">
-		<div class="span8 offset1">
-			<%if @iboxes.length > 0 %>
-				<%= render "iboxes/all2" %>
-				<br />
-			<%end%>
-			<%= link_to "Habilitar Nuevo Ibox", show_enable_path, :class => 'btn btn-primary', :remote => true %>
-		</div>
-	</div>
+	<%if @iboxes.length > 0 %>
+		<%= render "iboxes/all2" %>
+	<%end%>
+	<%= link_to "Habilitar Nuevo Ibox", show_enable_path, :class => 'btn btn-primary', :remote => true %>
+
 <%end%>
 <%if @iboxes.length > 0 %>
 

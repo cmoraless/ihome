@@ -68,7 +68,7 @@
 			</div> 
 			<div id="profiles" class="collapse">  
 				<div class="accordion-body collapse in">
-					<div class="accordion-inner">
+					<div id="profiles_content" class="accordion-inner">
 						<ul class="entries"> 
 							<%= render @user.profiles %>
 							<div class="span6 offset1">
@@ -170,7 +170,6 @@
 	</div>
 	  
 <%else%>
-sdsdsdsd
 	<%= render 'shared/flash_messages' %>
 <%end%>
 

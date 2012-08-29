@@ -8,9 +8,10 @@
 		<!--  -->
 		<%if accessory.cmdclass == "AllOnOff,Configuration"%>
 			
-			<!-- Icono -->
+			<!-- Icono 
 			<span class="icon"> <%= image_tag("bulb_off.png", :ratio => ".5")%></span>
-
+            -->
+            
 			<!-- Nombre -->
 			<span class="title"><%= accessory.name %></span>
 			<!-- Input Controlador AJAX -->
@@ -34,9 +35,6 @@
 		<!-- Cortinas -->
 		<!--  -->
 		<% else %>
-		
-			<!-- Icono -->
-			<span class="icon"> <%= image_tag("curtains.png", :ratio => ".5")%></span>
 
 			<!-- Nombre -->
 			<span class="title"><%= accessory.name %></span>
@@ -70,9 +68,6 @@
 	<!-- Luces -->
 	<!--  -->
 	<% if accessory.kind == 'BinarySwitch' %>
-	
-		<!-- Icono -->
-		<span class="icon"> <%= image_tag("bulb_off.png", :ratio => ".5")%></span>
 
 		<!-- Nombre -->
 		<span class="title"><%= accessory.name %></span>	
