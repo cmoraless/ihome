@@ -1,0 +1,18 @@
+<script type="text/javascript">
+	$(function() {
+		var correos = [];
+		<% for i in 0..@usersAdmin.length-1 %>
+			correos.push("<%= @usersAdmin[i][:email]%>");
+		<%end%>			
+		$( "#emailsIbox" ).autocomplete({
+			source: correos
+		});
+	});
+</script>
+
+
+<div class="ui-widget">
+	<%= form_tag('/homeadmin/searchIboxes', :remote=>true)%>
+	<%= label_tag 'Buscar Iboxes por Correo:' %> <%= text_field_tag 'emailsIbox' %>
+	<%= submit_tag "Buscar" %>	
+</div>

@@ -20,7 +20,8 @@
 <% end %>
 
 <%content_for :iboxes do%>
-	<%= render :partial => "iboxes/all" %>
+	<% link_to "Crear Ibox", new_ibox_path, :remote => true %>
+	<%= render :partial => "homeadmin/indexIbox" %>
 <%end%>
 
 <%content_for :accessories do%>

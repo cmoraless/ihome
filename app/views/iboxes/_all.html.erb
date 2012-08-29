@@ -1,4 +1,4 @@
-<h1>Iboxs Creados</h1>
+<h1>Iboxs para usuario <%= %></h1>
 
 <table class="table table-striped">
   <tr>
@@ -20,13 +20,13 @@
     <td><%= ibox.port %></td>    
     <td><%= ibox.isActive ? 'si' : 'no' %><td>
 			
-    <td><%= link_to 'Edit', edit_ibox_path(ibox), :remote => true %></td>
-    <td><%= link_to 'Destroy', ibox, method: :delete, :remote => true, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Editar', edit_ibox_path(ibox), :remote => true %></td>
+    <td><%= link_to 'Eliminar', ibox, method: :delete, :remote => true, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 <br />
-<%= link_to "Crear Ibox", new_ibox_path, :remote => true %>
+
 
 
 

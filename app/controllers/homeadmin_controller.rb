@@ -43,22 +43,46 @@ class HomeadminController < ApplicationController
   
   def browseAs
     user = User.where(:email => params[:emails])
-    #logger.debug "####### user = #{user[0].id}"
-    #logger.debug "######## params[:emails] = #{params[:emails]}"
-    #logger.debug "######## user.id = #{user[0].id}"
-    if user[0]
-      session[:user_id] = user[0].id
+    @usersAdmin = User.where(:isAdmin => true)
+    if user[0]      
+      @user = User.find(user[0].id)
       respond_to do |format|
-        format.js { render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"  }
+        if @user.isAdmin
+          session[:user_id] = user[0].id      
+          format.js { render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"  }
+        else
+          flash[:notice] = ""
+          flash[:error] = "El usuario especificado no es un administrador."
+          format.js
+        end
       end
     else
       respond_to do |format|
-        @usersAdmin = User.where(:isAdmin => true)
         flash[:notice] = ""
         flash[:error] = "Hubo un error al intentar navegar con el usuario especificado."
         format.js
       end
     end
   end
-    
+  
+  def searchIboxes
+    user = User.where(:email => params[:emailsIbox])
+    @usersAdmin = User.where(:isAdmin => true)
+    respond_to do |format|
+      if user[0]
+        if user[0].isAdmin
+          @iboxes = user[0].iboxes
+          format.js
+        else
+          flash[:notice] = ""
+          flash[:error] = "El usuario especificado no es un administrador."
+          format.js
+        end     
+      else
+        flash[:notice] = ""
+        flash[:error] = "Hubo un error al intentar buscar Iboxes con el usuario especificado."
+        format.js
+      end
+    end
+  end 
 end

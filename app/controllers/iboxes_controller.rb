@@ -15,7 +15,7 @@ class IboxesController < ApplicationController
   def edit
     @ibox = Ibox.find(params[:id])
     respond_to do |format|
-      @iboxes = Ibox.all      
+      #@iboxes = Ibox.all      
       format.js #added
     end
   end
@@ -26,6 +26,7 @@ class IboxesController < ApplicationController
     respond_to do |format|
       if @ibox.save
         @iboxes = Ibox.all
+        @usersAdmin = User.where(:isAdmin => true)
         flash[:notice] = "Se ha creado correctamente el Ibox."
         format.js
       else
@@ -40,8 +41,13 @@ class IboxesController < ApplicationController
 
     respond_to do |format|
       if @ibox.update_attributes(params[:ibox])
-        @iboxes = Ibox.all
         @user = User.find(session[:user_id])
+        @usersAdmin = User.where(:isAdmin => true)  
+        if @user.isSuperAdmin == true and @user.isAdmin == false
+          @iboxes = Ibox.all
+        elsif @user.isSuperAdmin == false and @user.isAdmin == true
+          @iboxes = @user.iboxes
+        end
         flash[:notice] = "Se ha actualizado correctamente el Ibox."
         format.js 
       else
@@ -58,10 +64,18 @@ class IboxesController < ApplicationController
     end
   end
 
-  def destroy
+  def destroy #elimina el ibox y todos sus usuarios no administrativos
     @ibox = Ibox.find(params[:id])
+    @usersIbox = @ibox.users
+    for i in 0..@usersIbox.length-1
+      if @usersIbox[i].isAdmin == false
+        @usersIbox[i].destroy
+      end
+    end
     @ibox.destroy
     @iboxes = Ibox.all
+    @usersAdmin = User.where(:isAdmin => true)
+    flash[:notice] = "Se ha eliminado correctamente el Ibox."
     respond_to do |format|
      format.js 
     end

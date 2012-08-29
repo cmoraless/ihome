@@ -2,7 +2,7 @@
 	
 	<fieldset>
 		<legend>Usuario</legend>
-		<% if user_form.error_messages.length > 0%>
+		<% if user_form.error_messages.length > 0 or @error_contrasena %>
    		<%= render "shared/flash_messages"%>
  		<%end%>
 		<div class="control-group">
