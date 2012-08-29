@@ -32,8 +32,8 @@
  		</div>
  	
 		<div class="form-actions">
-    		<%= profile_form.submit :Guardar, :class => "btn btn-primary", :remote => true %>
-			<%= link_to 'Programar', :action => "schedule", :id => @profile, :class => 'btn btn-primary', :remote=>true %>
+    		<%= profile_form.submit :GuardarCambios, :class => "btn btn-primary", :remote => true %>
+		    <%= link_to 'Programar', schedule_path(), :class => 'btn btn-primary', :remote => true %>
   		</div>
   		
   	</fieldset>

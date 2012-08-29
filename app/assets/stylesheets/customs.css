@@ -51,7 +51,7 @@ ul.entries .action {
 ul.entries .profile {
   margin-top: -12px;
   float: right;
-  margin-right: 230px;
+  margin-right: 300px;
   width: 0px;
   /* todo: color, background + padding-left declarations for thumb icons */
 }
@@ -63,10 +63,19 @@ ul.entries .edit {
   width: 0px;
   /* todo: color, background + padding-left declarations for thumb icons */
 }
+
 ul.entries .delete {
   margin-top: -10px;
   float: right;
   margin-right: -130px;
+  width: 0px;
+  /* todo: color, background + padding-left declarations for thumb icons */
+}
+
+ul.entries .schedule {
+  margin-top: -10px;
+  float: right;
+  margin-right: -240px;
   width: 0px;
   /* todo: color, background + padding-left declarations for thumb icons */
 }

@@ -18,6 +18,7 @@ Ihome::Application.routes.draw do
   resources :profiles
   resources :sessions
   resources :accessories
+  resources :schdules
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
@@ -25,6 +26,7 @@ Ihome::Application.routes.draw do
   get "new_admin" => "users#newAdmin", :as => "new_admin"
   get "new_no_admin" => "users#newNoAdmin", :as => "new_no_admin"
   get "show_enable" => "iboxes#showEnable", :as => "show_enable"
+  
   #get "change_ibox" => "home#changeIbox", :as => "change_ibox"
   #match "home/changeIbox/:id" => "home#changeIbox"
   #get "add_user_to_ibox" => "iboxes#addUser", :as=> "add_user_to_ibox"

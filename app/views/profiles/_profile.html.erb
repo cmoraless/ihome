@@ -31,6 +31,12 @@
 	<span class="delete">
 		<%= link_to 'Eliminar', profile, :confirm => '¿Estás seguro?', :method => :delete, :class => 'btn btn-mini btn-danger', :remote=>true %>
 	</span>
+	
+	<span class="schedule">
+		<!-- <%= link_to 'Programar', schedule_path(), :class => 'btn btn-mini', :remote => true %> -->
+		<%= link_to "Programar", :controller => "profiles", :action => "schedule", :id => profile.id, :remote => true %>
+
+	</span>
 
 </li>
-</div>
+</div>	
