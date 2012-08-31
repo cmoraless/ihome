@@ -1,11 +1,27 @@
 class AccessoriesController < ApplicationController
-  #ACA HACER LOS BEFORE FILTERS
+  #before_filter :check_auth_admin, :only=>[:new, :edit, :update, :destroy]
+  
+  def check_auth_admin    
+    if User.exists?(session[:user_id])
+      @currentUser = User.find(session[:user_id])
+      if @currentUser.isAdmin == false and @currentUser.isSuperAdmin == false      
+        respond_to do |format|
+          format.html {redirect_to(home_index_path)}
+          format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
+        end
+      end
+    else
+      respond_to do |format|
+        format.html {redirect_to(root_path)}
+        format.js {render :js => "window.location.replace('#{url_for(:controller => 'sessions', :action => 'new')}');"}    
+      end
+    end
+  end
   
   # GET /accessories/new
   # GET /accessories/new.json
   def new
     @accessory = Accessory.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @accessory }

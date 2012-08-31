@@ -7,5 +7,5 @@ $("#users").empty();
 	$("#iboxes").append('<%= j render "homeadmin/indexIbox" %>');
 <%else%>
 	$("#users").append('<%= j render "users/all" %>');
-	$("#users").append('<%= link_to "Agregar nuevo usuario", new_no_admin_path, :remote=>true%>');	
+	$("#users").append('<%= link_to "Agregar nuevo usuario", new_no_admin_path, :remote=>true, :class => "btn btn-primary"%>');	
 <%end%>

@@ -1,14 +1,21 @@
 class AdminController < ApplicationController
-  before_filter :check_auth
-  def check_auth
+  before_filter :check_auth_admin
+  
+  def check_auth_admin    
     if User.exists?(session[:user_id])
-      @user = User.find(session[:user_id])
-      if @user.isAdmin == false or @user.isSuperAdmin == true
-        redirect_to(home_index_path)
-      end  
+      @currentUser = User.find(session[:user_id])
+      if @currentUser.isAdmin == false and @currentUser.isSuperAdmin == false      
+        respond_to do |format|
+          format.html {redirect_to(home_index_path)}
+          format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
+        end
+      end
     else
-      redirect_to(root_path)
-    end    
+      respond_to do |format|
+        format.html {redirect_to(root_path)}
+        format.js {render :js => "window.location.replace('#{url_for(:controller => 'sessions', :action => 'new')}');"}    
+      end
+    end
   end
   
   def changeIbox

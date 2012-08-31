@@ -1,6 +1,42 @@
 class IboxesController < ApplicationController
   layout "homeadmin"
   #ACA HACER LOS BEFORE FILTERS
+  before_filter :check_auth_superAdmin, :only => [:new, :create, :destroy]
+  before_filter :check_auth_admin
+  
+  def check_auth_superAdmin
+    if User.exists?(session[:user_id])
+      @currentUser = User.find(session[:user_id])
+        if @currentUser.isSuperAdmin == false
+          respond_to do |format|
+            format.html {redirect_to(home_index_path)}
+            format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}      
+          end
+        end      
+    else
+      respond_to do |format|
+        format.html {redirect_to(root_path)}
+        format.js {render :js => "window.location.replace('#{url_for(:controller => 'sessions', :action => 'new')}');"}
+      end      
+    end      
+  end
+  
+  def check_auth_admin    
+    if User.exists?(session[:user_id])
+      @currentUser = User.find(session[:user_id])
+      if @currentUser.isAdmin == false and @currentUser.isSuperAdmin == false      
+        respond_to do |format|
+          format.html {redirect_to(home_index_path)}
+          format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
+        end
+      end
+    else
+      respond_to do |format|
+        format.html {redirect_to(root_path)}
+        format.js {render :js => "window.location.replace('#{url_for(:controller => 'sessions', :action => 'new')}');"}    
+      end
+    end
+  end
   
   def new
     @ibox = Ibox.new
@@ -14,9 +50,23 @@ class IboxesController < ApplicationController
 
   def edit
     @ibox = Ibox.find(params[:id])
+    @currentUser = User.find(session[:user_id])
+    if @currentUser.isAdmin == true
+      @iboxes = @currentUser.iboxes
+      autorizado = false
+      for i in 0..@iboxes.length-1
+        if @iboxes[i].id == @ibox.id
+          autorizado = true
+        end
+      end
+    end    
+    logger.debug "################################### autorizado  #{autorizado}"
     respond_to do |format|
-      #@iboxes = Ibox.all      
-      format.js #added
+      if @currentUser.isSuperAdmin == true or (autorizado and @currentUser.isAdmin)
+        format.js #added
+      else
+        format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
+      end        
     end
   end
 
@@ -38,21 +88,34 @@ class IboxesController < ApplicationController
 
   def update
     @ibox = Ibox.find(params[:id])
-
-    respond_to do |format|
-      if @ibox.update_attributes(params[:ibox])
-        @user = User.find(session[:user_id])
-        @usersAdmin = User.where(:isAdmin => true)  
-        if @user.isSuperAdmin == true and @user.isAdmin == false
-          @iboxes = Ibox.all
-        elsif @user.isSuperAdmin == false and @user.isAdmin == true
-          @iboxes = @user.iboxes
+    @currentUser = User.find(session[:user_id])
+    if @currentUser.isAdmin == true
+      @iboxes = @currentUser.iboxes
+      autorizado = false
+      for i in 0..@iboxes.length-1
+        if @iboxes[i].id == @ibox.id
+          autorizado = true
         end
-        flash[:notice] = "Se ha actualizado correctamente el Ibox."
-        flash[:error] = ""
-        format.js 
+      end
+    end     
+    respond_to do |format|
+      if @currentUser.isSuperAdmin == true or (autorizado and @currentUser.isAdmin)
+        if @ibox.update_attributes(params[:ibox])
+          @user = User.find(session[:user_id])
+          @usersAdmin = User.where(:isAdmin => true)  
+          if @user.isSuperAdmin == true and @user.isAdmin == false
+            @iboxes = Ibox.all
+          elsif @user.isSuperAdmin == false and @user.isAdmin == true
+            @iboxes = @user.iboxes
+          end
+          flash[:notice] = "Se ha actualizado correctamente el Ibox."
+          flash[:error] = ""
+          format.js 
+        else
+          format.js {render :action => 'edit'}
+        end
       else
-        format.js {render :action => 'edit'}
+          format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
       end
     end
   end

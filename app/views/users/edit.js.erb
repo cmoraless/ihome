@@ -7,3 +7,7 @@ $('#users').append('<div class="row-fluid"><div class="span12"></div></div>');
 	$('#users').append('<%= escape_javascript(render(:partial => 'formNoAdmin'))%>');
 <%end%>
 $('#users').append('<%= link_to 'Back', :back %>');
+<% if @error %>
+$('#modal-edit').empty();
+$('#modal-edit').append('<%= j render "users/formEdit"%>');
+<%end%>

@@ -24,7 +24,7 @@
           <%end%>
           <span class="caret"></span>
         </a>
-        <ul class="dropdown-menu">zz
+        <ul class="dropdown-menu">
 					<% if @iboxes.length > 0%>
 						<% for i in 0..@iboxes.length-1 %>
 			    	  <li><%= link_to @iboxes[i][:name], :controller => "home", :action => "changeIbox", :id => @iboxes[i][:id] %></li>
@@ -178,7 +178,7 @@
 	<a class="close" data-dismiss="modal">×</a>  
 	<h3>Editando Usuario</h3>  
 	</div>  
-	<div class="modal-body">  
+	<div id="modal-edit" class="modal-body">  
 		<%= render "users/formEdit"%>              
 	</div>  	 
 </div>  

@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
   
   #validaciones
-  validates_confirmation_of :password
+  validates_confirmation_of :password, :message=> "^Los passwords no coinciden."
   validates_presence_of :password_confirmation, :message=>"^El password no puede estar en blanco."
   validates_presence_of :password,:message=>"^La confirmacion del password no puede estar en blanco."
   validates_presence_of :email, :message=>"^El correo no puede estar en blanco."

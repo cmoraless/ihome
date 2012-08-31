@@ -1,14 +1,10 @@
 class HomeController < ApplicationController
-  before_filter :check_auth
   before_filter :check_mobile, :only => [:index]
-  def check_auth
-    if session[:user_id] == nil
+  before_filter :check_user
+  
+  def check_user
+    if User.exists?(session[:user_id]) == false
       redirect_to(root_path)
-    else
-      @user = User.find(session[:user_id])
-      if @user.isSuperAdmin
-        redirect_to(root_path)
-      end
     end
   end
   

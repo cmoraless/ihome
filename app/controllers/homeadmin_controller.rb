@@ -76,6 +76,9 @@ class HomeadminController < ApplicationController
         @user = user[0]
         #if @user.isAdmin
           @iboxes = user[0].iboxes
+          if @iboxes.length == 0
+            flash[:error] = "El usuario especificado no tiene Iboxes habilitados."
+          end
           format.js
         #else
         #  flash[:notice] = ""
