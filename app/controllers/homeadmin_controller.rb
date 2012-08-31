@@ -49,14 +49,14 @@ class HomeadminController < ApplicationController
     if user[0]      
       @user = User.find(user[0].id)
       respond_to do |format|
-        if @user.isAdmin
+        #if @user.isAdmin
           session[:user_id] = user[0].id      
           format.js { render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"  }
-        else
-          flash[:notice] = ""
-          flash[:error] = "El usuario especificado no es un administrador."
-          format.js
-        end
+        #else
+        #  flash[:notice] = ""
+        #  flash[:error] = "El usuario especificado no es un administrador."
+        #  format.js
+        #end
       end
     else
       respond_to do |format|
@@ -70,17 +70,18 @@ class HomeadminController < ApplicationController
   def searchIboxes
     user = User.where(:email => params[:emailsIbox])
     @usersAdmin = User.where(:isAdmin => true)
-    @user = user[0]
+    
     respond_to do |format|
       if user[0]
-        if user[0].isAdmin
+        @user = user[0]
+        #if @user.isAdmin
           @iboxes = user[0].iboxes
           format.js
-        else
-          flash[:notice] = ""
-          flash[:error] = "El usuario especificado no es un administrador."
-          format.js
-        end     
+        #else
+        #  flash[:notice] = ""
+        #  flash[:error] = "El usuario especificado no es un administrador."
+        #  format.js
+        #end     
       else
         flash[:notice] = ""
         flash[:error] = "Hubo un error al intentar buscar Iboxes con el usuario especificado."
@@ -94,14 +95,14 @@ class HomeadminController < ApplicationController
     @usersAdmin = User.where(:isAdmin => true)
     respond_to do |format|
       if user[0]
-        if user[0].isAdmin
-          @user = user[0]
+        @user = user[0]
+        #if @user.isAdmin
           format.js
-        else
-          flash[:notice] = ""
-          flash[:error] = "El usuario especificado no es un administrador."
-          format.js
-        end     
+        #else
+        #  flash[:notice] = ""
+        #  flash[:error] = "El usuario especificado no es un administrador."
+        #  format.js
+        #end     
       else
         flash[:notice] = ""
         flash[:error] = "Hubo un error al intentar buscar el Usuario con el correo especificado."

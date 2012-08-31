@@ -54,6 +54,7 @@ class UsersController < ApplicationController
         else 
           #format.html { redirect_to :controller=>'homeadmin', :action=>'index'}
           @usersAdmin = User.where(:isAdmin => true)
+          @iboxes = Ibox.all
           flash[:error] = ""
           flash[:notice] = "Se ha creado correctamente el usuario."
           format.js
