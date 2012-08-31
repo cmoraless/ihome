@@ -37,7 +37,7 @@ class IboxesController < ApplicationController
       end
     end
   end
-  
+ 
   def new
     @ibox = Ibox.new
     @create = true

@@ -1,14 +1,21 @@
 class HomeadminController < ApplicationController
-  before_filter :check_auth
-  def check_auth
+  before_filter :check_auth_superAdmin
+  
+  def check_auth_superAdmin
     if User.exists?(session[:user_id])
-      @user = User.find(session[:user_id])
-      if @user.isSuperAdmin == false 
-        redirect_to(root_path)
-      end  
+      @currentUser = User.find(session[:user_id])
+        if @currentUser.isSuperAdmin == false
+          respond_to do |format|
+            format.html {redirect_to(home_index_path)}
+            format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}      
+          end
+        end      
     else
-      redirect_to(root_path)
-    end    
+      respond_to do |format|
+        format.html {redirect_to(root_path)}
+        format.js {render :js => "window.location.replace('#{url_for(:controller => 'sessions', :action => 'new')}');"}
+      end      
+    end      
   end
   
   
