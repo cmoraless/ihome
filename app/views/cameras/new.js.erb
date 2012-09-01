@@ -1,3 +1,3 @@
 $('#cameras').empty();
 $('#cameras').append('<%= j render 'form' %>');
-$('#cameras').append('<%= link_to 'Back', :back %>');
+$('#cameras').append('<%= link_to 'Atras', back_camera_path,:remote=>true %>');

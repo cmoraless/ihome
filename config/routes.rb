@@ -26,7 +26,9 @@ Ihome::Application.routes.draw do
   get "new_admin" => "users#newAdmin", :as => "new_admin"
   get "new_no_admin" => "users#newNoAdmin", :as => "new_no_admin"
   get "show_enable" => "iboxes#showEnable", :as => "show_enable"
-  
+  get "back_ibox" => "iboxes#back", :as => "back_ibox"
+  get "back_user" => "users#back", :as => "back_user"
+  get "back_camera" => "cameras#back", :as=>"back_camera"
   #get "change_ibox" => "home#changeIbox", :as => "change_ibox"
   #match "home/changeIbox/:id" => "home#changeIbox"
   #get "add_user_to_ibox" => "iboxes#addUser", :as=> "add_user_to_ibox"

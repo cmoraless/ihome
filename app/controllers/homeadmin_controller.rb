@@ -38,16 +38,12 @@ class HomeadminController < ApplicationController
       @accessory.save  
     end
     @accessory_types = AccessoryType.all
-    @users = User.all
+    #@users = User.all
     @usersAdmin = User.where(:isAdmin => true)
     respond_to do |format|
       format.html  # index.html.erb
       format.json  { }
     end
-  end
-  
-  def view
-   
   end
   
   def browseAs

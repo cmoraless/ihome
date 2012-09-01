@@ -1,3 +1,3 @@
 $('#users').empty();
 $('#users').html("<%= escape_javascript(render('formNoAdmin')) %>");
-$('#users').append("<%= escape_javascript(link_to 'Back', :back) %>");
+$('#users').append('<%= link_to 'Atrás', back_user_path, :remote=>true %>');

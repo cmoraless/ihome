@@ -155,5 +155,19 @@ class UsersController < ApplicationController
       end
     end
   end
+  
+  def back
+    respond_to do |format|
+      @currentUser = User.find(session[:user_id])
+      if @currentUser.isAdmin == true and @currentUser.isSuperAdmin == false
+        #@iboxes = @currentUser.iboxes
+        @ibox = Ibox.find(session[:ibox_id])
+        @users = @ibox.users
+      elsif @currentUser.isAdmin == false and @currentUser.isSuperAdmin == true
+        @usersAdmin = User.where(:isAdmin => true)
+      end
+      format.js
+    end
+  end
 
 end

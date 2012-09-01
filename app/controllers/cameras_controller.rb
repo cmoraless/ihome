@@ -89,4 +89,14 @@ class CamerasController < ApplicationController
       format.js
     end
   end
+  
+  def back
+    respond_to do |format|
+      @currentUser = User.find(session[:user_id])
+      @ibox = Ibox.find(session[:ibox_id])
+      @iboxes = @currentUser.iboxes
+      @cameras = @ibox.cameras      
+      format.js
+    end
+  end
 end

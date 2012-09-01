@@ -1,0 +1,7 @@
+$('#users').empty();
+<% if @currentUser.isAdmin == true and @currentUser.isSuperAdmin == false%>
+	$('#users').append('<%= j render "users/all"%>');
+	$('#users').append('<%= link_to "Agregar nuevo usuario", new_no_admin_path, :remote=>true, :class => 'btn btn-primary'%>');		
+<%elsif @currentUser.isAdmin == false and @currentUser.isSuperAdmin == true%>
+	$('#users').append('<%= j render "homeadmin/indexUser" %>');
+<%end%>
