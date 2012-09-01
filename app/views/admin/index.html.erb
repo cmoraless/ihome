@@ -9,7 +9,7 @@
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-          <li><a data-toggle="modal" href="#editUser">Editar</a></li>
+          <li><a data-toggle="modal" onclick="javascript:resetModal();" href="#editUser">Editar</a></li>
           <li class="divider"></li>
           <li><%=link_to "Salir",log_out_path %></li>
         </ul>      
@@ -103,6 +103,11 @@
 	<h3>Editando Usuario</h3>  
 	</div>  
 	<div id="modal-edit" class="modal-body">  
-		<%= render "users/formEdit"%>              
 	</div>  	 
-</div>  
+</div>
+<script type="text/javascript">
+	function resetModal(){
+		$('#modal-edit').empty();
+		$('#modal-edit').append('<%= j render "users/formEdit"%>');
+	}
+</script>    
