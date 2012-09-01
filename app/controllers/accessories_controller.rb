@@ -106,4 +106,19 @@ class AccessoriesController < ApplicationController
       flash[:notice] = "Lo sentimos, el servicio no se encuentra disponible actualmente."
     end
   end
+  
+  def back
+    respond_to do |format|
+      @currentUser = User.find(session[:user_id])
+      @iboxes = @currentUser.iboxes
+      @ibox = Ibox.find(session[:ibox_id])
+      @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+      @accessories = []
+      @containers.each do |container|
+        @accessories << container.accessories
+      end
+      format.js  
+    end
+  end
+  
 end

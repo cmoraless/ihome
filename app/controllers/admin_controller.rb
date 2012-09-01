@@ -37,7 +37,6 @@ class AdminController < ApplicationController
       @accessories = []
       @containers.each do |container|
         @accessories << container.accessories
-        logger.debug "############### #{container.accessories[0][:name]}"
       end  
       #logger.debug "############### #{@accessories}"
     end
