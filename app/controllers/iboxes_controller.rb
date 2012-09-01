@@ -60,7 +60,6 @@ class IboxesController < ApplicationController
         end
       end
     end    
-    logger.debug "################################### autorizado  #{autorizado}"
     respond_to do |format|
       if @currentUser.isSuperAdmin == true or (autorizado and @currentUser.isAdmin)
         format.js #added
@@ -149,13 +148,13 @@ class IboxesController < ApplicationController
     respond_to do |format|
       if Ibox.exists?(params[:ibox_id])
         @ibox = Ibox.find(params[:ibox_id])
-        @user = User.find(session[:user_id])
-        session[:ibox_id] = @ibox.id
+        @user = User.find(session[:user_id])        
         if @ibox.isActive == true
           flash[:error] = "El ibox seleccionado ya esta activo."
           flash[:notice] = ""
           format.js
         else
+          session[:ibox_id] = @ibox.id
           @ibox.update_attribute(:isActive, true)
           @ibox.users << @user
           format.js {redirect_to :action => 'addDefaultAccessories', :id => @ibox.id}
