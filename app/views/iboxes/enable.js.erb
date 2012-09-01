@@ -3,4 +3,4 @@ $('#iboxes').append('<%=j render 'shared/flash_messages' %>');
 $('#iboxes').append('<div class="span8 offset1">');
 $('#iboxes').append('<%=j render 'iboxes/enable' %>');
 $('#iboxes').append('</div>');
-$('#iboxes').append('<%= link_to 'Atrás', back_ibox_path, :remote=>true %>');
+$('#iboxes').append('<%= link_to 'Atrás', back_ibox_path, :remote=>true, :class=>"btn btn-small btn-primary" %>');
