@@ -83,28 +83,24 @@ class AccessoriesController < ApplicationController
   end
   
   def control
-    #logger.debug "######## ENTRE A CONTROL #######"
     require 'net/http'
     require 'uri'
     ibox = Ibox.find(session[:ibox_id])
+    accessory = Accessory.find(params[:id])
     ip = ibox.ip
     port = ibox.port
     ws = 'http://' + ip + ':' + port
     url = URI.parse(ws)
-    #params[:zid] = '0016E62703';
-    #params[:value] = '1' 
     begin
-      if params[:kind] == 'MultiLevelSwitch'
-        req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?VALUE=' + params[:value] + '&ZID=' + params[:zid])
+      if accessory.kind == 'MultiLevelSwitch'
+        req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?VALUE=' + params[:value] + '&ZID=' + accessory.zid)
       end
-      if params[:kind] == 'BinarySwitch' or params[:kind] == 'BinarySensor'
-        req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?OP=' + params[:value] + '&ZID=' + params[:zid])
+      if accessory.kind == 'BinarySwitch'
+        req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?OP=' + params[:value] + '&ZID=' + accessory.zid)
       end
       req.basic_auth 'root', ''
       res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
-      @body = res.body
-      @accessory = Accessory.find_by_zid(params[:zid])
-      @accessory.update_attribute(:value, params[:value].to_i)      
+      accessory.update_attribute(:value, params[:value].to_i)
     rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
       flash[:notice] = "Lo sentimos, el servicio no se encuentra disponible actualmente."

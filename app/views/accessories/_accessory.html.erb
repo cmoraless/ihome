@@ -25,7 +25,7 @@
 				$(function() {
 					$("input#<%=accessory.zid%>").slider();
 					$("input#<%=accessory.zid%>").bind("change",function(event,ui) {
-						$.post('accessories/control', { zid: '<%=accessory.zid%>', value: $("input#<%=accessory.zid%>").val(), kind: '<%=accessory.kind%>'});
+						$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: $("input#<%=accessory.zid%>").val()});
 					});
 				});
 			</script>
@@ -54,9 +54,9 @@
       			var onchange_checkbox = ($('.on_off :checkbox')).iphoneStyle({
         			onChange: function(elem, value) { 
           				if (value == true){
-          					$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '9', kind: '<%=accessory.kind%>'});
+          					$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '9'});
           				}else{
-          					$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '0', kind: '<%=accessory.kind%>'});
+          					$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '0'});
           				}
         			}
       			});
@@ -87,9 +87,9 @@
       		var onchange_checkbox = ($('.on_off :checkbox')).iphoneStyle({
         		onChange: function(elem, value) { 
           			if (value == true){
-          				$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '1', kind: '<%=accessory.kind%>'});
+          				$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '1'});
           			}else{
-	          			$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '0', kind: '<%=accessory.kind%>'});
+	          			$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '0'});
     	      		}
         		}
       		});
