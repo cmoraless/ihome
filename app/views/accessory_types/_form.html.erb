@@ -1,5 +1,9 @@
 <%= form_for(@accessory_type, :remote=>true) do |f| %>
-
+	<% if f.error_messages%>
+	<%= f.error_messages :header_message => "Tipo de accesorio inválido",
+  :message=> "",
+  :header_tag => :h3 %>
+	<%end%>
   <div class="field">
     <%= f.label :name %>   <%= f.text_field :name %>
   </div>

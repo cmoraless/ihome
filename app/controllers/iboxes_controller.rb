@@ -388,6 +388,7 @@ class IboxesController < ApplicationController
         @iboxes = @currentUser.iboxes
       elsif @currentUser.isAdmin == false and @currentUser.isSuperAdmin == true
         @usersAdmin = User.where(:isAdmin => true)
+        @iboxes = Ibox.all
       end
       format.js
     end

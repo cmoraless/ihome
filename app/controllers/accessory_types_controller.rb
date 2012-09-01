@@ -38,7 +38,7 @@ class AccessoryTypesController < ApplicationController
         @accessory_types = AccessoryType.all
         format.js
       else
-        format.js
+        format.js {render :action=>'new'}
       end
     end
   end
@@ -51,17 +51,25 @@ class AccessoryTypesController < ApplicationController
         @accessory_types = AccessoryType.all
         format.js 
       else
-        format.js
+        format.js {render :action=>'edit'}
       end
     end
   end
 
- def destroy
+  def destroy
     @accessory_type = AccessoryType.find(params[:id])
     @accessory_type.destroy
     @accessory_types = AccessoryType.all                                                                           
     respond_to do |format|
       format.js 
     end
+  end
+  
+  def back
+    @accessory_types = AccessoryType.all    
+    respond_to do |format|
+      format.js
+    end
+
   end
 end
