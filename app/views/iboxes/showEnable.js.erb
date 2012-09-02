@@ -1,3 +1,3 @@
 $('#iboxes').empty();
 $('#iboxes').append('<%= j render "iboxes/enable"%>');
-$('#iboxes').append('<%= link_to 'Atrás', :back %>');
+$('#iboxes').append('<%= link_to 'Atrás', back_ibox_path, :remote=>true, :class=>"btn btn-small btn-primary" %>');

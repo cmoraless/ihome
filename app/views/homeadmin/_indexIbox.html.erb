@@ -1,7 +1,8 @@
-	<script type="text/javascript" charset="UTF-8">	
+	<script type="text/javascript" charset="UTF-8">		
+	
 	function crearI(){
 		$('#division').empty();
-		$('#division').append('<%= link_to "Crear Ibox", new_ibox_path, :remote => true %>');
+		$('#division').append('<%= link_to "Crear Ibox", new_ibox_path, :remote => true, :class => "btn btn-primary" %>');
 	}
 	
 	function buscarI(){
@@ -17,10 +18,9 @@
 <%= render "shared/flash_messages" %>
 Seleccione una opción.
 <div id ="options">
-	<input type="radio" id ="search-election" name ="class" value="buscar" onclick="buscarI();" /> Buscar Ibox por correo.
-	<input type="radio" id="create-election" name="class" value="crear" onclick="crearI();"/> Crear Nuevo Ibox
-	<input type="radio" id="list-election" name="class" value="listar" onclick="listarI();"/> Mostrar Iboxes inactivos<br />	
-	
+	<input type="radio" id ="search-election" name ="ibox" value="buscar" onclick="buscarI();" /> Buscar Ibox por correo.
+	<input type="radio" id="create-election" name="ibox" value="crear" onclick="crearI();"/> Crear Nuevo Ibox
+	<input type="radio" id="list-election" name="ibox" value="listar" onclick="listarI();"/> Mostrar Iboxes inactivos<br />		
 </div>
 <br />
 <div id="division">

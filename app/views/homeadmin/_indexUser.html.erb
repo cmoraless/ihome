@@ -1,47 +1,23 @@
 	<script type="text/javascript" charset="UTF-8">	
-	/*$(function(){
-		if(search == true){
-			alert("s");
-			$("#search-election").attr("checked",true);
-			$("#create-election").removeAttr("checked",false);
-			$("#list-election").attr("checked",false);
-			buscar();
-		}else if(create == true){
-			alert("c");
-			$("#search-election").attr("checked",false);
-			$("#create-election").attr("checked",true);
-			$("#list-election").attr("checked",false);
-			crear();
-		}else if(list == true){
-			alert("l");
-			$("#search-election").attr("checked",false);
-			$("#create-election").attr("checked",false);
-			$("#list-election").attr("checked",true);
-			listar();
-		}
-	}); */
+	
 	function crearU(){
 		$('#division2').empty();
 		$('#division2').append('<%= j render "users/newAdmin" %>');
-		/*create = true;
-		list = false;
-		search = false;*/
+		
 	}
 	
 	function buscarU(){
 		$('#division2').empty();
 		$('#division2').append('<%= j render "homeadmin/searchUserForm"%>');
-		/*create = false;
-		list = false;
-		search = true;*/
+		
 	}
 	
 </script>
 <%= render "shared/flash_messages" %>
 Seleccione una opción.
 <div id ="options2">
-	<input type="radio" id ="search-election" name ="class" value="buscar" onclick="buscarU();" /> Buscar Usuario por correo.
-	<input type="radio" id="create-election" name="class" value="crear" onclick="crearU();"/> Crear Nuevo Usuario	
+	<input type="radio" id ="search-election" name ="user" value="buscar" onclick="buscarU();" /> Buscar Usuario por correo.
+	<input type="radio" id="create-election" name="user" value="crear" onclick="crearU();"/> Crear Nuevo Usuario	
 </div>
 <br />
 <div id="division2">

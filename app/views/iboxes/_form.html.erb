@@ -17,6 +17,10 @@
 		<%end%>
 	</div>
   <div class="actions">
-    <%= f.submit %>
+  	<% if @create %>
+    <%= f.submit :Crear%>
+    <% else %>
+    <%= f.submit :Actualizar%>
+    <%end%>
   </div>
 <% end %>

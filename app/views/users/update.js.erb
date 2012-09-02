@@ -1,9 +1,18 @@
-$('#users').empty();
-<%if @user.isAdmin == false%>
-$('#users').append('<%= escape_javascript(render(:partial => "shared/flash_messages") ) %>');
-$('#users').append('<%= escape_javascript(render(:partial => "users/all") ) %>');
-$('#users').append('<%= link_to "Agregar nuevo usuario", new_no_admin_path, :remote=>true%>');
+<% if @currentUser.isSuperAdmin %>
+	$('#users').empty();
+	$("#users").append('<%= j render "homeadmin/indexUser" %>');
 <%else%>
-$("#users").append('<%= j render "homeadmin/indexUser" %>');
-
+	<% if @user.isAdmin == true %>
+		$('#modal-edit').empty();
+		$('#modal-edit').append('<%= j render "shared/flash_messages"%>');
+		$('#modal-edit').append('<%= j render "users/formEdit"%>');
+	<%else%>
+		$('#users').empty();
+		$('#users').append('<%= escape_javascript(render(:partial => "shared/flash_messages") ) %>');
+		$('#users').append('<%= escape_javascript(render(:partial => "users/all") ) %>');
+		$('#users').append('<%= link_to "Agregar nuevo usuario", new_no_admin_path, :remote=>true%>');
+		$('#modal-edit').empty();
+		$('#modal-edit').append('<%= j render "shared/flash_messages"%>');
+		$('#modal-edit').append('<%= j render "users/formEdit"%>');
+	<%end%>
 <%end%>

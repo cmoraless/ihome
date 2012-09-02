@@ -2,7 +2,7 @@
 	
 	<fieldset>
 		<legend>Usuario</legend>
-		<% if user_form.error_messages.length > 0 or @error_contrasena %>
+		<% if user_form.error_messages.length > 0%>
    		<%= user_form.error_messages :header_message => "Usuario inválido",
   			:message => "",
   			:header_tag => :h3 %>  
@@ -39,15 +39,19 @@
 
         	<%= user_form.hidden_field :isSuperAdmin, :value => false %>
 
-	     	<%= user_form.hidden_field :address, :value => 'address' %>
+	     		<%= user_form.hidden_field :address, :value => 'address' %>
 		
         	<%= user_form.hidden_field :phone, :value => 'phone' %>
 		
         	<%= user_form.hidden_field :rut, :value => 'rut' %>
 		
 		<div class="form-actions">
-            <%= user_form.submit :class => "btn btn-primary" %>
-        </div>
+	    <% if @edit %>
+	    	<%= user_form.submit :Actualizar, :class => "btn btn-primary" %>
+	    <%else%>
+	    	<%= user_form.submit :Crear, :class => "btn btn-primary" %>
+	    <%end%>
+    </div>
 				
  	</fieldset>
 <% end %>

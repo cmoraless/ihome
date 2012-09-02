@@ -1,0 +1,9 @@
+$('#iboxes').empty();
+<% if @currentUser.isAdmin == true and @currentUser.isSuperAdmin == false%>
+	<%if @iboxes.length > 0 %>
+		$('#iboxes').append('<%= j render "iboxes/all2" %>');
+	<%end%>
+	$('#iboxes').append('<%= link_to "Habilitar Nuevo Ibox", show_enable_path, :class => 'btn btn-primary', :remote => true %>');
+<%elsif @currentUser.isAdmin == false and @currentUser.isSuperAdmin == true%>
+	$('#iboxes').append('<%= j render "homeadmin/indexIbox" %>');
+<%end%>

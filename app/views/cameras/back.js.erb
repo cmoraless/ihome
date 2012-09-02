@@ -1,0 +1,7 @@
+$('#cameras').empty();
+<% if @currentUser.isAdmin == true and @currentUser.isSuperAdmin == false%>
+	<%if @iboxes.length > 0%>
+		$('#cameras').append('<%= j render 'cameras/all'%>');
+		$('#cameras').append('<%=link_to "Agregar nueva cámara", new_camera_path, :remote=>true, :class => 'btn btn-primary'%>');
+	<%end%>	
+<%end%>

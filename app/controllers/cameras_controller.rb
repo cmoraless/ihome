@@ -1,16 +1,23 @@
 class CamerasController < ApplicationController
-  before_filter :check_auth
-  def check_auth
+  before_filter :check_auth_admin  
+  
+  def check_auth_admin    
     if User.exists?(session[:user_id])
-      @user = User.find(session[:user_id])
-      if @user.isAdmin == false 
-        redirect_to(home_index_path)
-      end  
+      @currentUser = User.find(session[:user_id])
+      if @currentUser.isAdmin == false and @currentUser.isSuperAdmin == false      
+        respond_to do |format|
+          format.html {redirect_to(home_index_path)}
+          format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
+        end
+      end
     else
-      redirect_to(root_path)
-    end    
+      respond_to do |format|
+        format.html {redirect_to(root_path)}
+        format.js {render :js => "window.location.replace('#{url_for(:controller => 'sessions', :action => 'new')}');"}    
+      end
+    end
   end
-
+  
   # GET /cameras/new
   # GET /cameras/new.json
   def new
@@ -25,10 +32,12 @@ class CamerasController < ApplicationController
   # GET /cameras/1/edit
   def edit
     @edit = true
+    logger.debug "#################### EDIIIIIIT"
     @camera = Camera.find(params[:id])
     respond_to do |format|
       @ibox = Ibox.find(session[:ibox_id])
       @cameras = @ibox.cameras
+      logger.debug "#################### EDIIIIIIIIIT 2222222222222"
       format.js
     end
   end
@@ -77,6 +86,16 @@ class CamerasController < ApplicationController
     respond_to do |format|
       @ibox = Ibox.find(session[:ibox_id])
       @cameras = @ibox.cameras
+      format.js
+    end
+  end
+  
+  def back
+    respond_to do |format|
+      @currentUser = User.find(session[:user_id])
+      @ibox = Ibox.find(session[:ibox_id])
+      @iboxes = @currentUser.iboxes
+      @cameras = @ibox.cameras      
       format.js
     end
   end

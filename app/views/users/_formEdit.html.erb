@@ -1,17 +1,9 @@
 <%= form_for(@user,:remote=>true, :html => {:class => "form-horizontal"}) do |user_form| %>
-		<% if user_form.error_messages.length > 0 or @error_contrasena %>
+		<% if user_form.error_messages %>
    		<%= user_form.error_messages :header_message => "Usuario inválido",
   			:message => "",
   			:header_tag => :h3 %>  
  		<%end%>
-		<div class="control-group">
-    	<%= user_form.label :Nombre, :class => "control-label" %>
-    	<div class="controls">
-      	<%= user_form.text_field :name, :class => "input-xlarge" %>
-      </div>
-		</div>
-		
-	
 		<div class="control-group">
     	<%= user_form.label :contraseña, :class => "control-label" %>
     	<div class="controls">
@@ -25,6 +17,7 @@
     	<%= user_form.password_field :password_confirmation, :class => "input-xlarge" %>
   		</div>
 		</div>
+		<%= user_form.hidden_field :name, :value=> @user.name %>
 		
 		<%= user_form.hidden_field :email, :value => @user.email %>
   	
@@ -39,7 +32,7 @@
   	<%= user_form.hidden_field :rut, :value => @user.rut %>
 		
 		<div class="modal-footer">
-	    <%= user_form.submit :class => "btn btn-primary" %>
+	    <%= user_form.submit :Actualizar, :class => "btn btn-primary" %>
 	    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>        
     </div>
 				

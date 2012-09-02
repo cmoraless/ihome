@@ -39,6 +39,10 @@
     <%= user_form.text_field :rut %>
   </div>
   <div class="actions">
-    <%= user_form.submit %>
+    <% if @edit %>
+    	<%= user_form.submit :Actualizar, :class => "btn btn-primary" %>
+    <%else%>
+    	<%= user_form.submit :Crear, :class => "btn btn-primary" %>
+    <%end%>
   </div>
 <% end %>

@@ -3,5 +3,4 @@ $('#accessories').empty();
 
 $('#accessories').html("<h1>Crear nuevo tipo de accesorio</h1>").append("<%= escape_javascript(render('form')) %>");
 
-$('#accessories').append("<%= escape_javascript(link_to 'Back', :back) %>");
-
+$('#accessories').append('<%= link_to 'Atrás', back_accessory_types_path, :remote=>true, :class=>"btn btn-small btn-primary" %>');

@@ -1,11 +1,27 @@
 class AccessoriesController < ApplicationController
-  #ACA HACER LOS BEFORE FILTERS
+  #before_filter :check_auth_admin, :only=>[:new, :edit, :update, :destroy]
+  
+  def check_auth_admin    
+    if User.exists?(session[:user_id])
+      @currentUser = User.find(session[:user_id])
+      if @currentUser.isAdmin == false and @currentUser.isSuperAdmin == false      
+        respond_to do |format|
+          format.html {redirect_to(home_index_path)}
+          format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
+        end
+      end
+    else
+      respond_to do |format|
+        format.html {redirect_to(root_path)}
+        format.js {render :js => "window.location.replace('#{url_for(:controller => 'sessions', :action => 'new')}');"}    
+      end
+    end
+  end
   
   # GET /accessories/new
   # GET /accessories/new.json
   def new
     @accessory = Accessory.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @accessory }
@@ -67,31 +83,42 @@ class AccessoriesController < ApplicationController
   end
   
   def control
-    #logger.debug "######## ENTRE A CONTROL #######"
     require 'net/http'
     require 'uri'
     ibox = Ibox.find(session[:ibox_id])
+    accessory = Accessory.find(params[:id])
     ip = ibox.ip
     port = ibox.port
     ws = 'http://' + ip + ':' + port
     url = URI.parse(ws)
-    #params[:zid] = '0016E62703';
-    #params[:value] = '1' 
     begin
-      if params[:kind] == 'MultiLevelSwitch'
-        req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?VALUE=' + params[:value] + '&ZID=' + params[:zid])
+      if accessory.kind == 'MultiLevelSwitch'
+        req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?VALUE=' + params[:value] + '&ZID=' + accessory.zid)
       end
-      if params[:kind] == 'BinarySwitch' or params[:kind] == 'BinarySensor'
-        req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?OP=' + params[:value] + '&ZID=' + params[:zid])
+      if accessory.kind == 'BinarySwitch'
+        req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?OP=' + params[:value] + '&ZID=' + accessory.zid)
       end
       req.basic_auth 'root', ''
       res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
-      @body = res.body
-      @accessory = Accessory.find_by_zid(params[:zid])
-      @accessory.update_attribute(:value, params[:value].to_i)      
+      accessory.update_attribute(:value, params[:value].to_i)
     rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
       flash[:notice] = "Lo sentimos, el servicio no se encuentra disponible actualmente."
     end
   end
+  
+  def back
+    respond_to do |format|
+      @currentUser = User.find(session[:user_id])
+      @iboxes = @currentUser.iboxes
+      @ibox = Ibox.find(session[:ibox_id])
+      @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+      @accessories = []
+      @containers.each do |container|
+        @accessories << container.accessories
+      end
+      format.js  
+    end
+  end
+  
 end

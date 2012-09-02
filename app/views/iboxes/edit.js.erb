@@ -1,5 +1,5 @@
 
 $('#iboxes').empty();
 $('#iboxes').html("<h1>Editando Ibox</h1>").append("<%= escape_javascript(render('form')) %>");
-$('#iboxes').append("<%= escape_javascript(link_to 'Atrás', :back) %>");
+$('#iboxes').append('<%= link_to 'Atrás', back_ibox_path, :remote=>true, :class=>"btn btn-small btn-primary" %>');
 

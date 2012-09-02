@@ -26,7 +26,11 @@ Ihome::Application.routes.draw do
   get "new_admin" => "users#newAdmin", :as => "new_admin"
   get "new_no_admin" => "users#newNoAdmin", :as => "new_no_admin"
   get "show_enable" => "iboxes#showEnable", :as => "show_enable"
-  
+  get "back_ibox" => "iboxes#back", :as => "back_ibox"
+  get "back_user" => "users#back", :as => "back_user"
+  get "back_camera" => "cameras#back", :as=>"back_camera"
+  get "back_accessory" => "accessories#back", :as=>"back_accessory"
+  get "back_accessory_types" => "accessory_types#back", :as=>"back_accessory_types"
   #get "change_ibox" => "home#changeIbox", :as => "change_ibox"
   #match "home/changeIbox/:id" => "home#changeIbox"
   #get "add_user_to_ibox" => "iboxes#addUser", :as=> "add_user_to_ibox"
@@ -89,8 +93,6 @@ Ihome::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-	 match ':controller(/:action(/:id))(.:format)'
-	 match 'accessories/control' => 'accessories#control'
-	 match 'homeadmin/browseAs' => 'homeadmin#browseAs'
+	 match ':controller(/:action(/:id))(.:format)'	 
 	#resources :house
 end
