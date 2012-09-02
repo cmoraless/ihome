@@ -1,58 +1,47 @@
 <li  class="row-fluid"> 
-	
 	<!-- <div>-->
-		<div class="span12">
-			<!-- Nombre -->
-			<span class="title"><%= profile.name %></span>
-			
-			<!-- Controlador AJAX (input)-->
-			<div class="active">
-				<% if profile.isActive == false %>
-			    	<input class="checkbox" type="checkbox" id="<%= profile.id%>" />
-				<%else%>
-			    	<input class="checkbox" type="checkbox" checked="checked" id="<%= profile.id%>" />
-				<%end%>
-			</div>
-			
-			<!-- Script Controlador AJAX -->
-			<script type="text/javascript" charset="utf-8">
-				$('.<%=profile.id%> :checkbox').iphoneStyle();
-		  		var onchange_checkbox = ($('.active :checkbox')).iphoneStyle({
-		    		onChange: function(elem, value) { 
-		      			if (value == true){
-		      				$.post('profiles/control', { id: '<%=profile.id%>', value: true});
-		      			}else{
-		          			$.post('profiles/control', { id: '<%=profile.id%>', value: false});
-			      		}
-		    		}
-		  		});
-			</script>
+	<div class="span12">
+		<!-- Nombre -->
+		<span class="title"><%= profile.name %></span>
+		
+		<!-- Controlador AJAX (input)-->
+		<div class="active">
+			<% if profile.isActive == false %>
+		    	<input class="checkbox" type="checkbox" id="<%= profile.id%>" />
+			<%else%>
+		    	<input class="checkbox" type="checkbox" checked="checked" id="<%= profile.id%>" />
+			<%end%>
 		</div>
 		
-		
-		<div class="span12">
+		<!-- Script Controlador AJAX -->
+		<script type="text/javascript" charset="utf-8">
+			$('.<%=profile.id%> :checkbox').iphoneStyle();
+	  		var onchange_checkbox = ($('.active :checkbox')).iphoneStyle({
+	    		onChange: function(elem, value) { 
+	      			if (value == true){
+	      				$.post('profiles/control', { id: '<%=profile.id%>', value: true});
+	      			}else{
+	          			$.post('profiles/control', { id: '<%=profile.id%>', value: false});
+		      		}
+	    		}
+	  		});
+		</script>
+	</div>
 			
-			
+	<div class="span12">
 		<!-- Botón Eliminar -->
-	<span class="delete">
-		<%= link_to 'Eliminar', profile, :confirm => '¿Estás seguro?', :method => :delete, :class => 'btn btn-small btn-danger', :remote=>true %>
-	</span>
-	
-	<!-- Botón Editar -->
-	<span class="edit">
-		<%= link_to 'Editar', edit_profile_path(profile), :class => 'btn btn-small', :remote=>true %>
-	</span>
-	
-	<!-- Botón Programar -->
-	<span class="schedule">
-	    <%= link_to "Programar", { :controller => "profiles" , :action => "schedules", :id => profile.id }, :class => "btn btn-small btn-primary", :remote => true %>
-	</span>
-			
-		</div>
-	<!--</div>-->
-	
-
-	
-
-	
+		<span class="delete">
+			<%= link_to 'Eliminar', profile, :confirm => '¿Estás seguro?', :method => :delete, :class => 'btn btn-small btn-danger', :remote=>true %>
+		</span>
+		
+		<!-- Botón Editar -->
+		<span class="edit">
+			<%= link_to 'Editar', edit_profile_path(profile), :class => 'btn btn-small', :remote=>true %>
+		</span>
+		
+		<!-- Botón Programar -->
+		<span class="schedule">
+		    <%= link_to "Programar", { :controller => "profiles" , :action => "schedules", :id => profile.id }, :class => "btn btn-small btn-primary", :remote => true %>
+		</span>	
+	</div>
 </li>

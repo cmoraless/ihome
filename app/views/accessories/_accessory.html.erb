@@ -1,98 +1,86 @@
 <li  class="row-fluid"> 
-		<div class="span12">
-			
-	<%if accessory.kind == 'MultiLevelSwitch'%>
-	
-		<!--  -->
-		<!-- Dimmers -->
-		<!--  -->
-		<%if accessory.cmdclass == "AllOnOff,Configuration"%>
-			
-            
-			<!-- Nombre -->
-			<span class="title"><%= accessory.name %></span>
-			<!-- Input Controlador AJAX -->
-			<div class="action">
-				<div class="span2">
-					<input style ="display: none !important;" type="range" name="<%=accessory.zid%>" id="<%=accessory.zid%>" value="<%=accessory.value%>" min="0" max="9" data-theme="a" data-track-theme="b" />
+	<div class="span12">
+		<%if accessory.kind == 'MultiLevelSwitch'%>	
+			<!--  -->
+			<!-- Dimmers -->
+			<!--  -->
+			<%if accessory.cmdclass == "AllOnOff,Configuration"%>
+				<!-- Nombre -->
+				<span class="title"><%= accessory.name %></span>
+				<!-- Input Controlador AJAX -->
+				<div class="action">
+					<div class="span2">
+						<input style ="display: none !important;" type="range" name="<%=accessory.zid%>" id="<%=accessory.zid%>" value="<%=accessory.value%>" min="0" max="9" data-theme="a" data-track-theme="b" />
+					</div>
 				</div>
-			</div>
-			<!-- Script Controlador AJAX -->
-			<script type="text/javascript">
-				$(function() {
-					$("input#<%=accessory.zid%>").slider();
-					$("input#<%=accessory.zid%>").bind("change",function(event,ui) {
-						$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: $("input#<%=accessory.zid%>").val()});
+				<!-- Script Controlador AJAX -->
+				<script type="text/javascript">
+					$(function() {
+						$("input#<%=accessory.zid%>").slider();
+						$("input#<%=accessory.zid%>").bind("change",function(event,ui) {
+							$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: $("input#<%=accessory.zid%>").val()});
+						});
 					});
-				});
-			</script>
-			
-			
-		<!--  -->
-		<!-- Cortinas -->
-		<!--  -->
-		<% else %>
-
-			<!-- Nombre -->
-			<span class="title"><%= accessory.name %></span>
-
-			<!-- DIV del Controlador AJAX -->
-			<div class="action">
-				<% if accessory.value == 0 %>
-	    			<input class="checkbox" type="checkbox" id="<%= accessory.zid%>" />
-	    		<%else%>
-	    			<input class="checkbox" type="checkbox" checked="checked" id="<%= accessory.zid%>" />
-	    		<%end%>
-    	</div>
-
-			<!-- Script Controlador AJAX -->
-	    	<script type="text/javascript" charset="utf-8">
-				$('.<%=accessory.zid%> :checkbox').iphoneStyle();
-      			var onchange_checkbox = ($('.action :checkbox')).iphoneStyle({
-        			onChange: function(elem, value) { 
-          				if (value == true){
-          					$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '9'});
-          				}else{
-          					$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '0'});
-          				}
-        			}
-      			});
 				</script>
+			<!--  -->
+			<!-- Cortinas -->
+			<!--  -->
+			<% else %>
+				<!-- Nombre -->
+				<span class="title"><%= accessory.name %></span>
+	
+				<!-- DIV del Controlador AJAX -->
+				<div class="action">
+					<% if accessory.value == 0 %>
+		    			<input class="checkbox" type="checkbox" id="<%= accessory.zid%>" />
+		    		<%else%>
+		    			<input class="checkbox" type="checkbox" checked="checked" id="<%= accessory.zid%>" />
+		    		<%end%>
+	    		</div>
+	
+				<!-- Script Controlador AJAX -->
+		    	<script type="text/javascript" charset="utf-8">
+					$('.<%=accessory.zid%> :checkbox').iphoneStyle();
+		  			var onchange_checkbox = ($('.action :checkbox')).iphoneStyle({
+		    			onChange: function(elem, value) { 
+		      				if (value == true){
+		      					$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '9'});
+		      				}else{
+		      					$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '0'});
+		      				}
+		    			}
+		  			});
+				</script>
+			<%end%>
 		<%end%>
-	<%end%>
-	
-	<!--  -->
-	<!-- Luces -->
-	<!--  -->
-	<% if accessory.kind == 'BinarySwitch' %>
-
-		<!-- Nombre -->
-		<span class="title"><%= accessory.name %></span>	
-
-		<!-- DIV del Controlador AJAX -->	
-		<div class="action">
-    	<% if accessory.value == 0 %>
-	    	<input class="checkbox" type="checkbox" id="<%= accessory.zid%>" />
-    	<%else%>
-	    	<input class="checkbox" type="checkbox" checked="checked" id="<%= accessory.zid%>" />
-    	<%end%>
-   	</div>
-    	
-		<!-- Script Controlador AJAX -->
-		<script type="text/javascript" charset="utf-8">
-			$('.<%=accessory.zid%> :checkbox').iphoneStyle();
-      		var onchange_checkbox = ($('.action :checkbox')).iphoneStyle({
-        		onChange: function(elem, value) { 
-          			if (value == true){
-          				$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '1'});
-          			}else{
-	          			$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '0'});
-    	      		}
-        		}
-      		});
-		</script>
-	<%end%>
-	
-		</div>
-
+		<!--  -->
+		<!-- Luces -->
+		<!--  -->
+		<% if accessory.kind == 'BinarySwitch' %>
+			<!-- Nombre -->
+			<span class="title"><%= accessory.name %></span>	
+			<!-- DIV del Controlador AJAX -->	
+			<div class="action">
+		    	<% if accessory.value == 0 %>
+			    	<input class="checkbox" type="checkbox" id="<%= accessory.zid%>" />
+		    	<%else%>
+			    	<input class="checkbox" type="checkbox" checked="checked" id="<%= accessory.zid%>" />
+		    	<%end%>
+	   		</div>
+	    	
+			<!-- Script Controlador AJAX -->
+			<script type="text/javascript" charset="utf-8">
+				$('.<%=accessory.zid%> :checkbox').iphoneStyle();
+	      		var onchange_checkbox = ($('.action :checkbox')).iphoneStyle({
+	        		onChange: function(elem, value) { 
+	          			if (value == true){
+	          				$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '1'});
+	          			}else{
+		          			$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '0'});
+	    	      		}
+	        		}
+	      		});
+			</script>
+		<%end%>
+	</div>
 </li>
