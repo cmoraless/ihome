@@ -72,20 +72,9 @@
 				<div class="accordion-body collapse in">
 					<div id="profiles_content" class="accordion-inner">
 						<ul class="profentries"> 
-							<%= render @user.profiles %>
-							<li> 
-								<!-- Icono 
-								<span class="icon"> <%= image_tag("scene.png", :ratio => ".3")%></span>
-								-->
-								<!-- Nombre -->
-								<span class="title">Agregar nuevo perfil</span>
-								<!-- Input Controlador AJAX -->
-								<div class="new">
-									<%= link_to 'Crear Perfil', new_profile_path, :class => 'btn btn-primary', :remote => true %>
-								</div>
-								
-							</li>							
+							<%= render @user.profiles %>				
 						</ul>
+						<%= link_to 'Crear nuevo Perfil', new_profile_path, :class => 'btn btn-primary', :remote => true %>
 					</div>
 				</div>
 			</div>  

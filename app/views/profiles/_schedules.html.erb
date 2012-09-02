@@ -1,106 +1,115 @@
 <% for schedule in @schedules %>
-  <ul class="entriessch"> 
-     <li>      	
-     	<!-- Nombre accesorio -->
-		<span class="name"><%=  schedule.accessory.name %></span>
+  <ul class="schentries"> 
+     <li class="row-fluid">
+     	
+     	<div class="span12">
+	     	<!-- Nombre accesorio -->
+			<span class="title"><%=  schedule.accessory.name %></span>
+		</div
 		
-		<!-- 		 		-->
-		<!-- OPCIONES INICIO-->
-		<!--		 		-->
+		<div class="span12">
+			<!-- 		 		-->
+			<!-- OPCIONES INICIO-->
+			<!--		 		-->
+				
+			<!-- Texto inicio -->
+			<span class="textbegin"> Inicio </span>
+	
+			<!-- Dia inicio -->
+			<span class="daybegin">
+				<div class="btn-group" data-toggle="buttons-radio" >
+					<button class="btn btn-primary btn-mini" type="button">L</button>
+					<button class="btn btn-primary btn-mini" type="button">M</button>
+					<button class="btn btn-primary btn-mini" type="button">M</button>
+					<button class="btn btn-primary btn-mini" type="button">J</button>
+					<button class="btn btn-primary btn-mini" type="button">V</button>
+					<button class="btn btn-primary btn-mini" type="button">S</button>
+					<button class="btn btn-primary btn-mini" type="button">D</button>
+				</div>
+			</span>
 			
-		<!-- Texto inicio -->
-		<span class="textbegin"> Inicio </span>
+			<!-- Hora inicio -->
+			<span class="timebegin">
+				<!-- <input id="i" name="i"  /> -->
+				<%=text_field_tag 'zip', nil, :maxlength => 5, :class => "input-mini" %>
 
-		<!-- Dia inicio -->
-		<span class="daybegin">
-			<div class="btn-group" data-toggle="buttons-radio" >
-				<button class="btn btn-primary btn-mini" type="button">L</button>
-				<button class="btn btn-primary btn-mini" type="button">M</button>
-				<button class="btn btn-primary btn-mini" type="button">M</button>
-				<button class="btn btn-primary btn-mini" type="button">J</button>
-				<button class="btn btn-primary btn-mini" type="button">V</button>
-				<button class="btn btn-primary btn-mini" type="button">S</button>
-				<button class="btn btn-primary btn-mini" type="button">D</button>
-			</div>
-		</span>
-		
-		<!-- Hora inicio -->
-		<span class="timebegin">
-			<input id="i" name="i"  />
-			<a href="#" id="show" class="btn btn-primary btn-mini">Show</a>
-			<a href="#" id="clear" class="btn btn-primary btn-mini">Clear</a>
-		</span>
-		
-		<!-- Java Script reloj inicio -->
-		<script type="text/javascript">
-			$(function(){
-			    $('#i').scroller({
-			        preset: 'time',
-			        theme: 'default',
-			        display: 'modal',
-			        mode: 'scroller',
-			        width: 3
-			    });    
+			</span>
 			
-			    $('#show').click(function(){
-			        $('#i').scroller('show'); 
-			        return false;
-			    });
-			    $('#clear').click(function () {
-			        $('#i').val('');
-			        return false;
-			    });
-			});
-		</script>
+			<!-- Java Script reloj inicio -->
+			<script type="text/javascript">
+				$(function(){
+				    $('#i').scroller({
+				        preset: 'time',
+				        theme: 'default',
+				        display: 'modal',
+				        mode: 'scroller',
+				        width: 3
+				    });    
+				
+				    $('#show').click(function(){
+				        $('#i').scroller('show'); 
+				        return false;
+				    });
+				    $('#clear').click(function () {
+				        $('#i').val('');
+				        return false;
+				    });
+				});
+			</script>
 		
-		<!-- 		 		 -->
-		<!-- OPCIONES TERMINO-->
-		<!--		 		 -->
-		
-		<!-- Texto termino -->
-		<span class="textend"> Término </span>
+		</div>
 
-		<!-- Dia termino -->
-		<span class="dayend">
-			<div class="btn-group" data-toggle="buttons-radio" >
-				<button class="btn btn-primary btn-mini" type="button">L</button>
-				<button class="btn btn-primary btn-mini" type="button">M</button>
-				<button class="btn btn-primary btn-mini" type="button">M</button>
-				<button class="btn btn-primary btn-mini" type="button">J</button>
-				<button class="btn btn-primary btn-mini" type="button">V</button>
-				<button class="btn btn-primary btn-mini" type="button">S</button>
-				<button class="btn btn-primary btn-mini" type="button">D</button>
-			</div>
-		</span>
+		<div class="span12">
 		
-		<!-- Hora termino -->
-		<span class="timeend">
-			<input id="i" name="i"  />
-			<a href="#" id="show" class="btn btn-primary btn-mini">Show</a>
-			<a href="#" id="clear" class="btn btn-primary btn-mini">Clear</a>
-		</span>
-		
-		<!-- Java Script reloj termino -->
-		<script type="text/javascript">
-			$(function(){
-			    $('#i').scroller({
-			        preset: 'time',
-			        theme: 'default',
-			        display: 'modal',
-			        mode: 'scroller',
-			        width: 3
-			    });    
+			<!-- 		 		 -->
+			<!-- OPCIONES TERMINO-->
+			<!--		 		 -->
 			
-			    $('#show').click(function(){
-			        $('#i').scroller('show'); 
-			        return false;
-			    });
-			    $('#clear').click(function () {
-			        $('#i').val('');
-			        return false;
-			    });
-			});
-		</script>
+			<!-- Texto termino -->
+			<span class="textend"> Término </span>
+	
+			<!-- Dia termino -->
+			<span class="dayend">
+				<div class="btn-group" data-toggle="buttons-radio" >
+					<button class="btn btn-primary btn-mini" type="button">L</button>
+					<button class="btn btn-primary btn-mini" type="button">M</button>
+					<button class="btn btn-primary btn-mini" type="button">M</button>
+					<button class="btn btn-primary btn-mini" type="button">J</button>
+					<button class="btn btn-primary btn-mini" type="button">V</button>
+					<button class="btn btn-primary btn-mini" type="button">S</button>
+					<button class="btn btn-primary btn-mini" type="button">D</button>
+				</div>
+			</span>
+			
+			<!-- Hora termino -->
+			<span class="timeend">
+				<input id="i" name="i"  />
+				<a href="#" id="show" class="btn btn-primary btn-mini">Show</a>
+				<a href="#" id="clear" class="btn btn-primary btn-mini">Clear</a>
+			</span>
+			
+			<!-- Java Script reloj termino -->
+			<script type="text/javascript">
+				$(function(){
+				    $('#i').scroller({
+				        preset: 'time',
+				        theme: 'default',
+				        display: 'modal',
+				        mode: 'scroller',
+				        width: 3
+				    });    
+				
+				    $('#show').click(function(){
+				        $('#i').scroller('show'); 
+				        return false;
+				    });
+				    $('#clear').click(function () {
+				        $('#i').val('');
+				        return false;
+				    });
+				});
+			</script>
+		</div
 		
   	 </li>
   </ul>
