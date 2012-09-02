@@ -1,8 +1,8 @@
 <%= form_for(@profile, :remote => true, :html => {:class => "form-horizontal"}) do |profile_form| %>
   
   	<fieldset>  
-  		<% if f.error_messages.length > 0 %>
-				<%= f.error_messages :header_message => "Perfil inválido",
+  		<% if profile_form.error_messages.length > 0 %>
+				<%= profile_form.error_messages :header_message => "Perfil inválido",
 	  			:message => "",
 	  			:header_tag => :h3 %> 
 			<%end%>

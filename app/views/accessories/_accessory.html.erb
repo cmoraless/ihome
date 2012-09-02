@@ -1,6 +1,7 @@
-<div class="span6 offset1">
 <li> 
-
+	<div >
+		<div class="span12">
+			
 	<%if accessory.kind == 'MultiLevelSwitch'%>
 	
 		<!--  -->
@@ -15,7 +16,7 @@
 			<!-- Nombre -->
 			<span class="title"><%= accessory.name %></span>
 			<!-- Input Controlador AJAX -->
-			<div class="on_off">
+			<div class="action">
 				<div class="span2">
 					<input style ="display: none !important;" type="range" name="<%=accessory.zid%>" id="<%=accessory.zid%>" value="<%=accessory.value%>" min="0" max="9" data-theme="a" data-track-theme="b" />
 				</div>
@@ -40,7 +41,7 @@
 			<span class="title"><%= accessory.name %></span>
 
 			<!-- DIV del Controlador AJAX -->
-			<div class="on_off">
+			<div class="action">
 				<% if accessory.value == 0 %>
 	    			<input class="checkbox" type="checkbox" id="<%= accessory.zid%>" />
 	    		<%else%>
@@ -51,7 +52,7 @@
 			<!-- Script Controlador AJAX -->
 	    	<script type="text/javascript" charset="utf-8">
 				$('.<%=accessory.zid%> :checkbox').iphoneStyle();
-      			var onchange_checkbox = ($('.on_off :checkbox')).iphoneStyle({
+      			var onchange_checkbox = ($('.action :checkbox')).iphoneStyle({
         			onChange: function(elem, value) { 
           				if (value == true){
           					$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '9', kind: '<%=accessory.kind%>'});
@@ -73,7 +74,7 @@
 		<span class="title"><%= accessory.name %></span>	
 
 		<!-- DIV del Controlador AJAX -->	
-		<div class="on_off">
+		<div class="action">
     	<% if accessory.value == 0 %>
 	    	<input class="checkbox" type="checkbox" id="<%= accessory.zid%>" />
     	<%else%>
@@ -84,7 +85,7 @@
 		<!-- Script Controlador AJAX -->
 		<script type="text/javascript" charset="utf-8">
 			$('.<%=accessory.zid%> :checkbox').iphoneStyle();
-      		var onchange_checkbox = ($('.on_off :checkbox')).iphoneStyle({
+      		var onchange_checkbox = ($('.action :checkbox')).iphoneStyle({
         		onChange: function(elem, value) { 
           			if (value == true){
           				$.post('accessories/control', { zid: '<%=accessory.zid%>', value: '1', kind: '<%=accessory.kind%>'});
@@ -96,6 +97,6 @@
 		</script>
 	<%end%>
 	
-  </span>
+		</div>
+	</div>  
 </li>
-</div>

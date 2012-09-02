@@ -53,6 +53,7 @@ class ProfilesController < ApplicationController
   def schedules  
     @user = User.find(session[:user_id])
     @profile = Profile.find(params[:id])
+    @schedules = Schedule.where("profile_id = ?", @profile.id)
     respond_to do |format|
       format.js
     end

@@ -2,7 +2,7 @@
 <% content_for :navbar do %>
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
-    <div class="container-fluid span9 offset1">
+    <div class="container">
       <a class="brand" href="#">iHome</a>
       <div class="btn-group pull-right">
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -61,7 +61,7 @@
 <% end %>
 <%if @iboxes.length > 0%>
 	<%content_for :profiles do%>
-	<div class="accordion">
+	<div class="accordion" >
 		<div class="accordion-group">
 			<div class="accordion-heading">
 				<a class="accordion-toggle" href="#profiles" data-toggle="collapse"><h2>Perfiles</h2></a>
@@ -69,10 +69,8 @@
 			<div id="profiles" class="collapse">  
 				<div class="accordion-body collapse in">
 					<div id="profiles_content" class="accordion-inner">
-						<ul class="entries"> 
+						<ul class="profentries"> 
 							<%= render @user.profiles %>
-							<div class="span6 offset1">
-
 							<li> 
 								<!-- Icono -->
 								<span class="icon"> <%= image_tag("scene.png", :ratio => ".3")%></span>
@@ -84,9 +82,7 @@
 									<%= link_to 'Crear Perfil', new_profile_path, :class => 'btn btn-primary', :remote => true %>
 								</div>
 								
-							</li>
-							</div>
-							
+							</li>							
 						</ul>
 					</div>
 				</div>
@@ -160,8 +156,9 @@
 			</div>
 	    	<div id="<%= container.name %>" class="accordion-body collapse">  
 	    		<div class="accordion-inner">
-	    			<ul class="entries"> 
-							<%= render container.accessories %>
+	    			<!-- ENTRIES PARA ACCESORIOS-->
+	    			<ul class="accentries"> 
+						<%= render container.accessories %>
 					</ul>
 	    		</div>
 			</div>

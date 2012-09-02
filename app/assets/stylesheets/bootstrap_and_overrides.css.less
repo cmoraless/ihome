@@ -4,9 +4,8 @@ body {
 	padding-left: 20px;
 	//background-image:url('cielo.png');
 	background-image:url('fondo4.jpg');
+	background-size: cover;
 	background-repeat: no-repeat;
-	//background-position:center; 
-
 }
 
 @import "twitter/bootstrap/responsive";
@@ -41,29 +40,24 @@ body {
  //@navbarBackground : @black;
  //@bodyBackground : @grayDark;
  
- body {
+  body { 
+  //height: 95%;
   //min-height: 90%;
-  //height: 90%;
-  width: 90%;
-  position: absolute;
-} 
+  //position: absolute;
+  }
  
  .fill {
   #translucent > .background(@blue, 0.2);
   .border-radius(0px);
-  margin-top: -20px; 
-  height: 100%;
-  height: inherit;
+  //margin-top: 0px; 
+  //height: inherit;
   }
 
  .accordion{
   margin-top: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
   .border-radius(5px);
+  //position: center;
   }
-
-
 
  .accordion-heading{
   #translucent > .background(@white, 0.7);
@@ -72,3 +66,254 @@ body {
  .accordion-body{
   #translucent > .background(@white, 0.6);
   }
+  
+ /* ENTRADAS ACCESORIOS */
+  
+ ul.accentries { 
+    list-style: none;
+    li {
+      width: 98%;
+      
+      padding: 6px;
+      margin-left: -5%;
+      margin-bottom: 10px;
+      background-color: #eeeeee;
+      -webkit-border-radius: 8px;
+         -moz-border-radius: 8px;
+              border-radius: 8px;
+     .title {
+        float: left;
+        margin-top: 5px;
+        //font settings
+        font-size: 20px;
+        line-height: 1px;
+        letter-spacing: 0px;
+        color: inherit; 
+      }
+  
+      .action {
+        //margin-top: 0px;
+        //margin-top: -3%;
+        float: right;
+        //margin-right: 130px;
+      }
+    }
+  }
+  
+ ul.profentries { 
+    list-style: none;
+    li {
+      width: 98%;
+      
+      padding: 12px;
+      margin-left: -5%;
+      //height: 40px;
+      margin-bottom: 10px;
+      background-color: #eeeeee;
+      -webkit-border-radius: 8px;
+         -moz-border-radius: 8px;
+              border-radius: 8px;
+    }
+   .title {
+      float: left;
+      margin-top: 5px;
+      margin-left: 0%;
+      
+      //font settings
+      font-size: 20px;
+      line-height: 1px;
+      letter-spacing: 0px;
+      color: inherit; 
+    }
+  
+   .active {
+      //margin-top: -25px;
+      float: right;
+      margin-right: 0%;
+      //margin-right: 300px;
+      //width: 0px;
+      /* todo: color, background + padding-left declarations for thumb icons */
+    }
+   .schedule {
+      margin-top: 10px;
+      float: right;
+      margin-right: 2%;
+      //height: 100px;
+      /* todo: color, background + padding-left declarations for thumb icons */
+    }
+   .edit {
+      margin-top: 10px;
+      float: right;
+      margin-right: 2%;
+      //width: 0px;
+      /* todo: color, background + padding-left declarations for thumb icons */
+    }
+   .delete {
+      margin-top: 10px;
+      float: right;
+      margin-right: 3%;
+      //width: 0px;
+      /* todo: color, background + padding-left declarations for thumb icons */
+    }
+    
+    
+ }
+
+
+ ul.schentries { list-style: none;
+ 
+    li {
+      width: 70%;
+      //position: center;
+      
+      padding: 4%;
+      //margin-bottom: 10px;
+      background-color: #eeeeee;
+      -webkit-border-radius: 8px;
+         -moz-border-radius: 8px;
+              border-radius: 8px;
+     .title {
+        float: left;
+        margin-left: 1%;
+        
+        //font settings
+        font-size: 18px;
+        line-height: 1px;
+        letter-spacing: 0px;
+        color: inherit; 
+      }
+  
+      .action {
+        margin-top: -3%;
+        float: right;
+        //margin-right: 130px;
+      }
+      .profile {
+        margin-top: -12px;
+        float: right;
+        margin-right: 300px;
+        width: 0px;
+        /* todo: color, background + padding-left declarations for thumb icons */
+      }
+      .edit {
+        margin-top: -10px;
+        float: right;
+        margin-right: -190px;
+        width: 0px;
+        /* todo: color, background + padding-left declarations for thumb icons */
+      }
+      .delete {
+        margin-top: -10px;
+        float: right;
+        margin-right: -130px;
+        width: 0px;
+        /* todo: color, background + padding-left declarations for thumb icons */
+      }
+    }
+  }
+
+
+/* ENTRIES PARA EL SCHEDULER */
+
+ul.entriessch{list-style:none;}
+ul.entriessch li {
+  margin: 5px 20px;
+  width: 80%;
+  
+  padding: 20px;
+  margin-bottom: 10px;
+  background-color: #eeeeee;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+}
+
+ul.entriessch .icon {
+  margin-top: 0px;
+  float: left;
+  width: 30px;
+  margin-top: -16px;
+  
+}
+
+ul.entriessch .name {
+  margin-top: 0px;
+  float: left;
+  margin-left: 5px;
+  width: 200px;
+  
+  font-size: 18px;
+  line-height: 1px;
+  letter-spacing: 0px;
+  color: inherit; 
+}
+
+ul.entriessch .textbegin {
+  margin-top: 0px;
+  float: left;
+  margin-left: 0px;
+  width: 20px;
+  
+  font-size: 10px;
+  color: inherit; 
+}
+
+ul.entriessch .daybegin {
+  margin-top: 0px;
+  float: left;
+  margin-left: 5px;
+  width: 200px;
+  
+  font-size: 18px;
+  line-height: 1px;
+  letter-spacing: 0px;
+  color: inherit; 
+}
+
+ul.entriessch .timebegin {
+  margin-top: 0px;
+  float: left;
+  margin-left: 5px;
+  width: 200px;
+  
+  font-size: 18px;
+  line-height: 1px;
+  letter-spacing: 0px;
+  color: inherit; 
+}
+
+ul.entriessch .textend {
+  margin-top: 0px;
+  float: left;
+  margin-left: 5px;
+  width: 200px;
+  
+  font-size: 18px;
+  line-height: 1px;
+  letter-spacing: 0px;
+  color: inherit; 
+}
+
+ul.entriessch .dayend {
+  margin-top: 0px;
+  float: left;
+  margin-left: 5px;
+  width: 200px;
+  
+  font-size: 18px;
+  line-height: 1px;
+  letter-spacing: 0px;
+  color: inherit; 
+}
+
+ul.entriessch .timeend {
+  margin-top: 0px;
+  float: left;
+  margin-left: 5px;
+  width: 200px;
+  
+  font-size: 18px;
+  line-height: 1px;
+  letter-spacing: 0px;
+  color: inherit; 
+}
