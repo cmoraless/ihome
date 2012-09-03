@@ -7,7 +7,11 @@
 		  <a class="brand" href="#">iHome</a>
 		  <div class="btn-group pull-right">
 		    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		      <% if session[:mobile]%>
+		      <i class="icon-user"></i>
+		      <%else%>
 		      <i class="icon-user"></i> <% if current_user %> <%= current_user.email %> <% end %>
+		      <%end%>
 		      <span class="caret"></span>
 		    </a>
 		    <ul class="dropdown-menu">

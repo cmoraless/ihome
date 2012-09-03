@@ -44,11 +44,11 @@ class HomeController < ApplicationController
       @cameras = @ibox.cameras
       
       #Consumo servicio de camaras para autentificarme      
-=begin
+=begin      
       require 'net/http'
       require 'uri'  
       for i in 0..@cameras.length-1
-        ws = 'http://' + @cameras[i][:ip] + ':' + @cameras[i][:port]
+        ws = 'http://' + @cameras[i][:ip] + ':' + @cameras[i][:port] + '/Jview.htm'
         uri = URI.parse(ws)
         begin
           http = Net::HTTP.new(uri.host, uri.port)
