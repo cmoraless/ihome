@@ -1,6 +1,5 @@
 class IboxesController < ApplicationController
   layout "homeadmin"
-  #ACA HACER LOS BEFORE FILTERS
   before_filter :check_auth_superAdmin, :only => [:new, :create, :destroy]
   before_filter :check_auth_admin
   
@@ -282,7 +281,7 @@ class IboxesController < ApplicationController
        
         #Se determina el tipo de accesorio del accesorio
         if (@accessory.kind == "BinarySwitch")
-          if (res[3+12*i].to_s.split('=')[1] == "400")
+          if (res[3+12*i].to_s.split('=')[1].to_i > 100)
             @accessory_type = AccessoryType.find_by_name("Riego")
             @accessory.update_attribute(:name, "aspersor 0"+i.to_s)
           else

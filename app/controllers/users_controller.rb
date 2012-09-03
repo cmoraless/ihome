@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   layout 'homeadmin', :only => [:newAdmin]
   layout 'admin', :only => [:newNoAdmin]
-  #ACA HACER LOS BEFORE FILTERS !!
   before_filter :check_user
   
   def check_user

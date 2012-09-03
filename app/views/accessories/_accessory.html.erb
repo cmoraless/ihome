@@ -28,28 +28,20 @@
 			<% else %>
 				<!-- Nombre -->
 				<span class="title"><%= accessory.name %></span>
-	
-				<!-- DIV del Controlador AJAX -->
+				<!-- Input Controlador AJAX -->
 				<div class="action">
-					<% if accessory.value == 0 %>
-		    			<input class="checkbox" type="checkbox" id="<%= accessory.zid%>" />
-		    		<%else%>
-		    			<input class="checkbox" type="checkbox" checked="checked" id="<%= accessory.zid%>" />
-		    		<%end%>
-	    		</div>
-	
+					<div class="span2">
+						<input style ="display: none !important;" type="range" name="<%=accessory.zid%>" id="<%=accessory.zid%>" value="<%=accessory.value%>" min="0" max="9" data-theme="a" data-track-theme="b" />
+					</div>
+				</div>
 				<!-- Script Controlador AJAX -->
-		    	<script type="text/javascript" charset="utf-8">
-					$('.<%=accessory.zid%> :checkbox').iphoneStyle();
-		  			var onchange_checkbox = ($('.action :checkbox')).iphoneStyle({
-		    			onChange: function(elem, value) { 
-		      				if (value == true){
-		      					$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '9'});
-		      				}else{
-		      					$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '0'});
-		      				}
-		    			}
-		  			});
+				<script type="text/javascript">
+					$(function() {
+						$("input#<%=accessory.zid%>").slider();
+						$("input#<%=accessory.zid%>").bind("change",function(event,ui) {
+							$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: $("input#<%=accessory.zid%>").val()});
+						});
+					});
 				</script>
 			<%end%>
 		<%end%>

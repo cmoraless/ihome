@@ -1,5 +1,6 @@
 class AccessoriesController < ApplicationController
-  #before_filter :check_auth_admin, :only=>[:new, :edit, :update, :destroy]
+  before_filter :check_auth_admin
+  skip_before_filter :check_auth_admin, :only=>[:back, :control]
   
   def check_auth_admin    
     if User.exists?(session[:user_id])
@@ -75,7 +76,7 @@ class AccessoriesController < ApplicationController
   def destroy
     @accessory = Accessory.find(params[:id])
     @accessory.destroy
-
+    
     respond_to do |format|
       format.html { redirect_to accessories_url }
       format.json { head :no_content }
