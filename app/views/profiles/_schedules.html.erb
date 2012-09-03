@@ -13,7 +13,7 @@
 			
 			<!-- Hora inicio -->
 			<span class="timebegin">
-				<%=text_field_tag schedule.id, nil, :maxlength => 5, :class => "input-mini" %>
+				<%=text_field_tag schedule.id.to_s+"init", nil, :maxlength => 5, :class => "input-mini" %>
 			</span>
 			
 			<!-- Dia inicio -->
@@ -30,12 +30,12 @@
 			</span>
 				
 			<!-- Texto inicio -->
-			<span class="textbegin"> Inicio </span>
+			<span class="textbegin"> Encendido </span>
 			
 			<!-- Java Script reloj inicio -->
 			<script type="text/javascript">
 				$(function(){
-				    $('#schedule.id').scroller({
+				    $('#<%=schedule.id %>'+'init').scroller({
 				        preset: 'time',
 				        theme: 'default',
 				        display: 'modal',
@@ -63,7 +63,7 @@
 
 			<!-- Hora termino -->
 			<span class="timeend">
-				<%=text_field_tag schedule.id, nil, :maxlength => 5, :class => "input-mini" %>
+				<%=text_field_tag schedule.id.to_s + "term", nil, :maxlength => 5, :class => "input-mini" %>
 			</span>
 			
 			<!-- Dia termino -->
@@ -80,12 +80,12 @@
 			</span>
 						
 			<!-- Texto termino -->
-			<span class="textend">Término</span>
+			<span class="textend">Apagado</span>
 			
 			<!-- Java Script reloj termino -->
 			<script type="text/javascript">
 				$(function(){
-				    $('#ischedule.id').scroller({
+				    $('#<%=schedule.id %>'+'term').scroller({
 				        preset: 'time',
 				        theme: 'default',
 				        display: 'modal',
@@ -107,14 +107,18 @@
   	 </li>
   </ul>
   
-	<script type="text/javascript">
-		$(function() {
+<% end %>
+<%= link_to 'Guardar Programación', nil, :class => 'btn btn-primary', :remote => true %>
 
+<script type="text/javascript">
+	$(function() {
+		$('#Guardar Programación').click(function(){
+			$('#<%=schedule.id %>'+'term').scroller('show'); 
+			return false;
 		});
-	</script>
-	
 
+	});
+</script>
 
-  <% end %>
   
   
