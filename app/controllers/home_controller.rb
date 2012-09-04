@@ -43,11 +43,13 @@ class HomeController < ApplicationController
       @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
       @cameras = @ibox.cameras
       
-      #Consumo servicio de camaras para autentificarme      
-=begin      
+      #Consumo servicio de camaras para autentificarme          
+=begin
       require 'net/http'
-      require 'uri'  
+      require 'uri'
+        
       for i in 0..@cameras.length-1
+        
         ws = 'http://' + @cameras[i][:ip] + ':' + @cameras[i][:port] + '/Jview.htm'
         uri = URI.parse(ws)
         begin
@@ -59,9 +61,9 @@ class HomeController < ApplicationController
           logger.debug "#########RESPONSEEE #{response}"
         rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
           Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
-        end
+        end     
       end
-=end
+=end 
    else
       flash[:notice] = "Debe habilitar su Ibox en Administracion"
     end
