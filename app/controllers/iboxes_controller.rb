@@ -156,6 +156,7 @@ class IboxesController < ApplicationController
           session[:ibox_id] = @ibox.id
           @ibox.update_attribute(:isActive, true)
           @ibox.users << @user
+          iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/setEmail.cgi?Email='+@user.email,@ibox.user,@ibox.password)
           format.js {redirect_to :action => 'addDefaultAccessories', :id => @ibox.id}
         end
       else  
