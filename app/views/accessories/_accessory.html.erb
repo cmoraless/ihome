@@ -50,11 +50,10 @@
 		  			});
 				</script>
 			<%end%>
-		<%end%>
 		<!--  -->
 		<!-- Luces -->
 		<!--  -->
-		<% if accessory.kind == 'BinarySwitch' %>
+		<% elsif accessory.kind == 'BinarySwitch' %>
 			<!-- Nombre -->
 			<span class="title"><%= accessory.name %></span>	
 			<!-- DIV del Controlador AJAX -->	

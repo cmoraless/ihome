@@ -193,6 +193,11 @@ class IboxesController < ApplicationController
         sleep 2
       end while (res[0] == 'MODE=READY')
       sleep 4
+      @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+      @accessories = []
+      @containers.each do |container|
+        @accessories << container.accessories
+      end  
       if addAccessories(@ibox.id)
         flash[:notice] = "Se ha agregado el nuevo accesorio."
         flash[:error] = ""
@@ -219,7 +224,11 @@ class IboxesController < ApplicationController
         sleep 2
       end while (res[0] == 'MODE=READY')
       sleep 4
-      
+      @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+      @accessories = []
+      @containers.each do |container|
+        @accessories << container.accessories
+      end  
       if removeAccessories(@ibox.id)
         flash[:notice] = "Se pudo eliminar el nuevo accesorio."
         flash[:error] = ""
