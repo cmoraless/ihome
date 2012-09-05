@@ -9,6 +9,6 @@ class Ibox < ActiveRecord::Base
   attr_accessible :isActive, :name, :ip, :port, :user, :password
   #validaciones
   validates :name, :presence => {:message=> "^El nombre no puede estar en blanco."}
-  validates :ip, :presence => {:message=> "^La IP no puede estar en blanco."}, :format=> {:with => /^\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3}$/, :message=> "^La IP no es valida."}
+  validates :ip, :presence => {:message=> "^El DNS o IP no puede estar en blanco."} #, :format=> {:with => /^\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3}$/, :message=> "^La IP no es valida."}
   validates :port, :presence => {:message => "^El puerto no puede estar en blanco"}, :format=> {:with => /^\d+$/, :message=> "^El puerto debe ser numerico."}
 end

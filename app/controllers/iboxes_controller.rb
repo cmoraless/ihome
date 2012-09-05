@@ -156,6 +156,7 @@ class IboxesController < ApplicationController
           session[:ibox_id] = @ibox.id
           @ibox.update_attribute(:isActive, true)
           @ibox.users << @user
+          iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/setEmail.cgi?Email='+@user.email,@ibox.user,@ibox.password)
           format.js {redirect_to :action => 'addDefaultAccessories', :id => @ibox.id}
         end
       else  
@@ -192,6 +193,11 @@ class IboxesController < ApplicationController
         sleep 2
       end while (res[0] == 'MODE=READY')
       sleep 4
+      @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+      @accessories = []
+      @containers.each do |container|
+        @accessories << container.accessories
+      end  
       if addAccessories(@ibox.id)
         flash[:notice] = "Se ha agregado el nuevo accesorio."
         flash[:error] = ""
@@ -218,7 +224,11 @@ class IboxesController < ApplicationController
         sleep 2
       end while (res[0] == 'MODE=READY')
       sleep 4
-      
+      @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+      @accessories = []
+      @containers.each do |container|
+        @accessories << container.accessories
+      end  
       if removeAccessories(@ibox.id)
         flash[:notice] = "Se pudo eliminar el nuevo accesorio."
         flash[:error] = ""

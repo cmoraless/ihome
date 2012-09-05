@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
         redirect_to :controller=>'home', :action=>'index'
       end
     else
-      flash[:notice] = "Email o contrasena invalida"
+      flash[:error] = "Email o contrasena invalida"
       render "new"
     end
   end

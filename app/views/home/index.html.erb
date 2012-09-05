@@ -7,7 +7,11 @@
 		  <a class="brand" href="#">iHome</a>
 		  <div class="btn-group pull-right">
 		    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		      <% if session[:mobile]%>
+		      <i class="icon-user"></i>
+		      <%else%>
 		      <i class="icon-user"></i> <% if current_user %> <%= current_user.email %> <% end %>
+		      <%end%>
 		      <span class="caret"></span>
 		    </a>
 		    <ul class="dropdown-menu">
@@ -112,14 +116,22 @@
 										  <!-- Carousel items -->
 										  <div class="carousel-inner">
 										    <% if session[:mobile] == false %>
-										    	<%= render @ibox.cameras %>										    
+										    	<%= render @ibox.cameras %>		
+										    								    											    
 										  	<% else %>
-											  	<% for i in 0..@cameras.length-1%>											    	
+											  	<% for i in 0..@cameras.length-1%>											  												    	
 											    	<% if i == 0 %>
-											    		<div class="active item offset1"><img id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='http://<%= @cameras[i][:ip] + ':' + @cameras[i][:port]%>/image/jpeg.cgi'><div class="carousel-caption span2"><a id='link_<%=@cameras[i][:id].to_s %>' href='javascript:ver("<%= @cameras[i][:id].to_s %>","<%=@cameras[i][:ip]%>","<%=@cameras[i][:port]%>")'>VER STREAMING</a></div></div>
+											    		<div class="active item offset1"><img id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='http://<%= @cameras[i][:ip] + ':' + @cameras[i][:port]%>/image/jpeg.cgi'><div class="carousel-caption"><a class="btn btn-link" id='link_<%=@cameras[i][:id].to_s %>' href='javascript:ver("<%= @cameras[i][:id].to_s %>","<%=@cameras[i][:ip]%>","<%=@cameras[i][:port]%>")'>VER STREAMING</a></div></div>
 											    	<%else%>
-											    		<div class="item offset1"><img id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='http://<%= @cameras[i][:ip] + ':' + @cameras[i][:port]%>/image/jpeg.cgi'><div class="carousel-caption span2"><a id='link_<%=@cameras[i][:id].to_s %>' href='javascript:ver("<%= @cameras[i][:id].to_s %>","<%=@cameras[i][:ip]%>","<%=@cameras[i][:port]%>")'>VER STREAMING</a></div></div>
+											    		<div class="item offset1"><img id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='http://<%= @cameras[i][:ip] + ':' + @cameras[i][:port]%>/image/jpeg.cgi'><div class="carousel-caption"><a class="btn btn-link" id='link_<%=@cameras[i][:id].to_s %>' href='javascript:ver("<%= @cameras[i][:id].to_s %>","<%=@cameras[i][:ip]%>","<%=@cameras[i][:port]%>")'>VER STREAMING</a></div></div>
 											    	<%end%>
+											    	<script type="text/javascript">											    		
+											    		var width = screen.width*0.7;
+											    		var height = width*3/4;
+											    		$("#camera_<%= @cameras[i][:id].to_s %>").width(width);
+											    		$("#camera_<%= @cameras[i][:id].to_s %>").height(height);
+											    		$("div.carousel-caption").css('width',width*0.87);
+											    	</script>		
 											    <%end%>
 										  	<%end%>
 										  </div>

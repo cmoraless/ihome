@@ -1,7 +1,8 @@
 <% content_for :navbar do %>
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
-    <div class="container-fluid span9 offset1">
+    <div class="container">
+    	<div class="span8 offset2">
       <a class="brand" href="#">iHome</a>
       <div class="btn-group pull-right">
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -14,6 +15,7 @@
           <li><%=link_to "Salir",log_out_path %></li>
         </ul>
       </div>    
+    </div>
     </div>
   </div>
 </div>
