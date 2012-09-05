@@ -1,0 +1,5 @@
+Lentitud de aplicación:
+
+Look for the file /usr/local/lib/ruby/1.9.1/webrick/config.rb and edit it.
+
+Replace the line :DoNotReverseLookup => nil, with :DoNotReverseLookup => true,
