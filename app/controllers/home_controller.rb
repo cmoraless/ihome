@@ -44,7 +44,7 @@ class HomeController < ApplicationController
       @cameras = @ibox.cameras
       
       #Consumo servicio de camaras para autentificarme          
-=begin
+#=begin
       require 'net/http'
       require 'uri'
         
@@ -63,7 +63,7 @@ class HomeController < ApplicationController
           Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
         end     
       end
-=end 
+#=end 
    else
       flash[:notice] = "Debe habilitar su Ibox en Administracion"
     end

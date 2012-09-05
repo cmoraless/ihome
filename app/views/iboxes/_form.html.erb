@@ -18,9 +18,9 @@
 	</div>
   <div class="actions">
   	<% if @create %>
-    <%= f.submit :Crear%>
+    <%= f.submit :Crear, :class=>"btn btn-primary" %>
     <% else %>
-    <%= f.submit :Actualizar%>
+    <%= f.submit :Actualizar, :class=>"btn btn-primary" %>
     <%end%>
   </div>
 <% end %>
