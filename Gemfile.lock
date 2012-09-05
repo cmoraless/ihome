@@ -48,7 +48,6 @@ GEM
       execjs
     coffee-script-source (1.3.3)
     commonjs (0.2.6)
-    curb (0.8.1)
     dynamic_form (1.1.4)
     erubis (2.7.0)
     execjs (1.4.0)
@@ -126,7 +125,6 @@ PLATFORMS
 DEPENDENCIES
   bcrypt-ruby
   coffee-rails (~> 3.2.1)
-  curb
   dynamic_form
   jquery-rails
   pg

@@ -28,17 +28,18 @@
 		<div class="span12"></div>
 	</div>
 	<div class="row">
-		<% if flash[:notice]%>
-		<div> <%= render :text=> "Email o contraseña inválida" %> </div>
+		<% if flash[:error]%>
+		<div class="offset3"><span class="label label-warning"><%= render :text=> "Correo o contraseña inválida"%></span></div>
 		<% end %>
+		<br/>
 		<div class="span8 offset4">
 			<%= form_tag sessions_path do %>
 			  <p>
-			    <%= label_tag :email %><br />
+			    <%= label_tag :Correo %><br />
 			    <%= text_field_tag :email, params[:email] %>
 			  </p>
 			  <p>
-			    <%= label_tag :password %><br />
+			    <%= label_tag :Contraseña %><br />
 			    <%= password_field_tag :password %>
 			  </p>
 			  <p class="button"><%= submit_tag "Log in" %></p>
