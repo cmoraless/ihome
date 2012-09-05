@@ -1,120 +1,111 @@
-<% for schedule in @schedules %>
-  <ul class="schentries"> 
-     <li class="row-fluid">
-     	<div class="span12">
-	     	<!-- Nombre accesorio -->
-			<span class="title"><%=  schedule.accessory.name %></span>
-		</div
-		
-		<div class="span12">
-			<!-- 		 		-->
-			<!-- OPCIONES INICIO-->
-			<!--		 		-->
+<% form_tag url_for(:controller => 'iboxes', :action => 'enable'), :method => :put, :remote => true  do %>
+	<% for schedule in @schedules %>
+	  <ul class="schentries"> 
+	     <li class="row-fluid">
+	     	<div class="span12">
+		     	<!-- Nombre accesorio -->
+				<span class="title"><%=  schedule.accessory.name %></span>
+			</div
 			
-			<!-- Hora inicio -->
-			<span class="timebegin">
-				<%=text_field_tag schedule.id.to_s+"init", nil, :maxlength => 5, :class => "input-mini" %>
-			</span>
-			
-			<!-- Dia inicio -->
-			<span class="daybegin">
-				<div class="btn-group" data-toggle="buttons-radio" >
-					<button class="btn btn-info btn-mini" type="button">L</button>
-					<button class="btn btn-info btn-mini" type="button">M</button>
-					<button class="btn btn-info btn-mini" type="button">M</button>
-					<button class="btn btn-info btn-mini" type="button">J</button>
-					<button class="btn btn-info btn-mini" type="button">V</button>
-					<button class="btn btn-info btn-mini" type="button">S</button>
-					<button class="btn btn-info btn-mini" type="button">D</button>
-				</div>
-			</span>
+			<div class="span12">
+				<!-- 		 		-->
+				<!-- OPCIONES INICIO-->
+				<!--		 		-->
 				
-			<!-- Texto inicio -->
-			<span class="textbegin"> Encendido </span>
-			
-			<!-- Java Script reloj inicio -->
-			<script type="text/javascript">
-				$(function(){
-				    $('#<%=schedule.id %>'+'init').scroller({
-				        preset: 'time',
-				        theme: 'default',
-				        display: 'modal',
-				        mode: 'scroller',
-				        width: 3
-				    });    
+				<!-- Hora inicio -->
+				<span class="timebegin">
+					<%=text_field_tag schedule.id.to_s+"timebegin", nil, :maxlength => 5, :class => "input-mini" %>
+				</span>
 				
-				    $('#show').click(function(){
-				        $('#i').scroller('show'); 
-				        return false;
-				    });
-				    $('#clear').click(function () {
-				        $('#i').val('');
-				        return false;
-				    });
-				});
-			</script>
-		
-		</div>
-
-		<div class="span12">		
-			<!-- 		 		 -->
-			<!-- OPCIONES TERMINO-->
-			<!--		 		 -->
-
-			<!-- Hora termino -->
-			<span class="timeend">
-				<%=text_field_tag schedule.id.to_s + "term", nil, :maxlength => 5, :class => "input-mini" %>
-			</span>
-			
-			<!-- Dia termino -->
-			<span class="dayend">
-				<div class="btn-group" data-toggle="buttons-radio" >
-					<button class="btn btn-info btn-mini" type="button">L</button>
-					<button class="btn btn-info btn-mini" type="button">M</button>
-					<button class="btn btn-info btn-mini" type="button">M</button>
-					<button class="btn btn-info btn-mini" type="button">J</button>
-					<button class="btn btn-info btn-mini" type="button">V</button>
-					<button class="btn btn-info btn-mini" type="button">S</button>
-					<button class="btn btn-info btn-mini" type="button">D</button>
-				</div>
-			</span>
-						
-			<!-- Texto termino -->
-			<span class="textend">Apagado</span>
-			
-			<!-- Java Script reloj termino -->
-			<script type="text/javascript">
-				$(function(){
-				    $('#<%=schedule.id %>'+'term').scroller({
-				        preset: 'time',
-				        theme: 'default',
-				        display: 'modal',
-				        mode: 'scroller',
-				        width: 3
-				    });    
+				<!-- Dia inicio -->
+				<span class="daybegin">
+					<div class="btn-group" id="<%= schedule.id.to_s + "daybegin"%>" data-toggle="buttons-radio" >
+						<button class="btn btn-info btn-mini" value="Mon" type="button">L</button>
+						<button class="btn btn-info btn-mini" value="Tue" type="button">M</button>
+						<button class="btn btn-info btn-mini" value="Wed" type="button">M</button>
+						<button class="btn btn-info btn-mini" value="Thu" type="button">J</button>
+						<button class="btn btn-info btn-mini" value="Fri" type="button">V</button>
+						<button class="btn btn-info btn-mini" value="Sat" type="button">S</button>
+						<button class="btn btn-info btn-mini" value="Sun" type="button">D</button>
+					</div>
+				</span>
+					
+				<!-- Texto inicio -->
+				<span class="textbegin">Encendido</span>
 				
-				    $('#show').click(function(){
-				        $('#i').scroller('show'); 
-				        return false;
-				    });
-				    $('#clear').click(function () {
-				        $('#i').val('');
-				        return false;
-				    });
-				});
-			</script>
-		</div
-  	 </li>
-  </ul>
-  
+				<!-- Java Script reloj inicio -->
+				<script type="text/javascript">
+					$(function(){
+					    $('#<%=schedule.id %>'+'init').scroller({
+					        preset: 'time',
+					        theme: 'default',
+					        display: 'modal',
+					        mode: 'scroller',
+					        width: 3
+					    });    
+					});
+				</script>
+			
+			</div>
+	
+			<div class="span12">		
+				<!-- 		 		 -->
+				<!-- OPCIONES TERMINO-->
+				<!--		 		 -->
+	
+				<!-- Hora termino -->
+				<span class="timeend">
+					<%=text_field_tag schedule.id.to_s + "timeend", nil, :maxlength => 5, :class => "input-mini" %>
+				</span>
+				
+				<!-- Dia termino -->
+				<span class="dayend">
+					<div class="btn-group" id="<%= schedule.id.to_s + "dayend"%>" data-toggle="buttons-radio" >
+						<button class="btn btn-info btn-mini" value="Mon" type="button">L</button>
+						<button class="btn btn-info btn-mini" value="Tue" type="button">M</button>
+						<button class="btn btn-info btn-mini" value="Wed" type="button">M</button>
+						<button class="btn btn-info btn-mini" value="Thu" type="button">J</button>
+						<button class="btn btn-info btn-mini" value="Fri" type="button">V</button>
+						<button class="btn btn-info btn-mini" value="Sat" type="button">S</button>
+						<button class="btn btn-info btn-mini" value="Sun" type="button">D</button>
+					</div>
+				</span>
+							
+				<!-- Texto termino -->
+				<span class="textend">Apagado</span>
+				
+				<!-- Java Script reloj termino -->
+				<script type="text/javascript">
+					$(function(){
+					    $('#<%=schedule.id %>'+'term').scroller({
+					        preset: 'time',
+					        theme: 'default',
+					        display: 'modal',
+					        mode: 'scroller',
+					        width: 3
+					    });    
+					});
+				</script>
+			</div
+	  	 </li>
+	  </ul>
+	  
+	<% end %>
 <% end %>
-<%= link_to 'Guardar Programación', nil, :class => 'btn btn-primary', :remote => true %>
+<%= link_to 'Programar',nil, :id => "prog", :class => 'btn btn-primary', :remote => true %>
 
 <script type="text/javascript">
 	$(function() {
-		$('#Guardar Programación').click(function(){
-			$('#<%=schedule.id %>'+'term').scroller('show'); 
-			return false;
+		$('#prog').click(function(){
+			<% for schedule in @schedules %>
+				var dayBegin = $('#<%= schedule.id.to_s+"daybegin" %> > button.active').attr('value');
+				//var hourEnd = $('#fin > button.active').attr('value');
+
+				alert(dayBegin);
+				
+				
+			<% end %>
+			
 		});
 
 	});

@@ -281,7 +281,7 @@ class IboxesController < ApplicationController
        
         #Se determina el tipo de accesorio del accesorio
         if (@accessory.kind == "BinarySwitch")
-          if (res[3+12*i].to_s.split('=')[1].to_i > 100)
+          if (res[3+12*i].to_s.split('=')[1].to_i > 40)
             @accessory_type = AccessoryType.find_by_name("Riego")
             @accessory.update_attribute(:name, "aspersor 0"+i.to_s)
           else

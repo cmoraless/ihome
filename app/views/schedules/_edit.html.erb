@@ -1,0 +1,25 @@
+<% form_tag url_for(:controller => 'iboxes', :action => 'enable'), :method => :put, :remote => true  do %>
+	<% for schedule in @schedules %>
+		<% fields_for "schedules[]", schedule do |f| %>
+			<h2><%= h schedule.name %></h2>
+			<p>
+			    <%= f.label :name %>
+			    <%= f.text_field :name %>
+			</p>
+			<p>
+			  <%= f.label :price %>
+			  <%= f.text_field :price %>
+			</p>
+			<p>
+			  <%= f.label :category_id %>
+			  <%= f.collection_select :category_id, Category.all, :id, :name %>
+			</p>
+			<p>
+			  <%= f.check_box :discontinued %>
+			  <%= f.label :discontinued %>
+			</p>
+
+		<% end %>
+	<% end %>
+  	<%= submit_tag("Habilitar", :class => "btn btn-primary", :disable_with => 'Escuchando...') %>
+<% end %>
