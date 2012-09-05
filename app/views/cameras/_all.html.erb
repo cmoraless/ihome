@@ -21,7 +21,7 @@
 			    <td><%= camera.password %></td>
 			    <td>
 			    	<%= link_to 'Editar', edit_camera_path(camera), :class => 'btn btn-mini'	, :remote=>true %>
-			    	<%= link_to 'Eliminar', camera, :confirm => '¿Estás seguro?', :method => :delete, :class => 'btn btn-mini btn-danger', :remote=>true %>
+			    	<%= link_to 'Eliminar', camera, :data=> {:confirm => '¿Estás seguro?'}, :method => :delete, :class => 'btn btn-mini btn-danger', :remote=>true %>
 			    </td>	   	
 			  </tr>
 		<% end %>

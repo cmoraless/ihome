@@ -46,16 +46,30 @@ class CamerasController < ApplicationController
   # POST /cameras.json
   def create
     @camera = Camera.new(params[:camera])
+    @repetido = false
+    @currentIbox = Ibox.find(session[:ibox_id])
+    @cameras = @currentIbox.cameras
+    for i in 0..@cameras.length-1
+      if @cameras[i][:ip] == @camera[:ip] and @cameras[i][:port] == @camera[:port]
+        @repetido = true
+      end
+    end
     respond_to do |format|
-      if @camera.save
-        @ibox = Ibox.find(session[:ibox_id])
-        @ibox.cameras << @camera
-        @cameras = @ibox.cameras
-        flash[:notice] = "Se ha creado correctamente la camara."
-        flash[:error] = ""
-        format.js
+      if @repetido == false #si la camara no esta repetida
+        if @camera.save
+          @ibox = Ibox.find(session[:ibox_id])
+          @ibox.cameras << @camera
+          @cameras = @ibox.cameras
+          flash[:notice] = "Se ha creado correctamente la camara."
+          flash[:error] = ""
+          format.js
+        else
+          format.js {render :action => 'new'}        
+        end
       else
-        format.js {render :action => 'new'}        
+        flash[:notice] = ""
+        flash[:error] = "La camara ingresada esta repetida."
+        format.js {render :action=> 'new'}
       end
     end
   end
