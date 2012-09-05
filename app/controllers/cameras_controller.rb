@@ -32,12 +32,10 @@ class CamerasController < ApplicationController
   # GET /cameras/1/edit
   def edit
     @edit = true
-    logger.debug "#################### EDIIIIIIT"
     @camera = Camera.find(params[:id])
     respond_to do |format|
       @ibox = Ibox.find(session[:ibox_id])
       @cameras = @ibox.cameras
-      logger.debug "#################### EDIIIIIIIIIT 2222222222222"
       format.js
     end
   end
@@ -68,7 +66,7 @@ class CamerasController < ApplicationController
         end
       else
         flash[:notice] = ""
-        flash[:error] = "La camara ingresada esta repetida."
+        flash[:error] = "La camara ingresada ya existe."
         format.js {render :action=> 'new'}
       end
     end
