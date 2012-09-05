@@ -9,14 +9,17 @@
 				<span class="title"><%= accessory.name %></span>
 				<!-- Input Controlador AJAX -->
 				<div class="dimmer">
-					<input style ="display: none !important;" type="range" name="<%=accessory.zid%>" id="<%=accessory.zid%>" value="<%=accessory.value%>" min="0" max="9" data-theme="a" data-track-theme="b" />
+					<label id="label_<%=accessory.zid%>"></label><input style ="display: none !important;" type="range" name="<%=accessory.zid%>" id="<%=accessory.zid%>" value="<%=accessory.value%>" min="0" max="9" data-theme="a" data-track-theme="b" />
 				</div>
 				<!-- Script Controlador AJAX -->
 				<script type="text/javascript">
+					$("label#label_<%=accessory.zid%>").text((parseInt($("input#<%=accessory.zid%>").val())/9)*100);
 					$(function() {
 						$("input#<%=accessory.zid%>").slider();
 						$("input#<%=accessory.zid%>").bind("change",function(event,ui) {
 							$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: $("input#<%=accessory.zid%>").val()});
+							var porcentaje = (parseInt($("input#<%=accessory.zid%>").val())/9)*100;
+							$("label#label_<%=accessory.zid%>").text(porcentaje.toString(); + '%');
 						});
 					});
 				</script>
