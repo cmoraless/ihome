@@ -100,15 +100,15 @@ class HomeadminController < ApplicationController
     user = User.where(:email => params[:emailsUser])
     @usersAdmin = User.where(:isAdmin => true)
     respond_to do |format|
-      if user[0]
-        @user = user[0]
-        #if @user.isAdmin
+      if user[0]        
+        if user[0].isAdmin
+          @user = user[0]
           format.js
-        #else
-        #  flash[:notice] = ""
-        #  flash[:error] = "El usuario especificado no es un administrador."
-        #  format.js
-        #end     
+        else
+          flash[:notice] = ""
+          flash[:error] = "El usuario especificado no es un administrador."
+          format.js
+        end     
       else
         flash[:notice] = ""
         flash[:error] = "Hubo un error al intentar buscar el Usuario con el correo especificado."

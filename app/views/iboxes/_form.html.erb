@@ -1,22 +1,48 @@
-<%= form_for(@ibox, :remote => true) do |f| %>
+<%= form_for(@ibox, :remote => true, :html => {:class => "form-horizontal"}) do |f| %>
+	
+	<fieldset>
+	<% if @create %>
+			<legend>Nuevo Ibox</legend>			
+		<%else%>
+			<legend>Editando Ibox</legend>
+		<%end%>
 	<% if f.error_messages.length > 0 %>
 		<%= f.error_messages :header_message => "Ibox inválido",
   :message => "",
   :header_tag => :h3 %>   
 	<%end%>
-	<div class="field">
-		<%= f.label :Nombre %>   <%= f.text_field :name %>
-		<%= f.label :DNS %>   <%= f.text_field :ip %>
-		<%= f.label :Puerto %>   <%= f.text_field :port %>
+	
+		<div class="control-group">
+		<%= f.label :Nombre, :class => "control-label" %>   
+			<div class="controls">
+				<%= f.text_field :name, :class => "input-xlarge"%>
+			</div>
+		</div>
+		<div class="control-group">
+		<%= f.label :DNS, :class => "control-label" %>   
+			<div class="controls">
+				<%= f.text_field :ip, :class => "input-xlarge" %>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<%= f.label :Puerto, :class => "control-label" %>   
+			<div class="controls">
+				<%= f.text_field :port, :class => "input-xlarge" %>
+			</div>
+		</div>
+	
 		<%= f.hidden_field :user, :value=>'root' %>
+	
 		<%= f.hidden_field :password, :value =>'' %>
+	
 		<% if @create %>
 			<%= f.hidden_field :isActive, :value => false %>
 		<%else %>
 			<%= f.hidden_field :isActive, :value => @ibox.isActive %>
 		<%end%>
-	</div>
-  <div class="actions">
+	
+  <div class="form-actions">
   	<% if @create %>
     <%= f.submit :Crear, :class=>"btn btn-primary" %>
     <% else %>
@@ -24,3 +50,5 @@
     <%end%>
   </div>
 <% end %>
+
+</fieldset>

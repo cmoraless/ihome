@@ -21,7 +21,7 @@ class AccessoryTypesController < ApplicationController
   
   def new
     @accessory_type = AccessoryType.new
-
+    @create = true
     respond_to do |format|
       format.js
     end
@@ -32,6 +32,7 @@ class AccessoryTypesController < ApplicationController
   end
 
   def create
+    @create = true
     @accessory_type = AccessoryType.new(params[:accessory_type])
     respond_to do |format|
       if @accessory_type.save
