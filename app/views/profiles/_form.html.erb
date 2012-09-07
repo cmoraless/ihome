@@ -1,11 +1,10 @@
 <%= form_for(@profile, :remote => true, :html => {:class => "form-horizontal"}) do |profile_form| %>
-  
   	<fieldset>  
+  		
   		<% if profile_form.error_messages.length > 0 %>
-				<%= profile_form.error_messages :header_message => "Perfil inválido",
-	  			:message => "",
-	  			:header_tag => :h3 %> 
-			<%end%>
+			<%= profile_form.error_messages :header_message => "Perfil inválido", :message => "", :header_tag => :h3 %> 
+		<%end%>
+		
   		<div class="control-group">
     		<%= profile_form.label :Nombre, :class=> "control-label" %>   
     		<div class="controls">
@@ -32,14 +31,12 @@
 					});
 				</script>
    			</div>
-  			
  		</div>
  	
 		<div class="form-actions">
     		<%= profile_form.submit :GuardarCambios, :class => "btn btn-primary", :remote => true %>
-		    <%= link_to "Programar", { :controller => "profiles" , :action => "schedules", :id => @profile.id }, :class => "btn btn-primary", :remote => true %>
+		 <!-- #link_to "Programar", { :controller => "profiles" , :action => "schedules", :id => @profile.id }, :class => "btn btn-primary", :remote => true -->
   		</div>
   		
   	</fieldset>
-    
 <% end %>

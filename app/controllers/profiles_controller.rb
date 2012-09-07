@@ -96,10 +96,10 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       if @profile.update_attributes(params[:profile])
         flash[:error] = ""
-        flash[:notice] = "El usuario se ha actualizado correctamente."
+        flash[:notice] = "El perfil se ha actualizado correctamente."
         format.js   
       else
-        flash[:error] = "Ha ocurrido un error al actualizar el usuario. Revise los campos."
+        flash[:error] = "Ha ocurrido un error al actualizar el perfil. Revise los campos."
         flash[:notice] = ""
         #format.js {render :partial => "profile", :collection => @user.profiles}  
         format.js
