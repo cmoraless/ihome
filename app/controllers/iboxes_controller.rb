@@ -193,20 +193,30 @@ class IboxesController < ApplicationController
         sleep 2
       end while (res[0] == 'MODE=READY')
       sleep 4
-      @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
-      @accessories = []
-      @containers.each do |container|
-        @accessories << container.accessories
-      end  
       if addAccessories(@ibox.id)
+        @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+        @accessories = []
+        @containers.each do |container|
+          @accessories << container.accessories
+        end 
         flash[:notice] = "Se ha agregado el nuevo accesorio."
         flash[:error] = ""
       else
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
+        @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+        @accessories = []
+        @containers.each do |container|
+          @accessories << container.accessories
+        end 
         flash[:error] = "No se pudo agregar el nuevo accesorio."
         flash[:notice] = ""
       end
     else
+        @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+        @accessories = []
+        @containers.each do |container|
+          @accessories << container.accessories
+        end 
       flash[:error] = "ERROR"
       flash[:notice] = ""
     end 
@@ -224,21 +234,32 @@ class IboxesController < ApplicationController
         sleep 2
       end while (res[0] == 'MODE=READY')
       sleep 4
-      @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
-      @accessories = []
-      @containers.each do |container|
-        @accessories << container.accessories
-      end  
+       
       if removeAccessories(@ibox.id)
+        @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+        @accessories = []
+        @containers.each do |container|
+          @accessories << container.accessories
+        end 
         flash[:notice] = "Se pudo eliminar el nuevo accesorio."
         flash[:error] = ""
       else
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
+        @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+        @accessories = []
+        @containers.each do |container|
+          @accessories << container.accessories
+        end 
         flash[:error] = "No se ha eliminado el nuevo accesorio"
         flash[:notice] = ""
       end
 
     else
+      @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+      @accessories = []
+      @containers.each do |container|
+        @accessories << container.accessories
+      end 
       flash[:error] = "ERROR"
       flash[:notice] = ""
     end
@@ -291,12 +312,12 @@ class IboxesController < ApplicationController
        
         #Se determina el tipo de accesorio del accesorio
         if (@accessory.kind == "BinarySwitch")
-          if (res[3+12*i].to_s.split('=')[1].to_i > 40)
-            @accessory_type = AccessoryType.find_by_name("Riego")
-            @accessory.update_attribute(:name, "aspersor 0"+i.to_s)
-          else
+          if (res[3+12*i].to_s.split('=')[1].to_i <= 100)
             @accessory_type = AccessoryType.find_by_name("Luces")
             @accessory.update_attribute(:name, "luces 0"+i.to_s)
+          else
+            @accessory_type = AccessoryType.find_by_name("Riego")
+            @accessory.update_attribute(:name, "aspersor 0"+i.to_s)                        
           end
         end
         if (@accessory.kind == "MultiLevelSwitch")
