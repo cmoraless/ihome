@@ -44,6 +44,9 @@ class ProfilesController < ApplicationController
   def edit
     @user = User.find(session[:user_id])
     @profile = Profile.find(params[:id])
+    @accessoriesPubs = Accessory.where(:isPublic=> true)
+    @accessoriesOwneds = @user.accessories
+    @accessories = @accessoriesPubs + @accessoriesOwneds
     respond_to do |format|
       format.js
     end
@@ -62,6 +65,7 @@ class ProfilesController < ApplicationController
   def schedules  
     @user = User.find(session[:user_id])
     @profile = Profile.find(params[:id])
+
     @schedules = Schedule.where("profile_id = ?", @profile.id)
     respond_to do |format|
       format.js

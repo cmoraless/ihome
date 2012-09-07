@@ -32,6 +32,8 @@ class AccessoriesController < ApplicationController
   # GET /accessories/1/edit
   def edit
     @accessory = Accessory.find(params[:id])
+    @ibox = Ibox.find(session[:ibox_id])
+    @users = @ibox.users
   end
 
   # POST /accessories

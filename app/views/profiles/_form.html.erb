@@ -21,7 +21,7 @@
 		<div class="control-group">
     		<%= profile_form.label :Acessorios, :class=> "control-label" %>   
     		<div class="controls">		 		
- 				<%= profile_form.select :accessory_ids, Accessory.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>		
+ 				<%= profile_form.select :accessory_ids, @accessories.collect {|x| [x.name, x.id]}, {}, :multiple => true %>		
 			   	<script type="text/javascript">
 					$(function(){
 						$("#profile_accessory_ids").multiSelect({

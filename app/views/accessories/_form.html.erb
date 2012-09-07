@@ -1,58 +1,59 @@
 <%= form_for(@accessory,:remote=>true, :html => {:class => "form-horizontal"}) do |f| %>
 	<fieldset>
+		
 		<% if f.error_messages.length > 0 %>
 			<%= f.error_messages :header_message => "Accesorio inválido",
   			:message => "",
   			:header_tag => :h3 %> 
 		<%end%>
+		
 		<div class="control-group">
   			<%= f.label :Nombre, :class=> "control-label" %>   
 	  		<div class="controls">
 	  			<%= f.text_field :name, :class => "input-xlarge" %>
 	  		</div>
 		</div>
+		
 		<div class="control-group">
   		<%= f.label :Privacidad, :class=> "control-label" %>   
   			<div class="controls">
     			<%= f.radio_button :isPublic, true%> Público
    				<%= f.radio_button :isPublic, false%> Privado
 
-					<script type="text/javascript">
-	 					$("div.controls > input:radio").live("change", function() {
-							var pub = document.getElementById("accessory_isPublic_true");
-							var priv = document.getElementById("accessory_isPublic_false");
-							var user = document.getElementById("usersOwners");
-							if (priv.checked == true){ 
-	 							user.style.display = "block";
-							}
-							if (pub.checked == true){
-								user.style.display = "none";
-							}
-	  					});
-					</script>
-
-	  			<div id="usersOwners" style="display: none">
-  					<h3>seleccione los usuarios a cargo del accesorio</h3>
-
-  					<% for user in User.find(:all) %>
-				        <div>
-	            		    <%= check_box_tag "accessory[user_ids][]", user.id, @accessory.users.include?(user) %>
-	                		<%= user.name %>
-	        			</div>
-	        			
-		        		<script type="text/javascript">
-							$(function(){
-								$("#profile_accessory_ids").multiSelect({
-									selectableHeader: "<div class='header'>Accessorios</div>",
-		                        	selectedHeader: "<div class='header'>Accesorios del Perfil</div>"
-		                        });
-							});
-						</script>
-   					<% end %>
-   					
-   				</div>
- 			</div>
+				<script type="text/javascript">
+ 					$("div.controls > input:radio").live("change", function() {
+						var pub = document.getElementById("accessory_isPublic_true");
+						var priv = document.getElementById("accessory_isPublic_false");
+						var user = document.getElementById("usersOwners");
+						if (priv.checked == true){ 
+ 							user.style.display = "block";
+						}
+						if (pub.checked == true){
+							user.style.display = "none";
+						}
+  					});
+				</script>
+	  		</div>
 		</div>
+		
+	  	<div id="usersOwners" style="display: none">	
+		  	<div class="control-group">
+				<%= f.label :Administradores, :class=> "control-label" %>   
+	
+				<div class="controls">
+				<%= f.select :user_ids, @users.collect {|x| [x.email, x.id]}, {}, :multiple => true %>
+	    		<script type="text/javascript">
+					$(function(){
+						$("#accessory_user_ids").multiSelect({
+							selectableHeader: "<div class='header'>Usuarios</div>",
+	                    	selectedHeader: "<div class='header'>Administradores del acc.</div>"
+	                    });
+					});
+				</script>
+				</div>
+			</div>
+		</div>
+
 		<div class="form-actions">
     		<%= f.submit :Actualizar, :class => "btn btn-primary" %>
   		</div>

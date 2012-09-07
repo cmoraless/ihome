@@ -1,34 +1,33 @@
-	
-	<% if @cameras %>
-		<h3>C&aacutemaras</h3>
-		<table class="table table-striped">
+<% if @cameras %>
+	<h3>C&aacutemaras</h3>
+	<table class="table table-striped">
+	  <tr>
+	    <th>Nombre</th>
+	    <th>DNS</th>
+	    <th>Puerto</th>
+	    <th>Login</th>
+	    <th>Password</th>
+	  	<th>Acciones</th>  
+		
+	  </tr>
+	 
+	<% @cameras.each do |camera| %>
 		  <tr>
-		    <th>Nombre</th>
-		    <th>DNS</th>
-		    <th>Puerto</th>
-		    <th>Login</th>
-		    <th>Password</th>
-		  	<th>Acciones</th>  
-			
+		    <td><%= camera.name %></td>
+		    <td><%= camera.ip %></td>
+		    <td><%= camera.port %></td>
+		    <td><%= camera.user %></td>
+		    <td><%= camera.password %></td>
+		    <td>
+		    	<%= link_to 'Editar', edit_camera_path(camera), :class => 'btn btn-mini'	, :remote=>true %>
+		    	<%= link_to 'Eliminar', camera, :data=> {:confirm => '¿Estás seguro?'}, :method => :delete, :class => 'btn btn-mini btn-danger', :remote=>true %>
+		    </td>	   	
 		  </tr>
-		 
-		<% @cameras.each do |camera| %>
-			  <tr>
-			    <td><%= camera.name %></td>
-			    <td><%= camera.ip %></td>
-			    <td><%= camera.port %></td>
-			    <td><%= camera.user %></td>
-			    <td><%= camera.password %></td>
-			    <td>
-			    	<%= link_to 'Editar', edit_camera_path(camera), :class => 'btn btn-mini'	, :remote=>true %>
-			    	<%= link_to 'Eliminar', camera, :data=> {:confirm => '¿Estás seguro?'}, :method => :delete, :class => 'btn btn-mini btn-danger', :remote=>true %>
-			    </td>	   	
-			  </tr>
-		<% end %>
-		</table>
-	<%else%>
-		<%= render 'shared/flash_messages' %>
-	<%end%>
-	<br />		
+	<% end %>
+	</table>
+<%else%>
+	<%= render 'shared/flash_messages' %>
+<%end%>
+
 
 
