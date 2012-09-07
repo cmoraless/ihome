@@ -4,4 +4,5 @@ $('#iboxes').empty();
 <% elsif @user.isSuperAdmin == false and @user.isAdmin == true %>
 	$('#iboxes').append('<%= escape_javascript(render(:partial => "shared/flash_messages") ) %>');
 	$('#iboxes').append('<%= escape_javascript(render(:partial => "iboxes/all2") ) %>');
+	$('#iboxes').append('<%= link_to "Habilitar nuevo ibox", show_enable_path, :class => 'btn btn-primary', :remote => true %>');
 <%end%>

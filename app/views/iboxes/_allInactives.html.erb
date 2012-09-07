@@ -19,7 +19,7 @@
 	    <td><%= ibox.port %></td>    
 	    <td><%= ibox.isActive ? 'si' : 'no' %></td>				
 	    <td><%= link_to 'Editar', edit_ibox_path(ibox), :remote => true, :class => 'btn btn-mini' %>
-	    <%= link_to 'Eliminar', ibox, method: :delete, :remote => true, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
+	    <%= link_to 'Eliminar', ibox, :method => :delete, :remote => true, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
 	  </tr>
   <%end%>
 <% end %>

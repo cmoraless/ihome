@@ -12,7 +12,7 @@
 
 
 <div class="ui-widget">
-	<%= form_tag('/homeadmin/browseAs', :remote=>true)%>
-	<%= label_tag 'Correo' %> <%= text_field_tag 'emails' %>
-	<%= submit_tag "Navegar" %>	
+	<%= form_tag(url_for(:controller=>"homeadmin", :action=> "browseAs"), :remote=>true)%>
+	<%= label_tag 'Ingrese Correo:' %> <%= text_field_tag 'emails' %>
+	<%= submit_tag "Navegar", :class=>"btn btn-primary" %>	
 </div>

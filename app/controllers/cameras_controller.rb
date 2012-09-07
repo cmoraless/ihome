@@ -32,12 +32,10 @@ class CamerasController < ApplicationController
   # GET /cameras/1/edit
   def edit
     @edit = true
-    logger.debug "#################### EDIIIIIIT"
     @camera = Camera.find(params[:id])
     respond_to do |format|
       @ibox = Ibox.find(session[:ibox_id])
       @cameras = @ibox.cameras
-      logger.debug "#################### EDIIIIIIIIIT 2222222222222"
       format.js
     end
   end
@@ -46,16 +44,30 @@ class CamerasController < ApplicationController
   # POST /cameras.json
   def create
     @camera = Camera.new(params[:camera])
+    @repetido = false
+    @currentIbox = Ibox.find(session[:ibox_id])
+    @cameras = @currentIbox.cameras
+    for i in 0..@cameras.length-1
+      if @cameras[i][:ip] == @camera[:ip] and @cameras[i][:port] == @camera[:port]
+        @repetido = true
+      end
+    end
     respond_to do |format|
-      if @camera.save
-        @ibox = Ibox.find(session[:ibox_id])
-        @ibox.cameras << @camera
-        @cameras = @ibox.cameras
-        flash[:notice] = "Se ha creado correctamente la camara."
-        flash[:error] = ""
-        format.js
+      if @repetido == false #si la camara no esta repetida
+        if @camera.save
+          @ibox = Ibox.find(session[:ibox_id])
+          @ibox.cameras << @camera
+          @cameras = @ibox.cameras
+          flash[:notice] = "Se ha creado correctamente la camara."
+          flash[:error] = ""
+          format.js
+        else
+          format.js {render :action => 'new'}        
+        end
       else
-        format.js {render :action => 'new'}        
+        flash[:notice] = ""
+        flash[:error] = "La camara ingresada ya existe."
+        format.js {render :action=> 'new'}
       end
     end
   end
