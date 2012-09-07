@@ -101,9 +101,20 @@
 						</div>
 						<%= s.hidden_field :dayEnd %>
 					</span>
-								
+					
 					<!-- Texto termino -->
-					<span class="textend">Apagado</span>
+					<span class="textend">Apagado </span>
+					
+					<!-- Botón reiteración -->
+					<span class="reiterative">
+						
+						<%= s.label :isReiterative, :class => "checkbox" do %>
+  							<%= s.check_box :isReiterative %>Semanal
+						<% end %>
+						
+					
+					</span>
+								
 					
 					<!-- Java Script hora termino -->
 					<script type="text/javascript">
@@ -144,6 +155,6 @@
 		</ul>
 		<% counter = counter + 1%>
 	<% end %>
-	  <p><%= submit_tag "Submit" %></p>
+	  <p><%= submit_tag "Guardar Programación",  :class => "btn btn-primary"%></p>
 <% end %>
 

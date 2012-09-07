@@ -6,17 +6,16 @@
   			:header_tag => :h3 %> 
 		<%end%>
 		<div class="control-group">
-  		<%= f.label :Nombre, :class=> "control-label" %>   
-  		<div class="controls">
-  			<%= f.text_field :name, :class => "input-xlarge" %>
-  		</div>
+  			<%= f.label :Nombre, :class=> "control-label" %>   
+	  		<div class="controls">
+	  			<%= f.text_field :name, :class => "input-xlarge" %>
+	  		</div>
 		</div>
 		<div class="control-group">
   		<%= f.label :Privacidad, :class=> "control-label" %>   
-  		<div class="controls">
+  			<div class="controls">
     			<%= f.radio_button :isPublic, true%> Público
    				<%= f.radio_button :isPublic, false%> Privado
-
 
 					<script type="text/javascript">
 	 					$("div.controls > input:radio").live("change", function() {
@@ -34,18 +33,25 @@
 
 	  			<div id="usersOwners" style="display: none">
   					<h3>seleccione los usuarios a cargo del accesorio</h3>
-  					<!-- TOOOOOOOOOOOOOOOOOOOOOOOOOOOONTOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
-  					<!-- QUE CHUCHA ACA TONTO, ESTAY LISTANDO TODOS LOS USUARIOS DE LA TABLA USUARIO -->
-  					<% for user in User.find(:all) %>
-			        <div>
-            		    <%= check_box_tag "accessory[user_ids][]", user.id, @accessory.users.include?(user) %>
-                		<%= user.name %>
-        			</div>
-   					<% end %>  
-   				</div>
-  			
- 			</div>
 
+  					<% for user in User.find(:all) %>
+				        <div>
+	            		    <%= check_box_tag "accessory[user_ids][]", user.id, @accessory.users.include?(user) %>
+	                		<%= user.name %>
+	        			</div>
+	        			
+		        		<script type="text/javascript">
+							$(function(){
+								$("#profile_accessory_ids").multiSelect({
+									selectableHeader: "<div class='header'>Accessorios</div>",
+		                        	selectedHeader: "<div class='header'>Accesorios del Perfil</div>"
+		                        });
+							});
+						</script>
+   					<% end %>
+   					
+   				</div>
+ 			</div>
 		</div>
 		<div class="form-actions">
     		<%= f.submit :Actualizar, :class => "btn btn-primary" %>
