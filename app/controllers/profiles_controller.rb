@@ -49,6 +49,15 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def update_multiple
+    @profile = Profile.find(params[:id])
+    @user = User.find(session[:user_id])
+    @profile.update_attributes(params[:profile])
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # GET /profiles/1/edit
   def schedules  
     @user = User.find(session[:user_id])

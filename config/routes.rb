@@ -15,10 +15,12 @@ Ihome::Application.routes.draw do
   resources :home
   resources :homeadmin
   resources :admin
-  resources :profiles
+  resources :profiles do
+    resources :schedules
+  end
   resources :sessions
   resources :accessories
-  resources :schdules
+  resources :schedules
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"

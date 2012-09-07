@@ -2,13 +2,8 @@ class CreateSchedules < ActiveRecord::Migration
   def change
     create_table :schedules do |t|
       t.string :name
-      t.boolean :mon
-      t.boolean :tue
-      t.boolean :wen
-      t.boolean :thu
-      t.boolean :fri
-      t.boolean :sat
-      t.boolean :sun
+      t.string :dayBegin
+      t.string :dayEnd
       t.boolean :isReiterative
       t.time :timeStart
       t.time :timeEnd

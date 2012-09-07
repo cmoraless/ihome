@@ -1,0 +1,149 @@
+<%= form_for(@profile, :remote => true, :html => {:class => "form-horizontal"}) do |pf| %>
+	<% counter = 0 %>
+	<%= pf.fields_for :schedules do |s| %>
+
+		<ul class="schentries"> 
+			 <li class="row-fluid">
+			 	
+			 	<div class="span12">
+			     	<!-- Nombre accesorio -->
+					<span class="title"><%=  s.object.accessory.name%></span>				  
+				</div>
+				
+				<div class="span12">
+					<!-- 		 		-->
+					<!-- OPCIONES INICIO-->
+					<!--		 		-->
+					
+					<!-- Hora inicio -->
+					<span class="timebegin">
+						<%=s.text_field :timeStart, :maxlength => 5, :class => "input-mini" %>
+					</span>
+					
+					<!-- Dia inicio -->
+					<span class="daybegin">
+						<div class="btn-group" id="<%= s.object.id.to_s + "dayBegin"%>" data-toggle-name="<%= s.object.id.to_s + "dayBegin"%>" data-toggle="buttons-radio" >
+							<button class="btn btn-info btn-mini" value="Mon" type="button">L</button>
+							<button class="btn btn-info btn-mini" value="Tue" type="button">M</button>
+							<button class="btn btn-info btn-mini" value="Wed" type="button">M</button>
+							<button class="btn btn-info btn-mini" value="Thu" type="button">J</button>
+							<button class="btn btn-info btn-mini" value="Fri" type="button">V</button>
+							<button class="btn btn-info btn-mini" value="Sat" type="button">S</button>
+							<button class="btn btn-info btn-mini" value="Sun" type="button">D</button>
+						</div>
+						<%= s.hidden_field :dayBegin %>
+						
+						<input type="hidden" name="is_private" value="0" />
+					</span>
+						
+					<!-- Texto inicio -->
+					<span class="textbegin">Encendido</span>
+					
+					<!-- Java Script hora inicio -->
+					<script type="text/javascript">
+						$(function(){
+						    $('#profile_schedules_attributes_<%=counter %>_timeStart').scroller({
+						        preset: 'time',
+						        theme: 'default',
+						        display: 'modal',
+						        mode: 'scroller',
+						        width: 3
+						    });    
+						});
+					</script>
+
+					<!-- Java Script día inicio -->
+					<script type="text/javascript">
+						$(function(){
+						  $('div.btn-group[data-toggle-name="<%= s.object.id.to_s + "dayBegin"%>"]').each(function(){
+						    var group   = $(this);
+						    var form    = group.parents('form').eq(0);
+						    var name    = group.attr('data-toggle-name');
+						    var hidden  = $('#profile_schedules_attributes_<%=counter %>_dayBegin', form);
+						    $('button', group).each(function(){
+						    	
+						      var button = $(this);
+						      button.live('click', function(){
+						          hidden.val($(this).val());
+						      });
+						      if(button.val() == hidden.val()) {
+						        button.addClass('active');
+						      }
+						    });
+						  });
+						});
+					</script>
+					
+					
+
+				</div>
+			
+				<div class="span12">		
+					<!-- 		 		 -->
+					<!-- OPCIONES TERMINO-->
+					<!--		 		 -->
+			
+					<!-- Hora termino -->
+					<span class="timeend">
+						<%=s.text_field :timeEnd, :maxlength => 5, :class => "input-mini" %>
+					</span>
+					
+					<!-- Dia termino -->
+					<span class="dayend">
+						<div class="btn-group" id="<%= s.object.id.to_s + "dayEnd"%>" data-toggle-name="<%= s.object.id.to_s + "dayEnd"%>" data-toggle="buttons-radio" >
+							<button class="btn btn-info btn-mini" value="Mon" type="button">L</button>
+							<button class="btn btn-info btn-mini" value="Tue" type="button">M</button>
+							<button class="btn btn-info btn-mini" value="Wed" type="button">M</button>
+							<button class="btn btn-info btn-mini" value="Thu" type="button">J</button>
+							<button class="btn btn-info btn-mini" value="Fri" type="button">V</button>
+							<button class="btn btn-info btn-mini" value="Sat" type="button">S</button>
+							<button class="btn btn-info btn-mini" value="Sun" type="button">D</button>
+						</div>
+						<%= s.hidden_field :dayEnd %>
+					</span>
+								
+					<!-- Texto termino -->
+					<span class="textend">Apagado</span>
+					
+					<!-- Java Script hora termino -->
+					<script type="text/javascript">
+						$(function(){
+						    $('#profile_schedules_attributes_<%=counter %>_timeEnd').scroller({
+						        preset: 'time',
+						        theme: 'default',
+						        display: 'modal',
+						        mode: 'scroller',
+						        width: 3
+						    });    
+						});
+					</script>
+					
+					<!-- Java Script día inicio -->
+					<script type="text/javascript">
+						$(function(){
+						  $('div.btn-group[data-toggle-name="<%= s.object.id.to_s + "dayEnd"%>"]').each(function(){
+						    var group   = $(this);
+						    var form    = group.parents('form').eq(0);
+						    var name    = group.attr('data-toggle-name');
+						    var hidden  = $('#profile_schedules_attributes_<%=counter %>_dayEnd', form);
+						    $('button', group).each(function(){
+						    	
+						      var button = $(this);
+						      button.live('click', function(){
+						          hidden.val($(this).val());
+						      });
+						      if(button.val() == hidden.val()) {
+						        button.addClass('active');
+						      }
+						    });
+						  });
+						});
+					</script>
+				</div
+			 </li>
+		</ul>
+		<% counter = counter + 1%>
+	<% end %>
+	  <p><%= submit_tag "Submit" %></p>
+<% end %>
+

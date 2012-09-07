@@ -6,5 +6,6 @@ class Profile < ActiveRecord::Base
   has_many :accessories, :through => :schedules
 
   # atributos
-  attr_accessible :isActive, :name, :accessory_ids, :schedule_id
+  attr_accessible :isActive, :name, :accessory_ids, :schedules_attributes
+  accepts_nested_attributes_for :schedules
 end
