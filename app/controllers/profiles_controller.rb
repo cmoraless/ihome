@@ -35,6 +35,9 @@ class ProfilesController < ApplicationController
     @profile = Profile.new
     @user = User.find(session[:user_id])
     @ibox = Ibox.find(session[:ibox_id])
+    @accessoriesPubs = Accessory.where(:isPublic=> true)
+    @accessoriesOwneds = @user.accessories
+    @accessories = @accessoriesPubs + @accessoriesOwneds
     respond_to do |format|
       format.js
     end

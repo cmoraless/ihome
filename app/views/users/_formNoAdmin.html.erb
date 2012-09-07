@@ -1,11 +1,8 @@
 <%= form_for(@user,:remote=>true, :html => {:class => "form-horizontal"}) do |user_form| %>
-	
 	<fieldset>
 		<legend>Usuario</legend>
 		<% if user_form.error_messages.length > 0%>
-   		<%= user_form.error_messages :header_message => "Usuario inválido",
-  			:message => "",
-  			:header_tag => :h3 %>  
+   			<%= user_form.error_messages :header_message => "Usuario inválido",	:message => "", :header_tag => :h3 %>  
  		<%end%>
 		<div class="control-group">
         	<%= user_form.label :nombre, :class => "control-label" %>
