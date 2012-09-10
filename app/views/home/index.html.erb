@@ -153,21 +153,32 @@
 	<%content_for :accessories do %>
 		<div class="accordion" id="accordion">
 			<% @containers.each do |container| %>
-	    	<div class="accordion-group">
-		  		<div class="accordion-heading">
-		    		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#<%= container.name %>">
-		      			<h2><%= container.name %></h2>
-		    		</a>
-				</div>
-		    	<div id="<%= container.name %>" class="accordion-body collapse">  
-		    		<div class="accordion-inner">
-		    			<ul class="accentries"> 
-		    				
-							<%= render container.accessories.where(:isPublic=> true) %>
-						</ul>
-		    		</div>
+				<% @accessories = container.accessories.find_all { |acc| acc.users.find_by_id(@user.id) } %>
+		    	<% @accessories = @accessories + container.accessories.find_all { |acc| acc.isPublic == true } %>
+			
+				<% if ( (@user.isAdmin && container.accessories.length > 0) || ( @accessories.length > 0 ) )%>
+	
+		    	<div class="accordion-group">
+			  		<div class="accordion-heading">
+			    		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#<%= container.name %>">
+			      			<h2><%= container.name %></h2>
+			    		</a>
+					</div>
+			    	<div id="<%= container.name %>" class="accordion-body collapse">  
+			    		<div class="accordion-inner">
+			    			<ul class="accentries"> 
+			    				<% if @user.isAdmin %>
+			    					<%= render container.accessories %>
+			    				<% else %>
+			    					<% @accessories = container.accessories.find_all { |acc| acc.users.find_by_id(@user.id) } %>
+			    					<% @accessories = @accessories + container.accessories.find_all { |acc| acc.isPublic == true } %>
+									<%= render @accessories %>
+								<% end %>
+							</ul>
+			    		</div>
 					</div>
 				</div>
+				<% end %>
 			<% end %>
 		</div>
 	<%end%> <!-- end accesories -->
