@@ -2,8 +2,8 @@
 
 <table class="table table-striped">
   <tr>
- 		<th>Id</th>
     <th>Nombre</th>
+    <th>MAC</th>
     <th>DNS</th>
     <th>Puerto</th>    
 		<th>Activo</th>
@@ -13,8 +13,8 @@
 <% @iboxes.each do |ibox| %>
   <% if ibox.isActive == false %>
 	  <tr>
-	  	<td><%= ibox.id %></td>
 	  	<td><%= ibox.name %></td>
+	  	<td><%= ibox.mac %></td>
 	    <td><%= ibox.ip %></td>
 	    <td><%= ibox.port %></td>    
 	    <td><%= ibox.isActive ? 'si' : 'no' %></td>				
