@@ -1,27 +1,29 @@
 	
-	<% if @accessories %>
-		<h3>Accesorios</h3>
-		<table class="table table-striped">
+<% if @accessories %>
+	<h3>Accesorios</h3>
+	<table class="table table-striped">
+	  <tr>
+	    <th>Nombre</th>
+	    <th>Id</th>
+	    <th>Tipo</th><br />		    
+	    <th>Público</th>
+	    <th>Acciones</th>
+	  </tr>
+	<% for i in 0..@accessories.length-1 %>
+		  <% for j in 0..@accessories[i].length-1%>
 		  <tr>
-		    <th>Nombre</th>
-		    <th>Tipo</th><br />		    
-		    <th>Público</th>
-		    <th>Acciones</th>
+		  	<td><%= @accessories[i][j][:name] %></td>
+		  	<td><%= @accessories[i][j][:id] %></td>
+		  	<td><%= @containers[i][:name] %></td>
+		  	<td><%= @accessories[i][j][:isPublic] ? 'si' : 'no'  %></td>
+		  	<td><%= link_to "Editar", edit_accessory_path(@accessories[i][j]),:class => 'btn btn-mini' ,:remote=>true%></td>
 		  </tr>
-		<% for i in 0..@accessories.length-1 %>
-			  <% for j in 0..@accessories[i].length-1%>
-			  <tr>
-			  	<td><%= @accessories[i][j][:name] %></td>
-			  	<td><%= @containers[i][:name] %></td>
-			  	<td><%= @accessories[i][j][:isPublic] ? 'si' : 'no'  %></td>
-			  	<td><%= link_to "Editar", edit_accessory_path(@accessories[i][j]),:class => 'btn btn-mini' ,:remote=>true%></td>
-			  </tr>
-			  <% end%>
-		<% end %>
-		</table>
-	<%else%>
-		<%= render 'shared/flash_messages' %>
-	<%end%>
-	<br />		
+		  <% end%>
+	<% end %>
+	</table>
+<%else%>
+	<%= render 'shared/flash_messages' %>
+<%end%>
+
 
 

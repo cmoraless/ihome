@@ -56,15 +56,25 @@ class AccessoriesController < ApplicationController
   # PUT /accessories/1.json
   def update
     @accessory = Accessory.find(params[:id])
-
+    @ibox = Ibox.find(session[:ibox_id])
+    @containerOld = IboxAccessoriesContainer.find_by_ibox_id_and_accessory_type_id(@ibox.id, @accessory.accessory_type.id)
+    @containerOld.accessories.destroy(@accessory)
+       
     respond_to do |format|
       if @accessory.update_attributes(params[:accessory])
-        @ibox = Ibox.find(session[:ibox_id])
+        # se agrega al nuevo containter
+        if (!@ibox.accessory_types.find_by_name(@accessory.accessory_type.name))
+          @ibox.accessory_types << @accessory.accessory_type
+        end
+        @container = IboxAccessoriesContainer.find_by_ibox_id_and_accessory_type_id(@ibox.id, @accessory.accessory_type.id)
+               
+        @container.update_attribute(:name, @accessory.accessory_type.name)
+        @container.accessories << @accessory      
+
         @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
         @accessories = []
         @containers.each do |container|
         @accessories << container.accessories
-        logger.debug "############### #{container.accessories[0][:name]}"
       end  
         format.js
       else
