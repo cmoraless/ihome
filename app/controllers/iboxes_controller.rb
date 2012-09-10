@@ -287,6 +287,20 @@ class IboxesController < ApplicationController
     ret
   end
 
+  def destroyAccessory
+    @accessory = Accessory.find(params[:id])
+    @ibox = Ibox.find(session[:ibox_id])
+    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?OP=3&ZID=' + @accessory.zid, @ibox.user, @ibox.password)
+    if (res[0] == 'Success')
+       @accessory.destroy
+    end
+    
+    respond_to do |format|
+      format.html { redirect_to accessories_url }
+      format.json { head :no_content }
+    end
+  end
+
   # Función 
   # Entrada: 
   # Salida: 

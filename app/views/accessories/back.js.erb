@@ -1,7 +1,6 @@
 $('#accessories').empty();
 <% if @currentUser.isAdmin == true and @currentUser.isSuperAdmin == false%>
 	<%if @iboxes.length > 0%>
-		$('#accessories').append('<%= j render "iboxes/editAccessories"%>');
 		$('#accessories').append('<%= j render "accessories/all"%>');
 	<%end%>	
 <%end%>

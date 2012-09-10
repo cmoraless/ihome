@@ -33,7 +33,7 @@ class AccessoriesController < ApplicationController
   def edit
     @accessory = Accessory.find(params[:id])
     @ibox = Ibox.find(session[:ibox_id])
-    @users = @ibox.users
+    @users = @ibox.users.where(:isAdmin => false)
   end
 
   # POST /accessories
@@ -87,7 +87,11 @@ class AccessoriesController < ApplicationController
   # DELETE /accessories/1.json
   def destroy
     @accessory = Accessory.find(params[:id])
-    @accessory.destroy
+    @ibox = Ibox.find(session[:ibox_id])
+    res = Ibox.iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?OP=3&ZID=' + @accessory.zid, @ibox.user, @ibox.password)
+    if (res[0] == 'Success')
+       @accessory.destroy
+    end
     
     respond_to do |format|
       format.html { redirect_to accessories_url }
