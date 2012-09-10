@@ -94,12 +94,12 @@
 				}				
 				window.onload = pauseCarousel;
 				var ver = function(id,ip,port){
-					$('#camera_'+id).attr('src','<%=url_for(:controller=>"cameras",:action=>"stream_video")%>');
+					$('#camera_'+id).attr('src','http://'+ip+':'+port+'/video.cgi');
 					$('#link_'+id).html("PARAR STREAMING");
 					$('#link_'+id).attr('href','javascript:parar("'+id+'","'+ip+'","'+port+'")');
 				};
 				var parar = function(id,ip,port){
-					$('#camera_'+id).attr('src','<%=url_for(:controller=>"cameras",:action=>"stream_image")%>');
+					$('#camera_'+id).attr('src','http://'+ip+':'+port+'/image/jpeg.cgi');
 					$('#link_'+id).html("VER STREAMING");
 					$('#link_'+id).attr('href','javascript:ver("'+id+'","'+ip+'","'+port+'")');
 				};
@@ -120,20 +120,22 @@
 										  	<% else %>										  		
 											  	<% for i in 0..@cameras.length-1%>											  												    	
 											    	<% if i == 0 %>
-											    		<div class="active item offset1"><img id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action=>"stream_image")%>'><div class="carousel-caption"><a class="btn btn-link" id='link_<%=@cameras[i][:id].to_s %>' href='javascript:ver("<%= @cameras[i][:id].to_s %>","<%=@cameras[i][:ip]%>","<%=@cameras[i][:port]%>")'>VER STREAMING</a></div></div>
+											    		<div class="active item offset1"><img id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='http://<%= @cameras[i][:ip] + ':' + @cameras[i][:port]%>/image/jpeg.cgi'><div class="carousel-caption"><a class="btn btn-link" id='link_<%=@cameras[i][:id].to_s %>' href='javascript:ver("<%= @cameras[i][:id].to_s %>","<%=@cameras[i][:ip]%>","<%=@cameras[i][:port]%>")'>VER STREAMING</a></div></div>
 											    	<%else%>
-											    		<div class="item offset1"><img id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action=>"stream")%>'><div class="carousel-caption"><a class="btn btn-link" id='link_<%=@cameras[i][:id].to_s %>' href='javascript:ver("<%= @cameras[i][:id].to_s %>","<%=@cameras[i][:ip]%>","<%=@cameras[i][:port]%>")'>VER STREAMING</a></div></div>
-											    	<%end%>
-											    	<script type="text/javascript">											    		
-											    		var width = screen.width*0.7;
-											    		var height = width*3/4;
-											    		$("#camera_<%= @cameras[i][:id].to_s %>").width(width);
-											    		$("#camera_<%= @cameras[i][:id].to_s %>").height(height);
-											    		$("div.carousel-caption").css('width',width*0.87);
-											    	</script>		
+											    		<div class="item offset1"><img id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='http://<%= @cameras[i][:ip] + ':' + @cameras[i][:port]%>/image/jpeg.cgi'><div class="carousel-caption"><a class="btn btn-link" id='link_<%=@cameras[i][:id].to_s %>' href='javascript:ver("<%= @cameras[i][:id].to_s %>","<%=@cameras[i][:ip]%>","<%=@cameras[i][:port]%>")'>VER STREAMING</a></div></div>
+											    	<%end%>											    	
 											    <%end%>
 										  	<%end%>
 										  </div>
+										  <% for i in 0..@cameras.length-1%> <!-- creo scripts para achicar la camara al tamaño de la pantalla del movil (Se crea afuera del inner para que no lo muestre)-->
+										  <script type="text/javascript">											    		
+								    		var width = screen.width*0.7;
+								    		var height = width*3/4;
+								    		$("#camera_<%= @cameras[i][:id].to_s %>").width(width);
+								    		$("#camera_<%= @cameras[i][:id].to_s %>").height(height);
+								    		$("div.carousel-caption").css('width',width*0.87);
+								    	</script>
+								    	<%end%>		
 										  <!-- Carousel nav -->
 										  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
 										  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
