@@ -145,8 +145,8 @@ class IboxesController < ApplicationController
 
   def enable
     respond_to do |format|
-      if Ibox.exists?(params[:ibox_id])
-        @ibox = Ibox.find(params[:ibox_id])
+      if Ibox.find_by_mac(params[:ibox_mac])
+        @ibox = Ibox.find_by_mac(params[:ibox_mac])
         @user = User.find(session[:user_id])        
         if @ibox.isActive == true
           flash[:error] = "El ibox seleccionado ya esta activo."
