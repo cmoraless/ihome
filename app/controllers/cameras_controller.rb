@@ -111,4 +111,35 @@ class CamerasController < ApplicationController
       format.js
     end
   end
+  
+  def stream_image
+    require 'net/http'
+    require 'uri'
+    ws = 'http://200.28.166.104:8082'
+    url = URI.parse(ws)
+    begin
+      req = Net::HTTP::Get.new(url.path + '/image/jpeg.cgi')
+      req.basic_auth 'mario', 'mario'
+      res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+      send_data res.body, :type=> 'image/jpeg'      
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+      Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
+    end
+  end
+  
+  def stream_video
+    require 'net/http'
+    require 'uri'
+    ws = 'http://200.28.166.104:8082'
+    url = URI.parse(ws)
+    begin
+      req = Net::HTTP::Get.new(url.path + '/video.cgi')
+      req.basic_auth 'mario', 'mario'
+      res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+      send_data res.body, :type=> 'image/jpeg'      
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+      Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
+    end
+  end
+  
 end
