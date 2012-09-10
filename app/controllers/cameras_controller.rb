@@ -111,7 +111,8 @@ class CamerasController < ApplicationController
       format.js
     end
   end
-  
+ 
+=begin  
   def stream_image
     require 'net/http'
     require 'uri'
@@ -141,5 +142,6 @@ class CamerasController < ApplicationController
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
     end
   end
-  
+=end
+
 end
