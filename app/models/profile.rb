@@ -2,7 +2,7 @@ class Profile < ActiveRecord::Base
   # asociacion:
   belongs_to :user
   belongs_to :ibox
-  has_many :schedules
+  has_many :schedules, :dependent => :destroy
   has_many :accessories, :through => :schedules
 
   # atributos

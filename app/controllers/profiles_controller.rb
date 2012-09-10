@@ -35,7 +35,10 @@ class ProfilesController < ApplicationController
     @profile = Profile.new
     @user = User.find(session[:user_id])
     @ibox = Ibox.find(session[:ibox_id])
-    @accessoriesPubs = Accessory.where(:isPublic=> true)
+    @accessoriesPubs = []
+    @ibox.ibox_accessories_containers.each do |container|
+      @accessoriesPubs += container.accessories.where(:isPublic=> true)
+    end
     @accessoriesOwneds = @user.accessories
     @accessories = @accessoriesPubs + @accessoriesOwneds
     respond_to do |format|
@@ -45,9 +48,13 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
-    @user = User.find(session[:user_id])
     @profile = Profile.find(params[:id])
-    @accessoriesPubs = Accessory.where(:isPublic=> true)
+    @user = User.find(session[:user_id])
+    @ibox = Ibox.find(session[:ibox_id])
+    @accessoriesPubs = []
+    @ibox.ibox_accessories_containers.each do |container|
+      @accessoriesPubs += container.accessories.where(:isPublic=> true)
+    end
     @accessoriesOwneds = @user.accessories
     @accessories = @accessoriesPubs + @accessoriesOwneds
     respond_to do |format|

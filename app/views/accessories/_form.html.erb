@@ -15,20 +15,31 @@
 		</div>
 		
 		<div class="control-group">
+  			<%= f.label :Tipo, :class=> "control-label" %>   
+	  		<div class="controls">
+				<%= f.collection_select :accessory_type_id, AccessoryType.all, :id, :name %>
+	  		</div>
+		</div>
+		
+		<div class="control-group">
   		<%= f.label :Privacidad, :class=> "control-label" %>   
   			<div class="controls">
     			<%= f.radio_button :isPublic, true%> Público
    				<%= f.radio_button :isPublic, false%> Privado
 
 				<script type="text/javascript">
+ 					var pub = document.getElementById("accessory_isPublic_true");
+					var priv = document.getElementById("accessory_isPublic_false");
+					var user = document.getElementById("usersOwners");
+					if (priv.checked == true){ 
+						user.style.display = "block";
+					}else if (pub.checked == true){
+						user.style.display = "none";
+					}
  					$("div.controls > input:radio").live("change", function() {
-						var pub = document.getElementById("accessory_isPublic_true");
-						var priv = document.getElementById("accessory_isPublic_false");
-						var user = document.getElementById("usersOwners");
 						if (priv.checked == true){ 
  							user.style.display = "block";
-						}
-						if (pub.checked == true){
+						}else if (pub.checked == true){
 							user.style.display = "none";
 						}
   					});
