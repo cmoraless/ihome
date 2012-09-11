@@ -16,12 +16,16 @@
 				<%= f.text_field :name, :class => "input-xlarge"%>
 			</div>
 		</div>
+		<% if @currentUser.isSuperAdmin %> <!-- si es super admin dejo que edite la MAC -->
 		<div class="control-group">
 		<%= f.label :MAC, :class => "control-label" %>   
 			<div class="controls">
 				<%= f.text_field :mac, :class => "input-xlarge"%>
 			</div>
 		</div>
+		<%else%>
+			<%= f.hidden_field :mac, :value=> @ibox.mac %>
+		<%end%>
 		<div class="control-group">
 		<%= f.label :DNS, :class => "control-label" %>   
 			<div class="controls">
