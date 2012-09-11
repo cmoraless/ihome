@@ -1,5 +1,8 @@
 <% if @currentUser.isSuperAdmin %>
 	$('#users').empty();
+	<% if flash[:message] =~ /usuario/i or flash[:notice] =~ /usuario/i%> <!-- si los mensajes estan relacionados con el usuario los muestro -->
+		$('#users').append('<%= j render "shared/flash_messages"%>');
+	<%end%>
 	$("#users").append('<%= j render "homeadmin/indexUser" %>');
 <%else%>
 	<% if @user.isAdmin == true %>
@@ -8,6 +11,9 @@
 		$('#modal-edit').append('<%= j render "users/formEdit"%>');
 	<%else%>
 		$('#users').empty();
+		<% if flash[:message] =~ /usuario/i or flash[:notice] =~ /usuario/i%> <!-- si los mensajes estan relacionados con el usuario los muestro -->
+			$('#users').append('<%= j render "shared/flash_messages"%>');
+		<%end%>
 		$('#users').append('<%= escape_javascript(render(:partial => "shared/flash_messages") ) %>');
 		$('#users').append('<%= escape_javascript(render(:partial => "users/all") ) %>');
 		$('#users').append('<%= link_to "Agregar nuevo usuario", new_no_admin_path, :remote=>true%>');

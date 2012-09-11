@@ -1,4 +1,7 @@
 $("#users").empty();
+<% if flash[:message] =~ /usuario/i or flash[:notice] =~ /usuario/i%> <!-- si los mensajes estan relacionados con el usuario los muestro -->
+$('#users').append('<%= j render "shared/flash_messages"%>');
+<%end%>
 <% if @user.isAdmin %>
 	$("#users").append('<%= j render "homeadmin/indexUser" %>');
 	$("#browseas").empty();

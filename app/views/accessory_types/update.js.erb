@@ -1,3 +1,6 @@
 $('#accessories').empty();
+<% if flash[:message] =~ /tipo/i or flash[:notice] =~ /tipo/i%> <!-- si los mensajes estan relacionados con los tipo de accesorios los muestro -->
+	$('#accessories').append('<%= j render "shared/flash_messages"%>');
+<%end%>
 $('#accessories').append('<%= escape_javascript(render(:partial => "accessory_types/all") ) %>');
 
