@@ -175,12 +175,16 @@ class IboxesController < ApplicationController
   
   def addDefaultAccessories
     @ibox = Ibox.find(session[:ibox_id])
+    respond_to do |format|
     if addAccessories(@ibox.id) 
       flash[:notice] = "Hemos habilitado exitosamente el Ibox y agregado tus nuevos accesorios."
       flash[:error] = ""
+      format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
     else
       flash[:notice] = "Hemos habilitado exitosamente el Ibox, pero no hemos encontrado nuevos accesorios."
       flash[:error] = ""
+      format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
+    end
     end
   end
 

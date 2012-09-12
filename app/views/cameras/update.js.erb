@@ -1,3 +1,6 @@
 $('#cameras').empty();
+<% if flash[:message] =~ /camara/i or flash[:notice] =~ /camara/i%> <!-- si los mensajes estan relacionados con la camara los meustro -->
+$('#cameras').append('<%= j render "shared/flash_messages"%>');
+<%end%>
 $('#cameras').append('<%= escape_javascript(render(:partial => "cameras/all") ) %>')
 $('#cameras').append('<%= link_to "Agregar nueva cámara", new_camera_path, :remote=>true, :class => 'btn btn-primary'%>');

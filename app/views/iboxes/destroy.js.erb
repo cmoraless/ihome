@@ -1,2 +1,5 @@
 $('#iboxes').empty();
+<% if flash[:message] =~ /ibox/i or flash[:notice] =~ /ibox/i%> <!-- si los mensajes estan relacionados con el usuario los muestro -->
+	$('#iboxes').append('<%= j render "shared/flash_messages"%>');
+<%end%>
 $('#iboxes').append('<%= j render "homeadmin/indexIbox"%>');

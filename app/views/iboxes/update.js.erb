@@ -1,8 +1,10 @@
 $('#iboxes').empty();
+<% if flash[:message] =~ /ibox/i or flash[:notice] =~ /ibox/i%> <!-- si los mensajes estan relacionados con el usuario los muestro -->
+	$('#iboxes').append('<%= j render "shared/flash_messages"%>');
+<%end%>
 <% if @user.isSuperAdmin %>
 	$('#iboxes').append('<%= escape_javascript(render(:partial => "homeadmin/indexIbox") ) %>');
 <% elsif @user.isSuperAdmin == false and @user.isAdmin == true %>
-	$('#iboxes').append('<%= escape_javascript(render(:partial => "shared/flash_messages") ) %>');
 	$('#iboxes').append('<%= escape_javascript(render(:partial => "iboxes/all2") ) %>');
 	$('#iboxes').append('<%= link_to "Habilitar nuevo ibox", show_enable_path, :class => 'btn btn-primary', :remote => true %>');
 <%end%>
