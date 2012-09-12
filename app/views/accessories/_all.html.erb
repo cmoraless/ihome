@@ -18,6 +18,9 @@
 		  	<td><%= @accessories[i][j][:isPublic] ? 'si' : 'no'  %></td>
 		  	<td><%= link_to "Editar", edit_accessory_path(@accessories[i][j]),:class => 'btn btn-mini' ,:remote=>true%>
 		  		<%= link_to 'Eliminar', @accessories[i][j], :data=> {:confirm => '¿Estás seguro? Recuerde desenchufar su accessorio antes de presioanr Ok '}, :method => :delete, :class => 'btn btn-mini btn-danger', :remote=>true %>
+		  		<%= button_to "Eliminar", 
+		{ :controller => "iboxes", :action => "destroyAccessory"}, 
+		{ :class => "btn btn-mini btn-danger", :remote => 'true', :disable_with => 'Eliminando...'} %>
 		  	</td>
 		  </tr>
 		  <% end%>
