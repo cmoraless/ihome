@@ -112,22 +112,23 @@ class CamerasController < ApplicationController
     end
   end
  
-=begin  
+#begin  
   def stream_image
+    camera = Camera.find(params[:id])
     require 'net/http'
     require 'uri'
-    ws = 'http://200.28.166.104:8082'
+    ws = 'http://' + camera.ip + ':' + camera.port
     url = URI.parse(ws)
     begin
       req = Net::HTTP::Get.new(url.path + '/image/jpeg.cgi')
-      req.basic_auth 'mario', 'mario'
+      req.basic_auth camera.user, camera.password
       res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
       send_data res.body, :type=> 'image/jpeg'      
     rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
     end
   end
-  
+=begin  
   def stream_video
     require 'net/http'
     require 'uri'

@@ -123,9 +123,9 @@
 										  	<% else %>										  		
 											  	<% for i in 0..@cameras.length-1%>											  												    	
 											    	<% if i == 0 %>
-											    		<div class="active item offset1"><img id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='http://<%= @cameras[i][:ip] + ':' + @cameras[i][:port]%>/image/jpeg.cgi'><div class="carousel-caption"><a class="btn btn-link" id='link_<%=@cameras[i][:id].to_s %>' href='javascript:ver("<%= @cameras[i][:id].to_s %>","<%=@cameras[i][:ip]%>","<%=@cameras[i][:port]%>")'>VER STREAMING</a></div></div>
+											    		<div class="active item offset1"><img id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div>
 											    	<%else%>
-											    		<div class="item offset1"><img id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='http://<%= @cameras[i][:ip] + ':' + @cameras[i][:port]%>/image/jpeg.cgi'><div class="carousel-caption"><a class="btn btn-link" id='link_<%=@cameras[i][:id].to_s %>' href='javascript:ver("<%= @cameras[i][:id].to_s %>","<%=@cameras[i][:ip]%>","<%=@cameras[i][:port]%>")'>VER STREAMING</a></div></div>
+											    		<div class="item offset1"><img id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div></div>
 											    	<%end%>											    	
 											    <%end%>
 										  	<%end%>
