@@ -143,6 +143,24 @@ class IboxesController < ApplicationController
     end
   end
 
+  def destroyAccessory
+    @accessory = Accessory.find(params[:id])
+    @ibox = Ibox.find(session[:ibox_id])
+    res = Ibox.iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?OP=3&ZID=' + @accessory.zid, @ibox.user, @ibox.password)
+    if (res[0] == 'Success')
+       @accessory.destroy
+       flash[:error] = ""
+       flash[:notice] = "Se ha eliminado el accesorio"
+    else
+       flash[:error] = "No se pudo eliminar el accesorio. Recuerda desenchufarlo y luego eliminarlo!"
+       flash[:notice] = ""
+    end
+    
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def enable
     respond_to do |format|
       if Ibox.find_by_mac(params[:ibox_mac])
