@@ -1,7 +1,6 @@
 class Action < ActiveRecord::Base
   # asociaciones:
-  belongs_to :profile_accessories_container
-  belongs_to :accessory_type
+  has_and_belongs_to_many :schedules
   # atributos
-  attr_accessible :hour, :state
+  attr_accessible :dayBegin, :dayEnd, :isReiterative, :timeStart, :timeEnd
 end

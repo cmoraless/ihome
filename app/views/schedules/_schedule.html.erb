@@ -1,0 +1,10 @@
+<ul class="profentries"> 
+	<li  class="row-fluid"> 
+		<!-- Nombre -->
+		<span class="title"><%= schedule.accessory.name %></span>
+		
+		<div class="active">
+			<%= link_to "Acciones", { :controller => "schedules" , :action => "actions", :id => schedule.id }, :class => "btn btn-small btn-primary", :remote => true %>
+		</div>
+	</li>
+</ul>

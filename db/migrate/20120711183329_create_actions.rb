@@ -1,14 +1,12 @@
 class CreateActions < ActiveRecord::Migration
   def change
     create_table :actions do |t|
-      t.datetime :hour
-      t.integer :value
-      t.references :profile_accessories_container
-      t.references :accessory_type
-
+      t.string :dayBegin
+      t.string :dayEnd
+      t.boolean :isReiterative
+      t.time :timeStart
+      t.time :timeEnd
       t.timestamps
     end
-    add_index :actions, :profile_accessories_container_id
-    add_index :actions, :accessory_type_id  
   end
 end

@@ -40,7 +40,7 @@ class ProfilesController < ApplicationController
       @accessoriesPubs += container.accessories.where(:isPublic=> true)
     end
     @accessoriesOwneds = @user.accessories
-    @accessories = @accessoriesPubs + @accessoriesOwneds
+    @accessories = @accessoriesPubs + @accessoriesOwneds  
     respond_to do |format|
       format.js
     end
@@ -76,7 +76,7 @@ class ProfilesController < ApplicationController
     @user = User.find(session[:user_id])
     @profile = Profile.find(params[:id])
 
-    @schedules = Schedule.where("profile_id = ?", @profile.id)
+    #@schedules = Schedule.where("profile_id = ?", @profile.id)
     respond_to do |format|
       format.js
     end
