@@ -3,6 +3,14 @@ class SchedulesController < ApplicationController
   def actions
     @user = User.find(session[:user_id])
     @schedule = Schedule.find(params[:id])
+    
+    if (@schedule.actions.length ==0)
+      flash[:error] = ""
+      flash[:notice] = "Agrega nuevas acciones para programar tu accesorio"
+    else
+      flash[:error] = ""
+      flash[:notice] = ""      
+    end
     #redirect_to products_url
     respond_to do |format|
       format.js
@@ -41,6 +49,14 @@ class SchedulesController < ApplicationController
         #format.js {render :partial => "profile", :collection => @user.profiles}  
         format.js
       end
+    end
+  end  
+  
+  def back
+    @user = User.find(session[:user_id])
+    respond_to do |format|
+      
+      format.js
     end
   end  
 

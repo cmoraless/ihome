@@ -76,6 +76,13 @@ class ProfilesController < ApplicationController
     @user = User.find(session[:user_id])
     @profile = Profile.find(params[:id])
 
+    if (@profile.schedules.length == 0)
+      flash[:error] = ""
+      flash[:notice] = "Edita tu perfil y agrega accesorios para programar!"
+    else
+      flash[:notice] = "Puedes agregar acciones programables a los accesorios de tus perfiles!"
+    end
+    
     #@schedules = Schedule.where("profile_id = ?", @profile.id)
     respond_to do |format|
       format.js
@@ -135,5 +142,12 @@ class ProfilesController < ApplicationController
     end
   end
   
+  def back
+    @user = User.find(session[:user_id])
+    respond_to do |format|
+      
+      format.js
+    end
+  end  
   
 end

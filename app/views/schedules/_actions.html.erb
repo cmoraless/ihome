@@ -25,7 +25,7 @@
 					
 					<!-- Dia inicio -->
 					<span class="daybegin">
-						<div class="btn-group" id="<%= @schedule.id.to_s + "dayBegin"%>" data-toggle-name="<%= @schedule.id.to_s + "dayBegin"%>" data-toggle="buttons-radio" >
+						<div class="btn-group" id="<%= a.object.id.to_s + "dayBegin"%>" data-toggle-name="<%= a.object.id.to_s + "dayBegin"%>" data-toggle="buttons-radio" >
 							<button class="btn btn-info btn-mini" value="Mon" type="button">L</button>
 							<button class="btn btn-info btn-mini" value="Tue" type="button">M</button>
 							<button class="btn btn-info btn-mini" value="Wed" type="button">M</button>
@@ -41,6 +41,7 @@
 						
 					<!-- Texto inicio -->
 					<span class="textbegin">Encendido</span>
+					
 					
 					<!-- Java Script hora inicio -->
 					<script type="text/javascript">
@@ -58,7 +59,7 @@
 					<!-- Java Script día inicio -->
 					<script type="text/javascript">
 						$(function(){
-						  $('div.btn-group[data-toggle-name="<%= @schedule.id.to_s + "dayBegin"%>"]').each(function(){
+						  $('div.btn-group[data-toggle-name="<%= a.object.id.to_s + "dayBegin"%>"]').each(function(){
 						    var group   = $(this);
 						    var form    = group.parents('form').eq(0);
 						    var name    = group.attr('data-toggle-name');
@@ -93,7 +94,7 @@
 					
 					<!-- Dia termino -->
 					<span class="dayend">
-						<div class="btn-group" id="<%= @schedule.id.to_s + "dayEnd"%>" data-toggle-name="<%= @schedule.id.to_s + "dayEnd"%>" data-toggle="buttons-radio" >
+						<div class="btn-group" id="<%= a.object.id.to_s + "dayEnd"%>" data-toggle-name="<%= a.object.id.to_s + "dayEnd"%>" data-toggle="buttons-radio" >
 							<button class="btn btn-info btn-mini" value="Mon" type="button">L</button>
 							<button class="btn btn-info btn-mini" value="Tue" type="button">M</button>
 							<button class="btn btn-info btn-mini" value="Wed" type="button">M</button>
@@ -108,15 +109,7 @@
 					<!-- Texto termino -->
 					<span class="textend">Apagado </span>
 					
-					<!-- Botón reiteración -->
-					<span class="reiterative">
-						
-						<%= a.label :isReiterative, :class => "checkbox" do %>
-  							<%= a.check_box :isReiterative %>Semanal
-						<% end %>
-						
-					
-					</span>
+
 								
 					
 					<!-- Java Script hora termino -->
@@ -135,7 +128,7 @@
 					<!-- Java Script día inicio -->
 					<script type="text/javascript">
 						$(function(){
-						  $('div.btn-group[data-toggle-name="<%= @schedule.id.to_s + "dayEnd"%>"]').each(function(){
+						  $('div.btn-group[data-toggle-name="<%= a.object.id.to_s + "dayEnd"%>"]').each(function(){
 						    var group   = $(this);
 						    var form    = group.parents('form').eq(0);
 						    var name    = group.attr('data-toggle-name');
@@ -153,7 +146,91 @@
 						  });
 						});
 					</script>
-				</div
+				</div>
+				
+				<div class="span12">
+					<!-- Botón reiteración -->
+					<div class="reiterative" id="<%= a.object.id.to_s + "reiterative"%>">
+						<%= a.check_box :repeatAtWeek %> Repetir todas las semanas
+						<!-- Botón reiteración -->
+						<%= a.check_box :repeatAtDay %> Repetir todos los dias
+					</div>
+					
+					<script type="text/javascript">
+						$(function(){
+							if ($('#schedule_actions_attributes_<%= counter %>_repeatAtDay').is(":checked")){
+								$('div.btn-group[data-toggle-name="<%= a.object.id.to_s + "dayBegin"%>"]').each(function(){
+									var group = $(this);
+									$('button', group).each(function(){
+										var button = $(this);
+										button.attr("disabled", true);
+									});
+								});
+								$('div.btn-group[data-toggle-name="<%= a.object.id.to_s + "dayEnd"%>"]').each(function(){	
+									var group = $(this);
+									$('button', group).each(function(){
+										var button = $(this);
+										button.attr("disabled", true);
+									});
+								});
+							}					
+							$('#schedule_actions_attributes_<%= counter %>_repeatAtDay').click(function(){
+								$('#schedule_actions_attributes_<%= counter %>_repeatAtWeek').removeAttr("checked");		
+								if ($(this).is(":checked")){
+									$('div.btn-group[data-toggle-name="<%= a.object.id.to_s + "dayBegin"%>"]').each(function(){
+										var group = $(this);
+										$('button', group).each(function(){
+											var button = $(this);
+											button.attr("disabled", true);
+										});
+									});
+									$('div.btn-group[data-toggle-name="<%= a.object.id.to_s + "dayEnd"%>"]').each(function(){	
+										var group = $(this);
+										$('button', group).each(function(){
+											var button = $(this);
+											button.attr("disabled", true);
+										});
+									});
+								}
+								else{
+									$('div.btn-group[data-toggle-name="<%= a.object.id.to_s + "dayBegin"%>"]').each(function(){
+										var group = $(this);
+										$('button', group).each(function(){
+											var button = $(this);
+											button.attr("disabled", false);
+										});
+									});
+									$('div.btn-group[data-toggle-name="<%= a.object.id.to_s + "dayEnd"%>"]').each(function(){	
+										var group = $(this);
+										$('button', group).each(function(){
+											var button = $(this);
+											button.attr("disabled", false);
+										});
+									});
+								}
+							});
+							$('#schedule_actions_attributes_<%= counter %>_repeatAtWeek').click(function(){
+								if ($(this).is(":checked")){
+									$('#schedule_actions_attributes_<%= counter %>_repeatAtDay').removeAttr("checked");
+									$('div.btn-group[data-toggle-name="<%= a.object.id.to_s + "dayBegin"%>"]').each(function(){
+										var group = $(this);
+										$('button', group).each(function(){
+											var button = $(this);
+											button.attr("disabled", false);
+										});
+									});
+									$('div.btn-group[data-toggle-name="<%= a.object.id.to_s + "dayEnd"%>"]').each(function(){	
+										var group = $(this);
+										$('button', group).each(function(){
+											var button = $(this);
+											button.attr("disabled", false);
+										});
+									});
+								 }
+							});
+						});
+					</script>
+				</div>
 			 </li>
 		</ul>
 		<% counter = counter + 1%>
@@ -162,5 +239,6 @@
 	  <p><%= submit_tag "Guardar Programación",  :class => "btn btn-primary"%></p>
 	<%end%>
 	  <%= link_to "Nueva Acción", { :controller => "schedules" , :action => "newAction", :id => @schedule.id }, :class => "btn btn-small btn-primary", :remote => true %>
+	  <%= link_to 'Atrás', back_profile_path, :remote=>true, :class=>"btn btn-small btn-primary" %>
 <% end %>
 

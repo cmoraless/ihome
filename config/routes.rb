@@ -33,6 +33,8 @@ Ihome::Application.routes.draw do
   get "back_camera" => "cameras#back", :as=>"back_camera"
   get "back_accessory" => "accessories#back", :as=>"back_accessory"
   get "back_accessory_types" => "accessory_types#back", :as=>"back_accessory_types"
+  get "back_profile" => "profiles#back", :as => "back_profile"
+  get "back_schedule" => "schedules#back", :as => "back_schedule"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
