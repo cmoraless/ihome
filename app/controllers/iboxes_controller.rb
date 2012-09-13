@@ -263,7 +263,7 @@ class IboxesController < ApplicationController
         @containers.each do |container|
           @accessories << container.accessories
         end 
-        flash[:notice] = "Se pudo eliminar el nuevo accesorio."
+        flash[:notice] = "Se ha eliminado el accesorio correctamente."
         flash[:error] = ""
       else
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
