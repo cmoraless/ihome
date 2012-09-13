@@ -216,7 +216,7 @@ class IboxesController < ApplicationController
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
         sleep 2
       end while (res[0] == 'MODE=READY')
-      sleep 4
+      sleep 3
       if addAccessories(@ibox.id)
         @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
         @accessories = []
@@ -257,7 +257,7 @@ class IboxesController < ApplicationController
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
         sleep 2
       end while (res[0] == 'MODE=READY')
-      sleep 4
+      sleep 3
        
       if removeAccessories(@ibox.id)
         @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
@@ -464,7 +464,15 @@ class IboxesController < ApplicationController
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Mode.cgi?MODE=D',@ibox.user,@ibox.password)  
         if res[0] == "Success"
           removeAccessories(@ibox.id)
-          flash[:notice] = "Se ha reseteado el ibox a configuracion de fabrica."
+          @ibox.accessory_types.destroy_all
+          @ibox.profiles.destroy_all
+          @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+          @accessories = []
+          @containers.each do |container|
+            @accessories << container.accessories
+          end
+          #iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Mode.cgi?MODE=A',@ibox.user,@ibox.password) 
+          flash[:notice] = "Se ha reseteado el ibox a configuracion de fabrica. Se han eliminado todos tus accesorios."
           flash[:error] = ""
           format.js
         else
