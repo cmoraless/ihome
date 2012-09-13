@@ -35,7 +35,6 @@ Ihome::Application.routes.draw do
   get "back_accessory_types" => "accessory_types#back", :as=>"back_accessory_types"
   get "back_profile" => "profiles#back", :as => "back_profile"
   get "back_schedule" => "schedules#back", :as => "back_schedule"
-  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -91,5 +90,5 @@ Ihome::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
 	match ':controller(/:action(/:id))(.:format)'	 
   match '/cameras/stream_image/:id' => "cameras#stream_image"
-
+  match '/iboxes/reset/:id' => "iboxes#reset"
 end

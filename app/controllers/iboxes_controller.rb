@@ -56,6 +56,7 @@ class IboxesController < ApplicationController
       for i in 0..@iboxes.length-1
         if @iboxes[i].id == @ibox.id
           autorizado = true
+          break
         end
       end
     end    
@@ -93,6 +94,7 @@ class IboxesController < ApplicationController
       for i in 0..@iboxes.length-1
         if @iboxes[i].id == @ibox.id
           autorizado = true
+          break
         end
       end
     end     
@@ -445,6 +447,39 @@ class IboxesController < ApplicationController
     end
     res
   end   
+  
+  def reset
+    @ibox = Ibox.find(params[:id])
+    @currentUser = User.find(session[:user_id])
+    @iboxes = @currentUser.iboxes
+    autorizado = false
+    for i in 0..@iboxes.length-1      
+      if @iboxes[i][:id].to_s == params[:id].to_s
+        autorizado = true
+        break
+      end
+    end
+    respond_to do |format|
+      if autorizado
+        res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Mode.cgi?MODE=D',@ibox.user,@ibox.password)  
+        if res[0] == "Success"
+          removeAccessories(@ibox.id)
+          flash[:notice] = "Se ha reseteado el ibox a configuracion de fabrica."
+          flash[:error] = ""
+          format.js
+        else
+          flash[:error] = "Se ha producido un error al intentar resetear el ibox."
+          flash[:notice] = ""
+          format.js
+        end
+      else
+        flash[:error] = "No estas autorizado."
+        format.js { render :js => "window.location.replace('#{url_for(:controller => 'admin', :action => 'index')}');"  }
+      end  
+    end
+  
+  end
+  
   
   def back
     respond_to do |format|
