@@ -8,4 +8,9 @@ class Profile < ActiveRecord::Base
   # atributos
   attr_accessible :isActive, :name, :accessory_ids, :schedules_attributes
   accepts_nested_attributes_for :schedules
+  
+  def self.destroyAll
+    Profile.destroy_all
+  end
+  
 end

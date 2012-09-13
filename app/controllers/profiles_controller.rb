@@ -150,4 +150,13 @@ class ProfilesController < ApplicationController
     end
   end  
   
+  
+  
+  def runProfiles
+    @profiles = Profile.all
+    @profiles.each do |profile|
+      profile.update_attribute(:isActive, false)   
+    end 
+  end 
+  
 end
