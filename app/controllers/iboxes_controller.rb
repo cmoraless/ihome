@@ -214,9 +214,9 @@ class IboxesController < ApplicationController
     if res[0] == "Success"
       begin
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
-        sleep 2
+        #sleep 1
       end while (res[0] == 'MODE=READY')
-      sleep 3
+      sleep 2
       if addAccessories(@ibox.id)
         @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
         @accessories = []
@@ -255,9 +255,9 @@ class IboxesController < ApplicationController
     if res[0] == "Success"
       begin
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
-        sleep 2
+        #sleep 2
       end while (res[0] == 'MODE=READY')
-      sleep 3
+      sleep 2
        
       if removeAccessories(@ibox.id)
         @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
@@ -354,7 +354,7 @@ class IboxesController < ApplicationController
             @accessory_type = AccessoryType.find_by_name("Luces")
             @accessory.update_attribute(:name, "luces 0"+i.to_s)
           else
-            @accessory_type = AccessoryType.find_by_name("Riego")
+            @accessory_type = AccessoryType.find_by_name("Riegos")
             @accessory.update_attribute(:name, "aspersor 0"+i.to_s)                        
           end
         end
