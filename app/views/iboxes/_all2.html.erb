@@ -17,7 +17,8 @@
     <td><%= ibox.mac %></td>
     <td><%= ibox.ip %></td>
     <td><%= ibox.port %></td>    
-    <td><%= link_to 'Editar', edit_ibox_path(ibox), :class => 'btn btn-mini', :remote => true %></td>
+    <td><%= link_to 'Editar', edit_ibox_path(ibox), :class => 'btn btn-mini', :remote => true %>
+    <%= link_to 'Resetear', {:controller=>"iboxes",:action=>"reset",:id=>ibox.id},:class=>'btn btn-mini btn-danger', :remote=>true, :data=>{:confirm=>"¿Estás seguro que quieres resetear el ibox a su estado de fábrica?"}%></td>
   </tr>
 <% end %>
 

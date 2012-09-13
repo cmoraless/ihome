@@ -56,6 +56,7 @@ class IboxesController < ApplicationController
       for i in 0..@iboxes.length-1
         if @iboxes[i].id == @ibox.id
           autorizado = true
+          break
         end
       end
     end    
@@ -93,6 +94,7 @@ class IboxesController < ApplicationController
       for i in 0..@iboxes.length-1
         if @iboxes[i].id == @ibox.id
           autorizado = true
+          break
         end
       end
     end     
@@ -212,9 +214,9 @@ class IboxesController < ApplicationController
     if res[0] == "Success"
       begin
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
-        sleep 2
+        #sleep 1
       end while (res[0] == 'MODE=READY')
-      sleep 4
+      sleep 2
       if addAccessories(@ibox.id)
         @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
         @accessories = []
@@ -253,9 +255,9 @@ class IboxesController < ApplicationController
     if res[0] == "Success"
       begin
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
-        sleep 2
+        #sleep 2
       end while (res[0] == 'MODE=READY')
-      sleep 4
+      sleep 2
        
       if removeAccessories(@ibox.id)
         @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
@@ -263,7 +265,7 @@ class IboxesController < ApplicationController
         @containers.each do |container|
           @accessories << container.accessories
         end 
-        flash[:notice] = "Se pudo eliminar el nuevo accesorio."
+        flash[:notice] = "Se ha eliminado el accesorio correctamente."
         flash[:error] = ""
       else
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
@@ -352,7 +354,7 @@ class IboxesController < ApplicationController
             @accessory_type = AccessoryType.find_by_name("Luces")
             @accessory.update_attribute(:name, "luces 0"+i.to_s)
           else
-            @accessory_type = AccessoryType.find_by_name("Riego")
+            @accessory_type = AccessoryType.find_by_name("Riegos")
             @accessory.update_attribute(:name, "aspersor 0"+i.to_s)                        
           end
         end
@@ -445,6 +447,47 @@ class IboxesController < ApplicationController
     end
     res
   end   
+  
+  def reset
+    @ibox = Ibox.find(params[:id])
+    @currentUser = User.find(session[:user_id])
+    @iboxes = @currentUser.iboxes
+    autorizado = false
+    for i in 0..@iboxes.length-1      
+      if @iboxes[i][:id].to_s == params[:id].to_s
+        autorizado = true
+        break
+      end
+    end
+    respond_to do |format|
+      if autorizado
+        res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Mode.cgi?MODE=D',@ibox.user,@ibox.password)  
+        if res[0] == "Success"
+          removeAccessories(@ibox.id)
+          @ibox.accessory_types.destroy_all
+          @ibox.profiles.destroy_all
+          @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+          @accessories = []
+          @containers.each do |container|
+            @accessories << container.accessories
+          end
+          #iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Mode.cgi?MODE=A',@ibox.user,@ibox.password) 
+          flash[:notice] = "Se ha reseteado el ibox a configuracion de fabrica. Se han eliminado todos tus accesorios."
+          flash[:error] = ""
+          format.js
+        else
+          flash[:error] = "Se ha producido un error al intentar resetear el ibox."
+          flash[:notice] = ""
+          format.js
+        end
+      else
+        flash[:error] = "No estas autorizado."
+        format.js { render :js => "window.location.replace('#{url_for(:controller => 'admin', :action => 'index')}');"  }
+      end  
+    end
+  
+  end
+  
   
   def back
     respond_to do |format|
