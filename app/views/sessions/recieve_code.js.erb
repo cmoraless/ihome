@@ -3,7 +3,8 @@ $('#notice').empty();
 $('#notice').append('<div class="offset1"><span class="label label-warning"><%= j render :text => "No hemos encontrado un usuario con el correo especifiado."%></span></div>');
 <%elsif flash[:notice] != ""%>
 $('#notice').append('<div class="offset1"><span class="label label-warning"><%= j render :text => "Le hemos enviado un codigo a su correo para que cambie su contraseña."%></span></div>');
-<%end%>
 $('#recover').empty();
 $('#recover').append('<%= j render "formreset" %>');
+<%end%>
+
 
