@@ -35,6 +35,7 @@ Ihome::Application.routes.draw do
   get "back_accessory_types" => "accessory_types#back", :as=>"back_accessory_types"
   get "back_profile" => "profiles#back", :as => "back_profile"
   get "back_schedule" => "schedules#back", :as => "back_schedule"
+  get "session_recover" => "sessions#recover", :as => "session_recover"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

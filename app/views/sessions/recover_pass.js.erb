@@ -1,0 +1,6 @@
+$('#notice').empty();
+<% if flash[:error] != ""%>
+$('#notice').append('<div class="offset1"><span class="label label-warning"><%= j render :text => "No hemos encontrado un usuario con el correo especifiado."%></span></div>');
+<%elsif flash[:notice] != ""%>
+$('#notice').append('<div class="offset1"><span class="label label-warning"><%= j render :text => "Le hemos enviado un codigo para que cambie su contraseña. Vaya al inicio y seleccione opcion Cambiar Contrasñea"%></span></div>');
+<%end%>
