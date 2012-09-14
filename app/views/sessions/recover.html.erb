@@ -1,0 +1,44 @@
+<% content_for :navbar do %>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+			<%= image_tag("ihome_logo.jpg", :size => "120x120")%>
+    </div>
+  </div>
+</div>
+<div class="row-fluid">
+		<div class="span12"></div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12"></div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12"></div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12"></div>
+	</div>
+<% end %>
+<div class="container-fluid span9 fill">
+	<h1> Recuperaci&oacute;n de contraseña </h1>
+	<div class="row-fluid">
+		<div class="span12"></div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12"></div>
+	</div>
+	<div class="row">
+		<div id="notice">
+		</div>
+		<br/>
+		<div class="span8 offset4" id = "recover">
+			<%= form_tag url_for(:controller=>"sessions", :action=>"recieve_code"),:remote=>true do%>
+			  <p>
+			    <%= label_tag :Correo %><br />
+			    <%= text_field_tag :email %>
+			  </p>
+			  <p class="button"><%= submit_tag "Enviar codigo" %></p>
+			<%end%>
+		</div>
+	</div>
+</div>

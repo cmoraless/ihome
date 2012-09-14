@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   
   # atributos:
   #set_primary_key 'email'
-  attr_accessible :address, :email, :password, :password_confirmation, :isAdmin, :name, :phone, :rut, :isSuperAdmin, :accessory_ids
+  attr_accessible :address, :email, :password, :password_confirmation, :isAdmin, :name, :phone, :rut, :isSuperAdmin, :accessory_ids, :code
   attr_accessor :password
   before_save :encrypt_password
   
@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   validates_presence_of :phone, :message=>"^El telefono no puede estar en blanco."
   validates_presence_of :rut, :message=>"^El rut no puede estar en blanco."
   validates_uniqueness_of :email, :message=>"^El correo ingresado ya existe."
-  
+  validates_presence_of :code
   #autenticacion
   def self.authenticate(email, password)
     user = find_by_email(email)

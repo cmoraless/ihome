@@ -1,0 +1,20 @@
+<%= form_tag url_for(:controller=>"sessions", :action=>"recover_pass"),:remote=>true do%>
+<p>
+<%= label_tag :Codigo %><br />
+<%= text_field_tag :code, nil, :maxlength => 15 %>
+</p>
+<p>
+<%= label_tag :Correo %><br />
+<%= text_field_tag :correo, @correo, :disabled => true %>
+<%= hidden_field_tag :email, @correo%>
+</p>
+<p>
+<%= label_tag :Nueva_contrasena %><br />
+<%= password_field_tag :password %>
+</p>
+<p>
+<%= label_tag :Confirmacion_nueva_contrasena %><br />
+<%= password_field_tag :password_confirmation %>
+</p>
+<p class="button"><%= submit_tag "Cambiar contraseña" %></p>
+<%end%>
