@@ -15,13 +15,16 @@ group :assets do
   #gem 'jquery_mobile_rails'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
-	gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+	gem 'twitter-bootstrap-rails'
   gem 'uglifier', '>= 1.0.3'
   #gem 'jquery-ui-rails'
 end
-
+gem 'rake'
 gem 'jquery-rails'
 gem 'dynamic_form'
+
+gem 'whenever'
+
 #gem 'curb'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -33,7 +36,7 @@ gem 'dynamic_form'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
 
 # To use debugger
 # gem 'debugger'
