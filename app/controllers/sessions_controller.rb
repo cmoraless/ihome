@@ -55,7 +55,7 @@ class SessionsController < ApplicationController
         @user = User.find_by_email(params[:email])
         @user.update_attribute(:code,code)
         @correo = params[:email]
-        logger.debug "########### UPDATIE CON ESTE CODIGO = #{code}"
+        UserMailer.recovery_pass(@user).deliver
         format.js
       else
         flash[:error] = "ERROR"

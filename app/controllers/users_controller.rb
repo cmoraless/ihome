@@ -65,6 +65,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @currentUser.isSuperAdmin == true and @user.isAdmin == true
         if @user.save
+          UserMailer.welcome_email(@user,params[:user][:password]).deliver
           @usersAdmin = User.where(:isAdmin => true)
           @iboxes = Ibox.all
           flash[:error] = ""
