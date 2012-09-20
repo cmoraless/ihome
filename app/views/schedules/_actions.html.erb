@@ -20,21 +20,21 @@
 					
 					<!-- Hora inicio -->
 					<span class="timebegin">
-						<%=a.text_field :timeStart, :maxlength => 5, :class => "input-mini" %>
+						<%=a.text_field :time_start, :maxlength => 5, :class => "input-mini" %>
 					</span>
 					
 					<!-- Dia inicio -->
 					<span class="daybegin">
 						<div class="btn-group" id="<%= a.object.id.to_s + "dayBegin"%>" data-toggle-name="<%= a.object.id.to_s + "dayBegin"%>" data-toggle="buttons-radio" >
-							<button class="btn btn-info btn-mini" value="Mon" type="button">L</button>
-							<button class="btn btn-info btn-mini" value="Tue" type="button">M</button>
-							<button class="btn btn-info btn-mini" value="Wed" type="button">M</button>
-							<button class="btn btn-info btn-mini" value="Thu" type="button">J</button>
-							<button class="btn btn-info btn-mini" value="Fri" type="button">V</button>
-							<button class="btn btn-info btn-mini" value="Sat" type="button">S</button>
-							<button class="btn btn-info btn-mini" value="Sun" type="button">D</button>
+							<button class="btn btn-info btn-mini" value=1 type="button">L</button>
+							<button class="btn btn-info btn-mini" value=2 type="button">M</button>
+							<button class="btn btn-info btn-mini" value=3 type="button">M</button>
+							<button class="btn btn-info btn-mini" value=4 type="button">J</button>
+							<button class="btn btn-info btn-mini" value=5 type="button">V</button>
+							<button class="btn btn-info btn-mini" value=6 type="button">S</button>
+							<button class="btn btn-info btn-mini" value=0 type="button">D</button>
 						</div>
-						<%= a.hidden_field :dayBegin %>
+						<%= a.hidden_field :day_begin %>
 						
 						<input type="hidden" name="is_private" value="0" />
 					</span>
@@ -46,7 +46,7 @@
 					<!-- Java Script hora inicio -->
 					<script type="text/javascript">
 						$(function(){
-						    $('#schedule_actions_attributes_<%=counter %>_timeStart').scroller({
+						    $('#schedule_actions_attributes_<%=counter %>_time_start').scroller({
 						        preset: 'time',
 						        theme: 'default',
 						        display: 'modal',
@@ -63,7 +63,7 @@
 						    var group   = $(this);
 						    var form    = group.parents('form').eq(0);
 						    var name    = group.attr('data-toggle-name');
-						    var hidden  = $('#schedule_actions_attributes_<%=counter %>_dayBegin', form);
+						    var hidden  = $('#schedule_actions_attributes_<%=counter %>_day_begin', form);
 						    $('button', group).each(function(){
 						    	
 						      var button = $(this);
@@ -89,33 +89,31 @@
 			
 					<!-- Hora termino -->
 					<span class="timeend">
-						<%=a.text_field :timeEnd, :maxlength => 5, :class => "input-mini" %>
+						<%=a.text_field :time_end, :maxlength => 5, :class => "input-mini" %>
 					</span>
 					
 					<!-- Dia termino -->
 					<span class="dayend">
 						<div class="btn-group" id="<%= a.object.id.to_s + "dayEnd"%>" data-toggle-name="<%= a.object.id.to_s + "dayEnd"%>" data-toggle="buttons-radio" >
-							<button class="btn btn-info btn-mini" value="Mon" type="button">L</button>
-							<button class="btn btn-info btn-mini" value="Tue" type="button">M</button>
-							<button class="btn btn-info btn-mini" value="Wed" type="button">M</button>
-							<button class="btn btn-info btn-mini" value="Thu" type="button">J</button>
-							<button class="btn btn-info btn-mini" value="Fri" type="button">V</button>
-							<button class="btn btn-info btn-mini" value="Sat" type="button">S</button>
-							<button class="btn btn-info btn-mini" value="Sun" type="button">D</button>
+							<button class="btn btn-info btn-mini" value=1 type="button">L</button>
+							<button class="btn btn-info btn-mini" value=2 type="button">M</button>
+							<button class="btn btn-info btn-mini" value=3 type="button">M</button>
+							<button class="btn btn-info btn-mini" value=4 type="button">J</button>
+							<button class="btn btn-info btn-mini" value=5 type="button">V</button>
+							<button class="btn btn-info btn-mini" value=6 type="button">S</button>
+							<button class="btn btn-info btn-mini" value=0 type="button">D</button>
 						</div>
-						<%= a.hidden_field :dayEnd %>
+						<%= a.hidden_field :day_end %>
 					</span>
 					
 					<!-- Texto termino -->
 					<span class="textend">Apagado </span>
-					
 
-								
 					
 					<!-- Java Script hora termino -->
 					<script type="text/javascript">
 						$(function(){
-						    $('#schedule_actions_attributes_<%=counter %>_timeEnd').scroller({
+						    $('#schedule_actions_attributes_<%=counter %>_time_end').scroller({
 						        preset: 'time',
 						        theme: 'default',
 						        display: 'modal',
@@ -132,7 +130,7 @@
 						    var group   = $(this);
 						    var form    = group.parents('form').eq(0);
 						    var name    = group.attr('data-toggle-name');
-						    var hidden  = $('#schedule_actions_attributes_<%=counter %>_dayEnd', form);
+						    var hidden  = $('#schedule_actions_attributes_<%=counter %>_day_end', form);
 						    $('button', group).each(function(){
 						    	
 						      var button = $(this);
@@ -151,14 +149,14 @@
 				<div class="span12">
 					<!-- Botón reiteración -->
 					<div class="reiterative" id="<%= a.object.id.to_s + "reiterative"%>">
-						<%= a.check_box :repeatAtWeek %> Repetir todas las semanas
+						<%= a.check_box :repeat_weekly %> Repetir todas las semanas
 						<!-- Botón reiteración -->
-						<%= a.check_box :repeatAtDay %> Repetir todos los dias
+						<%= a.check_box :repeat_dayly %> Repetir todos los dias
 					</div>
 					
 					<script type="text/javascript">
 						$(function(){
-							if ($('#schedule_actions_attributes_<%= counter %>_repeatAtDay').is(":checked")){
+							if ($('#schedule_actions_attributes_<%= counter %>_repeat_dayly').is(":checked")){
 								$('div.btn-group[data-toggle-name="<%= a.object.id.to_s + "dayBegin"%>"]').each(function(){
 									var group = $(this);
 									$('button', group).each(function(){
@@ -174,8 +172,8 @@
 									});
 								});
 							}					
-							$('#schedule_actions_attributes_<%= counter %>_repeatAtDay').click(function(){
-								$('#schedule_actions_attributes_<%= counter %>_repeatAtWeek').removeAttr("checked");		
+							$('#schedule_actions_attributes_<%= counter %>_repeat_dayly').click(function(){
+								$('#schedule_actions_attributes_<%= counter %>_repeat_weekly').removeAttr("checked");		
 								if ($(this).is(":checked")){
 									$('div.btn-group[data-toggle-name="<%= a.object.id.to_s + "dayBegin"%>"]').each(function(){
 										var group = $(this);
@@ -209,9 +207,9 @@
 									});
 								}
 							});
-							$('#schedule_actions_attributes_<%= counter %>_repeatAtWeek').click(function(){
+							$('#schedule_actions_attributes_<%= counter %>_repeat_weekly').click(function(){
 								if ($(this).is(":checked")){
-									$('#schedule_actions_attributes_<%= counter %>_repeatAtDay').removeAttr("checked");
+									$('#schedule_actions_attributes_<%= counter %>_repeat_dayly').removeAttr("checked");
 									$('div.btn-group[data-toggle-name="<%= a.object.id.to_s + "dayBegin"%>"]').each(function(){
 										var group = $(this);
 										$('button', group).each(function(){

@@ -22,8 +22,7 @@ end
 gem 'rake'
 gem 'jquery-rails'
 gem 'dynamic_form'
-
-gem 'whenever'
+gem 'whenever', :require => false
 
 #gem 'curb'
 # To use ActiveModel has_secure_password
