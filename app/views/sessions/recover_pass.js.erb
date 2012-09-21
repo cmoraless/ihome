@@ -4,7 +4,7 @@ $('#notice').append('<div class="offset1"><span class="label label-warning"><%= 
 <%elsif flash[:error] =~ /codigo/i %>
 $('#notice').append('<div class="offset1"><span class="label label-warning"><%= j render :text => "El código ingresado no es válido."%></span></div>');
 <%elsif flash[:error] =~ /usuario/i %>
-$('#notice').append('<div class="offset1"><span class="label label-warning"><%= j render :text => "No hemos encotnrado usuario con el correo especificado."%></span></div>');
+$('#notice').append('<div class="offset1"><span class="label label-warning"><%= j render :text => "No hemos encontrado un usuario con el correo especificado."%></span></div>');
 <%elsif flash[:notice] =~ /correctamente/i%>
 $('#notice').append('<div class="offset1"><span class="label label-warning"><%= j render :text => "Se ha cambiado correctamente su contraseña.  "%><%= link_to 'Haga click aquí para ingresar con sus nuevas credenciales.',root_path %></span></div>');
 <%end%>
