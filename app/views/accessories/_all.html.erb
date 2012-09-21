@@ -16,10 +16,10 @@
 		  	<td><%= @accessories[i][j][:id] %></td>
 		  	<td><%= @containers[i][:name] %></td>
 		  	<td><%= @accessories[i][j][:isPublic] ? 'si' : 'no'  %></td>
-		  	<td><%= link_to "Editar", edit_accessory_path(@accessories[i][j]),:class => 'btn btn-mini' ,:remote=>true%>
-		  		<%= button_to "Eliminar", 
-		{ :controller => "iboxes", :action => "destroyAccessory", :id =>@accessories[i][j].id}, {:confirm => '¿Estás seguro? Recuerde desenchufar su accessorio antes de presionar Ok ',
-		 :class => "btn btn-mini btn-danger", :remote => 'true', :disable_with => 'Eliminando...'} %>
+		  	<td><%= link_to "Editar", edit_accessory_path(@accessories[i][j]),:class => 'btn btn-mini' ,:remote=>true %>
+		 		<%= link_to "Eliminar", destroy_accessory_unplugged_path(:id => @accessories[i][j].id ), 
+		 			{ :confirm => '¿Estás seguro? Recuerde desenchufar su accessorio antes de presionar Ok',
+		 			  :class => "btn btn-mini btn-danger", :remote => true, :disable_with => 'Eliminando...'} %>
 		  	</td>
 		  </tr>
 		  <% end%>
@@ -34,6 +34,7 @@
 		{ :class => "btn btn-success", :remote => 'true', :disable_with => 'Escuchando...'} %>
 	
 <%else%>
+NO HAY
 	<%= render 'shared/flash_messages' %>
 <%end%>
 

@@ -148,7 +148,7 @@ class IboxesController < ApplicationController
   def destroyAccessory
     @accessory = Accessory.find(params[:id])
     @ibox = Ibox.find(session[:ibox_id])
-    res = Ibox.iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?OP=3&ZID=' + @accessory.zid, @ibox.user, @ibox.password)
+    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Switch.cgi?OP=3&ZID=' + @accessory.zid, @ibox.user, @ibox.password)
     if (res[0] == 'Success')
        @accessory.destroy
        flash[:error] = ""
@@ -157,7 +157,11 @@ class IboxesController < ApplicationController
        flash[:error] = "No se pudo eliminar el accesorio. Recuerda desenchufarlo y luego eliminarlo!"
        flash[:notice] = ""
     end
-    
+    @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+    @accessories = []
+    @containers.each do |container|
+      @accessories << container.accessories
+    end
     respond_to do |format|
       format.js
     end
@@ -309,20 +313,6 @@ class IboxesController < ApplicationController
       end
     end
     ret
-  end
-
-  def destroyAccessory
-    @accessory = Accessory.find(params[:id])
-    @ibox = Ibox.find(session[:ibox_id])
-    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?OP=3&ZID=' + @accessory.zid, @ibox.user, @ibox.password)
-    if (res[0] == 'Success')
-       @accessory.destroy
-    end
-    
-    respond_to do |format|
-      format.html { redirect_to accessories_url }
-      format.json { head :no_content }
-    end
   end
 
   # Función 
