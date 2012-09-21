@@ -40,7 +40,7 @@ class Profile < ActiveRecord::Base
         endActions.each do |eaction|
           puts "Terminó acción del perfil #{profile.name} del usuario #{profile.user.email}: #{currentTime} #{currentDay}"
           self.control(profile.ibox.id, schedule.accessory.id, 0)
-          if (eaction.repeat_weekly == false)
+          if (eaction.repeat_weekly == false && eaction.repeat_dayly == false )
             eaction.destroy
           end
         end
