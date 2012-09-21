@@ -42,9 +42,45 @@ class HomeController < ApplicationController
       session[:ibox_id] = @ibox.id
       @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
       @cameras = @ibox.cameras
+      ret = testConnection(@ibox.ip, @ibox.port, @ibox.user,@ibox.password)
+      if (ret == false)
+        flash[:error] = "Error en la conexion con el Ibox. Revise su configuracion o conexion local o de internet"
+      end
+      
     else
       flash[:notice] = "Debe habilitar su Ibox en Administracion"
     end
   end
- 
+
+  def testConnection(ibox_ip, ibox_port, user, password)
+    require 'net/http'
+    require 'uri'
+    ws = 'http://' + ibox_ip + ':' + ibox_port
+    url = URI.parse(ws)
+    ret = true
+    begin
+      http = Net::HTTP.new(url.host, url.port)      
+      #request = Net::HTTP::Get.new(uri.request_uri)
+      request = Net::HTTP::Get.new(url.path + '/cgi-bin/Get.cgi?get=SET' )
+      request.basic_auth user, password
+      response = http.request(request)
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Errno::ECONNREFUSED,
+      Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
+      ret = false
+    end
+    ret
+  end
+  
 end
+
+
+      
+=begin      
+      if (Net::HTTP.start(url.host, url.port) { |http| http.request(req) } )
+        ret = true
+      else
+        ret = false
+      end
+=end      
+
+

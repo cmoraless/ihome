@@ -25,16 +25,16 @@
 		  <% end%>
 	<% end %>
 	</table>
-	<%= button_to "Escuchar Agregar", 
-		{ :controller => "iboxes", :action => "listenToAddAccessory"}, 
-		{ :class => "btn btn-success", :remote => 'true', :disable_with => 'Escuchando...'} %>
-
-	<%= button_to "Escuchar Eliminar", 	
-		{ :controller => "iboxes", :action => "listenToRemoveAccessory"},
-		{ :class => "btn btn-success", :remote => 'true', :disable_with => 'Escuchando...'} %>
-	
+		
+		<div class="btn-group">
+			<%= link_to "Agregar nuevo", listen_to_add_accessory_path,
+				{ :confirm => 'Luego de presionar el botón tiene 20 segundos para presionar reiteradamente el boton de conexión en el accesorio', :class => "btn btn-success", :remote => 'true', :disable_with => 'Agregando...'} %>
+			<%= link_to "Eliminar", listen_to_remove_accessory_path,
+				{ :confirm => 'Luego de presionar el botón tiene 20 segundos para presionar reiteradamente el boton de conexión en el accesorio', :class => "btn btn-danger", :remote => 'true', :disable_with => 'Eliminando...'} %>
+		</div>
+		
+		
 <%else%>
-NO HAY
 	<%= render 'shared/flash_messages' %>
 <%end%>
 

@@ -37,8 +37,10 @@ Ihome::Application.routes.draw do
   get "back_schedule" => "schedules#back", :as => "back_schedule"
   get "session_recover" => "sessions#recover", :as => "session_recover"
   get "destroy_accessory_unplugged" => "iboxes#destroyAccessory", :as => "destroy_accessory_unplugged"
-  get "bla" => "iboxes#bla", :as => "bla"
+  get "listen_to_add_accessory" => "iboxes#listenToAddAccessory", :as => "listen_to_add_accessory"
+  get "listen_to_remove_accessory" => "iboxes#listenToRemoveAccessory", :as => "listen_to_remove_accessory"
   # The priority is based upon order of creation:
+  
   # first created -> highest priority.
 
   # Sample of regular route:
