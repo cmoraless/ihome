@@ -1,6 +1,6 @@
 <%= form_tag url_for(:controller=>"sessions", :action=>"recover_pass"),:remote=>true do%>
 <p>
-<%= label_tag :Codigo %><br />
+<%= label_tag :Código %><br />
 <%= text_field_tag :code, nil, :maxlength => 15 %>
 </p>
 <p>
@@ -9,11 +9,11 @@
 <%= hidden_field_tag :email, @correo%>
 </p>
 <p>
-<%= label_tag :Nueva_contrasena %><br />
+<%= label_tag :Nueva_contraseña %><br />
 <%= password_field_tag :password %>
 </p>
 <p>
-<%= label_tag :Confirmacion_nueva_contrasena %><br />
+<%= label_tag :Confirmación_nueva_contraseña %><br />
 <%= password_field_tag :password_confirmation %>
 </p>
 <p class="button"><%= submit_tag "Cambiar contraseña" %></p>
