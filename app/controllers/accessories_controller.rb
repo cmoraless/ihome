@@ -1,3 +1,6 @@
+#!/bin/env ruby
+# encoding: utf-8
+
 class AccessoriesController < ApplicationController
   before_filter :check_auth_admin
   skip_before_filter :check_auth_admin, :only=>[:back, :control]
@@ -119,6 +122,15 @@ class AccessoriesController < ApplicationController
         req.basic_auth 'root', ''
         res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
         accessory.update_attribute(:value, params[:value].to_i)
+        
+        
+        ### FOR DEBUGING!
+        time = Time.new
+        currentDay = time.wday
+        currentTime = time.strftime("%H:%M:00")  
+        @user = User.find(session[:user_id])
+        AccessoriesLogger.debug "El accesorio: #{accessory.name} se accionó con el valor: #{params[:value]} por el usuario #{@user.email} a las: #{currentTime} #{currentDay}"
+        
       rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
         Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
         flash[:notice] = "Lo sentimos, el servicio no se encuentra disponible actualmente."
