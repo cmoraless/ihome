@@ -69,7 +69,7 @@ Ihome::Application.configure do
   config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
-    :domain               => 'baci.lindsaar.net',
+    :domain               => '200.28.166.104',
     :user_name            => 'ihome.bissen',
     :password             => 'b1ss3n.1h0m3',
     :authentication       => 'plain',
