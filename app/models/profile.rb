@@ -1,3 +1,6 @@
+#!/bin/env ruby
+# encoding: utf-8
+
 class Profile < ActiveRecord::Base
   # asociacion:
   belongs_to :user
@@ -31,11 +34,11 @@ class Profile < ActiveRecord::Base
         endActions += endWeeklyActions
         
         startActions.each do |saction|
-          puts "comenzo accion"
+          puts "Comenzó acción del perfil #{profile.name} del usuario #{profile.user.email}: #{currentTime} #{currentDay}"
           self.control(profile.ibox.id, schedule.accessory.id, 1)
         end
         endActions.each do |eaction|
-          puts "termino accion"
+          puts "Terminó acción del perfil #{profile.name} del usuario #{profile.user.email}: #{currentTime} #{currentDay}"
           self.control(profile.ibox.id, schedule.accessory.id, 0)
           if (eaction.repeat_weekly == false)
             eaction.destroy
@@ -46,7 +49,6 @@ class Profile < ActiveRecord::Base
   end
   
   def self.control(ibox_id, accessory_id, option)
-    puts "hola" + ibox_id.to_s
     require 'net/http'
     require 'uri'
     ibox = Ibox.find(ibox_id)

@@ -42,10 +42,10 @@ class HomeController < ApplicationController
       session[:ibox_id] = @ibox.id
       @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
       @cameras = @ibox.cameras
-      ret = testConnection(@ibox.ip, @ibox.port, @ibox.user,@ibox.password)
-      if (ret == false)
-        flash[:error] = "Error en la conexion con el Ibox. Revise su configuracion o conexion local o de internet"
-      end
+      #ret = testConnection(@ibox.ip, @ibox.port, @ibox.user,@ibox.password)
+      #if (ret == false)
+      #  flash[:error] = "Error en la conexion con el Ibox. Revise su configuracion o conexion local o de internet"
+      #end
       
     else
       flash[:notice] = "Debe habilitar su Ibox en Administracion"
