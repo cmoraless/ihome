@@ -130,13 +130,17 @@ class CamerasController < ApplicationController
         require 'uri'
         ws = 'http://' + camera.ip + ':' + camera.port
         url = URI.parse(ws)
-        begin
-          req = Net::HTTP::Get.new(url.path + '/image/jpeg.cgi')
-          req.basic_auth camera.user, camera.password
-          res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
-          send_data res.body, :type=> 'image/jpeg'      
-        rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
-          Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
+        if testConnection(camera.ip,camera.port)  
+          begin
+            req = Net::HTTP::Get.new(url.path + '/image/jpeg.cgi')
+            req.basic_auth camera.user, camera.password
+            res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+            send_data res.body, :type=> 'image/jpeg'      
+          rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+            Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
+          end
+        else
+          flash[:error] = "No hay coneccion con la camara."  
         end
       else
         redirect_to :controller=>"home", :action=>"index"
@@ -159,5 +163,23 @@ class CamerasController < ApplicationController
     end
   end
 =end
+
+  def testConnection(camera_ip, camera_port)
+    require 'net/http'
+    require 'uri'
+    ws = 'http://' + camera_ip + ':' + camera_port
+    url = URI.parse(ws)
+    ret = true
+    begin
+      req = Net::HTTP::Get.new(url.path + '/image/jpeg.cgi')
+      req.basic_auth camera.user, camera.password
+      res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+      send_data res.body, :type=> 'image/jpeg'      
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+      Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
+      ret = false
+    end
+    ret
+  end
 
 end
