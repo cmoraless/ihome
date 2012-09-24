@@ -39,7 +39,18 @@
 						</div>
 				  </div>
 				</div>
-					
+				<div class="accordion-group">
+				  <div class="accordion-heading">
+				    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#sensores-body">
+				     <h2>Editar/Agregar/Eliminar Condiciones De Sensores</h2>
+				    </a>
+				  </div>
+				  <div id="sensores-body" class="accordion-body collapse">
+				    <div id="sensores" class="accordion-inner">
+							<%= yield :sensores %>	    
+						</div>
+				  </div>
+				</div>	
 				<div class="accordion-group">
 				  <div class="accordion-heading">
 				    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accessories-body">

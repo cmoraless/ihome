@@ -180,7 +180,8 @@ class IboxesController < ApplicationController
           session[:ibox_id] = @ibox.id
           @ibox.update_attribute(:isActive, true)
           @ibox.users << @user
-          iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/setEmail.cgi?Email='+@user.email,@ibox.user,@ibox.password)
+          iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/removeEmail.cgi',@ibox.user,@ibox.password) #borro los correos
+          iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/setEmail.cgi?Email='+@user.email,@ibox.user,@ibox.password) #le asigno correo del admin
           format.js {redirect_to :action => 'addDefaultAccessories', :id => @ibox.id}
         end
       else  
@@ -452,7 +453,8 @@ class IboxesController < ApplicationController
     respond_to do |format|
       if autorizado
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Mode.cgi?MODE=D',@ibox.user,@ibox.password)  
-        if res[0] == "Success"
+        if res[0] == "Success"          
+          #borro todos los accesorios relacionados a ese ibox
           removeAccessories(@ibox.id)
           @ibox.accessory_types.destroy_all
           @ibox.profiles.destroy_all
