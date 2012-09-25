@@ -42,16 +42,39 @@ body {
 // See http://twitter.github.com/bootstrap/less.html for their names and documentation
 //
 // Example:
- @linkColor: @grayDark;
- @bodyBackground : @black;
- @heroUnitBackground : @gray;
- @navbarBackground : @black;
- //@bodyBackground : @grayDark;
+  @linkColor: @grayDark;
+  @bodyBackground : @black;
+  @heroUnitBackground : @gray;
+ 
+  @navbarBackgroundHighlight : @white;
+  @navbarBackground : darken(@white, 20%);
+  @navbarText: @black;
+  @navbarBrandColor: @black;
+  @navbarLinkColor: @gray;
+  @navbarLinkColorHover: @black;
+  @navbarLinkColorActive: @navbarLinkColorHover;
+  @navbarLinkBackgroundHover: transparent;
+  @navbarLinkBackgroundActive: @navbarBackground;
+  
+  @navbarSearchPlaceholderColor: #ccc;
+
+  .navbar {
+    .brand {
+      color: @black;
+    }
+  }
+
  
   body { 
   //height: 95%;
   //min-height: 90%;
   //position: absolute;
+  }
+  
+  footer {
+    color: darken(@white, 10%);
+    background: transparent;
+    padding: 17px 0 18px 0;
   }
  
  .fill {
