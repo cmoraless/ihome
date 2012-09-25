@@ -480,6 +480,25 @@ class IboxesController < ApplicationController
   
   end
   
+  def new_sensor_condition
+    containers = IboxAccessoriesContainer.where("ibox_id = ?", session[:ibox_id])
+    containers.each do |container|
+      if container.name == "Sensores"
+        @sensors = container.accessories 
+        logger.debug "######################### sensores #{@sensors}"
+      end        
+    end
+        
+  end
+  
+  def save_sensor_condition
+    
+  end
+  
+  def delete_sensor_condition
+    
+    
+  end
   
   def back
     respond_to do |format|
@@ -494,5 +513,8 @@ class IboxesController < ApplicationController
     end
   end
   
+  def back_condition
+    
+  end  
   
 end
