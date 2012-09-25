@@ -39,6 +39,8 @@ Ihome::Application.routes.draw do
   get "destroy_accessory_unplugged" => "iboxes#destroyAccessory", :as => "destroy_accessory_unplugged"
   get "listen_to_add_accessory" => "iboxes#listenToAddAccessory", :as => "listen_to_add_accessory"
   get "listen_to_remove_accessory" => "iboxes#listenToRemoveAccessory", :as => "listen_to_remove_accessory"
+  get "ping_accessory" => "iboxes#pingAccessory", :as => "ping_accessory"
+  
   # The priority is based upon order of creation:
   
   # first created -> highest priority.

@@ -17,6 +17,8 @@
 		  	<td><%= @containers[i][:name] %></td>
 		  	<td><%= @accessories[i][j][:isPublic] ? 'si' : 'no'  %></td>
 		  	<td><%= link_to "Editar", edit_accessory_path(@accessories[i][j]),:class => 'btn btn-mini' ,:remote=>true %>
+		 		<%= link_to "Ping", ping_accessory_path(:id => @accessories[i][j].id ), 
+		 			{ :class => "btn btn-mini btn-success", :remote => true, :disable_with => 'Verificando...'} %> 
 		 		<%= link_to "Eliminar", destroy_accessory_unplugged_path(:id => @accessories[i][j].id ), 
 		 			{ :confirm => '¿Estás seguro? Recuerde desenchufar su accessorio antes de presionar Ok',
 		 			  :class => "btn btn-mini btn-danger", :remote => true, :disable_with => 'Eliminando...'} %>
@@ -27,7 +29,7 @@
 	</table>
 	<div class="btn-group">
 		<%= link_to "Agregar nuevo", listen_to_add_accessory_path,
-			{ :confirm => 'Luego de presionar OK tiene 20 segundos para presionar reiteradamente el boton de conexión en el accesorio', :class => "btn btn-success", :remote => 'true', :disable_with => 'Agregando...'} %>
+			{ :confirm => 'Luego de presionar OK tiene 20 segundos para presionar reiteradamente el boton de conexión en el accesorio', :class => "btn", :remote => 'true', :disable_with => 'Agregando...'} %>
 		<%= link_to "Eliminar", listen_to_remove_accessory_path,
 			{ :confirm => 'Luego de presionar OK tiene 20 segundos para presionar reiteradamente el boton de conexión en el accesorio', :class => "btn btn-danger", :remote => 'true', :disable_with => 'Eliminando...'} %>
 	</div>

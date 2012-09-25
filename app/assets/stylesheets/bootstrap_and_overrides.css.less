@@ -1,18 +1,21 @@
 @import "twitter/bootstrap/bootstrap";
+@import "twitter/bootstrap/responsive";
+
 body { 
-	padding-top: 60px;
-	padding-left: 20px;
+	padding-top: 40px;
+	//padding-left: 20px;
 	//background-image:url('cielo.png');
 	background-image:url('fondo4.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
 }
 
-@import "twitter/bootstrap/responsive";
-
 // Set the correct sprite paths
 @iconSpritePath: url('twitter/bootstrap/glyphicons-halflings.png');
 @iconWhiteSpritePath: url('twitter/bootstrap/glyphicons-halflings-white.png');
+
+//@iconSpritePath: 'twitter/bootstrap/glyphicons-halflings.png';
+//@iconWhiteSpritePath: 'twitter/bootstrap/glyphicons-halflings-white.png';
 
 // Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
 // Note: If you use asset_path() here, your compiled boostrap_and_overrides.css will not 
@@ -22,6 +25,10 @@ body {
 @fontAwesomeTtfPath:  'fontawesome-webfont.ttf';
 @fontAwesomeSvgzPath: 'fontawesome-webfont.svgz';
 @fontAwesomeSvgPath:  'fontawesome-webfont.svg';
+//@fontAwesomeEotPath: '/assets/fontawesome-webfont.eot';
+//@fontAwesomeWoffPath: '/assets/fontawesome-webfont.woff';
+//@fontAwesomeTtfPath: '/assets/fontawesome-webfont.ttf';
+//@fontAwesomeSvgPath: '/assets/fontawesome-webfont.svg';
 
 // Font Awesome
 @import "fontawesome";

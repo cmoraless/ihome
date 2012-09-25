@@ -167,6 +167,27 @@ class IboxesController < ApplicationController
     end
   end
 
+  def pingAccessory
+    @accessory = Accessory.find(params[:id])
+    @ibox = Ibox.find(session[:ibox_id])
+    ret = isConectedAccessory(@ibox.id, @accessory.zid)
+    if (ret == true) 
+      flash[:error] = ""
+      flash[:notice] = "Es posible establecer comunicacion con el accesorio."
+    else
+      flash[:error] = "No es posible establecer comunicacion con el accesorio."
+      flash[:notice] = ""
+    end
+    @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+    @accessories = []
+    @containers.each do |container| 
+    @accessories << container.accessories
+    end
+    respond_to do |format|
+      format.js
+    end
+  end   
+  
   def enable
     respond_to do |format|
       if Ibox.find_by_mac(params[:ibox_mac])
