@@ -39,8 +39,13 @@ Ihome::Application.routes.draw do
   get "destroy_accessory_unplugged" => "iboxes#destroyAccessory", :as => "destroy_accessory_unplugged"
   get "listen_to_add_accessory" => "iboxes#listenToAddAccessory", :as => "listen_to_add_accessory"
   get "listen_to_remove_accessory" => "iboxes#listenToRemoveAccessory", :as => "listen_to_remove_accessory"
+<<<<<<< HEAD
   get "ping_accessory" => "iboxes#pingAccessory", :as => "ping_accessory"
   
+=======
+  get "new_sensor_condition" => "iboxes#new_sensor_condition", :as => "new_sensor_condition"
+  get "back_condition" => "iboxes#back_condition", :as => "back_condition"
+>>>>>>> c94d6cf057d6db5904ead80605110c58a49ae15b
   # The priority is based upon order of creation:
   
   # first created -> highest priority.

@@ -70,28 +70,35 @@
 		<%= render "iboxes/all2" %>
 	<%end%>
 	<%= link_to "Habilitar nuevo ibox", show_enable_path, :class => 'btn btn-primary', :remote => true %>
-
 <%end%>
-<%if @iboxes.length > 0 %>
 
-	<%content_for :users do%>
+<%content_for :users do%>
+	<%if @iboxes.length > 0 %>
 		<%= render "users/all"%>
-		<%= link_to "Agregar nuevo usuario", new_no_admin_path, :remote=>true, :class => 'btn btn-primary'%>		
-	<%end%>
-	
-	<%content_for :accessories do%>
+		<%= link_to "Agregar nuevo usuario", new_no_admin_path, :remote=>true, :class => 'btn btn-primary'%>
+	<%end%>		
+<%end%>
+
+<%content_for :accessories do%>
+	<%if @iboxes.length > 0 %>
 		<%= render "accessories/all" %>
 	<%end%>
-	
-	<%content_for :cameras do%>
-		<%if @iboxes.length > 0%>
-			<%= render 'cameras/all'%>
-			<%=link_to "Agregar nueva cámara", new_camera_path, :remote=>true, :class => 'btn btn-primary'%>
-		<%else%>
-			<%= render 'shared/flash_messages' %>
-		<%end%>
+<%end%>
+
+<%content_for :cameras do%>
+	<%if @iboxes.length > 0%>
+		<%= render 'cameras/all'%>
+		<%=link_to "Agregar nueva cámara", new_camera_path, :remote=>true, :class => 'btn btn-primary'%>
+	<%else%>
+		<%= render 'shared/flash_messages' %>
 	<%end%>
-	
+<%end%>
+
+<%content_for :sensors do %>
+	<%if @iboxes.length > 0%>
+		<%= render 'iboxes/all_conditions'%>
+		<%= link_to "Agregar nueva condición", new_sensor_condition_path, :remote=>true, :class=>'btn btn-primary' %>
+	<%end%>
 <%end%>
 	
 

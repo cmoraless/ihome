@@ -36,13 +36,9 @@ class AdminController < ApplicationController
       @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
       @accessories = []
       @containers.each do |container|
-        @accessories << container.accessories
-      end  
-      #logger.debug "############### #{@accessories}"
+        @accessories << container.accessories        
+      end
     end
-  #  if @iboxes.length == 0
-  #    flash[:notice] = "Debe tener por lo menos un IBox para agregar/editar usuarios."
-  #  end
   end
   
   def view

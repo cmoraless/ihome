@@ -1,0 +1,11 @@
+<% form_tag url_for(:controller=> "iboxes", :action=>"save_sensor_condition"), :remote=>true %>
+<%= label_tag "Sensor:" %> 
+<%= select_tag :sensors, options_from_collection_for_select(@sensors, "id", "name") %>
+<%= label_tag "Accesorio:"%>
+<%= select_tag :accesories, options_from_collection_for_select(@accessories, "id", "name") %>
+<br/>
+<br/>
+<%= submit_tag "Guardar", :class=>"btn btn-primary" %>	
+<br/>
+<br/>
+<%= link_to "Atrás", back_condition_path, :class=> "btn btn-primary"%>

@@ -29,17 +29,28 @@
 				<% if @iboxes.length > 0 %>
 				<div class="accordion-group">
 				  <div class="accordion-heading">
-				    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#usuaritos">
+				    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#users-body">
 				     <h2><%= image_tag("usericon.png", :size=>"40x40")%> Agregar Usuarios</h2>
 				    </a>
 				  </div>
-				  <div id="usuaritos" class="accordion-body collapse">
+				  <div id="users-body" class="accordion-body collapse">
 				    <div id="users" class="accordion-inner">
 							<%= yield :users %>	    
 						</div>
 				  </div>
 				</div>
-					
+				<div class="accordion-group">
+				  <div class="accordion-heading">
+				    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#sensors-body">
+				     <h2>Editar/Agregar/Eliminar Condiciones De Sensores</h2>
+				    </a>
+				  </div>
+				  <div id="sensors-body" class="accordion-body collapse">
+				    <div id="sensors" class="accordion-inner">
+							<%= yield :sensors %>	    
+						</div>
+				  </div>
+				</div>	
 				<div class="accordion-group">
 				  <div class="accordion-heading">
 				    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accessories-body">
