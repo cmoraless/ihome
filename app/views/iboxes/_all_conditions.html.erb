@@ -4,19 +4,23 @@
 <table class="table table-striped">
   <tr>
     <th>Sensor</th>
-    <th>Correo</th>
+    <th>Accessorio</th>
+    <th>Acción</th>
+    <th>Enviar Correo</th>
     <th>Acciones</th>
   </tr>
  
-<% @users.each do |user| %>
-<% if user.isAdmin == false %>
-	  <tr>
-	    <td><%= user.name %></td>
-	    <td><%= user.email %></td>
-	    <td>
-	    	<%= link_to 'Eliminar', user, :confirm => '¿Estás seguro?', :method => :delete, :class => 'btn btn-mini btn-danger', :remote=>true %>
-	    </td>	
-	  </tr>
-  <%end%>
+<% for i in 0..@conditions.length-1 %>
+  <tr>
+    <td><%= @sensors_conditions[i][:name] %></td>
+    <td><%= @accessories_conditions[i].name %></td>
+    <td><%= @conditions[i][:action]%></td>
+    <% if @conditions[i][:sendmail] == "1"%>
+    	<td>Si</td>	
+    <%else%>
+    	<td>No</td>
+    <%end%>
+    <td><%= link_to "Eliminar", {:controller=>"iboxes",:action=>"delete_sensor_condition", :id => @conditions[i][:id]}, :remote=>true, :class=>"btn btn-danger btn-small"%>
+  </tr>
 <% end %>
 </table>

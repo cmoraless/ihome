@@ -541,13 +541,20 @@ class IboxesController < ApplicationController
       else
         iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/SetCondition.cgi?ZID='+ sensor.zid + '&Value=&HiOrLo=Trigger&cZID=' + accessory.zid + '&Action=' + accion + '&cValue=&SendMail=' + email,@ibox.user,@ibox.password)
       end
+      @conditions = get_sensors_conditions
       format.js
     end
   end
   
   def delete_sensor_condition
-    
-    
+    respond_to do |format|
+      @conditions = get_sensors_conditions
+      @ibox = Ibox.find(session[:ibox_id])
+      condition = @conditions.select{|c| c[:id].to_s == params[:id].to_s}
+      iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/RemoveCondition.cgi?ZID='+ condition[0][:zid] + '&Value=' + condition[0][:value] + '&HiOrLo=' + condition[0][:hiorlo] + '&cZID=' + condition[0][:czid] + '&Action=' + condition[0][:action] + '&cValue=' + condition[0][:cvalue] + '&SendMail=' + condition[0][:sendmail],@ibox.user,@ibox.password)
+      @conditions = get_sensors_conditions
+      format.js
+    end    
   end
   
   def back
@@ -567,4 +574,33 @@ class IboxesController < ApplicationController
     
   end  
   
+  def get_sensors_conditions
+    #leo las condiciones de los sensores del ibox
+    @ibox = Ibox.find(session[:ibox_id])
+    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Get.cgi?get=CONDITION', @ibox.user, @ibox.password)
+    @conditions = Array.new
+    @sensors_conditions = Array.new
+    @accessories_conditions = Array.new
+    containers = IboxAccessoriesContainer.where("ibox_id = ?", session[:ibox_id])    
+    accessory_id = -1
+    sensor_id = -1    
+    for i in 0..res.length/7-1
+      #busco el id del sensor y del accesorio de la condicion para mostrarlo 
+      containers.each do |container|
+        container.accessories.each do |accessory|
+          if accessory.zid == res[0+7*i].to_s.split('=')[1].to_s
+            sensor = Accessory.find(accessory.id)
+            @sensors_conditions << sensor
+          elsif accessory.zid == res[3+7*i].to_s.split('=')[1].to_s
+            accessory = Accessory.find(accessory.id)
+            @accessories_conditions << accessory
+          end
+        end    
+      end
+      @conditions << {:id => (i+1), :zid => res[0+7*i].to_s.split('=')[1], :value => res[1+7*i].to_s.split('=')[1], :hiorlo => res[2+7*i].to_s.split('=')[1], :czid => res[3+7*i].to_s.split('=')[1],
+        :action => res[4+7*i].to_s.split('=')[1], :cvalue => res[5+7*i].to_s.split('=')[1], :sendmail => res[6+7*i].to_s.split('=')[1] } 
+    end
+    @conditions
+  end
+    
 end
