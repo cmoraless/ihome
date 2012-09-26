@@ -38,7 +38,11 @@ class AdminController < ApplicationController
       @containers.each do |container|
         @accessories << container.accessories        
       end
-      @conditions = get_sensors_conditions
+      if testConnection(@ibox.ip,@ibox.port,@ibox.user,@ibox.password)
+        @conditions = get_sensors_conditions
+      else
+        flash[:error] = "No se ha podido establecer comunicacion con el Ibox. Revise su configuracion o conexion a internet."
+      end 
     end
     
   end
@@ -102,5 +106,26 @@ class AdminController < ApplicationController
     end
     @conditions
   end
+  
+  def testConnection(ibox_ip, ibox_port, user, password)
+    require 'net/http'
+    require 'uri'
+    ws = 'http://' + ibox_ip + ':' + ibox_port
+    url = URI.parse(ws)
+    ret = true
+    begin
+      http = Net::HTTP.new(url.host, url.port)      
+      http.open_timeout = 3
+      http.read_timeout = 3
+      response = http.start do |https|
+        https.request_get(url.path + '/cgi-bin/Get.cgi?get=SET')
+      end
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Errno::ECONNREFUSED,
+      Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
+      ret = false
+    end
+    ret
+  end
+  
   
 end

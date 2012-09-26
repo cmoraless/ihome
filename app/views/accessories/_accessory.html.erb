@@ -94,10 +94,8 @@
 				$.get('<%= url_for(:controller=> 'accessories', :action=>'get_status',:id => accessory.id)%>',function(data){
 				if (data == 3){
 					$('#status_sensor_<%=accessory.id%>').text("Trigger");
-					alert(data);
 				}else if(data == 0){
 					$('#status_sensor_<%=accessory.id%>').text("Normal");
-					alert(data);
 				}				
 			});
 			}

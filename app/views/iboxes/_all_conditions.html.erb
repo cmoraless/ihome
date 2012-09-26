@@ -1,3 +1,4 @@
+<% if @conditions %>
 <!-- condiciones de los sensores -->
 <h3>Condiciones</h3>
 
@@ -24,3 +25,6 @@
   </tr>
 <% end %>
 </table>
+<%else%>
+	<%= render "shared/flash_messages"%>
+<%end%>

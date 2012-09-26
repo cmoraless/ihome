@@ -44,7 +44,7 @@ class HomeController < ApplicationController
       @cameras = @ibox.cameras
       ret = testConnection(@ibox.ip, @ibox.port, @ibox.user,@ibox.password)
       if (ret == false)
-        flash[:error] = "Error en la conexion con el Ibox. Revise su configuracion o conexion local o de internet"
+        flash[:error] = "No se ha podido establecer comunicacion con el Ibox. Revise su configuracion o conexion a internet."
       else
         #chequeo el estado de los accesorios y los updateo a su estado
         @containers.each do |container|
@@ -68,10 +68,11 @@ class HomeController < ApplicationController
     ret = true
     begin
       http = Net::HTTP.new(url.host, url.port)      
-      #request = Net::HTTP::Get.new(uri.request_uri)
-      request = Net::HTTP::Get.new(url.path + '/cgi-bin/Get.cgi?get=SET' )
-      request.basic_auth user, password
-      response = http.request(request)
+      http.open_timeout = 3
+      http.read_timeout = 3
+      response = http.start do |https|
+        https.request_get(url.path + '/cgi-bin/Get.cgi?get=SET')
+      end
     rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Errno::ECONNREFUSED,
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
       ret = false

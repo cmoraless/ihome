@@ -114,7 +114,6 @@ class CamerasController < ApplicationController
  
   #funcion que muestra la imagen cuando el usuario esta navegando desde un dispositivo movil
   def stream_image
-    logger.debug "############################ STREAM IMAGE #########################"
     if Ibox.find(session[:ibox_id])
       @currentIbox = Ibox.find(session[:ibox_id])
       @cameras = @currentIbox.cameras
@@ -141,8 +140,7 @@ class CamerasController < ApplicationController
             Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
           end
         else
-          logger.debug "###################################33 no hay coneccion !! ##################################"
-          send_data image_path("ihome_logo.jpg"), :type => 'image/jpeg'  
+          send_data view_content.image_path("ihome_logo.jpg"), :type => 'image/jpeg'  
         end
       else
         redirect_to :controller=>"home", :action=>"index"
@@ -168,7 +166,6 @@ class CamerasController < ApplicationController
 
   #funcion que prueba la conexion de la camara si es correcta
   def testConnection(id)
-    logger.debug "################################# TEST CONNECTION #############################3"
     require 'net/http'
     require 'uri'
     camera = Camera.find(id)
@@ -176,17 +173,16 @@ class CamerasController < ApplicationController
     url = URI.parse(ws)
     ret = true
     begin
-      logger.debug "################################# url = #{url.host} #urlport = #{url.port}"
-      https = Net::HTTP.new(url.host,url.port)
-      https.read_timeout = 3000
-      req = Net::HTTP::Get.new(url.path + '/image/jpeg.cgi')      
-      req.basic_auth camera.user, camera.password
-      res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+      http = Net::HTTP.new(url.host, url.port)      
+      http.open_timeout = 3
+      http.read_timeout = 3
+      response = http.start do |https|
+        https.request_get(url.path + '/image/jpeg.cgi')
+      end
     rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Errno::ETIMEDOUT,
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
       ret = false
     end
-    logger.debug "############################### test connection #{ret}"
     ret
     
   end
