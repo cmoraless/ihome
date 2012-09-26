@@ -517,10 +517,6 @@ class IboxesController < ApplicationController
   
   def save_sensor_condition
     respond_to do |format|
-      logger.debug "######## params[:sensor] = #{params[:sensor]}"
-      logger.debug "######## params[:accessory] = #{params[:accessory]}"
-      logger.debug "######## params[:accion] = #{params[:accion]}"
-      logger.debug "######## params[:email] = #{params[:email]}"
       @ibox = Ibox.find(session[:ibox_id])
       accessory = Accessory.find(params[:accessory])
       sensor = Accessory.find(params[:sensor])
@@ -536,10 +532,25 @@ class IboxesController < ApplicationController
         accion = "Off"
         valor = "0" #si es multilevelswitch
       end
-      if accessory.kind == "MultiLevelSwitch"      
-        iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/SetCondition.cgi?ZID='+ sensor.zid + '&Value=&HiOrLo=Trigger&cZID=' + accessory.zid + '&Action=' + accion + '&cValue=' + valor + '&SendMail=' + email,@ibox.user,@ibox.password)
+      @conditions = get_sensors_conditions
+      no_existe_condicion = true
+      for i in 0..@conditions.length-1
+        if @conditions[i][:zid] == sensor.zid and @conditions[i][:czid] == accessory.zid
+          no_existe_condicion = false
+          break
+        end
+      end
+      @ERROR = false
+      if no_existe_condicion
+        if accessory.kind == "MultiLevelSwitch"      
+          iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/SetCondition.cgi?ZID='+ sensor.zid + '&Value=&HiOrLo=Trigger&cZID=' + accessory.zid + '&Action=' + accion + '&cValue=' + valor + '&SendMail=' + email,@ibox.user,@ibox.password)
+        else
+          iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/SetCondition.cgi?ZID='+ sensor.zid + '&Value=&HiOrLo=Trigger&cZID=' + accessory.zid + '&Action=' + accion + '&cValue=&SendMail=' + email,@ibox.user,@ibox.password)
+        end
       else
-        iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/SetCondition.cgi?ZID='+ sensor.zid + '&Value=&HiOrLo=Trigger&cZID=' + accessory.zid + '&Action=' + accion + '&cValue=&SendMail=' + email,@ibox.user,@ibox.password)
+        @ERROR = true
+        new_sensor_condition
+        flash[:error] = "La condicion ingresada ya existe." 
       end
       @conditions = get_sensors_conditions
       format.js
