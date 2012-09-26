@@ -72,6 +72,7 @@ class AccessoryTypesController < ApplicationController
     end
   end
   
+  #funcion que vuelve atras en la vista de tipos de accesorios en la vista de superadmin
   def back
     @accessory_types = AccessoryType.all    
     respond_to do |format|

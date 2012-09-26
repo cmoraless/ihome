@@ -112,7 +112,7 @@ class CamerasController < ApplicationController
     end
   end
  
-#begin  
+  #funcion que muestra la imagen cuando el usuario esta navegando desde un dispositivo movil
   def stream_image
     if Ibox.find(session[:ibox_id])
       @currentIbox = Ibox.find(session[:ibox_id])
@@ -164,6 +164,7 @@ class CamerasController < ApplicationController
   end
 =end
 
+  #funcion que prueba la conexion de la camara si es correcta
   def testConnection(camera_ip, camera_port)
     require 'net/http'
     require 'uri'

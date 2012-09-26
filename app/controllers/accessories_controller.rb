@@ -104,6 +104,7 @@ class AccessoriesController < ApplicationController
     end
   end
   
+  #funcion que hace control de un accesorio en el ibox
   def control
     require 'net/http'
     require 'uri'
@@ -148,7 +149,7 @@ class AccessoriesController < ApplicationController
   end
   
   
-  
+  #funcion que ejecuta un comando consumiendo un webservice en el ibox que es pasado por parametro (instruction)
   def iboxExecute(ibox_ip, ibox_port, instruction, user, password)
     require 'net/http'
     require 'uri'
@@ -175,6 +176,7 @@ class AccessoriesController < ApplicationController
     res
   end   
   
+  #funcion que vuelve atras en la vista de accesorios en la vista admin
   def back
     respond_to do |format|
       @currentUser = User.find(session[:user_id])

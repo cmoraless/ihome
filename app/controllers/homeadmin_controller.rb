@@ -48,6 +48,7 @@ class HomeadminController < ApplicationController
     end
   end
   
+  #funcion para navegar con un usuario pasado por correo en la vista del superadmin
   def browseAs
     user = User.where(:email => params[:emails])
     @usersAdmin = User.where(:isAdmin => true)
@@ -66,6 +67,7 @@ class HomeadminController < ApplicationController
     end
   end
   
+  #funcion que busca un ibox por correo en la vista de superadmin
   def searchIboxes
     user = User.where(:email => params[:emailsIbox])
     @usersAdmin = User.where(:isAdmin => true)    
@@ -85,6 +87,7 @@ class HomeadminController < ApplicationController
     end
   end
   
+  #funcion que busca un usuario por correo en la vista de super admin
   def searchUsers
     user = User.where(:email => params[:emailsUser])
     @usersAdmin = User.where(:isAdmin => true)

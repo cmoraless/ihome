@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  #funcion que genera codigo para la recuperacion de contraseña
   def get_code
     caracteres = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n',
     'o','p','q','r','s','t','u','x','y','z','0','1','2','3','4','5','6','7','8','9']
@@ -10,6 +11,7 @@ class SessionsController < ApplicationController
     code
   end
   
+  #funcion que inicia
   def new
     reset_session
     @users = User.all
@@ -29,6 +31,7 @@ class SessionsController < ApplicationController
     end
   end
 
+  #funcion que hace el login y crea la session de usuario
   def create
     reset_session
     user = User.authenticate(params[:email], params[:password])
@@ -45,16 +48,19 @@ class SessionsController < ApplicationController
     end
   end
 
+  #funcion que hace el logout de la session de usuario
   def destroy
     reset_session
     redirect_to root_url, :notice => "Logged out!"
   end
   
+  #funcion que se llama al inciio para recuperar la contraseña
   def recover
     flash[:notice] = ""
     flash[:error] = ""
   end
   
+  #funcion que envia el codigo al correo del usuario para recuperar la contraseña
   def recieve_code    
     respond_to do |format|
       if User.find_by_email(params[:email])
@@ -74,6 +80,7 @@ class SessionsController < ApplicationController
     end
   end
   
+  #funcion que actualiza la contraseña si el codigo pasado es correcto
   def recover_pass
     code = get_code
     flash[:notice] = ""

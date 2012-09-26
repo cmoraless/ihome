@@ -47,6 +47,7 @@ class AdminController < ApplicationController
   
   end
   
+  #funcion que ejecuta un comando consumiendo un webservice en el ibox que es pasado por parametro (instruction)
   def iboxExecute(ibox_ip, ibox_port, instruction, user, password)
     require 'net/http'
     require 'uri'
