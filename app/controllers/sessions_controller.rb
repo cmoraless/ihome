@@ -13,9 +13,18 @@ class SessionsController < ApplicationController
   def new
     reset_session
     @users = User.all
-    if @users.length == 0
+    code = get_code
+    code += get_code
+    no_existe_superadmin = true
+    @users.each do |user|
+      if user.isSuperAdmin == true
+        no_existe_superadmin = false
+        break
+      end
+    end
+    if no_existe_superadmin
       @superAdmin = User.new(:email=>'superadmin@bissen.cl',:password=>'super123',:password_confirmation=>'super123', :name=>'1', :isAdmin=> false, :address=>'1',
-      :phone=>'1', :rut=>'1', :isSuperAdmin=>true, :code=>'mYfzGANuyG8j8o73GisvY3QKMCOAIxofDfkZ6p+R0zA=') 
+      :phone=>'1', :rut=>'1', :isSuperAdmin=>true, :code=>code) 
       @superAdmin.save
     end
   end
