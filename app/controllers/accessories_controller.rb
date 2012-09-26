@@ -113,24 +113,30 @@ class AccessoriesController < ApplicationController
     url = URI.parse(ws)
     respond_to do |format|
       begin
-        if accessory.kind == 'MultiLevelSwitch'
-          req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?VALUE=' + params[:value] + '&ZID=' + accessory.zid)
-        end
-        if accessory.kind == 'BinarySwitch'
-          req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?OP=' + params[:value] + '&ZID=' + accessory.zid)
-        end
-        req.basic_auth 'root', ''
-        res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
-        accessory.update_attribute(:value, params[:value].to_i)
-        
-        
-        ### FOR DEBUGING!
-        time = Time.new
-        currentDay = time.wday
-        currentTime = time.strftime("%H:%M:00")  
-        @user = User.find(session[:user_id])
-        AccessoriesLogger.debug "El accesorio: #{accessory.name} se accionó con el valor: #{params[:value]} por el usuario #{@user.email} a las: #{currentTime} #{currentDay}"
-        
+        res = iboxExecute(ip, port, '/cgi-bin/Status.cgi?ZID=' + accessory.zid, ibox.user, ibox.password)
+        if (res[2] == 'STATUS=99')
+          flash[:notice] = ""
+          flash[:error] = "El Ibox no puede conectarse con el accesorio"
+          format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
+        else
+          if accessory.kind == 'MultiLevelSwitch'
+            req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?VALUE=' + params[:value] + '&ZID=' + accessory.zid)
+          end
+          if accessory.kind == 'BinarySwitch'
+            req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?OP=' + params[:value] + '&ZID=' + accessory.zid)
+          end
+          req.basic_auth ibox.user, ibox.password
+          res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+          accessory.update_attribute(:value, params[:value].to_i)
+          
+          
+          ### FOR DEBUGING!
+          time = Time.new
+          currentDay = time.wday
+          currentTime = time.strftime("%H:%M:00")  
+          @user = User.find(session[:user_id])
+          AccessoriesLogger.debug "El accesorio: #{accessory.name} se accionó con el valor: #{params[:value]} por el usuario #{@user.email} a las: #{currentTime} #{currentDay}"
+        end              
       rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
         Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
         flash[:notice] = "Lo sentimos, el servicio no se encuentra disponible actualmente."
@@ -138,6 +144,34 @@ class AccessoriesController < ApplicationController
       format.js
     end
   end
+  
+  
+  
+  def iboxExecute(ibox_ip, ibox_port, instruction, user, password)
+    require 'net/http'
+    require 'uri'
+    ws = 'http://' + ibox_ip + ':' + ibox_port
+    url = URI.parse(ws)
+    begin
+      req = Net::HTTP::Get.new(url.path + instruction )
+      req.basic_auth user, password
+      res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+      #escribo archivo de texto con la salida del web service
+      path = Rails.root + 'tmp/server.txt'
+      f_out = File.new(path,'w')
+      f_out.puts res.body
+      f_out.close
+      res = Array.new
+      f_in = File.open(path,'r') do |f|
+        while line = f.gets
+          res << line.to_s.chomp
+        end
+      end
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+      Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
+    end
+    res
+  end   
   
   def back
     respond_to do |format|
