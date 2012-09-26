@@ -383,7 +383,8 @@ class IboxesController < ApplicationController
           @accessory_type = AccessoryType.find_by_name("Sensores")
           @accessory.update_attribute(:name, "sensor 0"+i.to_s)
         end
-        
+        #guardo el nombre del accesorio en el ibox
+        iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Set.cgi?ZID=' + @accessory.zid + '&ALIAS=' + @accessory.name + '&X=100&Y=100&W=100&H=100&Layer=0',@ibox.user,@ibox.password)
         #Si no existe se crea el contenedor del tipo de accesorio en el Ibox
         if (!@ibox.accessory_types.find_by_name(@accessory_type.name))
           @ibox.accessory_types << @accessory_type
