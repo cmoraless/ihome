@@ -45,12 +45,13 @@ class HomeController < ApplicationController
       ret = testConnection(@ibox.ip, @ibox.port, @ibox.user,@ibox.password)
       if (ret == false)
         flash[:error] = "Error en la conexion con el Ibox. Revise su configuracion o conexion local o de internet"
-      end
-      #chequeo el estado de los accesorios y los updateo a su estado
-      @containers.each do |container|
-        container.accessories.each do |accessory|
-          resacc = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + accessory.zid,@ibox.user,@ibox.password)
-          accessory.update_attribute(:value, resacc[2].to_s.split('=')[1])
+      else
+        #chequeo el estado de los accesorios y los updateo a su estado
+        @containers.each do |container|
+          container.accessories.each do |accessory|
+            resacc = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + accessory.zid,@ibox.user,@ibox.password)
+            accessory.update_attribute(:value, resacc[2].to_s.split('=')[1])
+          end
         end
       end
       
