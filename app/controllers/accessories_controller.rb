@@ -176,6 +176,14 @@ class AccessoriesController < ApplicationController
     res
   end   
   
+  def get_status
+    @accessory = Accessory.find(params[:id])
+    @ibox = Ibox.find(session[:ibox_id])
+    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + @accessory.zid, @ibox.user, @ibox.password)  
+    status = res[2].to_s.split('=')[1]
+    render :text => status.to_s
+  end
+    
   #funcion que vuelve atras en la vista de accesorios en la vista admin
   def back
     respond_to do |format|
