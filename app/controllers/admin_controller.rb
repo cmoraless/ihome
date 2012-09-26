@@ -39,10 +39,49 @@ class AdminController < ApplicationController
         @accessories << container.accessories        
       end
     end
+    @conditions = get_sensors_conditions
+    logger.debug "######################## conditions #{@conditions}"
   end
   
   def view
   
   end
-    
+  
+  def iboxExecute(ibox_ip, ibox_port, instruction, user, password)
+    require 'net/http'
+    require 'uri'
+    ws = 'http://' + ibox_ip + ':' + ibox_port
+    url = URI.parse(ws)
+    begin
+      req = Net::HTTP::Get.new(url.path + instruction )
+      req.basic_auth user, password
+      res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+      #escribo archivo de texto con la salida del web service
+      path = Rails.root + 'tmp/server.txt'
+      f_out = File.new(path,'w')
+      f_out.puts res.body
+      f_out.close
+      res = Array.new
+      f_in = File.open(path,'r') do |f|
+        while line = f.gets
+          res << line.to_s.chomp
+        end
+      end
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+      Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
+    end
+    res
+  end
+  
+  def get_sensors_conditions
+    #leo las condiciones de los sensores del ibox
+    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Get.cgi?get=CONDITION', @ibox.user, @ibox.password)
+    conditions = Array.new
+    for i in 0..res.length/7-1
+      conditions << {:id => (i+1), :zid => res[0+7*i].to_s.split('=')[1], :value => res[1+7*i].to_s.split('=')[1], :hiorlo => res[2+7*i].to_s.split('=')[1], :czid => res[3+7*i].to_s.split('=')[1],
+        :action => res[4+7*i].to_s.split('=')[1], :cvalue => res[5+7*i].to_s.split('=')[1], :sendmail => res[6+7*i].to_s.split('=')[1] } 
+    end
+    conditions
+  end
+  
 end

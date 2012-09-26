@@ -503,17 +503,46 @@ class IboxesController < ApplicationController
   
   def new_sensor_condition
     containers = IboxAccessoriesContainer.where("ibox_id = ?", session[:ibox_id])
+    @sensors = Array.new
+    @accessories = Array.new
     containers.each do |container|
       if container.name == "Sensores"
-        @sensors = container.accessories 
-        logger.debug "######################### sensores #{@sensors}"
+        @sensors += container.accessories 
+      else
+        @accessories += container.accessories
       end        
     end
         
   end
   
   def save_sensor_condition
-    
+    respond_to do |format|
+      logger.debug "######## params[:sensor] = #{params[:sensor]}"
+      logger.debug "######## params[:accessory] = #{params[:accessory]}"
+      logger.debug "######## params[:accion] = #{params[:accion]}"
+      logger.debug "######## params[:email] = #{params[:email]}"
+      @ibox = Ibox.find(session[:ibox_id])
+      accessory = Accessory.find(params[:accessory])
+      sensor = Accessory.find(params[:sensor])
+      if params[:email] == "Si"
+        email = "1"
+      else
+        email = "0"
+      end           
+      if params[:accion] == "Encender"
+        accion = "On"
+        valor = "9" #si es multilevelswitch
+      else
+        accion = "Off"
+        valor = "0" #si es multilevelswitch
+      end
+      if accessory.kind == "MultiLevelSwitch"      
+        iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/SetCondition.cgi?ZID='+ sensor.zid + '&Value=&HiOrLo=Trigger&cZID=' + accessory.zid + '&Action=' + accion + '&cValue=' + valor + '&SendMail=' + email,@ibox.user,@ibox.password)
+      else
+        iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/SetCondition.cgi?ZID='+ sensor.zid + '&Value=&HiOrLo=Trigger&cZID=' + accessory.zid + '&Action=' + accion + '&cValue=&SendMail=' + email,@ibox.user,@ibox.password)
+      end
+      format.js
+    end
   end
   
   def delete_sensor_condition

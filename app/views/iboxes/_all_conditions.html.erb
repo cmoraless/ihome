@@ -1,0 +1,22 @@
+<!-- condiciones de los sensores -->
+<h3>Condiciones</h3>
+
+<table class="table table-striped">
+  <tr>
+    <th>Sensor</th>
+    <th>Correo</th>
+    <th>Acciones</th>
+  </tr>
+ 
+<% @users.each do |user| %>
+<% if user.isAdmin == false %>
+	  <tr>
+	    <td><%= user.name %></td>
+	    <td><%= user.email %></td>
+	    <td>
+	    	<%= link_to 'Eliminar', user, :confirm => '¿Estás seguro?', :method => :delete, :class => 'btn btn-mini btn-danger', :remote=>true %>
+	    </td>	
+	  </tr>
+  <%end%>
+<% end %>
+</table>
