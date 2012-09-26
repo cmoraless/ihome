@@ -571,7 +571,10 @@ class IboxesController < ApplicationController
   end
   
   def back_condition
-    
+    respond_to do |format|
+      @conditions = get_sensors_conditions
+      format.js
+    end 
   end  
   
   def get_sensors_conditions

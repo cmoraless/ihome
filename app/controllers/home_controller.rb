@@ -46,6 +46,13 @@ class HomeController < ApplicationController
       if (ret == false)
         flash[:error] = "Error en la conexion con el Ibox. Revise su configuracion o conexion local o de internet"
       end
+      #chequeo el estado de los accesorios y los updateo a su estado
+      @containers.each do |container|
+        container.accessories.each do |accessory|
+          resacc = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + accessory.zid,@ibox.user,@ibox.password)
+          accessory.update_attribute(:value, resacc[2].to_s.split('=')[1])
+        end
+      end
       
     else
       flash[:notice] = "Debe habilitar su Ibox en Administracion"
@@ -70,6 +77,35 @@ class HomeController < ApplicationController
     end
     ret
   end
+  
+  # Descripción: Función que ejecuta comandos para un determinado Ibox
+  # Entrada: 
+  # Salida: Arreglo con la salida del comando
+  def iboxExecute(ibox_ip, ibox_port, instruction, user, password)
+    require 'net/http'
+    require 'uri'
+    ws = 'http://' + ibox_ip + ':' + ibox_port
+    url = URI.parse(ws)
+    begin
+      req = Net::HTTP::Get.new(url.path + instruction )
+      req.basic_auth user, password
+      res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+      #escribo archivo de texto con la salida del web service
+      path = Rails.root + 'tmp/server.txt'
+      f_out = File.new(path,'w')
+      f_out.puts res.body
+      f_out.close
+      res = Array.new
+      f_in = File.open(path,'r') do |f|
+        while line = f.gets
+          res << line.to_s.chomp
+        end
+      end
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+      Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
+    end
+    res
+  end   
   
 end
 
