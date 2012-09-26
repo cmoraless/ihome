@@ -1,3 +1,10 @@
 $('#sensors').empty();
+<% if @ERROR %> <!-- si existe la condicion -->
+$('#sensors').append('<%= j render "shared/flash_messages"%>');
+$('#sensors').append('<%= j render "iboxes/formCondition"%>');
+
+<%else%>
+
 $('#sensors').append('<%= j render "iboxes/all_conditions"%>');
 $('#sensors').append('<%= link_to "Agregar nueva condición", new_sensor_condition_path, :remote=>true, :class=>'btn btn-primary' %>');
+<%end%>
