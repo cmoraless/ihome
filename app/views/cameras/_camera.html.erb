@@ -24,7 +24,7 @@
 <%else%>
 	<div class="item offset1">
 <%end%>
-		<% if ret == true %>		
+	<% if ret == true %>		
 		<form action="http://<%= camera.ip + ':' + camera.port%>/Jview.htm" method="POST"></form>
 	  <table border="0" cellspacing="0" cellpadding="0">
 		  <tbody>
@@ -44,7 +44,7 @@
 		  </tr>
 		  </tbody>
 		</table>
-		<%else%>
+	<%else%>
 		<table border="0" cellspacing="0" cellpadding="0">
 		  <tbody>
 		  <tr>
@@ -55,5 +55,5 @@
 		  </tr>
 		  </tbody>
 		</table>
-		<%end%>
+	<%end%>
 	</div> 							
