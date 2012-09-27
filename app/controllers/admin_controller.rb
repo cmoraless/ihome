@@ -72,7 +72,7 @@ class AdminController < ApplicationController
           res << line.to_s.chomp
         end
       end
-    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,Errno::EHOSTUNREACH,
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
     end
     res
@@ -120,7 +120,7 @@ class AdminController < ApplicationController
       response = http.start do |https|
         https.request_get(url.path + '/cgi-bin/Get.cgi?get=SET')
       end
-    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Errno::ECONNREFUSED,
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Errno::ECONNREFUSED,Errno::EHOSTUNREACH,
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
       ret = false
     end
