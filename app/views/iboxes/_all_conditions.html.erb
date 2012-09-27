@@ -1,30 +1,30 @@
 <% if @conditions %>
-<!-- condiciones de los sensores -->
-<h3>Condiciones</h3>
-
-<table class="table table-striped">
-  <tr>
-    <th>Sensor</th>
-    <th>Accessorio</th>
-    <th>Acción</th>
-    <th>Enviar Correo</th>
-    <th>Acciones</th>
-  </tr>
- 
-<% for i in 0..@conditions.length-1 %>
-  <tr>
-    <td><%= @sensors_conditions[i].name %></td>
-    <td><%= @accessories_conditions[i].name %></td>
-    <td><%= @conditions[i][:action]%></td>
-    <% if @conditions[i][:sendmail] == "1"%>
-    	<td>Si</td>	
-    <%else%>
-    	<td>No</td>
-    <%end%>
-    <td><%= link_to "Eliminar", {:controller=>"iboxes",:action=>"delete_sensor_condition", :id => @conditions[i][:id]}, :remote=>true, :class=>"btn btn-danger btn-small"%>
-  </tr>
-<% end %>
-</table>
-<%else%>
-	<%= render "shared/flash_messages"%>
+	<% if @conditions.length > 0 %>
+		<!-- condiciones de los sensores -->
+		<h3>Condiciones</h3>
+		
+		<table class="table table-striped">
+		  <tr>
+		    <th>Sensor</th>
+		    <th>Accessorio</th>
+		    <th>Acción</th>
+		    <th>Enviar Correo</th>
+		    <th>Acciones</th>
+		  </tr>
+		 
+		<% for i in 0..@conditions.length-1 %>
+		  <tr>
+		    <td><%= @sensors_conditions[i].name %></td>
+		    <td><%= @accessories_conditions[i].name %></td>
+		    <td><%= @conditions[i][:action]%></td>
+		    <% if @conditions[i][:sendmail] == "1"%>
+		    	<td>Si</td>	
+		    <%else%>
+		    	<td>No</td>
+		    <%end%>
+		    <td><%= link_to "Eliminar", {:controller=>"iboxes",:action=>"delete_sensor_condition", :id => @conditions[i][:id]}, :remote=>true, :class=>"btn btn-mini btn-danger"%>
+		  </tr>
+		<% end %>
+		</table>
+	<%end%>
 <%end%>

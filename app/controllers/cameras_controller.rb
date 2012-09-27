@@ -183,8 +183,28 @@ class CamerasController < ApplicationController
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
       ret = false
     end
-    ret
-    
+    ret    
+  end
+  
+  def testConnectionAjax
+    require 'net/http'
+    require 'uri'
+    camera = Camera.find(params[:id])
+    ws = 'http://' + camera.ip + ':' + camera.port
+    url = URI.parse(ws)
+    ret = true
+    begin
+      http = Net::HTTP.new(url.host, url.port)      
+      http.open_timeout = 3
+      http.read_timeout = 3
+      response = http.start do |https|
+        https.request_get(url.path + '/image/jpeg.cgi')
+      end
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Errno::ETIMEDOUT,
+      Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
+      ret = false
+    end
+    render :text => ret.to_s
   end
 
 end

@@ -59,7 +59,8 @@ class HomeController < ApplicationController
       flash[:notice] = "Debe habilitar su Ibox en Administracion"
     end
   end
-
+  
+  #prueba conexion con el ibox
   def testConnection(ibox_ip, ibox_port, user, password)
     require 'net/http'
     require 'uri'

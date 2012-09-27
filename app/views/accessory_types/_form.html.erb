@@ -20,9 +20,9 @@
 
   <div class="form-actions">
     <%if @crear %>
-    	<%= f.submit "Crear", :class=> "btn btn-primary" %>
+    	<%= f.submit "Crear", :class=> "btn btn-primary", :disable_with => 'Creando...' %>
     <%else%>
-    	<%= f.submit "Actualizar", :class=> "btn btn-primary" %>
+    	<%= f.submit "Actualizar", :class=> "btn btn-primary", :disable_with => 'Actualizando...' %>
     <%end%>
   </div>
   </fieldset>
