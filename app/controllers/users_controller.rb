@@ -76,6 +76,7 @@ class UsersController < ApplicationController
         end
       elsif @currentUser.isAdmin == true and @user.isAdmin == false
         if @user.save
+          UserMailer.welcome_email(@user,params[:user][:password]).deliver
           @ibox = Ibox.find(session[:ibox_id])
           @ibox.users << @user
           @users = @ibox.users
