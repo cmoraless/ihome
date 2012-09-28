@@ -190,20 +190,25 @@ class IboxesController < ApplicationController
   
   def enable
     respond_to do |format|
-      if Ibox.find_by_mac(params[:ibox_mac])
+      if Ibox.find_by_mac(params[:ibox_mac])        
         @ibox = Ibox.find_by_mac(params[:ibox_mac])
-        @user = User.find(session[:user_id])        
-        if @ibox.isActive == true
-          flash[:error] = "El ibox seleccionado ya esta activo."
-          flash[:notice] = ""
-          format.js
+        @user = User.find(session[:user_id])
+        if testConnection(@ibox.ip, @ibox.port, @ibox.user, @ibox.password) == true #si hubo conexion hago la habilitacion       
+          if @ibox.isActive == true
+            flash[:error] = "El ibox seleccionado ya esta activo."
+            flash[:notice] = ""
+            format.js
+          else
+            session[:ibox_id] = @ibox.id
+            @ibox.update_attribute(:isActive, true)
+            @ibox.users << @user
+            iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/removeEmail.cgi',@ibox.user,@ibox.password) #borro los correos
+            iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/setEmail.cgi?Email='+@user.email,@ibox.user,@ibox.password) #le asigno correo del admin
+            format.js {redirect_to :action => 'addDefaultAccessories', :id => @ibox.id}
+          end
         else
-          session[:ibox_id] = @ibox.id
-          @ibox.update_attribute(:isActive, true)
-          @ibox.users << @user
-          iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/removeEmail.cgi',@ibox.user,@ibox.password) #borro los correos
-          iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/setEmail.cgi?Email='+@user.email,@ibox.user,@ibox.password) #le asigno correo del admin
-          format.js {redirect_to :action => 'addDefaultAccessories', :id => @ibox.id}
+          flash[:error] = "No se ha podido establecer conexion con el Ibox. Revise su configuracion o conexion a internet."
+          format.js
         end
       else  
         flash[:error] = "No hemos encontrado el Ibox especificado."
