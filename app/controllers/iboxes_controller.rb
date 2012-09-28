@@ -172,8 +172,14 @@ class IboxesController < ApplicationController
     @ibox = Ibox.find(session[:ibox_id])
     ret = isConectedAccessory(@ibox.id, @accessory.zid)
     if (ret == true) 
-      flash[:error] = ""
-      flash[:notice] = "Es posible establecer comunicacion con el accesorio."
+      res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + @accessory.zid, @ibox.user, @ibox.password)
+      if (res[2] == 'STATUS=99')
+        flash[:notice] = ""
+        flash[:error] = "El Ibox no puede conectarse con el accesorio"
+      else
+        flash[:notice] = "Es posbile conectarse con el accesorio"
+        flash[:error] = ""
+      end
     else
       flash[:error] = "No es posible establecer comunicacion con el accesorio."
       flash[:notice] = ""
