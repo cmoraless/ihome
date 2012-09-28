@@ -4,7 +4,7 @@
 			<!--  -->
 			<!-- Dimmers -->
 			<!--  -->
-			<%if accessory.cmdclass == "AllOnOff,Configuration"%>
+			<%if accessory.cmdclass =~ /AllOnOff,Configuration/i %>
 				<!-- Nombre -->
 				<span class="title"><%= accessory.name %></span>
 				<!-- Input Controlador AJAX -->
