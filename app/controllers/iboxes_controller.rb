@@ -402,9 +402,9 @@ class IboxesController < ApplicationController
         @accessory.save
         
         #guardo el nombre del accesorio en el ibox
-        instruction = '/cgi-bin/Set.cgi?ZID=' + @accessory.zid + '&ALIAS=' + @accessory.name + '&X=' + @accessory.x  + '&Y=' + @accessory.y + '&W=' + @accessory.w + '&H=' + @accessory.h + '&Layer=0'
+        name = @accessory.name.delete(" ") #borro los espacios para pasarselo al webservice
+        instruction = '/cgi-bin/Set.cgi?ZID=' + @accessory.zid + '&ALIAS=' + name + '&X=' + @accessory.x  + '&Y=' + @accessory.y + '&W=' + @accessory.w + '&H=' + @accessory.h + '&Layer=0'
         respuesta = iboxExecute(@ibox.ip, @ibox.port, instruction ,@ibox.user,@ibox.password)
-        logger.debug "##################################### RESPUESTA = #{instruction}"
         logger.debug "##################################### RESPUESTA = #{respuesta}"
         #Se busca el contenedor del Ibox y tipo
         @container = IboxAccessoriesContainer.find_by_ibox_id_and_accessory_type_id(@ibox.id, @accessory_type.id)
