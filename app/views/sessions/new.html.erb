@@ -1,28 +1,26 @@
 <div class="span5 offset1">
 	<h2> Bienvenido a iHome </h2>
-	
-	
 	<h4>Tu Hogar Inteligente al alcance de todos! </h4>
 </div>
 	
 <div class="span9 offset5">
 		
 	<% if flash[:error]%>
-		<div class="offset3"><span class="label label-warning"><%= render :text=> "Correo o contraseña inválida"%></span></div>
+		<span class="label label-warning"><%= render :text=> "Correo o contraseña inválida"%></span>
 	<% end %>
 	
 	<table>
 		<%= form_tag sessions_path do %>
-		  <tr> 
-		  	<td><%= text_field_tag :email, params[:email], :placeholder => 'Ingresa tu correo', :required => "true" %></td>
-		  </tr>
+		   <tr> 
+		  	 <td><%= text_field_tag :email, params[:email], :placeholder => 'Ingresa tu correo', :required => "true" %></td>
+		   </tr>
 		  
-		  <tr>  
-		    <td><%= password_field_tag :password, nil, :placeholder => 'Ingresa tu contraseña', :required => "true", :class => "input-medium"%>  <%= submit_tag "Entrar", :class => "btn btn-primary logbutton"%></td>
-		  </tr>
+		   <tr>  
+		     <td><%= password_field_tag :password, nil, :placeholder => 'Ingresa tu contraseña', :required => "true", :class => "input-medium"%>  <%= submit_tag "Entrar", :class => "btn btn-primary logbutton"%></td>
+		   </tr>
+		<% end %>
+	</table>
 
-	  </table>
-	<% end %>
 	<strong><%= link_to "Olvidó su contraseña?", session_recover_path,  {:style=>'color:#FFFFFF;'} %></strong>
 
 </div>		
