@@ -207,7 +207,7 @@ class IboxesController < ApplicationController
             format.js {redirect_to :action => 'addDefaultAccessories', :id => @ibox.id}
           end
         else
-          flash[:error] = "No se ha podido establecer conexion con el Ibox. Revise su configuracion o conexion a internet."
+          flash[:error] = "No se ha podido establecer conexion con el Ibox."
           format.js
         end
       else  
