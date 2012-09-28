@@ -16,7 +16,11 @@
 		  <tr>
 		    <td><%= @sensors_conditions[i].name %></td>
 		    <td><%= @accessories_conditions[i].name %></td>
-		    <td><%= @conditions[i][:action]%></td>
+		    <% if @conditions[i][:action] == "On"%>
+		   		<td>Encender</td>
+	   	 	<%else%>
+	   	 		<td>Apagar</td>
+	   	 	<%end%>
 		    <% if @conditions[i][:sendmail] == "1"%>
 		    	<td>Si</td>	
 		    <%else%>
