@@ -352,7 +352,10 @@ class IboxesController < ApplicationController
         @accessory.update_attribute(:zid, res[0+12*i].to_s.split('=')[1])
         @accessory.update_attribute(:kind, res[1+12*i].to_s.split('=')[1])
         @accessory.update_attribute(:cmdclass, res[10+12*i].to_s.split('=')[1])
-        
+        @accessory.update_attribute(:x, res[3+12*i].to_s.split('=')[1])
+        @accessory.update_attribute(:y, res[4+12*i].to_s.split('=')[1])
+        @accessory.update_attribute(:w, res[5+12*i].to_s.split('=')[1])
+        @accessory.update_attribute(:h, res[6+12*i].to_s.split('=')[1])
         resacc = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + @accessory.zid,@ibox.user,@ibox.password)
       
         @accessory.update_attribute(:value, resacc[2].to_s.split('=')[1])
@@ -384,7 +387,7 @@ class IboxesController < ApplicationController
           @accessory.update_attribute(:name, "sensor 0"+i.to_s)
         end
         #guardo el nombre del accesorio en el ibox
-        iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Set.cgi?ZID=' + @accessory.zid + '&ALIAS=' + @accessory.name + '&X=100&Y=100&W=100&H=100&Layer=0',@ibox.user,@ibox.password)
+        iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Set.cgi?ZID=' + @accessory.zid + '&ALIAS=' + @accessory.name + '&X=' + @accessory.x  + '&Y=' + @accessory.y + '&W=' + @accessory.w + '&H=' + @accessory.h + '&Layer=0',@ibox.user,@ibox.password)
         #Si no existe se crea el contenedor del tipo de accesorio en el Ibox
         if (!@ibox.accessory_types.find_by_name(@accessory_type.name))
           @ibox.accessory_types << @accessory_type
