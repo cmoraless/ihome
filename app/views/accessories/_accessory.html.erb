@@ -94,18 +94,18 @@
 			function ver_estado_sensor_<%=accessory.id%>(){
 				$.get('<%= url_for(:controller=> 'accessories', :action=>'get_status',:id => accessory.id)%>',function(data){
 				if (data == 3){
-					$('#status_sensor_<%=accessory.id%>').text("Trigger");
-				}else if(data == 0){
 					$('#status_sensor_<%=accessory.id%>').text("Normal");
+				}else if(data == 0){
+					$('#status_sensor_<%=accessory.id%>').text("Activado");
 				}				
 			});
 			}
 			
 			$.get('<%= url_for(:controller=> 'accessories', :action=>'get_status',:id => accessory.id)%>',function(data){
-				if (data == 2){
-					$('#status_sensor_<%=accessory.id%>').text("Activado");
-				}else{
+				if (data == 3){
 					$('#status_sensor_<%=accessory.id%>').text("Normal");
+				}else{
+					$('#status_sensor_<%=accessory.id%>').text("Activado");
 				}				
 			});
 			
