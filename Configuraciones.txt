@@ -5,3 +5,6 @@ Lentitud de aplicaci�n:
 Funcionalidad correos:
   Instalar paquetes sendmail y sendemail
   Distros debian (.deb): sudo apt-get install sendmail sendemail
+
+Collpase dinamico IExplorer
+  ./copiar_archivo_modificado.sh
