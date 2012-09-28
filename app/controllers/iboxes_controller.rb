@@ -371,7 +371,7 @@ class IboxesController < ApplicationController
           end
         end
         if (@accessory.kind == "MultiLevelSwitch")
-          if (@accessory.cmdclass == "AllOnOff,Configuration")
+          if (@accessory.cmdclass =~ /AllOnOff,Configuration/i)
             @accessory_type = AccessoryType.find_by_name("Dimmers")
             @accessory.update_attribute(:name, "dimmer 0"+i.to_s)
           else
