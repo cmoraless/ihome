@@ -4,7 +4,6 @@ class UserMailer < ActionMailer::Base
   def welcome_email(user,password)
     @user = user
     @password = password
-    @url  = "http://200.28.166.104/ihome/"
     mail(:to => user.email, :subject => "Bienvenido a iHome.")
   end
   
