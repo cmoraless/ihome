@@ -397,8 +397,7 @@ class IboxesController < ApplicationController
           @accessory_type = AccessoryType.find_by_name("Sensores")
           @accessory.update_attribute(:name, "sensor 0"+i.to_s)
         end
-        #guardo el nombre del accesorio en el ibox
-        iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Set.cgi?ZID=' + @accessory.zid + '&ALIAS=' + @accessory.name + '&X=' + @accessory.x  + '&Y=' + @accessory.y + '&W=' + @accessory.w + '&H=' + @accessory.h + '&Layer=0',@ibox.user,@ibox.password)
+        
         #Si no existe se crea el contenedor del tipo de accesorio en el Ibox
         if (!@ibox.accessory_types.find_by_name(@accessory_type.name))
           @ibox.accessory_types << @accessory_type
@@ -407,6 +406,10 @@ class IboxesController < ApplicationController
         #Se asgina el tipo de accesorio al accesorio y se guarda
         @accessory.accessory_type = @accessory_type
         @accessory.save
+        
+        #guardo el nombre del accesorio en el ibox
+        name = @accessory.name.delete(" ") #borro los espacios para pasarselo al webservice
+        respuesta = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Set.cgi?ZID=' + @accessory.zid + '&ALIAS=' + name + '&X=' + @accessory.x  + '&Y=' + @accessory.y + '&W=' + @accessory.w + '&H=' + @accessory.h + '&Layer=0',@ibox.user,@ibox.password)
         #Se busca el contenedor del Ibox y tipo
         @container = IboxAccessoriesContainer.find_by_ibox_id_and_accessory_type_id(@ibox.id, @accessory_type.id)
         #se le cambia el nombre al contenedor
