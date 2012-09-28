@@ -1,15 +1,28 @@
 <%= form_tag(url_for(:controller => "iboxes", :action => "save_sensor_condition"), :remote=>true) %>
-<%= label_tag "Sensor:" %> 
-<%= select_tag "sensor", options_from_collection_for_select(@sensors, "id", "name") %>
-<%= label_tag "Accesorio:"%>
-<%= select_tag "accessory", options_from_collection_for_select(@accessories, "id", "name") %>
-<%= label_tag "Acción:"%>
-<%= select_tag "accion", "<option>Encender</option><option>Apagar</option>".html_safe %>
-<%= label_tag "Enviar Correo:"%>
-<%= select_tag "email", "<option>Si</option><option>No</option>".html_safe %>
+<br />
+<div style="font-size:150%;">Nueva Condición</div>
+<hr />
 <br/>
 <br/>
+<table>
+<tr>
+<td><%= label_tag "Sensor:" %></td> 
+<td><%= select_tag "sensor", options_from_collection_for_select(@sensors, "id", "name") %></td>
+</tr>
+<tr>
+<td><%= label_tag "Accesorio:"%></td>
+<td><%= select_tag "accessory", options_from_collection_for_select(@accessories, "id", "name") %></td>
+</tr>
+<tr>
+<td><%= label_tag "Acción:"%></td>
+<td><%= select_tag "accion", "<option>Encender</option><option>Apagar</option>".html_safe %></td>
+</tr>
+<tr>
+<td><%= label_tag "Enviar Correo:"%></td>
+<td><%= select_tag "email", "<option>Si</option><option>No</option>".html_safe %></td>
+<tr>
+</table>
+<div class="form-actions">
 <%= submit_tag "Crear", :class=>"btn btn-primary", :disable_with => 'Creando...' %>	
-<br/>
-<br/>
+</div>
 <%= link_to "Atrás", back_condition_path, :class=> "btn btn-primary btn-small", :remote=>true%>
