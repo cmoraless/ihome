@@ -37,7 +37,7 @@ class HomeController < ApplicationController
     else
       @ibox = @user.iboxes.first
     end
-    
+    @testConnection = false
     if !@ibox.nil? #si existe el ibox del usuario agarrado anteriormente =>  Toma todos los contenedores del ibox
       session[:ibox_id] = @ibox.id
       @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
@@ -54,7 +54,7 @@ class HomeController < ApplicationController
           end
         end
       end
-      
+      @testConnection = testConnection(@ibox.ip, @ibox.port, @ibox.user, @ibox.password)
     else
       flash[:notice] = "Debe habilitar su Ibox en Administracion"
     end

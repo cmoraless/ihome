@@ -149,6 +149,7 @@
 	<%end%> <!-- end cameras -->
 	
 	<%content_for :accessories do %>
+		<% if @testConnection == true %> <!-- si hubo conexion con el ibox muestro los acordiones de los accesorios -->
 		<div class="accordion" id="accordion">
 			<% @containers.each do |container| %>
 				<% @accessories = container.accessories.find_all { |acc| acc.users.find_by_id(@user.id) } %>
@@ -191,6 +192,7 @@
 				<% end %>
 			<% end %>
 		</div>
+		<%end%> <!-- end if testconnection -->
 	<%end%> <!-- end accesories -->
 	
 <%else%> <!-- si no tiene iboxes renderizo mensaje -->
