@@ -403,9 +403,7 @@ class IboxesController < ApplicationController
         
         #guardo el nombre del accesorio en el ibox
         name = @accessory.name.delete(" ") #borro los espacios para pasarselo al webservice
-        instruction = '/cgi-bin/Set.cgi?ZID=' + @accessory.zid + '&ALIAS=' + name + '&X=' + @accessory.x  + '&Y=' + @accessory.y + '&W=' + @accessory.w + '&H=' + @accessory.h + '&Layer=0'
-        respuesta = iboxExecute(@ibox.ip, @ibox.port, instruction ,@ibox.user,@ibox.password)
-        logger.debug "##################################### RESPUESTA = #{respuesta}"
+        respuesta = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Set.cgi?ZID=' + @accessory.zid + '&ALIAS=' + name + '&X=' + @accessory.x  + '&Y=' + @accessory.y + '&W=' + @accessory.w + '&H=' + @accessory.h + '&Layer=0',@ibox.user,@ibox.password)
         #Se busca el contenedor del Ibox y tipo
         @container = IboxAccessoriesContainer.find_by_ibox_id_and_accessory_type_id(@ibox.id, @accessory_type.id)
         #se le cambia el nombre al contenedor
