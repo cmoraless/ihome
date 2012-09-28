@@ -88,7 +88,8 @@
 			</script>
 		<%elsif accessory.kind == "BinarySensor"%>
 			<span class="title"><%= accessory.name %></span>
-			<label id="status_sensor_<%=accessory.id%>"></label> 
+			
+			
 			<script type="text/javascript">
 			function ver_estado_sensor_<%=accessory.id%>(){
 				$.get('<%= url_for(:controller=> 'accessories', :action=>'get_status',:id => accessory.id)%>',function(data){
@@ -99,6 +100,7 @@
 				}				
 			});
 			}
+			
 			$.get('<%= url_for(:controller=> 'accessories', :action=>'get_status',:id => accessory.id)%>',function(data){
 				if (data == 2){
 					$('#status_sensor_<%=accessory.id%>').text("Activado");
@@ -106,10 +108,15 @@
 					$('#status_sensor_<%=accessory.id%>').text("Normal");
 				}				
 			});
+			
 			</script>
 			<div class="action">
-			<a class="btn btn-primary" href="javascript:ver_estado_sensor_<%=accessory.id%>();">Actualizar Estado</a>
-			</div>			
+				<a class="btn btn-primary" href="javascript:ver_estado_sensor_<%=accessory.id%>();">Actualizar Estado</a>
+			</div>
+			
+			<div class="sensorStatus">
+				<label id="status_sensor_<%=accessory.id%>"></label> 
+			</div>
 		<%end%>
 	</div>
 </li>

@@ -17,7 +17,7 @@
 		<div class="control-group">
   			<%= f.label :Tipo, :class=> "control-label" %>   
 	  		<div class="controls">
-				<%= f.collection_select :accessory_type_id, AccessoryType.all, :id, :name %>
+				<%= f.collection_select :accessory_type_id, @accessoryTypes, :id, :name %>
 	  		</div>
 		</div>
 		

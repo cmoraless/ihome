@@ -37,6 +37,9 @@ class AccessoriesController < ApplicationController
     @accessory = Accessory.find(params[:id])
     @ibox = Ibox.find(session[:ibox_id])
     @users = @ibox.users.where(:isAdmin => false)
+    @accessoryTypes= AccessoryType.all
+    @accessoryTypes.delete(AccessoryType.find_by_name("Sensores"))
+
   end
 
   # POST /accessories

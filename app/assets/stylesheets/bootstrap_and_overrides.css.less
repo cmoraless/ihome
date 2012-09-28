@@ -26,10 +26,6 @@ body {
 @fontAwesomeTtfPath:  'fontawesome-webfont.ttf';
 @fontAwesomeSvgzPath: 'fontawesome-webfont.svgz';
 @fontAwesomeSvgPath:  'fontawesome-webfont.svg';
-//@fontAwesomeEotPath: '/assets/fontawesome-webfont.eot';
-//@fontAwesomeWoffPath: '/assets/fontawesome-webfont.woff';
-//@fontAwesomeTtfPath: '/assets/fontawesome-webfont.ttf';
-//@fontAwesomeSvgPath: '/assets/fontawesome-webfont.svg';
 
 // Font Awesome
 @import "fontawesome";
@@ -66,12 +62,6 @@ body {
   }*/
 
  
-  body { 
-  //height: 95%;
-  //min-height: 90%;
-  //position: absolute;
-  }
-  
   footer {
     color: darken(@white, 10%);
     background: transparent;
@@ -82,14 +72,18 @@ body {
  .fill {
   #translucent > .background(@blue, 0.2);
   .border-radius(0px);
-  //margin-top: 0px; 
-  //height: inherit;
+
+  }
+  
+  .logbutton {
+  margin-bottom: 9px;
+
   }
 
  .fillsession {
   #translucent > .background(@blue, 0.2);
   .border-radius(0px);
-  margin-top: 100px; 
+  margin-top: 80px; 
   //height: inherit;
   }
 
@@ -146,6 +140,13 @@ body {
        .dimmerCounter {
         float: right;
       }
+      
+       .sensorStatus {
+        float: right;
+        margin-right: 3%;
+        margin-top: 1%;             
+      }
+      
     }
   }
   
