@@ -190,20 +190,25 @@ class IboxesController < ApplicationController
   
   def enable
     respond_to do |format|
-      if Ibox.find_by_mac(params[:ibox_mac])
+      if Ibox.find_by_mac(params[:ibox_mac])        
         @ibox = Ibox.find_by_mac(params[:ibox_mac])
-        @user = User.find(session[:user_id])        
-        if @ibox.isActive == true
-          flash[:error] = "El ibox seleccionado ya esta activo."
-          flash[:notice] = ""
-          format.js
+        @user = User.find(session[:user_id])
+        if testConnection(@ibox.ip, @ibox.port, @ibox.user, @ibox.password) == true #si hubo conexion hago la habilitacion       
+          if @ibox.isActive == true
+            flash[:error] = "El ibox seleccionado ya esta activo."
+            flash[:notice] = ""
+            format.js
+          else
+            session[:ibox_id] = @ibox.id
+            @ibox.update_attribute(:isActive, true)
+            @ibox.users << @user
+            iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/removeEmail.cgi',@ibox.user,@ibox.password) #borro los correos
+            iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/setEmail.cgi?Email='+@user.email,@ibox.user,@ibox.password) #le asigno correo del admin
+            format.js {redirect_to :action => 'addDefaultAccessories', :id => @ibox.id}
+          end
         else
-          session[:ibox_id] = @ibox.id
-          @ibox.update_attribute(:isActive, true)
-          @ibox.users << @user
-          iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/removeEmail.cgi',@ibox.user,@ibox.password) #borro los correos
-          iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/setEmail.cgi?Email='+@user.email,@ibox.user,@ibox.password) #le asigno correo del admin
-          format.js {redirect_to :action => 'addDefaultAccessories', :id => @ibox.id}
+          flash[:error] = "No se ha podido establecer conexion con el Ibox."
+          format.js
         end
       else  
         flash[:error] = "No hemos encontrado el Ibox especificado."
@@ -352,7 +357,10 @@ class IboxesController < ApplicationController
         @accessory.update_attribute(:zid, res[0+12*i].to_s.split('=')[1])
         @accessory.update_attribute(:kind, res[1+12*i].to_s.split('=')[1])
         @accessory.update_attribute(:cmdclass, res[10+12*i].to_s.split('=')[1])
-        
+        @accessory.update_attribute(:x, res[3+12*i].to_s.split('=')[1])
+        @accessory.update_attribute(:y, res[4+12*i].to_s.split('=')[1])
+        @accessory.update_attribute(:w, res[5+12*i].to_s.split('=')[1])
+        @accessory.update_attribute(:h, res[6+12*i].to_s.split('=')[1])
         resacc = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + @accessory.zid,@ibox.user,@ibox.password)
       
         @accessory.update_attribute(:value, resacc[2].to_s.split('=')[1])
@@ -371,7 +379,7 @@ class IboxesController < ApplicationController
           end
         end
         if (@accessory.kind == "MultiLevelSwitch")
-          if (@accessory.cmdclass == "AllOnOff,Configuration")
+          if (@accessory.cmdclass =~ /AllOnOff,Configuration/i)
             @accessory_type = AccessoryType.find_by_name("Dimmers")
             @accessory.update_attribute(:name, "dimmer 0"+i.to_s)
           else
@@ -384,7 +392,7 @@ class IboxesController < ApplicationController
           @accessory.update_attribute(:name, "sensor 0"+i.to_s)
         end
         #guardo el nombre del accesorio en el ibox
-        iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Set.cgi?ZID=' + @accessory.zid + '&ALIAS=' + @accessory.name + '&X=100&Y=100&W=100&H=100&Layer=0',@ibox.user,@ibox.password)
+        iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Set.cgi?ZID=' + @accessory.zid + '&ALIAS=' + @accessory.name + '&X=' + @accessory.x  + '&Y=' + @accessory.y + '&W=' + @accessory.w + '&H=' + @accessory.h + '&Layer=0',@ibox.user,@ibox.password)
         #Si no existe se crea el contenedor del tipo de accesorio en el Ibox
         if (!@ibox.accessory_types.find_by_name(@accessory_type.name))
           @ibox.accessory_types << @accessory_type
@@ -461,6 +469,7 @@ class IboxesController < ApplicationController
     res
   end   
   
+  #boton reset del ibox (borra todos los accesorios)
   def reset
     @ibox = Ibox.find(params[:id])
     @currentUser = User.find(session[:user_id])
@@ -502,6 +511,7 @@ class IboxesController < ApplicationController
   
   end
   
+  #muestra el formulario si el usuario posee sensores o si no muestra error 
   def new_sensor_condition
     containers = IboxAccessoriesContainer.where("ibox_id = ?", session[:ibox_id])
     @sensors = Array.new
@@ -513,9 +523,13 @@ class IboxesController < ApplicationController
         @accessories += container.accessories
       end        
     end
+    if @sensors.length == 0 or @accessories.length == 0
+      flash[:error] = "Error. Ud no posee ningun sensor o accesorio."
+    end
         
   end
   
+  #guarda la condicion del sensor en el ibox
   def save_sensor_condition
     respond_to do |format|
       @ibox = Ibox.find(session[:ibox_id])
@@ -558,6 +572,7 @@ class IboxesController < ApplicationController
     end
   end
   
+  #borra una condicion de un sensor determinada
   def delete_sensor_condition
     respond_to do |format|
       @conditions = get_sensors_conditions
@@ -569,6 +584,7 @@ class IboxesController < ApplicationController
     end    
   end
   
+  #boton back en ibox
   def back
     respond_to do |format|
       @currentUser = User.find(session[:user_id])
@@ -582,6 +598,7 @@ class IboxesController < ApplicationController
     end
   end
   
+  #boton back en parte sensores de vista admin
   def back_condition
     respond_to do |format|
       @conditions = get_sensors_conditions
@@ -589,33 +606,59 @@ class IboxesController < ApplicationController
     end 
   end  
   
+  #obtiene todas las condiciones de los sensores de un ibox
   def get_sensors_conditions
     #leo las condiciones de los sensores del ibox
-    @ibox = Ibox.find(session[:ibox_id])
-    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Get.cgi?get=CONDITION', @ibox.user, @ibox.password)
     @conditions = Array.new
-    @sensors_conditions = Array.new
-    @accessories_conditions = Array.new
-    containers = IboxAccessoriesContainer.where("ibox_id = ?", session[:ibox_id])    
-    accessory_id = -1
-    sensor_id = -1    
-    for i in 0..res.length/7-1
-      #busco el id del sensor y del accesorio de la condicion para mostrarlo 
-      containers.each do |container|
-        container.accessories.each do |accessory|
-          if accessory.zid == res[0+7*i].to_s.split('=')[1].to_s
-            sensor = Accessory.find(accessory.id)
-            @sensors_conditions << sensor
-          elsif accessory.zid == res[3+7*i].to_s.split('=')[1].to_s
-            accessory = Accessory.find(accessory.id)
-            @accessories_conditions << accessory
-          end
-        end    
+    @ibox = Ibox.find(session[:ibox_id])
+      if testConnection(@ibox.ip,@ibox.port,@ibox.user,@ibox.password)
+      res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Get.cgi?get=CONDITION', @ibox.user, @ibox.password)      
+      @sensors_conditions = Array.new
+      @accessories_conditions = Array.new
+      containers = IboxAccessoriesContainer.where("ibox_id = ?", session[:ibox_id])    
+      accessory_id = -1
+      sensor_id = -1    
+      for i in 0..res.length/7-1
+        #busco el id del sensor y del accesorio de la condicion para mostrarlo 
+        containers.each do |container|
+          container.accessories.each do |accessory|
+            if accessory.zid == res[0+7*i].to_s.split('=')[1].to_s
+              sensor = Accessory.find(accessory.id)
+              @sensors_conditions << sensor
+            elsif accessory.zid == res[3+7*i].to_s.split('=')[1].to_s
+              accessory = Accessory.find(accessory.id)
+              @accessories_conditions << accessory
+            end
+          end    
+        end
+        @conditions << {:id => (i+1), :zid => res[0+7*i].to_s.split('=')[1], :value => res[1+7*i].to_s.split('=')[1], :hiorlo => res[2+7*i].to_s.split('=')[1], :czid => res[3+7*i].to_s.split('=')[1],
+          :action => res[4+7*i].to_s.split('=')[1], :cvalue => res[5+7*i].to_s.split('=')[1], :sendmail => res[6+7*i].to_s.split('=')[1] } 
       end
-      @conditions << {:id => (i+1), :zid => res[0+7*i].to_s.split('=')[1], :value => res[1+7*i].to_s.split('=')[1], :hiorlo => res[2+7*i].to_s.split('=')[1], :czid => res[3+7*i].to_s.split('=')[1],
-        :action => res[4+7*i].to_s.split('=')[1], :cvalue => res[5+7*i].to_s.split('=')[1], :sendmail => res[6+7*i].to_s.split('=')[1] } 
+      @conditions
+    else
+      flash[:error] = "No se ha podido establecer comunicacion con el Ibox. Revise su configuracion o conexion a internet."
+      @conditions
     end
-    @conditions
+  end
+  
+  def testConnection(ibox_ip, ibox_port, user, password)
+    require 'net/http'
+    require 'uri'
+    ws = 'http://' + ibox_ip + ':' + ibox_port
+    url = URI.parse(ws)
+    ret = true
+    begin
+      http = Net::HTTP.new(url.host, url.port)      
+      http.open_timeout = 3
+      http.read_timeout = 3
+      response = http.start do |https|
+        https.request_get(url.path + '/cgi-bin/Get.cgi?get=SET')
+      end
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Errno::ECONNREFUSED,
+      Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
+      ret = false
+    end
+    ret
   end
     
 end

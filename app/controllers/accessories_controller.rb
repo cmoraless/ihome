@@ -69,7 +69,7 @@ class AccessoriesController < ApplicationController
     respond_to do |format|
       if @accessory.update_attributes(params[:accessory])
         #updateo el nombre en el ibox
-        iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Set.cgi?ZID=' + @accessory.zid + '&ALIAS=' + @accessory.name + '&X=100&Y=100&W=100&H=100&Layer=0',@ibox.user,@ibox.password)
+        iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Set.cgi?ZID=' + @accessory.zid + '&ALIAS=' + @accessory.name + '&X=' + @accessory.x  + '&Y=' + @accessory.y + '&W=' + @accessory.w + '&H=' + @accessory.h + '&Layer=0',@ibox.user,@ibox.password)
         # se agrega al nuevo containter
         if (!@ibox.accessory_types.find_by_name(@accessory.accessory_type.name))
           @ibox.accessory_types << @accessory.accessory_type

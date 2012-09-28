@@ -34,7 +34,7 @@
  		</div>
  	
 		<div class="form-actions">
-    		<%= profile_form.submit :GuardarCambios, :class => "btn btn-primary", :remote => true %>
+    		<%= profile_form.submit :GuardarCambios, :class => "btn btn-primary", :remote => true, :disable_with => 'Guardando...' %>
 		 <!-- #link_to "Programar", { :controller => "profiles" , :action => "schedules", :id => @profile.id }, :class => "btn btn-primary", :remote => true -->
   		</div>
   		

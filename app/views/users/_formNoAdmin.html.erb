@@ -46,9 +46,9 @@
 		
 		<div class="form-actions">
 	    <% if @edit %>
-	    	<%= user_form.submit :Actualizar, :class => "btn btn-primary" %>
+	    	<%= user_form.submit :Actualizar, :class => "btn btn-primary", :disable_with => 'Actualizando...' %>
 	    <%else%>
-	    	<%= user_form.submit :Crear, :class => "btn btn-primary" %>
+	    	<%= user_form.submit :Crear, :class => "btn btn-primary", :disable_with => 'Creando...' %>
 	    <%end%>
     </div>
 				

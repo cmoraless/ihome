@@ -69,9 +69,10 @@ Ihome::Application.configure do
   config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
-    :domain               => '200.28.166.104',
+    :domain               => 'localhost',
     :user_name            => 'ihome.bissen',
     :password             => 'b1ss3n.1h0m3',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
+    
 end

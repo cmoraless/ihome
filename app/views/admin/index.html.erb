@@ -95,9 +95,11 @@
 <%end%>
 
 <%content_for :sensors do %>
-	<%if @iboxes.length > 0%>
+	<%if @iboxes.length > 0 and @iboxConnected == true%>
 		<%= render 'iboxes/all_conditions'%>
 		<%= link_to "Agregar nueva condición", new_sensor_condition_path, :remote=>true, :class=>'btn btn-primary' %>
+	<%else%>
+		<%= render 'shared/flash_messages'%>
 	<%end%>
 <%end%>
 	

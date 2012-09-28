@@ -9,7 +9,7 @@
 <%= select_tag "email", "<option>Si</option><option>No</option>".html_safe %>
 <br/>
 <br/>
-<%= submit_tag "Guardar", :class=>"btn btn-primary" %>	
+<%= submit_tag "Crear", :class=>"btn btn-primary", :disable_with => 'Creando...' %>	
 <br/>
 <br/>
 <%= link_to "Atrás", back_condition_path, :class=> "btn btn-primary btn-small", :remote=>true%>

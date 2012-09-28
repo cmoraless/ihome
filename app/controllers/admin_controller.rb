@@ -38,10 +38,12 @@ class AdminController < ApplicationController
       @containers.each do |container|
         @accessories << container.accessories        
       end
+      @iboxConnected = true
       if testConnection(@ibox.ip,@ibox.port,@ibox.user,@ibox.password)
         @conditions = get_sensors_conditions
       else
         flash[:error] = "No se ha podido establecer comunicacion con el Ibox. Revise su configuracion o conexion a internet."
+        @iboxConnected = false
       end 
     end
     

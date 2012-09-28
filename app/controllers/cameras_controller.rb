@@ -140,31 +140,15 @@ class CamerasController < ApplicationController
             Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
           end
         else
-          send_data view_content.image_path("ihome_logo.jpg"), :type => 'image/jpeg'  
+          render :text => "No se ha podido establecer conexion con la camara."  
         end
       else
         redirect_to :controller=>"home", :action=>"index"
       end
     end
   end
-=begin  
-  def stream_video
-    require 'net/http'
-    require 'uri'
-    ws = 'http://200.28.166.104:8082'
-    url = URI.parse(ws)
-    begin
-      req = Net::HTTP::Get.new(url.path + '/video.cgi')
-      req.basic_auth 'mario', 'mario'
-      res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
-      send_data res.body, :type=> 'image/jpeg'      
-    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
-      Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
-    end
-  end
-=end
 
-  #funcion que prueba la conexion de la camara si es correcta
+  #funcion que prueba la conexion de la camara si es correcta en movil
   def testConnection(id)
     require 'net/http'
     require 'uri'
@@ -183,8 +167,7 @@ class CamerasController < ApplicationController
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
       ret = false
     end
-    ret
-    
+    ret    
   end
 
 end

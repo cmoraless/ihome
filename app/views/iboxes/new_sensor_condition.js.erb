@@ -1,3 +1,7 @@
 $('#sensors').empty();
+<% if @sensors.length == 0 or @accessories.length == 0%>
+$('#sensors').append('<%= j render "shared/flash_messages" %>');
+$('#sensors').append('<%= link_to "Atrás", back_condition_path, :class=> "btn btn-primary btn-small", :remote=>true%>');
+<%else%>
 $('#sensors').append('<%= j render "iboxes/formCondition" %>');
-
+<%end%>
