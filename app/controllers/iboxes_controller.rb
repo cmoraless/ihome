@@ -516,7 +516,7 @@ class IboxesController < ApplicationController
       end        
     end
     if @sensors.length == 0
-      flash[:error] = "Error. Ud no posee ningun sensor."
+      flash[:error] = "Error. Ud no posee ningun sensor o accesorio."
     end
         
   end
