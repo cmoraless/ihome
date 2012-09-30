@@ -73,7 +73,7 @@
 	<div class="accordion" >
 		<div class="accordion-group">
 			<div class="accordion-heading">
-				<a class="accordion-toggle" href="#profiles" data-toggle="collapse"><h2><%= image_tag("profile2.png", :size=>"40x40")%> &nbsp; Perfiles</h2></a>
+				<a class="accordion-toggle" href="#profiles" data-toggle="collapse"><h2><%= image_tag("profile2.png", :size=>"40x40")%><div style="visibility: hidden; display:inline;">&nbsp;&nbsp;</div>Perfiles</h2></a>
 			</div> 
 			<div id="profiles" class="collapse">  
 				<div class="accordion-body collapse in">
@@ -105,7 +105,7 @@
 				<div class="accordion">
 					<div class="accordion-group">
 						<div class="accordion-heading">
-							<a class="accordion-toggle" href="#camaras" data-toggle="collapse"><h2><%= image_tag("camaraicon.png", :size=>"35x35")%> C&aacutemaras</h2></a>
+							<a class="accordion-toggle" href="#camaras" data-toggle="collapse"><h2><%= image_tag("camaraicon.png", :size=>"40x40")%><div style="visibility: hidden; display:inline;">&nbsp;&nbsp;</div>C&aacute;maras</h2></a>
 						</div> 
 						<div id="camaras" class="collapse in">  
 							<div class="accordion-body collapse in">
@@ -159,17 +159,17 @@
 				  		<div class="accordion-heading">
 				    		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#<%= container.name %>">
 				      			<% if container.name == "Luces"%>
-				      			<h2><%= image_tag("luzicon.png", :size=>"40x40")%> &nbsp; <%= container.name %></h2>
+				      			<h2><%= image_tag("luzicon.png", :size=>"40x40")%><div style="visibility: hidden; display:inline;"> &nbsp;</div><%= container.name %></h2>
 				      			<% elsif container.name == "Cortinas"%>
-				      			<h2><%= image_tag("cortinaicon.png", :size=>"40x40")%> &nbsp; <%= container.name %></h2>
+				      			<h2><%= image_tag("cortinaicon.png", :size=>"40x40")%><div style="visibility: hidden; display:inline;"> &nbsp;</div><%= container.name %></h2>
 				      			<% elsif container.name == "Sensores"%>
-				      			<h2><%= image_tag("sensor.png", :size=>"41x28")%> &nbsp; <%= container.name %></h2>
+				      			<h2><%= image_tag("sensor.png", :size=>"41x28")%><div style="visibility: hidden; display:inline;"> &nbsp;</div><%= container.name %></h2>
 				      			<% elsif container.name == "Dimmers"%>				      			
-				      			<h2><%= image_tag("dimmericon.png", :size=>"40x40")%> &nbsp; <%= container.name %></h2>
+				      			<h2><%= image_tag("dimmericon.png", :size=>"40x40")%><div style="visibility: hidden; display:inline;"> &nbsp;</div><%= container.name %></h2>
 				      			<% elsif container.name == "Riegos"%>
-				      			<h2><%= image_tag("riegoicon.png", :size=>"35x35")%> &nbsp; <%= container.name %></h2>
+				      			<h2><%= image_tag("riegoicon.png", :size=>"35x35")%><div style="visibility: hidden; display:inline;"> &nbsp;</div><%= container.name %></h2>
 				      			<% elsif container.name == "Enchufes"%>
-				      			<h2><%= image_tag("enchufeicon.png", :size=>"40x40")%> &nbsp; <%= container.name %></h2>
+				      			<h2><%= image_tag("enchufeicon.png", :size=>"40x40")%><div style="visibility: hidden; display:inline;"> &nbsp;</div><%= container.name %></h2>
 				      			<% else %>
 			      				<h2><%= container.name %></h2>
 				      			<%end%>
