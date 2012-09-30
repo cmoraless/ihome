@@ -6,10 +6,12 @@
   <body>
     <h1>Bienvenido <%= @user.name %></h1>
     <p>
-      Se te ha creado una cuenta para empezar a utilizar iHome. Tus credenciales son: <br/>
+      Se te ha creado una cuenta para empezar a utilizar iHome. <br/> 
+      Dirígete a: <%= @url %> <br/>
+      Tus credenciales son: <br/>
       Correo: <%= @user.email %><br/>
       Password: <%= @password %>
     </p>
-    <p>Gracias por preferirnos!</p>
+    <p>Gracias por utilizar nuestros servicios !</p>
   </body>
 </html>
