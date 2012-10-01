@@ -6,12 +6,11 @@
   <body>
     <h1>Bienvenido <%= @user.name %></h1>
     <p>
-      Se te ha creado una cuenta para empezar a utilizar iHome. <br/> 
-      <a href="<%=@url %>">Haz click aquí</a> para ingresar a nuestro sistema.<br/>
-      Tus credenciales son: <br/>
-      Correo: <%= @user.email %><br/>
-      Password: <%= @password %>
+      Desde este momento puedes comenzar a vivir la experiencia iHome haciendo <a href="<%=@url %>">click aquí.</a> <br/> 
+      Para acceder a tu cuenta, sólo debes ingresar: <br/>
+      Usuario: <%= @user.email %><br/>
+      Contraseña: <%= @password %>
     </p>
-    <p>Gracias por utilizar nuestros servicios !</p>
+    <p>iHome, tu hogar inteligente al alcance de todos!</p>
   </body>
 </html>
