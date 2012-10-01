@@ -213,6 +213,7 @@
 	<div id="modal-edit" class="modal-body">  
 	</div>  	 
 </div>
+
 <script type="text/javascript">
 	function resetModal(){
 		$('#modal-edit').empty();
@@ -220,7 +221,7 @@
 	}
 </script>  
 
-<div id="profilesHelp" class="modal hide fade">  
+<div id="profilesHelp" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  
 	<div class="modal-header">  
 		<a class="close" data-dismiss="modal">×</a>  
 		<h3>Ayuda para la creación de perfiles</h3>  
@@ -247,13 +248,12 @@
 		<p>Si desea que su configuración horario sea aplicable a todos los días de la semana, presione la opción "repetir todos los dias" </p>
 		<p>Atención! las acciones que se hayan completado y no tengan reiteraciones serán eliminadas automaticamente! </p>
 		
-		<button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+		<div class="modal-footer">
+        	<button class="btn" data-dismiss="modal">Cerrar</button>
+        </div>
 	</div>
-	
-
-	 	 
+ 	 
 </div>
 
-<script src="bootstrap.min.js"/>
 
 
