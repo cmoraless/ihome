@@ -462,7 +462,7 @@ class IboxesController < ApplicationController
       req.basic_auth user, password
       res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
       #escribo archivo de texto con la salida del web service
-      path = Rails.root + 'tmp/server.txt'
+      path = Rails.root.to_s + '/tmp/server' + session[:user_id].to_s + session[:ibox_id].to_s + '.txt'
       f_out = File.new(path,'w')
       f_out.puts res.body
       f_out.close
