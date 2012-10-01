@@ -54,21 +54,35 @@ body {
   @navbarLinkBackgroundActive: @navbarBackground;
   
   @navbarSearchPlaceholderColor: #ccc;
-
-  .navbar {
-    .brand {
-      color: @black;
-    }
-  }*/
-
-
-  footer {
-    color: darken(@white, 10%);
+  
+      color: darken(@white, 10%);
     background: transparent;
     padding: 17px 0 18px 0;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-  }
+  */
  
+  .navbar {
+    .brand {
+      color: @white;
+    }
+  }
+  
+  .footinner{
+  background: @grayDark;
+  color: @white;
+  //margin-top: -1px;
+  }
+
+  .footer {
+    height: 27px;
+    margin-bottom: 4px;
+  }
+  
+  .navbar .navbar-text {
+    line-height: 30px;
+  }
+  
+  
  .fill {
   #translucent > .background(@blue, 0.2);
   .border-radius(0px);
