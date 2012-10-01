@@ -1,11 +1,11 @@
 $('#notice').empty();
 <% if flash[:error] =~ /coinciden/i %>
-$('#notice').append('<div class="offset1"><span class="label label-warning"><%= j render :text => "Las contraseñas no coinciden."%></span></div>');
+$('#notice').append('<div class="offset1"><span class="label label-warning"><h2><%= j render :text => "Las contraseñas no coinciden."%></h2></span></div>');
 <%elsif flash[:error] =~ /codigo/i %>
-$('#notice').append('<div class="offset1"><span class="label label-warning"><%= j render :text => "El código ingresado no es válido."%></span></div>');
+$('#notice').append('<div class="offset1"><span class="label label-warning"><h2><%= j render :text => "El código ingresado no es válido."%></h2></span></div>');
 <%elsif flash[:error] =~ /usuario/i %>
-$('#notice').append('<div class="offset1"><span class="label label-warning"><%= j render :text => "No hemos encontrado un usuario con el correo especificado."%></span></div>');
+$('#notice').append('<div class="offset1"><span class="label label-warning"><h2><%= j render :text => "No hemos encontrado un usuario con el correo especificado."%></h2></span></div>');
 <%elsif flash[:notice] =~ /correctamente/i%>
 $('#recover').empty();
-$('#notice').append('<div class="offset1"><span class="label label-warning"><%= j render :text => "Se ha cambiado correctamente su contraseña.  "%><%= link_to 'Haga click aquí para ingresar con sus nuevas credenciales.',root_path %></span></div>');
+$('#notice').append('<div class="offset1"><span class="label label-warning"><h2><%= j render :text => "Se ha cambiado correctamente su contraseña.  "%><%= link_to 'Haga click aquí para ingresar con sus nuevas credenciales.',root_path %></h2></span></div>');
 <%end%>
