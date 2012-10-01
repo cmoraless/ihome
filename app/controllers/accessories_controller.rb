@@ -174,6 +174,7 @@ class AccessoriesController < ApplicationController
           res << line.to_s.chomp
         end
       end
+      File.delete(path)
     rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
     end
