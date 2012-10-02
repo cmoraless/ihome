@@ -664,7 +664,7 @@ class IboxesController < ApplicationController
       response = http.start do |https|
         https.request_get(url.path + '/cgi-bin/Get.cgi?get=SET')
       end
-    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Errno::ECONNREFUSED,
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Errno::ECONNREFUSED,Errno::EHOSTUNREACH,
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
       ret = false
     end
