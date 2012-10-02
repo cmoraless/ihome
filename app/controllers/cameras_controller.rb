@@ -164,7 +164,7 @@ class CamerasController < ApplicationController
       response = http.start do |https|
         https.request_get(url.path + '/image/jpeg.cgi')
       end
-    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Errno::ECONNREFUSED,Errno::EHOSTUNREACH,
+    rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Errno::ECONNREFUSED,
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
       ret = false
     end
