@@ -136,7 +136,6 @@ class CamerasController < ApplicationController
             req = Net::HTTP::Get.new(url.path + '/image/jpeg.cgi')
             req.basic_auth camera.user, camera.password
             res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
-            logger.debug "################### ANTES DE ENVIAR LA IMAGEN"
             send_data res.body, :type=> 'image/jpeg'      
           rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
             Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
@@ -145,7 +144,6 @@ class CamerasController < ApplicationController
           render :text => "No se ha podido establecer conexion con la camara."  
         end
       else
-        logger.debug "###################3 NO ESTAS AUTORIZADO"
         redirect_to :controller=>"home", :action=>"index"
       end
     end
