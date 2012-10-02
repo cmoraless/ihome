@@ -1,6 +1,6 @@
 class CamerasController < ApplicationController
-  before_filter :check_auth_admin  
-  skip_before_filter :only => [:stream_image]
+  before_filter :check_auth_admin, :except => [:stream_image, :testConnection]
+  
   def check_auth_admin    
     if User.exists?(session[:user_id])
       @currentUser = User.find(session[:user_id])
@@ -117,6 +117,7 @@ class CamerasController < ApplicationController
     if Ibox.find(session[:ibox_id])
       @currentIbox = Ibox.find(session[:ibox_id])
       @cameras = @currentIbox.cameras
+      logger.debug "########################### CAMERAS LENGTH #{@cameras.length}"
       autorizado = false
       for i in 0..@cameras.length-1
         if @cameras[i][:id].to_s == params[:id].to_s
@@ -135,6 +136,7 @@ class CamerasController < ApplicationController
             req = Net::HTTP::Get.new(url.path + '/image/jpeg.cgi')
             req.basic_auth camera.user, camera.password
             res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+            logger.debug "################### ANTES DE ENVIAR LA IMAGEN"
             send_data res.body, :type=> 'image/jpeg'      
           rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
             Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
@@ -143,6 +145,7 @@ class CamerasController < ApplicationController
           render :text => "No se ha podido establecer conexion con la camara."  
         end
       else
+        logger.debug "###################3 NO ESTAS AUTORIZADO"
         redirect_to :controller=>"home", :action=>"index"
       end
     end
