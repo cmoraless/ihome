@@ -1,7 +1,7 @@
 class IboxesController < ApplicationController
   layout "homeadmin"
   before_filter :check_auth_superAdmin, :only => [:new, :create, :destroy]
-  before_filter :check_auth_admin
+  before_filter :check_auth_admin, :except => [:testConnection]
   
   def check_auth_superAdmin
     if User.exists?(session[:user_id])
