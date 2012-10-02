@@ -41,7 +41,7 @@ Ihome::Application.configure do
   config.action_mailer.smtp_settings = {
     :address              => "smtp.bissen.cl",
     :port                 => 2525,
-    :domain               => 'bissen.cl',
+    :domain               => 'smtp.bissen.cl',
     :user_name            => 'noresponder-ihome',
     :password             => 'ihome.s',
     :authentication       => 'plain',
