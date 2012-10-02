@@ -39,11 +39,11 @@ Ihome::Application.configure do
   
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address              => "smtp.gmail.com",
-    :port                 => 587,
-    :domain               => 'localhost',
-    :user_name            => 'ihome.bissen',
-    :password             => 'b1ss3n.1h0m3',
+    :address              => "smtp.bissen.cl",
+    :port                 => 2525,
+    :domain               => 'bissen.cl',
+    :user_name            => 'noresponder-ihome',
+    :password             => 'ihome.s',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
     
