@@ -127,7 +127,7 @@
 										  <% for i in 0..@cameras.length-1%> <!-- creo scripts para achicar la camara al tamaño de la pantalla del movil (Se crea afuera del inner para que no lo muestre)-->
 										  <script type="text/javascript">											    		
 								    		var width = screen.width*0.7;
-								    		var height = width*3/4;
+								    		var height = screen.heigth*0.7;
 								    		$("#camera_<%= @cameras[i][:id].to_s %>").width(width);
 								    		$("#camera_<%= @cameras[i][:id].to_s %>").height(height);
 								    		$("div.carousel-caption").css('width',width*0.87);
