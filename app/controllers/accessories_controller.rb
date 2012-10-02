@@ -2,8 +2,7 @@
 # encoding: utf-8
 
 class AccessoriesController < ApplicationController
-  before_filter :check_auth_admin
-  skip_before_filter :check_auth_admin, :only=>[:back, :control]
+  before_filter :check_auth_admin, :except => [:back, :control]
   
   def check_auth_admin    
     if User.exists?(session[:user_id])
@@ -174,6 +173,7 @@ class AccessoriesController < ApplicationController
           res << line.to_s.chomp
         end
       end
+      File.delete(path)
     rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
     end
