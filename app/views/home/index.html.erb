@@ -117,15 +117,11 @@
 										  	<% else %>										  		
 											  	<% for i in 0..@cameras.length-1%>											  												    	
 											    	<% if i == 0 %>
-											    		<div class="active item"><img id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div>											    		
-															<div class="carousel-caption">
-																<a href="#" onclick="window.location.reload(true);" class="btn btn-primary">Actualizar Imagen</a>
-															</div>
+											    		<div class="active item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div>											    		
+															
 											    	<%else%>
-											    		<div class="item"><img id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div></div>
-															<div class="carousel-caption">
-																<a href="#" onclick="window.location.reload(true);" class="btn btn-primary">Actualizar Imagen</a>
-															</div>
+											    		<div class="item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div></div>
+															
 											    	<%end%>											    	
 											    <%end%>
 										  	<%end%>
