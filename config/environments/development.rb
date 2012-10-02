@@ -37,13 +37,13 @@ Ihome::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
   
-  config.action_mailer.delivery_method = :smtp
+   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address              => "smtp.bissen.cl",
-    :port                 => 25,
-    :domain               => 'bissen.cl',
-    :user_name            => 'noresponder-ihome',
-    :password             => 'ihome.s',
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'gmail.com',
+    :user_name            => 'ihome.bissen',
+    :password             => 'b1ss3n.1h0m3',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
     
