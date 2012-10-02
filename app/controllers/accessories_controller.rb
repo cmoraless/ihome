@@ -180,6 +180,7 @@ class AccessoriesController < ApplicationController
     res
   end   
   
+  #funcion para obtener el estado de los sensores
   def get_status
     @accessory = Accessory.find(params[:id])
     @ibox = Ibox.find(session[:ibox_id])
