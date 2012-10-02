@@ -100,7 +100,8 @@
 					$("#myCarousel").carousel('pause');
 				}
 				function refreshAll(){
-					window.location.reload();
+					alert("hola");
+					document.location.reload(true);
 				}				
 				window.onload = pauseCarousel;
 				</script>
@@ -122,12 +123,12 @@
 											    	<% if i == 0 %>
 											    		<div class="active item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div>
 											    		<div class="carousel-caption camera">
-                      					<a href="javascript:refreshAll();" class="btn btn-primary">Actualizar Imagen</a>
+                      					<input type="button" value="Actualizar Imagen" class="btn btn-primary" onclick="window.location.reload()">
                       				</div>
 											    	<%else%>
 											    		<div class="item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div></div>
 											    		<div class="carousel-caption camera">
-											    			<a href="javascript:refreshAll();" class="btn btn-primary">Actualizar Imagen</a>
+											    			<input type="button" value="Actualizar Imagen" class="btn btn-primary" onclick="window.location.reload()">
                       				</div>
 											    	<%end%>											    	
 											    <%end%>
