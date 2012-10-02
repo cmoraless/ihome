@@ -117,7 +117,6 @@ class CamerasController < ApplicationController
     if Ibox.find(session[:ibox_id])
       @currentIbox = Ibox.find(session[:ibox_id])
       @cameras = @currentIbox.cameras
-      logger.debug "########################### CAMERAS LENGTH #{@cameras.length}"
       autorizado = false
       for i in 0..@cameras.length-1
         if @cameras[i][:id].to_s == params[:id].to_s
