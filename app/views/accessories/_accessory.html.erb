@@ -21,9 +21,8 @@
 					$("label#label_<%=accessory.zid%>").text($("#<%=accessory.zid%>").val());
 					$(function() {						
 						$("input#<%=accessory.zid%>").slider();
-						$("input#<%=accessory.zid%>").bind("change",function(event,ui) {
+						$('input#<%=accessory.zid%>').on('slidestop',function(event) {
 							$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: $("input#<%=accessory.zid%>").val()});
-							porcentaje = parseInt((parseInt($("#<%=accessory.zid%>").val())/9)*100);
 							$("label#label_<%=accessory.zid%>").text($("#<%=accessory.zid%>").val());
 						});
 					});
