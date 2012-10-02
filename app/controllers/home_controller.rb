@@ -54,7 +54,7 @@ class HomeController < ApplicationController
           end
         end
       end
-      @testConnection = testConnection(@ibox.ip, @ibox.port, @ibox.user, @ibox.password)
+      @testConnection = ret
     else
       flash[:notice] = "Debe habilitar su Ibox en Administracion"
     end

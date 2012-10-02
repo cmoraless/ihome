@@ -80,8 +80,12 @@
 <%end%>
 
 <%content_for :accessories do%>
-	<%if @iboxes.length > 0 %>
-		<%= render "accessories/all" %>
+	<% if @iboxConnected %>
+		<%if @iboxes.length > 0 %>
+			<%= render "accessories/all" %>
+		<%end%>
+	<%else%>
+		<%= render "shared/flash_messages" %>
 	<%end%>
 <%end%>
 
