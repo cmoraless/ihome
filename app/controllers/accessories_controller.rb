@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 class AccessoriesController < ApplicationController
-  before_filter :check_auth_adminm, :except => [:back, :control]
+  before_filter :check_auth_admin, :except => [:back, :control]
   
   def check_auth_admin    
     if User.exists?(session[:user_id])
