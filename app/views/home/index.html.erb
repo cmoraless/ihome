@@ -82,7 +82,7 @@
 				<div class="accordion-body collapse in">
 					<div id="profiles_content" class="accordion-inner">
 						<ul class="profentries"> 
-							<%= render @user.profiles %>				
+							<%= render @user.profiles.where(:ibox_id => session[:ibox_id]) %>				
 						</ul>
 						<%= link_to 'Crear nuevo Perfil', new_profile_path, :class => 'btn btn-primary', :remote => true %>
 						<a data-toggle="modal" href="#profilesHelp" role="button" data-backdrop="static" data-keyboard="true" class="btn btn-info">Ayuda</a>

@@ -9,7 +9,6 @@
 				<span class="title"><%= accessory.name %></span>
 				<!-- Input Controlador AJAX -->
 				<div class="dimmer">
-					
 					<input style ="display: none !important;" type="range" name="<%=accessory.zid%>" id="<%=accessory.zid%>" value="<%=accessory.value%>" min="0" max="9" data-theme="a" data-track-theme="b" />
 				</div>
 				
@@ -92,12 +91,12 @@
 			<script type="text/javascript">
 			function ver_estado_sensor_<%=accessory.id%>(){
 				$.get('<%= url_for(:controller=> 'accessories', :action=>'get_status',:id => accessory.id)%>',function(data){
-				if (data == 3){
-					$('#status_sensor_<%=accessory.id%>').text("Normal");
-				}else if(data == 0){
-					$('#status_sensor_<%=accessory.id%>').text("Activado");
-				}				
-			});
+					if (data == 3){
+						$('#status_sensor_<%=accessory.id%>').text("Normal");
+					}else if(data == 0){
+						$('#status_sensor_<%=accessory.id%>').text("Activado");
+					}				
+				});
 			}
 			
 			$.get('<%= url_for(:controller=> 'accessories', :action=>'get_status',:id => accessory.id)%>',function(data){
