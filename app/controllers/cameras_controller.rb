@@ -140,7 +140,7 @@ class CamerasController < ApplicationController
             Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
           end
         else
-          redirect_to view_context.image_tag('camara_error.png')
+          redirect_to view_context.image_path('camara_error.png')
         end
       else
         redirect_to :controller=>"home", :action=>"index"
