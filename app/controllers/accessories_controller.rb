@@ -123,7 +123,8 @@ class AccessoriesController < ApplicationController
         if (res[2] == 'STATUS=99')
           flash[:notice] = ""
           flash[:error] = "El Ibox no puede conectarse con el accesorio"
-          format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
+          #format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
+          format.js {render :js => "window.location.reload();"}
         else
           if accessory.kind == 'MultiLevelSwitch'
             req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?VALUE=' + params[:value] + '&ZID=' + accessory.zid)
