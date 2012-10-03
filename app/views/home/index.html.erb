@@ -135,7 +135,9 @@
 										  <!-- Carousel nav -->
 										  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
 										  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-										  <a class="btn btn-primary offset1" href="#" onclick="window.location.reload();">Actualizar Imágenes Cámaras</a>
+										  <% if session[:mobile] %><!-- si esta en movil muestro boton para actualizar -->
+											  <a class="btn btn-primary offset1" href="#" onclick="window.location.reload();">Actualizar Imágenes Cámaras</a>
+											<%end%>
 										</div>
 								</div>
 							</div>
