@@ -20,7 +20,7 @@
 					
 					<!-- Hora inicio -->
 					<span class="timebegin">
-						<%=a.text_field :time_start, :maxlength => 5, :class => "input-mini" %>
+						<%=a.text_field :time_start, :value => a.object.try(:time_start).try(:strftime,'%I:%M %p'), :maxlength => 5, :class => "input-mini" %>
 					</span>
 					
 					<!-- Dia inicio -->
@@ -89,7 +89,7 @@
 			
 					<!-- Hora termino -->
 					<span class="timeend">
-						<%=a.text_field :time_end, :maxlength => 5, :class => "input-mini" %>
+						<%=a.text_field :time_end, :value => a.object.try(:time_end).try(:strftime,'%I:%M %p'), :maxlength => 5, :class => "input-mini" %>
 					</span>
 					
 					<!-- Dia termino -->
