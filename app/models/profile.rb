@@ -9,7 +9,7 @@ class Profile < ActiveRecord::Base
   has_many :accessories, :through => :schedules
 
   # atributos
-  attr_accessible :isActive, :name, :accessory_ids, :schedules_attributes
+  attr_accessible :isActive, :name, :accessory_ids, :schedules_attributes, :ibox_id
   accepts_nested_attributes_for :schedules
   
 
