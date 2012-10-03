@@ -38,8 +38,10 @@ class SessionsController < ApplicationController
     if user
       session[:user_id] = user.id
       if user.isSuperAdmin
+        session[:is_superadmin] = true
         redirect_to :controller=>'homeadmin', :action=>'index'
       else
+        session[:is_superadmin] = false
         redirect_to :controller=>'home', :action=>'index'
       end
     else
@@ -48,10 +50,20 @@ class SessionsController < ApplicationController
     end
   end
 
-  #funcion que hace el logout de la session de usuario
+  #funcion que hace el logout de la session de usuario si es superadmin lo lleva al home del superadmin
   def destroy
-    reset_session
-    redirect_to root_url, :notice => "Logged out!"
+    @currentUser = User.find(session[:user_id])
+    if session[:is_superadmin] == true and @currentUser.isSuperAdmin == false #superadmin navegando como un usuario admin o normal
+      @currentUser = User.where(:isSuperAdmin => true)
+      session[:user_id] = @currentUser[0].id
+      redirect_to :controller=>'homeadmin', :action=>'index'
+    elsif session[:is_superadmin] == true and @currentUser.isSuperAdmin == true #superadmin
+      reset_session
+      redirect_to root_url
+    elsif session[:is_superadmin] == false and @currentUser.isSuperAdmin == false #usuario admin o normal
+      reset_session
+      redirect_to root_url
+    end
   end
   
   #funcion que se llama al inciio para recuperar la contraseña
