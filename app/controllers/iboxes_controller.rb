@@ -135,7 +135,7 @@ class IboxesController < ApplicationController
         @usersIbox[i].destroy
       end
     end
-    @ibox.destroy200.28.166.104
+    @ibox.destroy
     @iboxes = Ibox.all
     @usersAdmin = User.where(:isAdmin => true)
     flash[:notice] = "Se ha eliminado correctamente el Ibox."
@@ -153,7 +153,7 @@ class IboxesController < ApplicationController
        @accessory.destroy
        flash[:error] = ""
        flash[:notice] = "Se ha eliminado el accesorio"
-    else200.28.166.104
+    else
        flash[:error] = "No se pudo eliminar el accesorio. Recuerda desenchufarlo y luego eliminarlo!"
        flash[:notice] = ""
     end
@@ -176,7 +176,7 @@ class IboxesController < ApplicationController
       if (res[2] == 'STATUS=99')
         flash[:notice] = ""
         flash[:error] = "El Ibox no puede conectarse con el accesorio"
-      else200.28.166.104
+      else
         flash[:notice] = "Es posbile conectarse con el accesorio"
         flash[:error] = ""
       end
@@ -223,7 +223,7 @@ class IboxesController < ApplicationController
       end
     end
   end
-  0016E62704
+  
   def showEnable
     respond_to do |format|
       format.js
