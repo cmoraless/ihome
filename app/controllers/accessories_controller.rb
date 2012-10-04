@@ -69,7 +69,7 @@ class AccessoriesController < ApplicationController
       if @accessory.update_attributes(params[:accessory])
         #guardo el nombre del accesorio en el ibox
         name = @accessory.name #lo asigno para borrarle los espacios para pasarselo al webservice
-        iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Set.cgi?ZID=' + @accessory.zid + '&ALIAS=' + name.delete(' ') + '&X=' + @accessory.x  + '&Y=' + @accessory.y + '&W=' + @accessory.w + '&H=' + @accessory.h + '&Layer=0',@ibox.user,@ibox.password)        
+        #iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Set.cgi?ZID=' + @accessory.zid + '&ALIAS=' + name.delete(' ') + '&X=' + @accessory.x  + '&Y=' + @accessory.y + '&W=' + @accessory.w + '&H=' + @accessory.h + '&Layer=0',@ibox.user,@ibox.password)        
         # se agrega al nuevo containter
         if (!@ibox.accessory_types.find_by_name(@accessory.accessory_type.name))
           @ibox.accessory_types << @accessory.accessory_type
@@ -131,7 +131,8 @@ class AccessoriesController < ApplicationController
             req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?&ZID=' + accessory.zid + '&VALUE=' + params[:value] + '&DEALY=&TIMER=')
           end
           if accessory.kind == 'BinarySwitch'
-            req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?OP=' + params[:value] + '&ZID=' + accessory.zid)
+            #req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?OP=' + params[:value] + '&ZID=' + accessory.zid)
+            req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?&ZID=' + accessory.zid + '&OP='   + params[:value] + '&DEALY=&TIMER=')
           end
           req.basic_auth ibox.user, ibox.password
           res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
