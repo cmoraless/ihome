@@ -1,0 +1,8 @@
+$('#accessories').empty();
+$('#accessories').append('<%=j render 'shared/flash_messages' %>');
+
+<% if @count == 30 %>
+$('#accessories').append('<%=j render "accessories/all" %>');
+<%else%>
+$('#accessories').append('<%=j render "accessories/all_add" %>');
+<%end%>

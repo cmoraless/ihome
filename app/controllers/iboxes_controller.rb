@@ -286,6 +286,35 @@ class IboxesController < ApplicationController
     end
   end
 
+  def listenToEnableAccessory
+    @ibox = Ibox.find(session[:ibox_id])
+    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Mode.cgi?MODE=R',@ibox.user,@ibox.password)
+    @count = 0
+    if res[0] == "Success"
+      begin
+        res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
+        sleep 1
+        @count = @count + 1 
+      end while (res[0] == 'MODE=READY')
+      if (@count == 30)
+        flash[:error] = "No se ha podido habilitar el nuevo accesorio"
+        flash[:notice] = ""
+      else
+        flash[:error] = ""
+        flash[:notice] = "Ahora presione el boton Agregar para agregar el nuevo accesorio"
+      end
+    end
+    @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+    @accessories = []
+    @containers.each do |container|
+      @accessories << container.accessories        
+    end
+      
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def listenToRemoveAccessory
     @ibox = Ibox.find(session[:ibox_id])
     res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Mode.cgi?MODE=R',@ibox.user,@ibox.password)
@@ -321,7 +350,7 @@ class IboxesController < ApplicationController
       @containers.each do |container|
         @accessories << container.accessories
       end 
-      flash[:error] = "ERROR"
+      flash[:error] = "Error, vuelva a intentarlo"
       flash[:notice] = ""
     end
  
@@ -329,7 +358,9 @@ class IboxesController < ApplicationController
       format.js
     end
   end
-  
+ 
+ 
+
   # Función 
   # Entrada: 
   # Salida: 

@@ -26,8 +26,8 @@
 	<% end %>
 	</table>
 	<div class="btn-group">
-		<%= link_to "Habilitar", listen_to_enable_accessory_path,
-			{ :data=> {:confirm => 'Luego de presionar OK tiene 20 segundos para presionar reiteradamente el boton de conexión en el accesorio para habilitarlo'}, :class => "btn btn-primary", :remote => 'true', :disable_with => 'Habilitando...'} %>
+		<%= link_to "Agregar", listen_to_add_accessory_path,
+			{ :data=> {:confirm => 'Luego de presionar OK tiene 20 segundos para presionar reiteradamente el boton de conexión en el accesorio'}, :class => "btn btn-primary", :remote => 'true', :disable_with => 'Agregando...'} %>
 
 		<%= link_to "Eliminar", listen_to_remove_accessory_path,
 			{ :data => {:confirm => 'Luego de presionar OK tiene 20 segundos para presionar reiteradamente el boton de conexión en el accesorio'}, :class => "btn btn-danger", :remote => 'true', :disable_with => 'Eliminando...'} %>
