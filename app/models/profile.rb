@@ -61,7 +61,8 @@ class Profile < ActiveRecord::Base
       # encendido
       if option == 1
         if accessory.kind == 'MultiLevelSwitch'
-          req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?VALUE=' + '9' + '&ZID=' + accessory.zid)
+          #req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?VALUE=' + '9' + '&ZID=' + accessory.zid)
+          req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?&ZID=' + accessory.zid + '&VALUE=' + '9' + '&DEALY=&TIMER=')
           accessory.update_attribute(:value, 9)
         end
         if accessory.kind == 'BinarySwitch'
@@ -71,7 +72,8 @@ class Profile < ActiveRecord::Base
       # apagado
       else
         if accessory.kind == 'MultiLevelSwitch'
-          req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?VALUE=' + '0' + '&ZID=' + accessory.zid)
+          #req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?VALUE=' + '0' + '&ZID=' + accessory.zid)
+          req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?&ZID=' + accessory.zid + '&VALUE=' + '0' + '&DEALY=&TIMER=')
           accessory.update_attribute(:value, 0)
         end
         if accessory.kind == 'BinarySwitch'
