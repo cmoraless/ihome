@@ -253,7 +253,7 @@ class IboxesController < ApplicationController
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
         #sleep 1
       end while (res[0] == 'MODE=READY')
-      sleep 3
+      sleep 2
       if addAccessories(@ibox.id)
         @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
         @accessories = []
@@ -385,6 +385,7 @@ class IboxesController < ApplicationController
   def addAccessories(ibox_id)
     ret = false
     @ibox = Ibox.find(ibox_id)
+    sleep 1
     res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Get.cgi?get=SET',@ibox.user,@ibox.password)
     for i in 0..res.length/12-1
       #Si no esta asociado el accesorio al Ibox
