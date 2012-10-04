@@ -69,7 +69,7 @@ class AccessoriesController < ApplicationController
       if @accessory.update_attributes(params[:accessory])
         #guardo el nombre del accesorio en el ibox
         name = @accessory.name #lo asigno para borrarle los espacios para pasarselo al webservice
-        iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Set.cgi?ZID=' + @accessory.zid + '&ALIAS=' + name.delete(' ') + '&X=' + @accessory.x  + '&Y=' + @accessory.y + '&W=' + @accessory.w + '&H=' + @accessory.h + '&Layer=0',@ibox.user,@ibox.password)        
+        #iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Set.cgi?ZID=' + @accessory.zid + '&ALIAS=' + name.delete(' ') + '&X=' + @accessory.x  + '&Y=' + @accessory.y + '&W=' + @accessory.w + '&H=' + @accessory.h + '&Layer=0',@ibox.user,@ibox.password)        
         # se agrega al nuevo containter
         if (!@ibox.accessory_types.find_by_name(@accessory.accessory_type.name))
           @ibox.accessory_types << @accessory.accessory_type
