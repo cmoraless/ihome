@@ -253,7 +253,7 @@ class IboxesController < ApplicationController
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
         #sleep 1
       end while (res[0] == 'MODE=READY')
-      sleep 2
+      sleep 3
       if addAccessories(@ibox.id)
         @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
         @accessories = []
