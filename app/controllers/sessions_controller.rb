@@ -11,23 +11,16 @@ class SessionsController < ApplicationController
     code
   end
   
-  #funcion que inicia
+  #funcion que inicia y crea el superadmin si no existe
   def new
     reset_session
-    @users = User.all
+    usersSuperAdmin = User.where(:isSuperAdmin=>true)
     code = get_code
     code += get_code
-    no_existe_superadmin = true
-    @users.each do |user|
-      if user.isSuperAdmin == true
-        no_existe_superadmin = false
-        break
-      end
-    end
-    if no_existe_superadmin
-      @superAdmin = User.new(:email=>'superadmin@bissen.cl',:password=>'super123',:password_confirmation=>'super123', :name=>'1', :isAdmin=> false, :address=>'1',
+    if usersSuperAdmin.length == 0
+      superAdmin = User.new(:email=>'superadmin@bissen.cl',:password=>'super123',:password_confirmation=>'super123', :name=>'1', :isAdmin=> false, :address=>'1',
       :phone=>'1', :rut=>'1', :isSuperAdmin=>true, :code=>code) 
-      @superAdmin.save
+      superAdmin.save
     end
   end
 
