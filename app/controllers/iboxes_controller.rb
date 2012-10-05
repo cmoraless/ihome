@@ -248,39 +248,39 @@ class IboxesController < ApplicationController
   def listenToAddAccessory
     @ibox = Ibox.find(session[:ibox_id])
     res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Mode.cgi?MODE=A',@ibox.user,@ibox.password)
+    count = 0
     if res[0] == "Success"
       begin
         res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
-        #sleep 1
+        sleep 1
+        count += 1
       end while (res[0] == 'MODE=READY')
-      sleep 2
-      if addAccessories(@ibox.id)
-        @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
-        @accessories = []
-        @containers.each do |container|
-          @accessories << container.accessories
-        end 
-        flash[:notice] = "Se ha agregado el nuevo accesorio."
-        flash[:error] = ""
-      else
-        res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZG=MODE',@ibox.user,@ibox.password)
-        @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
-        @accessories = []
-        @containers.each do |container|
-          @accessories << container.accessories
-        end 
-        flash[:error] = "No se pudo agregar el nuevo accesorio."
-        flash[:notice] = ""
+      
+      if (count < 31)
+        count2 = 0
+        add = false
+        begin
+          sleep 1
+          count2 += 1
+          add = addAccessories(@ibox.id) 
+        end while ( !add && count2 < 3)
+        if add
+          flash[:notice] = "Se ha agregado el nuevo accesorio."
+          flash[:error] = ""
+        else
+          flash[:error] = "No se pudo agregar el nuevo accesorio."
+          flash[:notice] = ""
+        end
       end
     else
-        @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
-        @accessories = []
-        @containers.each do |container|
-          @accessories << container.accessories
-        end 
-      flash[:error] = "ERROR"
+      flash[:error] = "Error, intentelo de nuevo"
       flash[:notice] = ""
-    end 
+    end
+    @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
+    @accessories = []
+    @containers.each do |container|
+      @accessories << container.accessories
+    end
     respond_to do |format|
       format.js
     end
