@@ -237,6 +237,6 @@
 	  <p><%= submit_tag "Guardar Programación",  :class => "btn btn-primary"%></p>
 	<%end%>
 	  <%= link_to "Nueva Acción", { :controller => "schedules" , :action => "newAction", :id => @schedule.id }, :class => "btn btn-small btn-primary", :remote => true %>
-	  <%= link_to 'Atrás', back_profile_path, :remote=>true, :class=>"btn btn-small btn-primary" %>
+	  <%= link_to 'Atrás', { :controller => "actions" , :action => "back", :id => @schedule.id }, :remote=>true, :class=>"btn btn-small btn-primary" %>
 <% end %>
 
