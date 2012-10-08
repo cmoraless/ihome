@@ -1,0 +1,4 @@
+$('#profiles_content').empty();
+$('#profiles_content').append('<%= escape_javascript(render(:partial => "shared/flash_messages")) %>');
+$('#profiles_content').append('<%= escape_javascript(render @profile.schedules )%>');
+$('#profiles_content').append('<%= link_to 'Atrás', back_profile_path, :remote=>true, :class=>"btn btn-small btn-primary" %>');
