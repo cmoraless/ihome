@@ -1,3 +1,4 @@
+#encoding: utf-8
 class IboxesController < ApplicationController
   layout "homeadmin"
   before_filter :check_auth_superAdmin, :only => [:new, :create, :destroy]
@@ -154,7 +155,7 @@ class IboxesController < ApplicationController
        flash[:error] = ""
        flash[:notice] = "Se ha eliminado el accesorio"
     else
-       flash[:error] = "No se pudo eliminar el accesorio. Recuerda desenchufarlo y luego eliminarlo!"
+       flash[:error] = "No se pudo eliminar el accesorio. Recuerda desenchufarlo y luego eliminarlo."
        flash[:notice] = ""
     end
     @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
@@ -175,13 +176,13 @@ class IboxesController < ApplicationController
       res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + @accessory.zid, @ibox.user, @ibox.password)
       if (res[2] == 'STATUS=99')
         flash[:notice] = ""
-        flash[:error] = "El Ibox no puede conectarse con el accesorio"
+        flash[:error] = "El Ibox no puede conectarse con el accesorio."
       else
-        flash[:notice] = "Es posbile conectarse con el accesorio"
+        flash[:notice] = "Es posbile conectarse con el accesorio."
         flash[:error] = ""
       end
     else
-      flash[:error] = "No es posible establecer comunicacion con el accesorio."
+      flash[:error] = "No es posible establecer comunicación con el accesorio."
       flash[:notice] = ""
     end
     @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
@@ -201,7 +202,7 @@ class IboxesController < ApplicationController
         @user = User.find(session[:user_id])
         if testConnection(@ibox.ip, @ibox.port, @ibox.user, @ibox.password) == true #si hubo conexion hago la habilitacion       
           if @ibox.isActive == true
-            flash[:error] = "El ibox seleccionado ya esta activo."
+            flash[:error] = "El ibox seleccionado ya está activo."
             flash[:notice] = ""
             format.js
           else
@@ -213,7 +214,7 @@ class IboxesController < ApplicationController
             format.js {redirect_to :action => 'addDefaultAccessories', :id => @ibox.id}
           end
         else
-          flash[:error] = "No se ha podido establecer conexion con el Ibox."
+          flash[:error] = "No se ha podido establecer conexión con el Ibox."
           format.js
         end
       else  
@@ -238,7 +239,7 @@ class IboxesController < ApplicationController
       flash[:error] = ""
       format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
     else
-      flash[:notice] = "Hemos habilitado exitosamente el Ibox, pero no hemos encontrado nuevos accesorios."
+      flash[:notice] = "Hemos habilitado exitosamente el Ibox, pero no hemos encontrado accesorios."
       flash[:error] = ""
       format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
     end
@@ -273,7 +274,7 @@ class IboxesController < ApplicationController
         end
       end
     else
-      flash[:error] = "Error, intentelo de nuevo"
+      flash[:error] = "Error, intentelo de nuevo."
       flash[:notice] = ""
     end
     @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
@@ -297,11 +298,11 @@ class IboxesController < ApplicationController
         @count = @count + 1 
       end while (res[0] == 'MODE=READY')
       if (@count == 30)
-        flash[:error] = "No se ha podido habilitar el nuevo accesorio"
+        flash[:error] = "No se ha podido habilitar el nuevo accesorio."
         flash[:notice] = ""
       else
         flash[:error] = ""
-        flash[:notice] = "Ahora presione el boton Agregar para agregar el nuevo accesorio"
+        flash[:notice] = "Ahora presione el botón Agregar para agregar el nuevo accesorio."
       end
     end
     @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
@@ -340,7 +341,7 @@ class IboxesController < ApplicationController
         @containers.each do |container|
           @accessories << container.accessories
         end 
-        flash[:error] = "No se ha eliminado el nuevo accesorio"
+        flash[:error] = "No se ha eliminado el accesorio."
         flash[:notice] = ""
       end
 
@@ -350,7 +351,7 @@ class IboxesController < ApplicationController
       @containers.each do |container|
         @accessories << container.accessories
       end 
-      flash[:error] = "Error, vuelva a intentarlo"
+      flash[:error] = "Error, intentelo denuevo."
       flash[:notice] = ""
     end
  
@@ -537,7 +538,7 @@ class IboxesController < ApplicationController
             @accessories << container.accessories
           end
           #iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Mode.cgi?MODE=A',@ibox.user,@ibox.password) 
-          flash[:notice] = "Se ha reseteado el ibox a configuracion de fabrica. Se han eliminado todos tus accesorios."
+          flash[:notice] = "Se ha reseteado el ibox a configuración de fábrica. Se han eliminado todos tus accesorios."
           flash[:error] = ""
           format.js
         else
@@ -546,7 +547,7 @@ class IboxesController < ApplicationController
           format.js
         end
       else
-        flash[:error] = "No estas autorizado."
+        flash[:error] = "No estás autorizado."
         format.js { render :js => "window.location.replace('#{url_for(:controller => 'admin', :action => 'index')}');"  }
       end  
     end
@@ -566,7 +567,7 @@ class IboxesController < ApplicationController
       end        
     end
     if @sensors.length == 0 or @accessories.length == 0
-      flash[:error] = "Error. Ud no posee ningun sensor o accesorio."
+      flash[:error] = "Error. Ud no posee ningún sensor o accesorio."
     end
         
   end
@@ -607,7 +608,7 @@ class IboxesController < ApplicationController
       else
         @ERROR = true
         new_sensor_condition
-        flash[:error] = "La condicion ingresada ya existe." 
+        flash[:error] = "La condición ingresada ya existe." 
       end
       @conditions = get_sensors_conditions
       format.js
@@ -678,7 +679,7 @@ class IboxesController < ApplicationController
       end
       @conditions
     else
-      flash[:error] = "No se ha podido establecer comunicacion con el Ibox. Revise su configuracion o conexion a internet."
+      flash[:error] = "No se ha podido establecer comunicación con el Ibox. Revise su configuración o conexión a internet."
       @conditions
     end
   end

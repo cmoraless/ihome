@@ -1,3 +1,4 @@
+#encoding: utf-8
 class HomeController < ApplicationController
   before_filter :check_mobile, :only => [:index]
   before_filter :check_user
@@ -44,7 +45,7 @@ class HomeController < ApplicationController
       @cameras = @ibox.cameras
       ret = testConnection(@ibox.ip, @ibox.port, @ibox.user,@ibox.password)
       if (ret == false)
-        flash[:error] = "No se ha podido establecer comunicacion con el Ibox. Revise su configuracion o conexion a internet."
+        flash[:error] = "No se ha podido establecer comunicación con el Ibox. Revise su configuración o conexión a internet."
       else
         #chequeo el estado de los accesorios y los updateo a su estado
         @containers.each do |container|
@@ -56,7 +57,7 @@ class HomeController < ApplicationController
       end
       @testConnection = ret
     else
-      flash[:notice] = "Debe habilitar su Ibox en Administracion"
+      flash[:notice] = "Debe habilitar su Ibox en Administración."
     end
   end
   

@@ -1,3 +1,4 @@
+#encoding: utf-8
 class AdminController < ApplicationController
   before_filter :check_auth_admin
   
@@ -42,7 +43,7 @@ class AdminController < ApplicationController
       if testConnection(@ibox.ip,@ibox.port,@ibox.user,@ibox.password)
         @conditions = get_sensors_conditions
       else
-        flash[:error] = "No se ha podido establecer comunicacion con el Ibox. Revise su configuracion o conexion a internet."
+        flash[:error] = "No se ha podido establecer comunicación con el Ibox. Revise su configuración o conexión a internet."
         @iboxConnected = false
       end 
     end

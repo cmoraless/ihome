@@ -1,3 +1,4 @@
+#encoding: utf-8
 class AccessoryTypesController < ApplicationController
   layout "homeadmin"
   before_filter :check_auth_superAdmin
@@ -37,7 +38,7 @@ class AccessoryTypesController < ApplicationController
     respond_to do |format|
       if @accessory_type.save
         @accessory_types = AccessoryType.all
-        flash[:notice] = "Se ha creado correctamente el tipo de accesorio"
+        flash[:notice] = "Se ha creado correctamente el tipo de accesorio."
         flash[:error] = ""
         format.js
       else
@@ -52,7 +53,7 @@ class AccessoryTypesController < ApplicationController
     respond_to do |format|
       if @accessory_type.update_attributes(params[:accessory_type])
         @accessory_types = AccessoryType.all
-        flash[:notice] = "Se ha actualizado correctamente el tipo de accesorio"
+        flash[:notice] = "Se ha actualizado correctamente el tipo de accesorio."
         flash[:error] = ""
         format.js 
       else
@@ -66,7 +67,7 @@ class AccessoryTypesController < ApplicationController
     @accessory_type.destroy
     @accessory_types = AccessoryType.all                                                                           
     respond_to do |format|
-      flash[:notice] = "Se ha eliminado correctamente el tipo de accesorio"
+      flash[:notice] = "Se ha eliminado correctamente el tipo de accesorio."
       flash[:error] = ""
       format.js 
     end

@@ -1,3 +1,4 @@
+#encoding: utf-8
 class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
@@ -78,9 +79,9 @@ class ProfilesController < ApplicationController
 
     if (@profile.schedules.length == 0)
       flash[:error] = ""
-      flash[:notice] = "Edita tu perfil y agrega accesorios para programar!"
+      flash[:notice] = "Edita tu perfil y agrega accesorios para programar."
     else
-      flash[:notice] = "Puedes agregar acciones programables a los accesorios de tus perfiles!"
+      flash[:notice] = "Puedes agregar acciones programables a los accesorios de tus perfiles."
     end
     
     #@schedules = Schedule.where("profile_id = ?", @profile.id)

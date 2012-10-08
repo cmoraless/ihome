@@ -1,5 +1,5 @@
 #!/bin/env ruby
-# encoding: utf-8
+#encoding: utf-8
 
 class AccessoriesController < ApplicationController
   before_filter :check_auth_admin, :except => [:back, :control]
@@ -122,7 +122,7 @@ class AccessoriesController < ApplicationController
         res = iboxExecute(ip, port, '/cgi-bin/Status.cgi?ZID=' + accessory.zid, ibox.user, ibox.password)
         if (res[2] == 'STATUS=99')
           flash[:notice] = ""
-          flash[:error] = "El Ibox no puede conectarse con el accesorio"
+          flash[:error] = "El Ibox no puede conectarse con el accesorio."
           #format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
           format.js {render :js => "window.location.href=window.location.href"}
         else

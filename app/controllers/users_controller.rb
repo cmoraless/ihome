@@ -1,3 +1,4 @@
+#encoding: utf-8
 class UsersController < ApplicationController
   layout 'homeadmin', :only => [:newAdmin]
   layout 'admin', :only => [:newNoAdmin]

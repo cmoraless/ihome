@@ -1,3 +1,4 @@
+#encoding: utf-8
 class SchedulesController < ApplicationController
   
   def actions
@@ -6,7 +7,7 @@ class SchedulesController < ApplicationController
     
     if (@schedule.actions.length ==0)
       flash[:error] = ""
-      flash[:notice] = "Agrega nuevas acciones para programar tu accesorio"
+      flash[:notice] = "Agrega nuevas acciones para programar tu accesorio."
     else
       flash[:error] = ""
       flash[:notice] = ""      

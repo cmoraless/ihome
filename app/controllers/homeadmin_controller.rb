@@ -1,3 +1,4 @@
+#encoding: utf-8
 class HomeadminController < ApplicationController
   before_filter :check_auth_superAdmin
   

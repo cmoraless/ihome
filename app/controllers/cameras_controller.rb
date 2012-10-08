@@ -1,3 +1,4 @@
+#encoding: utf-8
 class CamerasController < ApplicationController
   before_filter :check_auth_admin, :except => [:stream_image, :testConnection]
   
@@ -58,7 +59,7 @@ class CamerasController < ApplicationController
           @ibox = Ibox.find(session[:ibox_id])
           @ibox.cameras << @camera
           @cameras = @ibox.cameras
-          flash[:notice] = "Se ha creado correctamente la camara."
+          flash[:notice] = "Se ha creado correctamente la cámara."
           flash[:error] = ""
           format.js
         else
@@ -66,7 +67,7 @@ class CamerasController < ApplicationController
         end
       else
         flash[:notice] = ""
-        flash[:error] = "La camara ingresada ya existe."
+        flash[:error] = "La cámara ingresada ya existe."
         format.js {render :action=> 'new'}
       end
     end
@@ -80,7 +81,7 @@ class CamerasController < ApplicationController
       if @camera.update_attributes(params[:camera])
         @ibox = Ibox.find(session[:ibox_id])
         @cameras = @ibox.cameras
-        flash[:notice] = "Se ha actualizado correctamente la camara."
+        flash[:notice] = "Se ha actualizado correctamente la cámara."
         flash[:error] = ""
         format.js
       else

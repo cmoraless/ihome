@@ -1,3 +1,4 @@
+#encoding: utf-8
 class SessionsController < ApplicationController
   #funcion que genera codigo para la recuperacion de contraseña
   def get_code
@@ -38,7 +39,7 @@ class SessionsController < ApplicationController
         redirect_to :controller=>'home', :action=>'index'
       end
     else
-      flash[:error] = "Email o contrasena invalida"
+      flash[:error] = "Email o contraseña inválida."
       render "new"
     end
   end
