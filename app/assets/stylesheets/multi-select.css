@@ -1,5 +1,5 @@
 .ms-container{
-  background: transparent url('switch.png') no-repeat 130px 80px;
+  background: transparent url('switch.png') no-repeat 123px 70px;
 }
 
 .ms-container:after{
@@ -33,7 +33,7 @@
   display:none;
 }
 .ms-container .ms-selectable{
-  margin-right: 40px;
+  margin-right: 23px;
 }
 
 .ms-container .ms-list.ms-focus{
@@ -51,7 +51,7 @@
 }
 
 .ms-container ul.ms-list{
-  width: 110px;
+  width: 120px;
   height: 160px;
   padding: 0px 0px;
   overflow-y: auto;
