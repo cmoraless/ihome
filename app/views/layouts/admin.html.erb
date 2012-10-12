@@ -17,7 +17,7 @@
 				<div class="accordion-group">
 				  <div class="accordion-heading">
 				    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#iboxitos">
-				      <h2><%= image_tag("ibox.png", :size=>"40x40")%><div style="visibility: hidden; display:inline;">&nbsp;</div>Ibox</h2>
+				      <h3><%= image_tag("ibox.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div>Ibox</h3>
 				    </a>
 				  </div>
 				  <div id="iboxitos" class="accordion-body collapse">
@@ -30,7 +30,7 @@
 				<div class="accordion-group">
 				  <div class="accordion-heading">
 				    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#users-body">
-				     <h2><%= image_tag("usericon.png", :size=>"40x40")%><div style="visibility: hidden; display:inline;">&nbsp;</div>Usuarios</h2>
+				     <h3><%= image_tag("usericon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div>Usuarios</h3>
 				    </a>
 				  </div>
 				  <div id="users-body" class="accordion-body collapse">
@@ -42,7 +42,7 @@
 				<div class="accordion-group">
 				  <div class="accordion-heading">
 				    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#sensors-body">
-				     <h2><%= image_tag("sensor.png", :size=>"43x29")%><div style="visibility: hidden; display:inline;">&nbsp;</div>Sensores</h2>
+				     <h3><%= image_tag("sensor.png", :size=>"33x23")%><div style="visibility: hidden; display:inline;">&nbsp;</div>Sensores</h3>
 				    </a>
 				  </div>
 				  <div id="sensors-body" class="accordion-body collapse">
@@ -54,7 +54,7 @@
 				<div class="accordion-group">
 				  <div class="accordion-heading">
 				    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#accessories-body">
-				     <h2><%= image_tag("accesorios2.png", :size=>"40x40")%><div style="visibility: hidden; display:inline;">&nbsp;</div>Accesorios</h2>
+				     <h3><%= image_tag("accesorios2.png", :size=>"30x33")%><div style="visibility: hidden; display:inline;">&nbsp;</div>Accesorios</h3>
 				    </a>
 				  </div>
 				  <div id="accessories-body" class="accordion-body collapse">
@@ -67,7 +67,7 @@
 				<div class="accordion-group">
 				  <div class="accordion-heading">
 				    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#camaritas">
-				     <h2><%= image_tag("camaraicon.png", :size=>"40x40")%><div style="visibility: hidden; display:inline;">&nbsp;</div>C&aacute;maras</h2>
+				     <h3><%= image_tag("camaraicon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div>C&aacute;maras</h3>
 				    </a>
 				  </div>
 				  <div id="camaritas" class="accordion-body collapse">
@@ -87,7 +87,11 @@
 
 	<div class="navbar navbar-fixed-bottom footer">
 		<div class="navbar-inner footinner">
-			<p class="navbar-text">Atención clientes: 600 600 3300. Te ayudamos a navegar: 800 760 667. &copy; Ingenier&iacute;a Bissen. Todos los Derechos Reservados</p>
+			<% if session[:mobile] == true %>
+				<p class="navbar-text">Atención clientes: 600 600 3300</p>
+			 <% else %>
+				<p class="navbar-text">Atención clientes: 600 600 3300. Te ayudamos a navegar: 800 760 667. &copy; Ingenier&iacute;a Bissen. Todos los Derechos Reservados</p>
+			<%end%>
 		</div>
 	</div>	
 	

@@ -8,6 +8,7 @@ class Accessory < ActiveRecord::Base
   # atributos
   attr_accessible :name, :zid, :kind, :x, :y, :w, :h, :value, :cmdclass, :state, :isScheduled, :isPublic, :user_ids, :accessory_type_id, :ibox_accessories_container_id
   # validaciones
-  validates :name, :presence => {:message=> "^El nombre no puede estar vacio."}
+  validates :name, :presence => {:message=> "^El nombre no puede estar vacio."}, :length => { :in => 1..12, :message=>"^El nombre debe contener entre 1 y 15 caracteres." }
+
  # validates :isPublic, :presence => true
 end
