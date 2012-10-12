@@ -82,8 +82,8 @@ class AccessoriesController < ApplicationController
         @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
         @accessories = []
         @containers.each do |container|
-        @accessories << container.accessories
-      end  
+          @accessories << container.accessories
+        end  
         format.js
       else
         format.js { render :action => "edit" }
