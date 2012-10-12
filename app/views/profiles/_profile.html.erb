@@ -31,17 +31,17 @@
 	<div class="span12 actions">
 		<!-- Botón Eliminar -->
 		<span class="delete">
-			<%= link_to 'Eliminar', profile, :confirm => '¿Estás seguro?', :method => :delete, :class => 'btn btn-small btn-danger', :remote=>true %>
+			<%= link_to 'Eliminar', profile, :confirm => '¿Estás seguro?', :method => :delete, :class => 'btn btn-mini btn-danger', :remote=>true %>
 		</span>
 		
 		<!-- Botón Editar -->
 		<span class="edit">
-			<%= link_to 'Editar', edit_profile_path(profile), :class => 'btn btn-small', :remote=>true %>
+			<%= link_to 'Editar', edit_profile_path(profile), :class => 'btn btn-mini', :remote=>true %>
 		</span>
 		
 		<!-- Botón Programar -->
 		<span class="schedule">
-		    <%= link_to "Programar", { :controller => "profiles" , :action => "schedules", :id => profile.id }, :class => "btn btn-small btn-primary", :remote => true %>
+		    <%= link_to "Programar", { :controller => "profiles" , :action => "schedules", :id => profile.id }, :class => "btn btn-mini btn-primary", :remote => true %>
 		</span>	
 	</div>
 </li>
