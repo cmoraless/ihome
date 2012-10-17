@@ -104,7 +104,7 @@
 				<div class="accordion">
 					<div class="accordion-group">
 						<div class="accordion-heading">
-							<a class="accordion-toggle" href="#camaras" data-toggle="collapse"><h3><%= image_tag("camaraicon.png", :size=>"40x40")%><div style="visibility: hidden; display:inline;">&nbsp;&nbsp;</div>C&aacute;maras</h3></a>
+							<a class="accordion-toggle" href="#camaras" data-toggle="collapse"><h3><%= image_tag("camaraicon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;&nbsp;</div>C&aacute;maras</h3></a>
 						</div> 
 						<div id="camaras" class="collapse in">  
 							<div class="accordion-body collapse in">
@@ -159,21 +159,29 @@
 			    	<div class="accordion-group">
 				  		<div class="accordion-heading">
 				    		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#<%= container.name %>">
-				      			<% if container.name == "Luces"%>
-				      			<h3><%= image_tag("luzicon.png", :size=>"32x32")%><div style="visibility: hidden; display:inline;"> &nbsp;</div><%= container.name %></h3>
-				      			<% elsif container.name == "Cortinas"%>
-				      			<h3><%= image_tag("cortinaicon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;"> &nbsp;</div><%= container.name %></h3>
-				      			<% elsif container.name == "Sensores"%>
-				      			<h3><%= image_tag("sensor.png", :size=>"31x18")%><div style="visibility: hidden; display:inline;"> &nbsp;</div><%= container.name %></h3>
-				      			<% elsif container.name == "Dimmers"%>				      			
-				      			<h3><%= image_tag("dimmericon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;"> &nbsp;</div><%= container.name %></h3>
-				      			<% elsif container.name == "Riegos"%>
-				      			<h3><%= image_tag("riegoicon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;"> &nbsp;</div><%= container.name %></h3>
-				      			<% elsif container.name == "Enchufes"%>
-				      			<h3><%= image_tag("enchufeicon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;"> &nbsp;</div><%= container.name %></h3>
-				      			<% else %>
-			      				<h3><%= container.name %></h3>
-				      			<%end%>
+				    			<h3>
+					      			<% if container.name == "Luces"%>
+						      			<%= image_tag("luzicon.png", :size=>"32x32")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
+					      			<% elsif container.name == "Cortinas"%>
+						      			<%= image_tag("cortinaicon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
+					      			<% elsif container.name == "Sensores"%>
+						      			<%= image_tag("sensor.png", :size=>"31x18")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
+					      			<% elsif container.name == "Dimmers"%>				      			
+						      			<%= image_tag("dimmericon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
+					      			<% elsif container.name == "Riegos"%>
+						      			<%= image_tag("riegoicon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
+					      			<% elsif container.name == "Enchufes"%>
+						      			<%= image_tag("enchufeicon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
+					      			<% else %>
+					      			<%end%>
+					      			<% if session[:mobile] != true%>
+					      				 <% if ( @accessories.select{|a| a.value > 0 }.size > 0) %>
+					      				    <div style="visibility: hidden; display:inline;">&nbsp;</div>
+					      				 	<%= image_tag("on.png", :size=>"20x20", :class => "turnedOnIcon" )%>
+					      				 <%end%>
+					      			<%end%>
+				      			</h3>
+				      			
 				    		</a>
 						</div>
 				    	<div id="<%= container.name %>" class="accordion-body collapse">  

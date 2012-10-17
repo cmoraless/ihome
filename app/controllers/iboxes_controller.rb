@@ -182,7 +182,7 @@ class IboxesController < ApplicationController
         flash[:error] = ""
       end
     else
-      flash[:error] = "No es posible establecer comunicación con el accesorio."
+      flash[:error] = "No es posible establecer comunicación con el accesorio. Debe reinstalarlo"
       flash[:notice] = ""
     end
     @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)

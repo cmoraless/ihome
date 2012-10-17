@@ -119,33 +119,39 @@ class AccessoriesController < ApplicationController
     url = URI.parse(ws)
     respond_to do |format|
       begin
-        res = iboxExecute(ip, port, '/cgi-bin/Status.cgi?ZID=' + accessory.zid, ibox.user, ibox.password)
-        if (res[2] == 'STATUS=99')
-          flash[:notice] = ""
-          flash[:error] = "El Ibox no puede conectarse con el accesorio."
-          #format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
-          format.js {render :js => "window.location.href=window.location.href"}
+        ret = isConectedAccessory(ibox.id, accessory.zid)
+        if (ret == true) 
+          res = iboxExecute(ip, port, '/cgi-bin/Status.cgi?ZID=' + accessory.zid, ibox.user, ibox.password)
+          if (res[2] == 'STATUS=99')
+            flash[:notice] = ""
+            flash[:error] = "El Ibox no puede conectarse con el accesorio."
+            #format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
+            format.js {render :js => "window.location.href=window.location.href"}
+          else
+            if accessory.kind == 'MultiLevelSwitch'
+              #req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?VALUE=' + params[:value] + '&ZID=' + accessory.zid)
+              req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?&ZID=' + accessory.zid + '&VALUE=' + params[:value] + '&DEALY=&TIMER=')
+            end
+            if accessory.kind == 'BinarySwitch'
+              #req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?OP=' + params[:value] + '&ZID=' + accessory.zid)
+              req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?&ZID=' + accessory.zid + '&OP='   + params[:value] + '&DEALY=&TIMER=')
+            end
+            req.basic_auth ibox.user, ibox.password
+            res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+            accessory.update_attribute(:value, params[:value].to_i)
+            
+            
+            ### FOR DEBUGING!
+            time = Time.new
+            currentDay = time.wday
+            currentTime = time.strftime("%H:%M:00")  
+            @user = User.find(session[:user_id])
+            AccessoriesLogger.debug "El accesorio: #{accessory.name} se accionó con el valor: #{params[:value]} por el usuario #{@user.email} a las: #{currentTime} #{currentDay}"
+          end
         else
-          if accessory.kind == 'MultiLevelSwitch'
-            #req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?VALUE=' + params[:value] + '&ZID=' + accessory.zid)
-            req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?&ZID=' + accessory.zid + '&VALUE=' + params[:value] + '&DEALY=&TIMER=')
-          end
-          if accessory.kind == 'BinarySwitch'
-            #req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?OP=' + params[:value] + '&ZID=' + accessory.zid)
-            req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?&ZID=' + accessory.zid + '&OP='   + params[:value] + '&DEALY=&TIMER=')
-          end
-          req.basic_auth ibox.user, ibox.password
-          res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
-          accessory.update_attribute(:value, params[:value].to_i)
-          
-          
-          ### FOR DEBUGING!
-          time = Time.new
-          currentDay = time.wday
-          currentTime = time.strftime("%H:%M:00")  
-          @user = User.find(session[:user_id])
-          AccessoriesLogger.debug "El accesorio: #{accessory.name} se accionó con el valor: #{params[:value]} por el usuario #{@user.email} a las: #{currentTime} #{currentDay}"
-        end              
+          flash[:notice] = ""
+          flash[:error] = "El Ibox no puede conectarse con el accesorio. Debe reinstalar el accesorio"          
+        end
       rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
         Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError,SocketError => e
         flash[:notice] = "Lo sentimos, el servicio no se encuentra disponible actualmente."
@@ -153,7 +159,19 @@ class AccessoriesController < ApplicationController
       format.js
     end
   end
-  
+
+  # Descripción: Función que busca si el accesorio conectado al ibox está en la base de datos
+  # Entrada: 
+  # Salida: True si lo encontró, False si no.
+  def isConectedAccessory(ibox_id, zid)
+    ret = true
+    @ibox = Ibox.find(ibox_id)
+    res = iboxExecute(@ibox.ip, @ibox.port, '/cgi-bin/Status.cgi?ZID=' + zid,@ibox.user,@ibox.password)
+    if (res[0] == 'Fail:501') 
+      ret = false
+    end
+    ret
+  end    
   
   #funcion que ejecuta un comando consumiendo un webservice en el ibox que es pasado por parametro (instruction)
   def iboxExecute(ibox_ip, ibox_port, instruction, user, password)
