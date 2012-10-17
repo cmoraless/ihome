@@ -71,7 +71,7 @@
 		    	<%end%>
 	   		</div>
 	    	
-			<!-- Script Controlador AJAX -->
+			<!-- Script Controlador AJAX $('<%=accessory.accessory_type.name%>icon').hide();-->
 			<script type="text/javascript" charset="utf-8">
 				$('.<%=accessory.zid%> :checkbox').iphoneStyle();
 	      		var onchange_checkbox = ($('.action :checkbox')).iphoneStyle({
@@ -80,6 +80,7 @@
 	          				$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '1'});
 	          			}else{
 		          			$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '0'});
+		          			
 	    	      		}
 	        		}
 	      		});
