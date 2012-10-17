@@ -175,7 +175,7 @@
 					      			<% else %>
 					      			<%end%>
 					      			<% if session[:mobile] != true %>
-					      				<% if ( @accessories.find_all{ |a| a.isPublic == true }.size > 0) %>
+					      				<% if ( @accessories.find_all{ |a| a.value.nil? == false && a.value > 0 }.size > 0) %>
 					      				    <%= image_tag("on.png", :size=>"20x20", :class => "turnedOnIcon",  :id => container.name+"icon" )%>	
 					      				<%end%>
 					      			<%end%>
