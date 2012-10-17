@@ -175,10 +175,7 @@
 					      			<% else %>
 					      			<%end%>
 					      			<% if session[:mobile] != true%>
-					      				 <% if ( @accessories.select{|a| a.value > 0 }.size > 0) %>
-					      				    <div style="visibility: hidden; display:inline;">&nbsp;</div>
-					      				    <!--<%= image_tag("on.png", :size=>"20x20", :class => "turnedOnIcon",  :id => container.name+"icon" )%>-->
-					      				 <%end%>
+
 					      			<%end%>
 				      			</h3>
 				      			
