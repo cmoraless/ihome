@@ -34,11 +34,13 @@ class AccessoriesController < ApplicationController
   # GET /accessories/1/edit
   def edit
     @accessory = Accessory.find(params[:id])
-    @ibox = Ibox.find(session[:ibox_id])
-    @users = @ibox.users.where(:isAdmin => false)
-    @accessoryTypes= AccessoryType.all
-    @accessoryTypes.delete(AccessoryType.find_by_name("Sensores"))
-
+    respond_to do |format|
+      @ibox = Ibox.find(session[:ibox_id])
+      @users = @ibox.users.where(:isAdmin => false)
+      @accessoryTypes= AccessoryType.all
+      @accessoryTypes.delete(AccessoryType.find_by_name("Sensores"))
+      format.js
+    end
   end
 
   # POST /accessories
@@ -60,11 +62,14 @@ class AccessoriesController < ApplicationController
   # PUT /accessories/1
   # PUT /accessories/1.json
   def update
+    
     @accessory = Accessory.find(params[:id])
     @ibox = Ibox.find(session[:ibox_id])
+    @users = @ibox.users.where(:isAdmin => false)
     @containerOld = IboxAccessoriesContainer.find_by_ibox_id_and_accessory_type_id(@ibox.id, @accessory.accessory_type.id)
     @containerOld.accessories.destroy(@accessory)
-       
+    @accessoryTypes= AccessoryType.all
+    @accessoryTypes.delete(AccessoryType.find_by_name("Sensores"))
     respond_to do |format|
       if @accessory.update_attributes(params[:accessory])
         #guardo el nombre del accesorio en el ibox
@@ -86,6 +91,7 @@ class AccessoriesController < ApplicationController
         end  
         format.js
       else
+        logger.debug "########################################33RENDERIZANDO DENUEVO EDIT"
         format.js { render :action => "edit" }
       end
     end
