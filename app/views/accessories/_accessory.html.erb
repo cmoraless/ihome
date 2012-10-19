@@ -23,6 +23,12 @@
 						$('input#<%=accessory.zid%>').on('slidestop',function(event) {
 							$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: $("input#<%=accessory.zid%>").val()});
 							$("label#label_<%=accessory.zid%>").text($("#<%=accessory.zid%>").val());
+							if ('<%=accessory.ibox_accessories_containers.first.accessories.find_all{ |a| a.value.nil? == false && a.value > 0 }.size%>' > 0){
+								$('#<%=accessory.ibox_accessories_containers.first.name%>'+'icon').show();
+							}
+							else{
+								$('#<%=accessory.ibox_accessories_containers.first.name%>'+'icon').hide();
+							}
 						});
 					});
 				</script>
@@ -49,8 +55,12 @@
 		    			onChange: function(elem, value) { 
 		      				if (value == true){
 		      					$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '9'});
+								$('#<%=accessory.ibox_accessories_containers.first.name%>'+'icon').show();
 		      				}else{
 		      					$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '0'});
+		      					if ('<%=accessory.ibox_accessories_containers.first.accessories.find_all{ |a| a.value.nil? == false && a.value > 0 }.size%>' > 0){
+									$('#<%=accessory.ibox_accessories_containers.first.name%>'+'icon').hide();
+								}
 		      				}
 		    			}
 		  			});
@@ -78,9 +88,12 @@
 	        		onChange: function(elem, value) { 
 	          			if (value == true){
 	          				$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '1'});
+							$('#<%=accessory.ibox_accessories_containers.first.name%>'+'icon').show();
 	          			}else{
 		          			$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '0'});
-		          			
+							if ('<%=accessory.ibox_accessories_containers.first.accessories.find_all{ |a| a.value.nil? == false && a.value > 0 }.size%>' > 0){
+								$('#<%=accessory.ibox_accessories_containers.first.name%>'+'icon').hide();
+							}
 	    	      		}
 	        		}
 	      		});
