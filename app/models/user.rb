@@ -12,13 +12,13 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
   
   #validaciones
-  validates_confirmation_of :password, :message=> "^Los passwords no coinciden."
-  validates_presence_of :password_confirmation, :message=>"^El password no puede estar en blanco."
-  validates_presence_of :password,:message=>"^La confirmacion del password no puede estar en blanco."
-  validates_presence_of :email, :message=>"^El correo no puede estar en blanco."
-  validates_presence_of :name, :message=>"^El nombre no puede estar en blanco."
-  validates_presence_of :phone, :message=>"^El telefono no puede estar en blanco."
-  validates_presence_of :rut, :message=>"^El rut no puede estar en blanco."
+  validates_confirmation_of :password, :message=> "^Las contraseñas no coinciden."
+  validates_presence_of :password_confirmation, :message=>"^La contraseña no puede estar vacío."
+  validates_presence_of :password,:message=>"^La confirmación de la contraseña no puede estar vacía."
+  validates_presence_of :email, :message=>"^El correo no puede estar vacío."
+  validates_presence_of :name, :message=>"^El nombre no puede estar vacío."
+  validates_presence_of :phone, :message=>"^El teléfono no puede estar vacío."
+  validates_presence_of :rut, :message=>"^El rut no puede estar vacío."
   validates_uniqueness_of :email, :message=>"^El correo ingresado ya existe."
   validates_presence_of :code
   #autenticacion
