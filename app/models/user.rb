@@ -1,3 +1,4 @@
+#encoding: utf-8
 class User < ActiveRecord::Base
   # asociaciones:
   has_and_belongs_to_many :iboxes

@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Accessory < ActiveRecord::Base
   # asociaciones:
   belongs_to :accessory_type

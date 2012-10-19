@@ -1,3 +1,4 @@
+#encoding: utf-8
 class ProfileAccessoriesContainer < ActiveRecord::Base
   # asociacion:
   belongs_to :profile

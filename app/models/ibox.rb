@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Ibox < ActiveRecord::Base
   # asociaciones:
   has_many :profiles, :dependent => :destroy
