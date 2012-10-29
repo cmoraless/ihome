@@ -17,18 +17,15 @@
 				</div>
 				<!-- Script Controlador AJAX -->
 				<script type="text/javascript">
+					var countOff = 0;
+					var lastValue = new Array();
+					lastValue[<%=accessory.id%>] = '<%=accessory.value%>';
 					$("label#label_<%=accessory.zid%>").text($("#<%=accessory.zid%>").val());
 					$(function() {						
 						$("input#<%=accessory.zid%>").slider();
 						$('input#<%=accessory.zid%>').on('slidestop',function(event) {
 							$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: $("input#<%=accessory.zid%>").val()});
 							$("label#label_<%=accessory.zid%>").text($("#<%=accessory.zid%>").val());
-							if ('<%=accessory.ibox_accessories_containers.first.accessories.find_all{ |a| a.value.nil? == false && a.value > 0 }.size%>' > 0){
-								$('#<%=accessory.ibox_accessories_containers.first.name%>'+'icon').show();
-							}
-							else{
-								$('#<%=accessory.ibox_accessories_containers.first.name%>'+'icon').hide();
-							}
 						});
 					});
 				</script>
@@ -50,15 +47,18 @@
 	
 				<!-- Script Controlador AJAX -->
 		    	<script type="text/javascript" charset="utf-8">
+		    		var countOff = 0;
 					$('.<%=accessory.zid%> :checkbox').iphoneStyle();
 		  			var onchange_checkbox = ($('.action :checkbox')).iphoneStyle({
 		    			onChange: function(elem, value) { 
 		      				if (value == true){
 		      					$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '9'});
+		      					countOff -=1 ;
 								$('#<%=accessory.ibox_accessories_containers.first.name%>'+'icon').show();
 		      				}else{
 		      					$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '0'});
-		      					if ('<%=accessory.ibox_accessories_containers.first.accessories.find_all{ |a| a.value.nil? == false && a.value > 0 }.size%>' > 0){
+		      					countOff +=1 ;
+								if ('<%=accessory.ibox_accessories_containers.first.accessories.find_all{ |a| a.value.nil? == false && a.value == 0 }.size%>' + countOff > 0){
 									$('#<%=accessory.ibox_accessories_containers.first.name%>'+'icon').hide();
 								}
 		      				}
@@ -83,18 +83,22 @@
 	    	
 			<!-- Script Controlador AJAX -->
 			<script type="text/javascript" charset="utf-8">
+				var countOff = 0;
 				$('.<%=accessory.zid%> :checkbox').iphoneStyle();
 	      		var onchange_checkbox = ($('.action :checkbox')).iphoneStyle({
 	        		onChange: function(elem, value) { 
 	          			if (value == true){
 	          				$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '1'});
+	          				countOff -=1 ;
 							$('#<%=accessory.ibox_accessories_containers.first.name%>'+'icon').show();
 	          			}else{
 		          			$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '0'});
-							if ('<%=accessory.ibox_accessories_containers.first.accessories.find_all{ |a| a.value.nil? == false && a.value > 0 }.size%>' > 0){
+		          			countOff +=1 ;
+							if ('<%=accessory.ibox_accessories_containers.first.accessories.find_all{ |a| a.value.nil? == false && a.value == 0 }.size%>' + countOff > 0){
 								$('#<%=accessory.ibox_accessories_containers.first.name%>'+'icon').hide();
 							}
 	    	      		}
+	    	      		
 	        		}
 	      		});
 			</script>

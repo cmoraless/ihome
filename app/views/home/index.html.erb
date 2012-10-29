@@ -1,4 +1,6 @@
+<!-- -->
 <!-- Contenido navbar (barra de arriba) -->
+<!-- -->
 <% content_for :navbar do %>
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
@@ -69,6 +71,11 @@
 </div>
 <% end %> <!-- end navbar -->
 <%if @iboxes.length > 0%>
+
+	<!-- -->
+	<!-- Contenido Perfiles  -->
+	<!-- -->
+
 	<%content_for :profiles do%>
 	<% if flash[:notice] =~ /ibox/i or flash[:error] =~ /ibox/i %> <!-- muestro mensajes relacionados con el ibox -->
 	<%= render "shared/flash_messages"%>
@@ -92,6 +99,11 @@
 		</div>
 	</div> 
 	<% end %> <!-- end profiles -->
+	
+	<!-- -->
+	<!-- Contenido camaras -->
+	<!-- -->
+	
 	<% content_for :cameras do %>
 		<% if @cameras %>
 			<% if @cameras.length > 0%>
@@ -149,60 +161,32 @@
 	
 	<%end%> <!-- end cameras -->
 	
-	<%content_for :accessories do %>
-		<% if @testConnection == true %> <!-- si hubo conexion con el ibox muestro los acordiones de los accesorios -->
-		<div class="accordion" id="accordion">
-			<% @containers.each do |container| %>
-				<% @accessories = container.accessories.find_all { |acc| acc.users.find_by_id(@user.id) } %>
-		    	<% @accessories = @accessories + container.accessories.find_all { |acc| acc.isPublic == true } %>		
-				<% if ( (@user.isAdmin && container.accessories.length > 0) || ( @accessories.length > 0 ) )%>
-			    	<div class="accordion-group">
-				  		<div class="accordion-heading">
-				    		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#<%= container.name %>">
-				    			<h3>
-					      			<% if container.name == "Luces"%>
-						      			<%= image_tag("luzicon.png", :size=>"32x32")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
-					      			<% elsif container.name == "Cortinas"%>
-						      			<%= image_tag("cortinaicon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
-					      			<% elsif container.name == "Sensores"%>
-						      			<%= image_tag("sensor.png", :size=>"31x18")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
-					      			<% elsif container.name == "Dimmers"%>				      			
-						      			<%= image_tag("dimmericon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
-					      			<% elsif container.name == "Riegos"%>
-						      			<%= image_tag("riegoicon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
-					      			<% elsif container.name == "Enchufes"%>
-						      			<%= image_tag("enchufeicon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
-					      			<% else %>
-					      			<%end%>
-					      			<% if session[:mobile] != true %>
-					      				<% if ( @accessories.find_all{ |a| a.value.nil? == false && a.value > 0 }.size > 0) %>
-					      				    <%= image_tag("on.png", :size=>"20x20", :class => "turnedOnIcon",  :id => container.name+"icon" )%>	
-					      				<%end%>
-					      			<%end%>
-				      			</h3>
-				      			
-				    		</a>
-						</div>
-				    	<div id="<%= container.name %>" class="accordion-body collapse">  
-				    		<div class="accordion-inner">
-				    			<ul class="accentries"> 
-				    				<% if @user.isAdmin %>
-				    					<%= render container.accessories %>
-				    				<% else %>
-				    					<% @accessories = container.accessories.find_all { |acc| acc.users.find_by_id(@user.id) } %>
-				    					<% @accessories = @accessories + container.accessories.find_all { |acc| acc.isPublic == true } %>
-										<%= render @accessories %>
-									<% end %>
-								</ul>
-				    		</div>
-						</div>
-					</div>
-				<% end %>
-			<% end %>
-		</div>
-		<%end%> <!-- end if testconnection -->
-	<%end%> <!-- end accesories -->
+	<!-- -->
+	<!-- Contenido Accesorios-->
+	<!-- -->
 	
+	<%content_for :accessories do %>
+		<% if @testConnection == true %> <!-- si hubo conexion con el ibox muestro los acordiones de los accesorios -->				
+			<div class="dropdown">
+				<a class="btn btn-mini dropdown-toggle" id="drop4" data-toggle="dropdown" href="#">	Visualización <span class="caret"></span></a>
+				<ul id="visual" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+					<li><a tabindex="-1" onclick="return false" id="acc" href="#">Categorias</a></li>
+					<li><a tabindex="-1" onclick="return false" id="lst" href="#">Listado</a></li>
+				</ul>
+			</div>
+	
+			<!-- visualizacion por categorias -->
+			<div class="accordion show visualElem" id="accordion">
+				<%= render 'accordion' %>
+			</div>
+				
+			<!-- visualizacion por lista de elementos-->
+			<div class="listado hide visualElem" id="listEle">
+				<%=  render 'listado' %>
+			</div>
+
+		<%end%> <!-- end if testconnection -->		
+	<%end%> <!-- end accesories -->
 <%else%> <!-- si no tiene iboxes renderizo mensaje -->
 	<%= render 'shared/flash_messages' %>
 <%end%>
@@ -218,28 +202,16 @@
 	</div>  	 
 </div>
 
-<script type="text/javascript">
-	function resetModal(){
-		$('#modal-edit').empty();
-		$('#modal-edit').append('<%= j render "users/formEdit"%>');
-	}
-</script> 
 
+<!-- Modal ayuda perfiles -->
 <div id="profilesHelp" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  
 	<div class="modal-header">  
 		<a class="close" data-dismiss="modal">×</a>  
-		<h3>Ayuda para la creación de perfiles</h3>  
+		<h3>Ayuda sobre perfiles</h3>  
 	</div>  
 	<div class="modal-body">
 		<h4>¿Qué es un perfil?</h4>
-		<p>A través de un perfil usted podrá agrupar accesorios y programar su encendido y apagado de acuerdo a sus necesidades</p>
-		
-		<h4>Creación de perfiles</h4>
-		<p>Para crear su perfil debe presioanr el botón 'Crear nuevo Perfil'</p>
-		<p>Dentro de esta opción primero debe definir un nombre para su nuevo perfil</p>
-		<p>Más abajo, en la lista del lado izquierdo se muestran aquellos dispositivos que pueden ser agregados al perfil. Para agregarlos presione sobre ellos. Los accesorios seleccionados estarán en la lista derecha </p>
-		<p>Guarde su programación con el botón 'Guardar Cambios'</p>
-		<p>En la vista principal, el botón 'Editar' le permitirá modificar los accesorios a controlar y el nombre del perfil</p> 
+		<p>A través de un perfil podrás agrupar accesorios y programar su encendido y apagado de acuerdo a tus necesidades</p>
 		
 		<h4>Programación de perfiles</h4>
 		<p>Para programar los accesorios de su perfil debe presioanr el botón 'Programar'</p>
@@ -258,3 +230,37 @@
 	</div>
  	 
 </div>
+
+<!-- Javascript Editar Usuario -->
+<script type="text/javascript">
+	function resetModal(){
+		$('#modal-edit').empty();
+		$('#modal-edit').append('<%= j render "users/formEdit"%>');
+	}
+</script> 
+
+<!-- Javascript Tipo Visualizacion usuario -->
+<script type="text/javascript">
+	$('#visual').on('click', 'li', function(event){
+        $('.visualElem').each(function(index) {
+            if(this.className.indexOf('show', 0) > -1){
+                $("#"+this.id).fadeOut("fast", function(){
+                    showPage(event.target.id);
+                    
+                });
+                $("#"+this.id).removeClass("show").addClass("hide");
+                // found the visible page now break out of the each loop.
+                return;
+            }
+		});
+		   // show the selected page
+		function showPage(thisTarget){
+			if (thisTarget == "lst"){
+				$("#listEle").fadeIn("fast").removeClass("hide").addClass("show");	
+			}
+			else{
+				$("#accordion").fadeIn("fast").removeClass("hide").addClass("show");	
+			}
+		}			
+	});
+</script>

@@ -136,7 +136,9 @@ body {
   #translucent > .background(@white, 0.6);
   }
   
-  
+  .imageHelp{
+    float: top;
+  }
  /* ENTRADAS ACCESORIOS */
  ul.accentries { 
     list-style: none;
@@ -151,6 +153,13 @@ body {
       -webkit-border-radius: 8px;
          -moz-border-radius: 8px;
               border-radius: 8px;
+              
+     .image {
+       margin-top: -2px;
+        float: left;
+        color: inherit; 
+      }
+      
      .title {
        margin-top: 12px;
         float: left;
@@ -184,6 +193,63 @@ body {
       
     }
   }
+  
+   /* ENTRADAS ACCESORIOS */
+ ul.accentriesList { 
+    list-style: none;
+    li {
+      width: 100%;
+      
+      padding: 8px;
+      margin-left: -4%;
+      margin-bottom: 10px;
+      //background-color: #ffffff;
+      #translucent > .background(@white, 0.85);
+      -webkit-border-radius: 8px;
+         -moz-border-radius: 8px;
+              border-radius: 8px;
+              
+     .image {
+       margin-top: -2px;
+        float: left;
+        color: inherit; 
+      }
+      
+     .title {
+       margin-top: 12px;
+        float: left;
+        margin-left: 0%;
+        //font settings
+        font-size: 18px;
+        line-height: 1px;
+        letter-spacing: 0px;
+        color: inherit; 
+      }
+  
+      .action {
+        float: right;
+      }
+      
+      .dimmer {
+        width: 120px;
+        float: right;
+        margin-right: -3%;
+      }
+      
+       .dimmerCounter {
+        float: right;
+      }
+      
+       .sensorStatus {
+        float: right;
+        margin-right: 3%;
+        margin-top: 1%;             
+      }
+      
+    }
+  }
+  
+  
   
  ul.profentries { 
     list-style: none;

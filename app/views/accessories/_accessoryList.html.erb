@@ -1,0 +1,159 @@
+<% @accessories.each do |accessory| %>
+
+	<li class="row-fluid"> 
+		<div class="span12">
+			<div class="image">
+				<% if accessory.accessory_type.name == "Luces"%>
+					<%= image_tag("luzicon.png", :size=>"32x32")%><div style="visibility: hidden; display:inline;">&nbsp;</div>
+				<% elsif accessory.accessory_type.name == "Cortinas"%>
+					<%= image_tag("cortinaicon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div>
+				<% elsif accessory.accessory_type.name == "Sensores"%>
+					<%= image_tag("sensor.png", :size=>"31x18")%><div style="visibility: hidden; display:inline;">&nbsp;</div>
+				<% elsif accessory.accessory_type.name == "Dimmers"%>				      			
+					<%= image_tag("dimmericon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div>
+				<% elsif accessory.accessory_type.name == "Riegos"%>
+					<%= image_tag("riegoicon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div>
+				<% elsif accessory.accessory_type.name == "Enchufes"%>
+					<%= image_tag("enchufeicon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div>
+				<% else %>
+				<%end%>
+			</div>
+			<%if accessory.kind == 'MultiLevelSwitch'%>	
+				<!--  -->
+				<!-- Dimmers -->
+				<!--  -->
+				<%if accessory.cmdclass =~ /AllOnOff,Configuration/i %>
+					<!-- Nombre -->
+					<span class="title"><%= accessory.name %></span>
+					<!-- Input Controlador AJAX -->
+					<div class="dimmer">
+						<input style ="display: none !important;" type="range" name="<%=accessory.id%>" id="<%=accessory.id%>" value="<%=accessory.value%>" min="0" max="9" data-theme="a" data-track-theme="b" />
+					</div>
+					
+					<div class="dimmerCounter">
+						<label for="<%=accessory.zid%>" id="label_<%=accessory.zid%>"></label>
+					</div>
+					<!-- Script Controlador AJAX -->
+					<script type="text/javascript">
+						var countOff = 0;
+						var lastValue = new Array();
+						lastValue[<%=accessory.id%>] = '<%=accessory.value%>';
+						$("label#label_<%=accessory.zid%>").text($("#<%=accessory.id%>").val());
+						$(function() {						
+							$("input#<%=accessory.id%>").slider();
+							$('input#<%=accessory.id%>').on('slidestop',function(event) {
+								$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: $("input#<%=accessory.zid%>").val()});
+								$("label#label_<%=accessory.zid%>").text($("#<%=accessory.id%>").val());
+							});
+						});
+					</script>
+				<!--  -->
+				<!-- Cortinas -->
+				<!--  -->
+				<% else %>
+					<!-- Nombre -->
+					<span class="title"><%= accessory.name %></span>
+		
+					<!-- DIV del Controlador AJAX -->
+					<div class="action">
+						<% if accessory.value == 0 %>
+			    			<input class="checkbox" type="checkbox" id="<%= accessory.id%>" />
+			    		<%else%>
+			    			<input class="checkbox" type="checkbox" checked="checked" id="<%= accessory.id%>" />
+			    		<%end%>
+		    		</div>
+		
+					<!-- Script Controlador AJAX -->
+			    	<script type="text/javascript" charset="utf-8">
+			    		var countOff = 0;
+						$('.<%=accessory.id%> :checkbox').iphoneStyle();
+			  			var onchange_checkbox = ($('.action :checkbox')).iphoneStyle({
+			    			onChange: function(elem, value) { 
+			      				if (value == true){
+			      					$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '9'});
+			      					countOff -=1 ;
+									$('#<%=accessory.ibox_accessories_containers.first.name%>'+'icon').show();
+			      				}else{
+			      					$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '0'});
+			      					countOff +=1 ;
+									if ('<%=accessory.ibox_accessories_containers.first.accessories.find_all{ |a| a.value.nil? == false && a.value == 0 }.size%>' + countOff > 0){
+										$('#<%=accessory.ibox_accessories_containers.first.name%>'+'icon').hide();
+									}
+			      				}
+			    			}
+			  			});
+					</script>
+				<%end%>
+			<!--  -->
+			<!-- Luces -->
+			<!--  -->
+			<% elsif accessory.kind == 'BinarySwitch' %>
+				<!-- Nombre -->
+				<span class="title"><%= accessory.name %></span>	
+				<!-- DIV del Controlador AJAX -->	
+				<div class="action">
+			    	<% if accessory.value == 0 %>
+				    	<input class="checkbox" type="checkbox" id="<%= accessory.id%>" />
+			    	<%else%>
+				    	<input class="checkbox" type="checkbox" checked="checked" id="<%= accessory.id%>" />
+			    	<%end%>
+		   		</div>
+		    	
+				<!-- Script Controlador AJAX -->
+				<script type="text/javascript" charset="utf-8">
+				$(document).ready(function() {
+					var countOff = 0;
+					$('.<%=accessory.id%> :checkbox').iphoneStyle();
+		      		var onchange_checkbox = ($('.action :checkbox')).iphoneStyle({
+		        		onChange: function(elem, value) { 
+		          			if (value == true){
+		          				$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '1'});
+		          				countOff -=1 ;
+								$('#<%=accessory.ibox_accessories_containers.first.name%>'+'icon').show();
+		          			}else{
+			          			$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: '0'});
+			          			countOff +=1 ;
+								if ('<%=accessory.ibox_accessories_containers.first.accessories.find_all{ |a| a.value.nil? == false && a.value == 0 }.size%>' + countOff > 0){
+									$('#<%=accessory.ibox_accessories_containers.first.name%>'+'icon').hide();
+								}
+		    	      		}
+		    	      		
+		        		}
+		      		});
+		      	});
+				</script>
+				
+			<%elsif accessory.kind == "BinarySensor"%>
+				<span class="title"><%= accessory.name %></span>
+				
+				<script type="text/javascript">
+				function ver_estado_sensor_<%=accessory.id%>(){
+					$.get('<%= url_for(:controller=> 'accessories', :action=>'get_status',:id => accessory.id)%>',function(data){
+						if (data == 3){
+							$('#status_sensor_<%=accessory.id%>').text("Normal");
+						}else if(data == 0){
+							$('#status_sensor_<%=accessory.id%>').text("Activado");
+						}				
+					});
+				}
+				
+				$.get('<%= url_for(:controller=> 'accessories', :action=>'get_status',:id => accessory.id)%>',function(data){
+					if (data == 3){
+						$('#status_sensor_<%=accessory.id%>').text("Normal");
+					}else{
+						$('#status_sensor_<%=accessory.id%>').text("Activado");
+					}				
+				});
+				
+				</script>
+				<div class="action">
+					<a class="btn btn-primary" href="javascript:ver_estado_sensor_<%=accessory.id%>();">Actualizar Estado</a>
+				</div>
+				
+				<div class="sensorStatus">
+					<label id="status_sensor_<%=accessory.id%>"></label> 
+				</div>
+			<%end%>
+		</div>
+	</li>
+<% end %>

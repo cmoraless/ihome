@@ -9,6 +9,7 @@
     		<%= profile_form.label :Nombre, :class=> "control-label" %>   
     		<div class="controls">
     			<%= profile_form.text_field :name, :class => "input-xlarge" %>
+    			<a href="#" rel="tooltip" title="Agregue el nombre del nuevo perfil"><%= image_tag("help.png", :size=>"18x18")%></a>    			
 	  		</div>
   		</div>
   		
@@ -21,7 +22,8 @@
 		<div class="control-group">
     		<%= profile_form.label :Acessorios, :class=> "control-label" %>   
     		<div class="controls">		 		
- 				<%= profile_form.select :accessory_ids, @accessories.collect {|x| [x.name, x.id]}, {}, :multiple => true %>		
+ 				<%= profile_form.select :accessory_ids, @accessories.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
+				<div class="imageHelp"><a href="#" rel="tooltip" title="Agregue el nombre del nuevo perfil"><%= image_tag("help.png", :size=>"18x18")%></a></div>		
 			   	<script type="text/javascript">
 					$(function(){
 						$("#profile_accessory_ids").multiSelect({
@@ -30,13 +32,31 @@
                         });
 					});
 				</script>
+				
    			</div>
+   			
  		</div>
- 	
-		<div class="form-actions">
-    		<%= profile_form.submit :GuardarCambios, :class => "btn btn-primary", :remote => true, :disable_with => 'Guardando...' %>
+ 	   		<%= profile_form.submit :GuardarCambios, :class => "btn btn-primary", :remote => true, :disable_with => 'Guardando...' %>
 		 <!-- #link_to "Programar", { :controller => "profiles" , :action => "schedules", :id => @profile.id }, :class => "btn btn-primary", :remote => true -->
-  		</div>
-  		
+			<a data-toggle="modal" href="#profilesHelp" role="button" data-backdrop="static" data-keyboard="true" class="btn btn-info">Ayuda</a>
   	</fieldset>
 <% end %>
+
+<!-- Modal ayuda perfiles -->
+<div id="profilesHelp" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  
+	<div class="modal-header">  
+		<a class="close" data-dismiss="modal">×</a>  
+		<h3>Ayuda para la creación de perfiles</h3>  
+	</div>  
+	<div class="modal-body">
+		<h4>Creación de perfiles</h4>
+		<p>Primero ponle un nombre a tu nuevo perfil, por ejemplo "luces mañana"</p>
+		<p>Luego debes agregar los accesorios desde tu perfil. Presiónalos y muévelos de izquierda a derecha para agregarlos. Los accesorios seleccionados estarán en la lista derecha
+		<p>Guarde su programación y luego programa tu accesorio en el menú principal</p>
+		
+		<div class="modal-footer">
+        	<button class="btn" data-dismiss="modal">Cerrar</button>
+        </div>
+	</div>
+ 	 
+</div>

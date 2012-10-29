@@ -1,0 +1,15 @@
+&nbsp;
+
+<ul class="accentriesList"> 
+	<% @containers.each do |container| %>
+	
+		<% if @user.isAdmin %>
+			<% @accessories = container.accessories.find_all  %>
+			<%= render 'accessories/accessoryList' %>
+		<% else %>
+			<% @accessories = container.accessories.find_all { |acc| acc.users.find_by_id(@user.id) } %>
+			<% @accessories = @accessories + container.accessories.find_all { |acc| acc.isPublic == true } %>
+			<%= render 'accessories/accessoryList' %>
+		<% end %>
+	<% end %>
+</ul>

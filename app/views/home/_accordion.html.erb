@@ -1,0 +1,51 @@
+<div class="accordion show visualElem" id="accordion">
+	<% @containers.each do |container| %>
+		<% @accessories = container.accessories.find_all { |acc| acc.users.find_by_id(@user.id) } %>
+    	<% @accessories = @accessories + container.accessories.find_all { |acc| acc.isPublic == true } %>		
+		<% if ( (@user.isAdmin && container.accessories.length > 0) || ( @accessories.length > 0 ) )%>
+	    	<div class="accordion-group">
+		  		<div class="accordion-heading">
+		    		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#<%= container.name %>">
+		    			<h3>
+			      			<% if container.name == "Luces"%>
+				      			<%= image_tag("luzicon.png", :size=>"32x32")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
+			      			<% elsif container.name == "Cortinas"%>
+				      			<%= image_tag("cortinaicon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
+			      			<% elsif container.name == "Sensores"%>
+				      			<%= image_tag("sensor.png", :size=>"31x18")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
+			      			<% elsif container.name == "Dimmers"%>				      			
+				      			<%= image_tag("dimmericon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
+			      			<% elsif container.name == "Riegos"%>
+				      			<%= image_tag("riegoicon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
+			      			<% elsif container.name == "Enchufes"%>
+				      			<%= image_tag("enchufeicon.png", :size=>"30x30")%><div style="visibility: hidden; display:inline;">&nbsp;</div><%= container.name %>
+			      			<% else %>
+			      			<%end%>
+			      			<% if session[:mobile] != true %>
+			      				<% if ( @accessories.find_all{ |a| a.value.nil? == false && a.value > 0 }.size > 0) %>
+			      				    <%= image_tag("on.png", :size=>"20x20", :class => "turnedOnIcon",  :id => container.name+"icon" )%>
+			      				<% else %>
+			     					<%= image_tag("on.png", :size=>"20x20", :class => "turnedOnIcon",  :id => container.name+"icon", :style=>"display:none" )%>
+			      				<%end%>
+			      			<%end%>
+		      			</h3>
+		      			
+		    		</a>
+				</div>
+		    	<div id="<%= container.name %>" class="accordion-body collapse">  
+		    		<div class="accordion-inner">
+		    			<ul class="accentries"> 
+		    				<% if @user.isAdmin %>
+		    					<%= render container.accessories %>
+		    				<% else %>
+		    					<% @accessories = container.accessories.find_all { |acc| acc.users.find_by_id(@user.id) } %>
+		    					<% @accessories = @accessories + container.accessories.find_all { |acc| acc.isPublic == true } %>
+								<%= render @accessories %>
+							<% end %>
+						</ul>
+		    		</div>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
+</div>
