@@ -86,9 +86,11 @@ class AccessoriesController < ApplicationController
 
         @containers = IboxAccessoriesContainer.where("ibox_id = ?", @ibox.id)
         @accessories = []
+        logger.debug "#################################### container length = #{@containers.length}"
         @containers.each do |container|
           @accessories << container.accessories
-        end  
+        end
+        logger.debug "#################################### accessories length = #{@accessories.length}"
         format.js
       else
         logger.debug "########################################33RENDERIZANDO DENUEVO EDIT"
