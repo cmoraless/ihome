@@ -1,0 +1,17 @@
+<h1> Actividades </h1> 
+<%= @activities.length %>
+<h1>Listing Actividades</h1>
+
+<table>
+	<tr>
+		<th></th>
+	</tr>
+
+	<% @activities.each do |activity| %>
+		<tr>
+			<td><%=  activity.action %></td>
+		</tr>
+	<% end %>
+</table>
+
+

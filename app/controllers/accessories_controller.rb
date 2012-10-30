@@ -147,6 +147,7 @@ class AccessoriesController < ApplicationController
             req.basic_auth ibox.user, ibox.password
             res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
             accessory.update_attribute(:value, params[:value].to_i)
+            #a = Activity.new(session[:user_id])
             
             
             ### FOR DEBUGING!
