@@ -121,6 +121,7 @@ class AccessoriesController < ApplicationController
     require 'uri'
     ibox = Ibox.find(session[:ibox_id])
     accessory = Accessory.find(params[:id])
+    @user = User.find(session[:user_id])
     ip = ibox.ip
     port = ibox.port
     ws = 'http://' + ip + ':' + port
@@ -133,7 +134,6 @@ class AccessoriesController < ApplicationController
           if (res[2] == 'STATUS=99')
             flash[:notice] = ""
             flash[:error] = "El Ibox no puede conectarse con el accesorio."
-            #format.js {render :js => "window.location.replace('#{url_for(:controller => 'home', :action => 'index')}');"}
             format.js {render :js => "window.location.href=window.location.href"}
           else
             if accessory.kind == 'MultiLevelSwitch'
@@ -147,9 +147,14 @@ class AccessoriesController < ApplicationController
             req.basic_auth ibox.user, ibox.password
             res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
             accessory.update_attribute(:value, params[:value].to_i)
-            #a = Activity.new(session[:user_id])
             
-            
+            ##logger information
+            @activity = Activity.new
+            @activity.update_attribute(:value, params[:value])
+            ibox.activities << @activity
+            @user.activities << @activity
+            accessory.activities << @activity  
+
             ### FOR DEBUGING!
             time = Time.new
             currentDay = time.wday

@@ -11,14 +11,11 @@
 	<%= yield :navbar %>
 	<div class="container fill">
 		<div class="span6 offset3">
-			<%= yield :profiles %>
-			<%= yield :accessories %>
-			<%= yield :cameras %>
 			<%= yield %>
 		</div>
 	</div>
-	
 
+	
 	<div class="navbar navbar-fixed-bottom footer">
 		<div class="navbar-inner footinner">
 			<% if session[:mobile] == true %>

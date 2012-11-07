@@ -1,0 +1,45 @@
+<li  class="row-fluid"> 
+	<div class="span12">	
+		<div class="typeicon2">
+			<% if activity.accessory.accessory_type.name == "Luces"%>
+				<%= image_tag("luzicon.png", :size=>"32x32")%>
+			<% elsif activity.accessory.accessory_type.name == "Cortinas"%>
+				<%= image_tag("cortinaicon.png", :size=>"30x30")%>
+			<% elsif activity.accessory.accessory_type.name == "Sensores"%>
+				<%= image_tag("sensor.png", :size=>"31x18")%>
+			<% elsif activity.accessory.accessory_type.name == "Dimmers"%>				      			
+				<%= image_tag("dimmericon.png", :size=>"30x30")%>
+			<% elsif activity.accessory.accessory_type.name == "Riegos"%>
+				<%= image_tag("riegoicon.png", :size=>"30x30")%>
+			<% elsif activity.accessory.accessory_type.name == "Enchufes"%>
+				<%= image_tag("enchufeicon.png", :size=>"30x30")%>
+			<% else %>
+			<%end%>
+		</div>
+		<span class="acc"><%= activity.accessory.name %></span>
+	
+		<!-- Activity -->	
+		<% if activity.accessory.kind == "BinarySwitch"%>
+			<% if activity.value == 0 %>
+				<span class="des">se apagó</span>
+			<% else%>
+				<span class="des">se encendió</span>
+			<%end%>
+		<%end%>
+		<% if activity.accessory.kind == "MultiLevelSwitch"%>
+			<span class="des">en valor <%= activity.value %></span>
+		<%end%>	
+		
+		<!-- Nombre usuario -->
+		<span class="user"> <%= activity.user.name %></span>
+		
+		<!-- Nombre Perfil -->
+		<% if activity.profile %>
+			<span class="profile"> <%= activity.profile.name %></span>
+		<%end%>	
+		
+		<!-- HORA -->
+		<span class="hour"><%= activity.try(:created_at).try(:strftime,'%I:%M %p %d/%m')%></span>
+				
+	</div>
+</li>

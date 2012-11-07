@@ -1,6 +1,7 @@
 #encoding: utf-8
 class Ibox < ActiveRecord::Base
   # asociaciones:
+  has_many :activities
   has_many :profiles, :dependent => :destroy
   has_many :cameras, :dependent => :destroy
   has_and_belongs_to_many :users

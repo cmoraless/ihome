@@ -1,0 +1,10 @@
+$('#searharea').empty();
+<% if @activities %>
+<% if @activities.length > 0%>
+	$('#searharea').append('<%= j render "activities/all" %>');
+<%else%>
+	$('#searharea').append('<%= j render "shared/flash_messages" %>');
+<%end%>
+<%else%>
+$('#searharea').append('<%= j render "shared/flash_messages" %>');
+<%end%>

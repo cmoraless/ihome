@@ -1,17 +1,107 @@
-<h1> Actividades </h1> 
-<%= @activities.length %>
-<h1>Listing Actividades</h1>
+<!-- -->
+<!-- Contenido navbar (barra de arriba) -->
+<!-- -->
+<% content_for :navbar do %>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+		<div class="span8 offset2">
+			
+		  <a class="brand" href="#"><%= image_tag("ihome.png", :size=>"23x21")%> iHome</a>
+		  
+		  
+		  <div class="btn-group pull-right">
+		    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		      <% if session[:mobile]%>
+		      <i class="icon-user"></i>
+		      <%else%>
+		      <i class="icon-user"></i> <% if current_user %> <%= current_user.email %> <% end %>
+		      <%end%>
+		      <span class="caret"></span>
+		    </a>
+		    <ul class="dropdown-menu">
+		      <li><a data-toggle="modal" onclick="javascript:resetModal();" href="#editUser">Editar</a></li>
+		      <li class="divider"></li>
+		      <li><%=link_to "Salir",log_out_path %></li>
+		    </ul>
+		  </div>
+		  <div class="btn-group pull-right">
+		    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		      <% if @ibox%>
+		      	<i class="icon-hdd"></i> <%=@ibox[:name]%>
+		      <%else%>
+		      	<i class="icon-hdd"></i> IBox
+		      <%end%>
+		      <span class="caret"></span>
+		    </a>
+		    <ul class="dropdown-menu">
+				<% if @iboxes.length > 0%>
+					<% for i in 0..@iboxes.length-1 %>
+		    	  		<li><%= link_to @iboxes[i][:name], :controller => "home", :action => "changeIbox", :id => @iboxes[i][:id] %></li>
+		  			<%end%>
+				<%end%>
+		    </ul>
+		  </div>
+		  <% if session[:mobile] == true %>
+		  	<ul class="nav">
+		        <li class="dropdown">  
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						Registro
+						<b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu"
+						<li><%= link_to "Control", :controller=>"home", :action=>"index"%></li>
+						<li><%= link_to "Registro", :controller=>"activities", :action=>"index"%></li>
+						<% if @user.isAdmin %>
+							<li><%= link_to "Administración", :controller=>"admin", :action=>"index"%></li>
+						<%end%>
+					</ul>
+		      	</li>
+		    </ul>
+		 	<% else %>
+		    	<ul class="nav">
+		    	<li><%= link_to "Control", :controller=>"home", :action=>"index"%></li>
+		    	<li class="active"><%= link_to "Registro", :controller=>"activities", :action=>"index"%></li>
+		    	<% if @user.isAdmin %>
+		      	<li><%= link_to "Administración", :controller=>"admin", :action=>"index"%></li>
+		    	<%end%>
+		    	</ul>
+			<%end%>
+		</div>
+	</div>
+  </div>
+</div>
+<% end %>
+<!-- end navbar -->
 
-<table>
-	<tr>
-		<th></th>
-	</tr>
 
-	<% @activities.each do |activity| %>
-		<tr>
-			<td><%=  activity.action %></td>
-		</tr>
-	<% end %>
-</table>
+<ul class="actentries"> 
+	<li  class="row-fluid"> 
+		<!-- ïconos -->		
+		<div class="span12">
+				<div class="dropdown drop">
+					<a class="btn btn-mini dropdown-toggle" id="drop4" data-toggle="dropdown" href="#">	Accesorio <span class="caret"></span></a>
+					<ul id="search" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+							<% @accessories.each do |acc| %>
+								<li><a tabindex="1" onclick="return false" id=<%=acc.id%> href="#"> <%= acc.name %> </a></li>
+							<% end %>
+							<li><a tabindex="1" onclick="return false" id=-1 href="#"> Todos </a></li>
+					</ul>
+				</div>
+			<div class="activityicon"><%= image_tag("activity.png", :size=>"32x32")%></div>
+			<div class="usericon"><%= image_tag("usericon.png", :size=>"32x32")%></div>
+			<div class="profileicon"><%= image_tag("profile2.png", :size=>"32x32")%></div>
+			<div class="houricon"><%= image_tag("clock.png", :size=>"32x32")%></div>
+		</div>
+	</li>
+</ul>
+<ul class="actentries" id="searharea">
+	<%= render "activities/all" %>
+</ul>
 
+<script type="text/javascript">
+	$('#search').on('click', 'li', function(event){
+        $.post('<%= url_for(:controller=> 'activities', :action=>'search')%>', { id: event.target.id});
 
+	});
+</script>

@@ -1,7 +1,22 @@
 #encoding: utf-8
 class ActivitiesController < ApplicationController
   def index
-    @activities = Activity.all
+    @user = User.find(session[:user_id])
+    @iboxes = @user.iboxes
+    @ibox = Ibox.find(session[:ibox_id])
+        
+    @accessoriesPubs = []
+    @ibox.ibox_accessories_containers.each do |container|
+      @accessoriesPubs += container.accessories.where(:isPublic=> true)
+    end
+    @accessoriesOwneds = @user.accessories
+    @accessories = @accessoriesPubs + @accessoriesOwneds  
+    
+    @acts = []
+    @accessories.each do |acc|
+      @acts += acc.activities
+    end
+    @activities = @acts.sort_by(&:created_at).reverse.first(15)
     respond_to do |format|
       format.html  
     end
@@ -24,7 +39,6 @@ class ActivitiesController < ApplicationController
 
   def create
     @activities = Activity.new(params[:accessory])
-
     respond_to do |format|
       if @activities.save
         format.html { redirect_to @activities, notice: 'Accessory was successfully created.' }
@@ -33,6 +47,45 @@ class ActivitiesController < ApplicationController
       end
     end
   end
-
+  
+  
+  def search
+    @ibox = Ibox.find(session[:ibox_id])
+    @user = User.find(session[:user_id])
+    
+    @accessoriesPubs = []
+    @ibox.ibox_accessories_containers.each do |container|
+      @accessoriesPubs += container.accessories.where(:isPublic=> true)
+    end
+    @accessoriesOwneds = @user.accessories
+    @accessories = @accessoriesPubs + @accessoriesOwneds
+    
+    if (params[:id] != "-1")
+      @accessory = Accessory.find(params[:id])
+      @acts = Activity.find(:all, :conditions => ["accessory_id = ?", @accessory.id], :limit => 50)
+      @activities = @acts.sort_by(&:created_at).reverse.first(15)
+      if @acts.length == 0
+        flash[:notice] = "No se encontraron registros para este accesorio"
+        flash[:error] = ""
+      end
+    else
+      @accessoriesPubs = []
+      @ibox.ibox_accessories_containers.each do |container|
+        @accessoriesPubs += container.accessories.where(:isPublic=> true)
+      end
+      @accessoriesOwneds = @user.accessories
+      @accessories = @accessoriesPubs + @accessoriesOwneds  
+      
+      @acts = []
+      @accessories.each do |acc|
+        @acts += acc.activities
+      end
+      @activities = @acts.sort_by(&:created_at).reverse.first(15)
+    end
+    respond_to do |format|
+      format.js
+    end
+    
+  end
 
 end

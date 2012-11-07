@@ -5,6 +5,7 @@ class Profile < ActiveRecord::Base
   # asociacion:
   belongs_to :user
   belongs_to :ibox
+  has_many :activities
   has_many :schedules, :dependent => :destroy
   has_many :accessories, :through => :schedules
 
@@ -35,11 +36,11 @@ class Profile < ActiveRecord::Base
         
         startActions.each do |saction|
           puts "Comenzó acción del perfil #{profile.name} del usuario #{profile.user.email}: #{currentTime} #{currentDay}"
-          self.control(profile.ibox.id, schedule.accessory.id, 1)
+          self.control(profile.id, profile.ibox.id, schedule.accessory.id, 1)
         end
         endActions.each do |eaction|
           puts "Terminó acción del perfil #{profile.name} del usuario #{profile.user.email}: #{currentTime} #{currentDay}"
-          self.control(profile.ibox.id, schedule.accessory.id, 0)
+          self.control(profile.id, profile.ibox.id, schedule.accessory.id, 0)
           if (eaction.repeat_weekly == false && eaction.repeat_dayly == false )
             eaction.destroy
           end
@@ -48,26 +49,30 @@ class Profile < ActiveRecord::Base
     end
   end
   
-  def self.control(ibox_id, accessory_id, option)
+  def self.control(profile_id, ibox_id, accessory_id, option)
     require 'net/http'
     require 'uri'
     ibox = Ibox.find(ibox_id)
     accessory = Accessory.find(accessory_id)
+    profile = Profile.find(profile_id)
     ip = ibox.ip
     port = ibox.port
     ws = 'http://' + ip + ':' + port
     url = URI.parse(ws)
     begin
       # encendido
+      @activity = Activity.new
       if option == 1
         if accessory.kind == 'MultiLevelSwitch'
           #req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?VALUE=' + '9' + '&ZID=' + accessory.zid)
           req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?&ZID=' + accessory.zid + '&VALUE=' + '9' + '&DEALY=&TIMER=')
           accessory.update_attribute(:value, 9)
+          @activity.update_attribute(:value, 9)
         end
         if accessory.kind == 'BinarySwitch'
           req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?OP=' + '1' + '&ZID=' + accessory.zid)
           accessory.update_attribute(:value, 1)
+          @activity.update_attribute(:value, 1)
         end
       # apagado
       else
@@ -75,12 +80,20 @@ class Profile < ActiveRecord::Base
           #req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?VALUE=' + '0' + '&ZID=' + accessory.zid)
           req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?&ZID=' + accessory.zid + '&VALUE=' + '0' + '&DEALY=&TIMER=')
           accessory.update_attribute(:value, 0)
+          @activity.update_attribute(:value, 0)
         end
         if accessory.kind == 'BinarySwitch'
           req = Net::HTTP::Get.new(url.path + '/cgi-bin/Switch.cgi?OP=' + '0' + '&ZID=' + accessory.zid)
           accessory.update_attribute(:value, 0)
+          @activity.update_attribute(:value, 0)
         end          
       end
+                  ##logger information
+      ibox.activities << @activity
+      profile.activities << @activity
+      profile.user.activities << @activity
+      accessory.activities << @activity  
+      
       req.basic_auth 'root', ''
       res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
     rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
