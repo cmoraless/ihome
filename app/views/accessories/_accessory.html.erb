@@ -27,6 +27,7 @@
 						$('input#<%=accessory.zid%>').on('slidestop',function(event) {
 							$.post('<%= url_for(:controller=> 'accessories', :action=>'control')%>', { id: '<%=accessory.id%>', value: $("input#<%=accessory.zid%>").val()});
 							$("label#label_<%=accessory.zid%>").text($("#<%=accessory.zid%>").val());
+							
 						});
 					});
 				</script>

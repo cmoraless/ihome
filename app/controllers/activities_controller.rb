@@ -1,22 +1,33 @@
 #encoding: utf-8
 class ActivitiesController < ApplicationController
   def index
+    
     @user = User.find(session[:user_id])
     @iboxes = @user.iboxes
-    @ibox = Ibox.find(session[:ibox_id])
-        
-    @accessoriesPubs = []
-    @ibox.ibox_accessories_containers.each do |container|
-      @accessoriesPubs += container.accessories.where(:isPublic=> true)
+    @accessories = []
+    @activities = []
+    if session[:ibox_id]
+      @ibox = Ibox.find(session[:ibox_id])
+    else
+      @ibox = @user.iboxes.first
     end
-    @accessoriesOwneds = @user.accessories
-    @accessories = @accessoriesPubs + @accessoriesOwneds  
-    
-    @acts = []
-    @accessories.each do |acc|
-      @acts += acc.activities
+    @testConnection = false
+    if !@ibox.nil? #si existe el ibox del usuario agarrado anteriormente =>  Toma todos los contenedores del ibox            
+      @accessoriesPubs = []
+      @ibox.ibox_accessories_containers.each do |container|
+        @accessoriesPubs += container.accessories.where(:isPublic=> true)
+      end
+      @accessoriesOwneds = @user.accessories
+      @accessories = @accessoriesPubs + @accessoriesOwneds  
+      
+      @acts = []
+      @accessories.each do |acc|
+        @acts += acc.activities
+      end
+      @activities = @acts.sort_by(&:created_at).reverse.first(15)
+    else
+      flash[:notice] = "Debe habilitar su Ibox en Administración."
     end
-    @activities = @acts.sort_by(&:created_at).reverse.first(15)
     respond_to do |format|
       format.html  
     end

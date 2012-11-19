@@ -58,5 +58,8 @@ module Ihome
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    config.time_zone = 'Santiago'
+    config.active_record.default_timezone = 'Santiago'
   end
 end

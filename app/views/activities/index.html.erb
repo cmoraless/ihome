@@ -73,8 +73,6 @@
 </div>
 <% end %>
 <!-- end navbar -->
-
-
 <ul class="actentries"> 
 	<li  class="row-fluid"> 
 		<!-- ïconos -->		
@@ -98,6 +96,22 @@
 <ul class="actentries" id="searharea">
 	<%= render "activities/all" %>
 </ul>
+
+<!-- MODAL EDICION DE USUARIO -->
+<div id="editUser" class="modal hide">  
+	<div class="modal-header">  
+	<a class="close" data-dismiss="modal">×</a>  
+	<h3>Editando Usuario</h3>  
+	</div>  
+	<div id="modal-edit" class="modal-body">  
+	</div>  	 
+</div>
+<script type="text/javascript">
+	function resetModal(){
+		$('#modal-edit').empty();
+		$('#modal-edit').append('<%= j render "users/formEdit"%>');
+	}
+</script> 
 
 <script type="text/javascript">
 	$('#search').on('click', 'li', function(event){
