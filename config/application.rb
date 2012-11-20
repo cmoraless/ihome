@@ -60,6 +60,6 @@ module Ihome
     config.assets.version = '1.0'
     
     #config.time_zone = 'Santiago'
-    #config.active_record.default_timezone = 'Santiago'
+    config.active_record.default_timezone = 'Santiago'
   end
 end
