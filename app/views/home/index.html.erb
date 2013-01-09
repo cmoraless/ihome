@@ -207,7 +207,9 @@
 										    var g_nIndex = 0;
 											function OnBtnRefresh(url, id)
 											{
-												document.getElementById("imgDisplay").src = 'http://' + url + "snap.jpg?idx=" + g_nIndex ++;	
+												alert(url);
+												alert(id);
+												document.getElementById("imgDisplay").src = 'http://' + url + "snap.jpg?idx=" + g_nIndex ++;
 												window.status=" ";
 											}
 											
