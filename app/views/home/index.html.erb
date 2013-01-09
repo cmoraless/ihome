@@ -205,10 +205,9 @@
 										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=down';
 										    }
 										    var g_nIndex = 0;
-											function OnBtnRefresh(url, id)
+											function OnBtnRefresh()
 											{
-												alert(url);
-												alert(id);
+												alert("hola");
 												document.getElementById("imgDisplay").src = 'http://' + url + "snap.jpg?idx=" + g_nIndex ++;
 												window.status=" ";
 											}
@@ -216,7 +215,7 @@
 											function OnImgLoad(url, id)
 											{
 												window.status=" ";
-												setTimeout("OnBtnRefresh(url, id)",100);
+												setTimeout("OnBtnRefresh()",100);
 											}
 										    
 										</script>
