@@ -170,5 +170,63 @@ class CamerasController < ApplicationController
     end
     ret    
   end
+  
+  def camCommand2
+    require 'net/http'
+    require 'uri'
+    
+    url = 'http://' +  params[:ip] + ':' +  params[:port] + '/' + params[:instruction]
+    logger.debug "#################################### URL= #{url}" 
 
+    resp = Net::HTTP.get_response(URI.parse(url))
+    logger.debug "#################################### respuesta= #{resp.body}"     
+    format.js
+  end   
+  
+  def camCommand  
+    require 'net/http'
+  
+    url = 'http://' +  params[:ip] + ':' +  params[:port] + '/' + params[:instruction]
+    uri = URI(url)
+    http = Net::HTTP.new(url)
+    request = Net::HTTP::Get.new(uri.request_uri)
+    request['Cookie'] = "user=admin"
+    request['Cookie'] = "usr=admin"
+    request['Cookie'] = "pwd=admin"
+    request['Cookie'] = "password=admin"
+    request['Cookie'] = "bRememberMe=0"
+    request['Cookie'] = "userLastLogin="
+    request['Cookie'] = "passwordLastLogin="
+    request['Cookie'] = "usrLevel=0"
+    request['Cookie'] = "bShowMenu=1"
+    r = http.request(request)
+    logger.debug "#################################### respuesta= #{r}"     
+    format.js
+  end
+
+  def camCommand3    
+    require 'net/http'
+    
+    http = Net::HTTP.new('www.google.com')
+    http.start do |sess|
+      # hdrs = {}  # or {'Some_header' => 'some content'}
+      # hdrs['Cookie'] = 'invalid;cookie;string--garbage1'
+      hdrs = nil  # send no headers
+      resp = sess.get('/', hdrs)
+      case resp.code.to_i
+      when 200, 302
+        resp.each {|r| p r}; puts '+++++'
+        cookie = resp['Set-Cookie']
+        if cookie
+          puts cookie.split(/;/)
+          puts '-----', resp.body
+        else
+          puts 'No cookie received'
+        end
+      else
+        puts "Error - code(#{resp.code}) - #{resp.msg}"
+      end
+    end
+  end
+    
 end

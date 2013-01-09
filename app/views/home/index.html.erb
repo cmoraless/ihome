@@ -107,7 +107,7 @@
 	<!-- -->
 	
 	<% content_for :cameras do %>
-		<% if @cameras %>
+		<% if @cameras %>			
 			<% if @cameras.length > 0%>
 				<script type="text/javascript">
 				function pauseCarousel(){
@@ -131,21 +131,74 @@
 									  	<% else %>										  		
 										  	<% for i in 0..@cameras.length-1%>											  												    	
 										    	<% if i == 0 %>
-										    		<div class="active item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div>											    																	
+										    		<% if @cameras[i][:model].to_s == 'linksys'%>	
+										    			<div class="active item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div>
+										    		<% elsif @cameras[i][:model].to_s == 'PTZ' %>
+										    			<div class="active item"><img src="http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/"snap.jpg?user=<%= @cameras[i][:user].to_s + '&password=' + @cameras[i][:password].to_s %>" alt="snapshot" id="imgDisplay" ></div>
+										    			
+										    		<%end%>												    																	
 										    	<%else%>
-										    		<div class="item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div></div>															
+										    		<% if @cameras[i][:model].to_s == 'linksys'%>
+										    			<div class="item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div></div>
+										    		<% elsif @cameras[i][:model].to_s == 'PTZ' %>
+										    			<div class="item"><img src="http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/"snap.jpg?user=<%= @cameras[i][:user].to_s + '&password=' + @cameras[i][:password].to_s %>" alt="snapshot" id="imgDisplay" ></div>
+										    		<%end%>												
 										    	<%end%>											    	
 										    <%end%>
 									  	<%end%>
 									  </div>
-									  <% for i in 0..@cameras.length-1%> <!-- creo scripts para achicar la camara al tamaño de la pantalla del movil (Se crea afuera del inner para que no lo muestre)-->
-									  <script type="text/javascript">											    		
-							    		var width = screen.width*0.7;
-							    		var height = screen.heigth*0.7;
-							    		$("#camera_<%= @cameras[i][:id].to_s %>").width(width);
-							    		$("#camera_<%= @cameras[i][:id].to_s %>").height(height);
-							    	</script>
-							    	<%end%>		
+									  	<% for i in 0..@cameras.length-1%> <!-- creo scripts para achicar la camara al tamaño de la pantalla del movil (Se crea afuera del inner para que no lo muestre)-->
+										 	 <script type="text/javascript">											    		
+								    			var width = screen.width*0.7;
+								    			var height = screen.heigth*0.7;
+								    			$("#camera_<%= @cameras[i][:id].to_s %>").width(width);
+								    			$("#camera_<%= @cameras[i][:id].to_s %>").height(height);
+								    		</script>
+											<% if @cameras[i][:model] == 'PTZ' %>
+												<iframe id='move_<%= @cameras[i][:id].to_s %>' width='0' height='0' marginwidth='0' marginheight='0' scrolling='no' frameborder='0' scrolling='no'></iframe>
+												<iframe id='login_<%= @cameras[i][:id].to_s %>' width='0' height='0' marginwidth='0' marginheight='0' scrolling='no' frameborder='0' scrolling='no'></iframe>
+												
+											<%end%>
+										<%end%>	
+										<script type="text/javascript">											    		
+										    function camLeft(url, id){
+										        var myIframe = parent.document.getElementById("move_"+id);
+										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=left';
+										    }
+										    function camRight(url, id){
+										        var myIframe = parent.document.getElementById("move_"+id);
+										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=right';
+										    }
+										    function camUp(url, id){
+										        var myIframe = parent.document.getElementById("move_"+id);
+										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=up';
+										    }
+										    function camDown(url, id){
+										        var myIframe = parent.document.getElementById("move_"+id);
+										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=down';
+										    }
+										    function camStop(url, id){
+										        var myIframe = parent.document.getElementById("move_"+id);
+										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=stop';
+										    }
+										    
+										    function camLeftMobile(url, id){
+										        var myIframe = parent.document.getElementById("move_"+id);
+										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=left';
+										    }
+										    function camRightMobile(url, id){
+										        var myIframe = parent.document.getElementById("move_"+id);
+										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=right';
+										    }
+										    function camUpMobile(url, id){
+										        var myIframe = parent.document.getElementById("move_"+id);
+										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=up';
+										    }
+										    function camDownMobile(url, id){
+										        var myIframe = parent.document.getElementById("move_"+id);
+										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=down';
+										    }
+										</script>
 									  <!-- Carousel nav -->
 									  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
 									  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>

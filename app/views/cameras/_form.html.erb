@@ -13,13 +13,22 @@
 		<%end%>
 		<% if @repetido %>
 			<%= render "shared/flash_messages"%>
-		<%end%>		
+		<%end%>	
+		
 		<div class="control-group">
         	<%= f.label :nombre_cámara, :class => "control-label" %>
         	<div class="controls">
             	<%= f.text_field :name, :class => "input-xlarge" %>
             </div>
 		</div>
+		
+		<div class="control-group">
+			<%= f.label :Tipo, :class => "control-label" %>
+			<div class="controls">
+				<%= f.select :model,  %w[linksys PTZ], {:include_blank => false} %>
+			</div>     
+		</div>
+
 		
 		<div class="control-group">
         	<%= f.label :DNS, :class => "control-label" %>
