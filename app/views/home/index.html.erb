@@ -142,30 +142,31 @@
 										    			<div class="item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div></div>
 										    		<% elsif @cameras[i][:model].to_s == 'PTZ' %>
 										    			<div class="item"><img src="http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/"snap.jpg?user=<%= @cameras[i][:user].to_s + '&password=' + @cameras[i][:password].to_s %>" alt="snapshot" id="imgDisplay" ></div>
+										    			<script type="text/javascript">
+										    				alert(movil);
+										    				alert("http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/"snap.jpg?user=<%= @cameras[i][:user].to_s + '&password=' + @cameras[i][:password].to_s %>");
+										    			</script>
 										    		<%end%>												
 										    	<%end%>											    	
 										    <%end%>
 									  	<%end%>
 									  </div>
-									  	<% for i in 0..@cameras.length-1%> <!-- creo scripts para achicar la camara al tamaño de la pantalla del movil (Se crea afuera del inner para que no lo muestre)-->
+										<% for i in 0..@cameras.length-1%> <!-- creo scripts para achicar la camara al tamaño de la pantalla del movil (Se crea afuera del inner para que no lo muestre)-->
 										 	 <script type="text/javascript">											    		
-								    			var width = screen.width*0.7;
-								    			var height = screen.heigth*0.7;
-								    			$("#camera_<%= @cameras[i][:id].to_s %>").width(width);
-								    			$("#camera_<%= @cameras[i][:id].to_s %>").height(height);
+												var width = screen.width*0.7;
+												var height = screen.heigth*0.7;
+												$("#camera_<%= @cameras[i][:id].to_s %>").width(width);
+												$("#camera_<%= @cameras[i][:id].to_s %>").height(height);
 								    		</script>
 											<% if @cameras[i][:model] == 'PTZ' %>
 												<iframe id='move_<%= @cameras[i][:id].to_s %>' width='0' height='0' marginwidth='0' marginheight='0' scrolling='no' frameborder='0' scrolling='no'></iframe>
 												<iframe id='login_<%= @cameras[i][:id].to_s %>' width='0' height='0' marginwidth='0' marginheight='0' scrolling='no' frameborder='0' scrolling='no'></iframe>
 												<script type="text/javascript">
-													alert("hola");
 													Login('<%= @cameras[i][:ip] + ':' + @cameras[i][:port]%>', '<%= @cameras[i][:id] %>', '<%= @cameras[i][:user] %>', '<%= @cameras[i][:password] %>');
 													function Login(url, id, user, pass){
-														alert('http://' + url + '/login.xml?user='+user+"&usr="+user+"&password="+ pass +"&pwd="+ pass);
 												        var myIframe = parent.document.getElementById("login_"+id);
 												        myIframe.src = 'http://' + url + '/login.xml?user='+user+"&usr="+user+"&password="+ pass +"&pwd="+ pass;
 												    }
-												    		
 												    function camLeft(url, id){
 												        var myIframe = parent.document.getElementById("move_"+id);
 												        myIframe.src = 'http://' + url + '/moveptz.xml?dir=left';
