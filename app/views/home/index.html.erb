@@ -128,14 +128,19 @@
 									  <div class="carousel-inner">
 									    <% if session[:mobile] == false %> <!-- si no esta en un dispositivo movil uso cameras/_camera.html.erb para renderizarlas -->
 									    	<%= render @ibox.cameras %>												    								    											    
-									  	<% else %>										  		
+									  	<% else %>
+										  	<script type="text/javascript">
+							    				alert(movil);
+							    			</script>									  		
 										  	<% for i in 0..@cameras.length-1%>											  												    	
 										    	<% if i == 0 %>
 										    		<% if @cameras[i][:model].to_s == 'linksys'%>	
 										    			<div class="active item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div>
 										    		<% elsif @cameras[i][:model].to_s == 'PTZ' %>
 										    			<div class="active item"><img src="http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/"snap.jpg?user=<%= @cameras[i][:user].to_s + '&password=' + @cameras[i][:password].to_s %>" alt="snapshot" id="imgDisplay" ></div>
-										    			
+										    			<script type="text/javascript">
+										    				alert("http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/"snap.jpg?user=<%= @cameras[i][:user].to_s + '&password=' + @cameras[i][:password].to_s %>");
+										    			</script>
 										    		<%end%>												    																	
 										    	<%else%>
 										    		<% if @cameras[i][:model].to_s == 'linksys'%>
@@ -143,7 +148,6 @@
 										    		<% elsif @cameras[i][:model].to_s == 'PTZ' %>
 										    			<div class="item"><img src="http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/"snap.jpg?user=<%= @cameras[i][:user].to_s + '&password=' + @cameras[i][:password].to_s %>" alt="snapshot" id="imgDisplay" ></div>
 										    			<script type="text/javascript">
-										    				alert(movil);
 										    				alert("http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/"snap.jpg?user=<%= @cameras[i][:user].to_s + '&password=' + @cameras[i][:password].to_s %>");
 										    			</script>
 										    		<%end%>												
