@@ -161,7 +161,8 @@
 													var g_nIndex = 0;
 													function OnBtnRefresh(){
 														alert("OnBtnRefresh");
-														document.getElementById("imgDisplay").src = "http://200.28.166.104:81/snap.jpg?idx=" + g_nIndex ++;
+														g_nIndex ++;
+														document.getElementById("imgDisplay").src = "http://200.28.166.104:81/snap.jpg?idx=" + g_nIndex;
 														window.status=" ";
 													}
 													function OnImgLoad(){
