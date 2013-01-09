@@ -158,7 +158,18 @@
 												<iframe id='login_<%= @cameras[i][:id].to_s %>' width='0' height='0' marginwidth='0' marginheight='0' scrolling='no' frameborder='0' scrolling='no'></iframe>
 												<script type="text/javascript">
 													Login('<%= @cameras[i][:ip] + ':' + @cameras[i][:port]%>', '<%= @cameras[i][:id] %>', '<%= @cameras[i][:user] %>', '<%= @cameras[i][:password] %>');
+													var g_nIndex = 0;
+													function OnBtnRefresh()
+													{
+														document.getElementById("imgDisplay").src = "http://200.28.166.104:81/snap.jpg?idx=" + g_nIndex ++;
+														window.status=" ";
+													}
 													
+													function OnImgLoad(url, id)
+													{
+														window.status=" ";
+														setTimeout("OnBtnRefresh()",100);
+													}
 												</script>
 											<%end%>
 										<%end%>	
@@ -204,19 +215,8 @@
 										        var myIframe = parent.document.getElementById("move_"+id);
 										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=down';
 										    }
-										    var g_nIndex = 0;
-											function OnBtnRefresh()
-											{
-												alert("hola");
-												document.getElementById("imgDisplay").src = 'http://' + url + "snap.jpg?idx=" + g_nIndex ++;
-												window.status=" ";
-											}
-											
-											function OnImgLoad(url, id)
-											{
-												window.status=" ";
-												setTimeout("OnBtnRefresh()",100);
-											}
+										    
+
 										    
 										</script>
 									  <!-- Carousel nav -->
