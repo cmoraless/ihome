@@ -110,14 +110,18 @@
 		<% if @cameras %>			
 			<% if @cameras.length > 0%>
 				<script type="text/javascript">
-				function pauseCarousel(){
-					$("#myCarousel").carousel('pause');
-				}					
-				window.onload = pauseCarousel;
+					function pauseCarousel(){
+						$("#myCarousel").carousel('pause');
+					}					
+					window.onload = pauseCarousel;
 				</script>
 				
-				
 					<script type="text/javascript">
+						function Login(url, id, user, pass){
+							alert("Login");
+					        var myIframe = parent.document.getElementById("login_"+id);
+					        myIframe.src = 'http://' + url + '/login.xml?user='+user+"&usr="+user+"&password="+ pass +"&pwd="+ pass;
+					    }
 						<% if session[:mobile] == true %>
 						 	<% @cameras.each do |cam| %>
 						 		var g_nIndex_<%= cam.id %> = 0;
@@ -147,32 +151,36 @@
 						        var myIframe = parent.document.getElementById("move_"+id);
 						        myIframe.src = 'http://' + url + '/moveptz.xml?dir=down';
 						    }
-						<%end%>
-						function Login(url, id, user, pass){
-							alert("Login");
-					        var myIframe = parent.document.getElementById("login_"+id);
-					        myIframe.src = 'http://' + url + '/login.xml?user='+user+"&usr="+user+"&password="+ pass +"&pwd="+ pass;
-					    }
-					    function camLeft(url, id){
-					        var myIframe = parent.document.getElementById("move_"+id);
-					        myIframe.src = 'http://' + url + '/moveptz.xml?dir=left';
-					    }
-					    function camRight(url, id){
-					        var myIframe = parent.document.getElementById("move_"+id);
-					        myIframe.src = 'http://' + url + '/moveptz.xml?dir=right';
-					    }
-					    function camUp(url, id){
-					        var myIframe = parent.document.getElementById("move_"+id);
-					        myIframe.src = 'http://' + url + '/moveptz.xml?dir=up';
-					    }
-					    function camDown(url, id){
-					        var myIframe = parent.document.getElementById("move_"+id);
-					        myIframe.src = 'http://' + url + '/moveptz.xml?dir=down';
-					    }
-					    function camStop(url, id){
-					        var myIframe = parent.document.getElementById("move_"+id);
-					        myIframe.src = 'http://' + url + '/moveptz.xml?dir=stop';
-					    }
+						<%else%>
+						 	<% @cameras.each do |cam| %>
+								<% if cam.model == 'PTZ' %>
+									<script type="text/javascript">
+										Login("<%= cam.ip.to_s + ':' + cam.port.to_s %>", "<%= cam.id.to_s %>", "<%= cam.user.to_s %>", "<%= cam.password.to_s %>");
+									</script>
+								<%end%>
+						 	<%end%>
+						    function camLeft(url, id){
+						        var myIframe = parent.document.getElementById("move_"+id);
+						        myIframe.src = 'http://' + url + '/moveptz.xml?dir=left';
+						    }
+						    function camRight(url, id){
+						        var myIframe = parent.document.getElementById("move_"+id);
+						        myIframe.src = 'http://' + url + '/moveptz.xml?dir=right';
+						    }
+						    function camUp(url, id){
+						        var myIframe = parent.document.getElementById("move_"+id);
+						        myIframe.src = 'http://' + url + '/moveptz.xml?dir=up';
+						    }
+						    function camDown(url, id){
+						        var myIframe = parent.document.getElementById("move_"+id);
+						        myIframe.src = 'http://' + url + '/moveptz.xml?dir=down';
+						    }
+						    function camStop(url, id){
+						        var myIframe = parent.document.getElementById("move_"+id);
+						        myIframe.src = 'http://' + url + '/moveptz.xml?dir=stop';
+						    }
+						    
+					    <%end%>
 					</script>				
 				<div class="accordion">
 					<div class="accordion-group">
@@ -200,23 +208,18 @@
 										    			<div class="active item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id => @cameras[i][:id]) %>'></div>
 										    		<% elsif @cameras[i][:model].to_s == 'PTZ' %>
 										    			<div class="active item"><img src="http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/snap.jpg" alt="snapshot" id="imgDisplay_<%= @cameras[i][:id].to_s %>" NOSAVE onLoad="OnImgLoad_<%= @cameras[i][:id].to_s %>();"></div>
-										    			<script type="text/javascript">
-															Login("<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>", "<%= @cameras[i][:id].to_s %>", "<%= @cameras[i][:user].to_s %>", "<%= @cameras[i][:password].to_s %>");
-														</script>
 										    		<%end%>												    																	
 										    	<%else%>
 										    		<% if @cameras[i][:model].to_s == 'linksys'%>
 										    			<div class="item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div></div>
 										    		<% elsif @cameras[i][:model].to_s == 'PTZ' %>
 										    			<div class="item"><img src="http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/snap.jpg" alt="snapshot" id="imgDisplay_<%= @cameras[i][:id].to_s %>" NOSAVE onLoad="OnImgLoad_<%= @cameras[i][:id].to_s %>();"></div>
-											    		<script type="text/javascript">
-															Login("<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>", "<%= @cameras[i][:id].to_s %>", "<%= @cameras[i][:user].to_s %>", "<%= @cameras[i][:password].to_s %>");
-														</script>
 										    		<%end%>												
 										    	<%end%>											    	
 										    <%end%>
 									  	<%end%>
 									  </div>
+									  
 										<% if session[:mobile] == true %>		
 											<% for i in 0..@cameras.length-1%> <!-- creo scripts para achicar la camara al tamaño de la pantalla del movil (Se crea afuera del inner para que no lo muestre)-->
 											 	 <script type="text/javascript">											    		
