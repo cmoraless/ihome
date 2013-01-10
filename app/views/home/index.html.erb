@@ -121,13 +121,12 @@
 					 	<% @cameras.each do |cam| %>
 					 		var g_nIndex_<%= cam.id %> = 0;
 					 		function OnBtnRefresh_<%= cam.id %>(url, id){
-								//alert(g_nIndex);	
-								//g_nIndex_<%= cam.id %> ++;
 								document.getElementById("imgDisplay").src = "http://"+ <%= cam.ip + ':' + cam.port %> +"/snap.jpg?idx=" + g_nIndex_<%= cam.id %>++;
 								window.status=" ";
+								alert(g_nIndex_<%= cam.id %>);	
 							}
 					 		function OnImgLoad_<%= cam.id %>(){
-								alert("funcionaaaa");
+								alert("OnImgLoad_");
 								window.status=" ";
 								setTimeout("OnBtnRefresh_<%= cam.id %>()",10);
 							}
