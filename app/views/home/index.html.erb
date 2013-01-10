@@ -124,8 +124,7 @@
 					 		function OnBtnRefresh_<%= cam.id %>(){
 								alert("OnBtnRefresh_");
 								g_nIndex_<%= cam.id %>++;
-								var bla = document.getElementById("imgDisplay_<%= cam.id %>");
-								alert("http://"+ "<%= cam.ip%>" + ":" + "<%=cam.port %>" +"/snap.jpg?");
+								document.getElementById("imgDisplay_<%= cam.id %>").src = "http://"+ "<%= cam.ip%>" + ":" + "<%=cam.port %>" +"/snap.jpg?" + g_nIndex_<%= cam.id %>;
 								window.status=" ";
 							}
 					 		function OnImgLoad_<%= cam.id %>(){
