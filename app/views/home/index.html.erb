@@ -154,9 +154,7 @@
 						<%else%>
 						 	<% @cameras.each do |cam| %>
 								<% if cam.model == 'PTZ' %>
-									<script type="text/javascript">
-										Login("<%= cam.ip.to_s + ':' + cam.port.to_s %>", "<%= cam.id.to_s %>", "<%= cam.user.to_s %>", "<%= cam.password.to_s %>");
-									</script>
+									Login("<%= cam.ip.to_s + ':' + cam.port.to_s %>", "<%= cam.id.to_s %>", "<%= cam.user.to_s %>", "<%= cam.password.to_s %>");
 								<%end%>
 						 	<%end%>
 						    function camLeft(url, id){
