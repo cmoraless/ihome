@@ -123,7 +123,8 @@
 					 		
 					 		function OnBtnRefresh_<%= cam.id %>(){
 								alert("OnBtnRefresh_");
-								alert( "http://"+ <%= cam.ip + ':' + cam.port %> +"/snap.jpg?idx=" + g_nIndex_<%= cam.id %>++);
+								g_nIndex_<%= cam.id %>++;
+								document.getElementById("imgDisplay_<%= cam.id %>").src = "http://"+ <%= cam.ip + ':' + cam.port %> +"/snap.jpg?idx=" + g_nIndex_<%= cam.id %>;
 								window.status=" ";
 							}
 					 		function OnImgLoad_<%= cam.id %>(){
