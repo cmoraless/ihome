@@ -158,8 +158,9 @@
 												<iframe id='login_<%= @cameras[i][:id].to_s %>' width='0' height='0' marginwidth='0' marginheight='0' scrolling='no' frameborder='0' scrolling='no'></iframe>
 												<script type="text/javascript">
 													alert("PTZ");
-													Login('<%= @cameras[i][:ip] + ':' + @cameras[i][:port]%>', '<%= @cameras[i][:id] %>', '<%= @cameras[i][:user] %>', '<%= @cameras[i][:password] %>');
 													var g_nIndex = 0;
+													Login('<%= @cameras[i][:ip] + ':' + @cameras[i][:port]%>', '<%= @cameras[i][:id] %>', '<%= @cameras[i][:user] %>', '<%= @cameras[i][:password] %>');
+													
 													function OnBtnRefresh(){
 														//alert("OnBtnRefresh");
 														alert(g_nIndex);	
