@@ -157,26 +157,27 @@
 												<iframe id='move_<%= @cameras[i][:id].to_s %>' width='0' height='0' marginwidth='0' marginheight='0' scrolling='no' frameborder='0' scrolling='no'></iframe>
 												<iframe id='login_<%= @cameras[i][:id].to_s %>' width='0' height='0' marginwidth='0' marginheight='0' scrolling='no' frameborder='0' scrolling='no'></iframe>
 												<script type="text/javascript">
-													alert("PTZ");
-													var g_nIndex = 0;
-													Login("<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>", "<%= @cameras[i][:id].to_s %>", "<%= @cameras[i][:user].to_s %>", "<%= @cameras[i][:password].to_s %>");
-													
-													function OnBtnRefresh(){
-														//alert("OnBtnRefresh");
-														alert(g_nIndex);	
-														g_nIndex ++;
-														document.getElementById("imgDisplay").src = "http://200.28.166.104:81/snap.jpg?idx=" + g_nIndex;
-														window.status=" ";
-													}
-													function OnImgLoad(){
-														alert("load");
-														window.status=" ";
-														setTimeout("OnBtnRefresh()",1000);
-													}
+
 												</script>
 											<%end%>
 										<%end%>	
 										<script type="text/javascript">
+											alert("PTZ");
+											var g_nIndex = 0;
+											Login("<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>", "<%= @cameras[i][:id].to_s %>", "<%= @cameras[i][:user].to_s %>", "<%= @cameras[i][:password].to_s %>");
+											
+											function OnBtnRefresh(){
+												//alert("OnBtnRefresh");
+												alert(g_nIndex);	
+												g_nIndex ++;
+												document.getElementById("imgDisplay").src = "http://200.28.166.104:81/snap.jpg?idx=" + g_nIndex;
+												window.status=" ";
+											}
+											function OnImgLoad(){
+												alert("load");
+												window.status=" ";
+												setTimeout("OnBtnRefresh()",1000);
+											}
 											function Login(url, id, user, pass){
 												alert("Login");
 										        var myIframe = parent.document.getElementById("login_"+id);
