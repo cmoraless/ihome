@@ -124,7 +124,6 @@
 					 		function OnBtnRefresh_<%= cam.id %>(){
 								alert("OnBtnRefresh_");
 								g_nIndex_<%= cam.id %>++;
-								document.getElementById("imgDisplay_<%= cam.id %>").src = "http://"+ <%= cam.ip + ':' + cam.port %> +"/snap.jpg?";
 								window.status=" ";
 							}
 					 		function OnImgLoad_<%= cam.id %>(){
