@@ -159,7 +159,7 @@
 												<script type="text/javascript">
 													alert("PTZ");
 													var g_nIndex = 0;
-													Login('<%= @cameras[i][:ip] + ':' + @cameras[i][:port]%>', '<%= @cameras[i][:id] %>', '<%= @cameras[i][:user] %>', '<%= @cameras[i][:password] %>');
+													Login(<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>, <%= @cameras[i][:id].to_s %>, <%= @cameras[i][:user].to_s %>, <%= @cameras[i][:password].to_s %>);
 													
 													function OnBtnRefresh(){
 														//alert("OnBtnRefresh");
