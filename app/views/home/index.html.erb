@@ -116,21 +116,38 @@
 				window.onload = pauseCarousel;
 				</script>
 				
-				<% if session[:mobile] == true %>
+				
 					<script type="text/javascript">
-					 	<% @cameras.each do |cam| %>
-					 		var g_nIndex_<%= cam.id %> = 0;
-					 		
-					 		function OnBtnRefresh_<%= cam.id %>(){
-								g_nIndex_<%= cam.id %>++;
-								document.getElementById("imgDisplay_<%= cam.id %>").src = "http://"+ "<%= cam.ip%>" + ":" + "<%=cam.port %>" +"/snap.jpg?" + g_nIndex_<%= cam.id %>;
-								window.status=" ";
-							}
-					 		function OnImgLoad_<%= cam.id %>(){
-								window.status=" ";
-								setTimeout("OnBtnRefresh_<%= cam.id %>()",10);
-							}
-					 	<%end%> 
+						<% if session[:mobile] == true %>
+						 	<% @cameras.each do |cam| %>
+						 		var g_nIndex_<%= cam.id %> = 0;
+						 		function OnBtnRefresh_<%= cam.id %>(){
+									g_nIndex_<%= cam.id %>++;
+									document.getElementById("imgDisplay_<%= cam.id %>").src = "http://"+ "<%= cam.ip%>" + ":" + "<%=cam.port %>" +"/snap.jpg?" + g_nIndex_<%= cam.id %>;
+									window.status=" ";
+								}
+						 		function OnImgLoad_<%= cam.id %>(){
+									window.status=" ";
+									setTimeout("OnBtnRefresh_<%= cam.id %>()",10);
+								}
+						 	<%end%>
+							function camLeftMobile(url, id){
+						        var myIframe = parent.document.getElementById("move_"+id);
+						        myIframe.src = 'http://' + url + '/moveptz.xml?dir=left';
+						    }
+						    function camRightMobile(url, id){
+						        var myIframe = parent.document.getElementById("move_"+id);
+						        myIframe.src = 'http://' + url + '/moveptz.xml?dir=right';
+						    }
+						    function camUpMobile(url, id){
+						        var myIframe = parent.document.getElementById("move_"+id);
+						        myIframe.src = 'http://' + url + '/moveptz.xml?dir=up';
+						    }
+						    function camDownMobile(url, id){
+						        var myIframe = parent.document.getElementById("move_"+id);
+						        myIframe.src = 'http://' + url + '/moveptz.xml?dir=down';
+						    }
+						<%end%>
 						function Login(url, id, user, pass){
 							alert("Login");
 					        var myIframe = parent.document.getElementById("login_"+id);
@@ -156,24 +173,7 @@
 					        var myIframe = parent.document.getElementById("move_"+id);
 					        myIframe.src = 'http://' + url + '/moveptz.xml?dir=stop';
 					    }
-					    function camLeftMobile(url, id){
-					        var myIframe = parent.document.getElementById("move_"+id);
-					        myIframe.src = 'http://' + url + '/moveptz.xml?dir=left';
-					    }
-					    function camRightMobile(url, id){
-					        var myIframe = parent.document.getElementById("move_"+id);
-					        myIframe.src = 'http://' + url + '/moveptz.xml?dir=right';
-					    }
-					    function camUpMobile(url, id){
-					        var myIframe = parent.document.getElementById("move_"+id);
-					        myIframe.src = 'http://' + url + '/moveptz.xml?dir=up';
-					    }
-					    function camDownMobile(url, id){
-					        var myIframe = parent.document.getElementById("move_"+id);
-					        myIframe.src = 'http://' + url + '/moveptz.xml?dir=down';
-					    }
 					</script>				
-				<%end%>
 				<div class="accordion">
 					<div class="accordion-group">
 						<div class="accordion-heading">
