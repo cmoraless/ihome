@@ -120,11 +120,7 @@
 					<script type="text/javascript">
 					 	<% @cameras.each do |cam| %>
 					 		var g_nIndex_<%= cam.id %> = 0;
-					 		function OnBtnRefresh_<%= cam.id %>(url, id){
-								document.getElementById("imgDisplay").src = "http://"+ <%= cam.ip + ':' + cam.port %> +"/snap.jpg?idx=" + g_nIndex_<%= cam.id %>++;
-								window.status=" ";
-								alert(g_nIndex_<%= cam.id %>);	
-							}
+
 					 		function OnImgLoad_<%= cam.id %>(){
 								alert("OnImgLoad_");
 								window.status=" ";
