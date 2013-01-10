@@ -119,10 +119,17 @@
 				<% if session[:mobile] == true %>
 					<script type="text/javascript">
 					 	<% @cameras.each do |cam| %>
-					 		function OnImgLoad_<%= cam.id %>(url, id){
-								alert(url + id);
+					 		function OnBtnRefresh_<%= cam.id %>(url, id){
+								alert("OnBtnRefresh");
+								//alert(g_nIndex);	
+								g_nIndex ++;
+								document.getElementById("imgDisplay").src = "http://"+ url +"/snap.jpg?idx=" + g_nIndex;
 								window.status=" ";
-								setTimeout("OnBtnRefresh(url, id)",10);
+							}
+					 		function OnImgLoad_<%= cam.id %>(){
+								alert("funcionaaaa");
+								window.status=" ";
+								setTimeout("OnBtnRefresh_<%= cam.id %>()",10);
 							}
 					 	<%end%> 
 						var g_nIndex = 0;
