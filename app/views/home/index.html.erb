@@ -107,6 +107,67 @@
 	<!-- -->
 	
 	<% content_for :cameras do %>
+		<script type="text/javascript">
+		var g_nIndex = 0;
+		alert("nadfa");
+		function OnBtnRefresh(){
+			//alert("OnBtnRefresh");
+			alert(g_nIndex);	
+			g_nIndex ++;
+			document.getElementById("imgDisplay").src = "http://200.28.166.104:81/snap.jpg?idx=" + g_nIndex;
+			window.status=" ";
+		}
+		function OnImgLoad(){
+			alert("load");
+			window.status=" ";
+			setTimeout("OnBtnRefresh()",1000);
+		}
+		function Login(url, id, user, pass){
+			alert("Login: " +url + id + user + pass);
+	        var myIframe = parent.document.getElementById("login_"+id);
+	        myIframe.src = 'http://' + url + '/login.xml?user='+user+"&usr="+user+"&password="+ pass +"&pwd="+ pass;
+	    }
+	    function camLeft(url, id){
+	        var myIframe = parent.document.getElementById("move_"+id);
+	        myIframe.src = 'http://' + url + '/moveptz.xml?dir=left';
+	    }
+	    function camRight(url, id){
+	        var myIframe = parent.document.getElementById("move_"+id);
+	        myIframe.src = 'http://' + url + '/moveptz.xml?dir=right';
+	    }
+	    function camUp(url, id){
+	        var myIframe = parent.document.getElementById("move_"+id);
+	        myIframe.src = 'http://' + url + '/moveptz.xml?dir=up';
+	    }
+	    function camDown(url, id){
+	        var myIframe = parent.document.getElementById("move_"+id);
+	        myIframe.src = 'http://' + url + '/moveptz.xml?dir=down';
+	    }
+	    function camStop(url, id){
+	        var myIframe = parent.document.getElementById("move_"+id);
+	        myIframe.src = 'http://' + url + '/moveptz.xml?dir=stop';
+	    }
+	    
+	    function camLeftMobile(url, id){
+	        var myIframe = parent.document.getElementById("move_"+id);
+	        myIframe.src = 'http://' + url + '/moveptz.xml?dir=left';
+	    }
+	    function camRightMobile(url, id){
+	        var myIframe = parent.document.getElementById("move_"+id);
+	        myIframe.src = 'http://' + url + '/moveptz.xml?dir=right';
+	    }
+	    function camUpMobile(url, id){
+	        var myIframe = parent.document.getElementById("move_"+id);
+	        myIframe.src = 'http://' + url + '/moveptz.xml?dir=up';
+	    }
+	    function camDownMobile(url, id){
+	        var myIframe = parent.document.getElementById("move_"+id);
+	        myIframe.src = 'http://' + url + '/moveptz.xml?dir=down';
+	    }
+	    
+	</script>
+	
+
 		<% if @cameras %>			
 			<% if @cameras.length > 0%>
 				<script type="text/javascript">
@@ -162,67 +223,7 @@
 												</script>
 											<%end%>
 										<%end%>	
-										<script type="text/javascript">
-											var g_nIndex = 0;
-											alert("nadfa");
-											function OnBtnRefresh(){
-												//alert("OnBtnRefresh");
-												alert(g_nIndex);	
-												g_nIndex ++;
-												document.getElementById("imgDisplay").src = "http://200.28.166.104:81/snap.jpg?idx=" + g_nIndex;
-												window.status=" ";
-											}
-											function OnImgLoad(){
-												alert("load");
-												window.status=" ";
-												setTimeout("OnBtnRefresh()",1000);
-											}
-											function Login(url, id, user, pass){
-												alert("Login: " +url + id + user + pass);
-										        var myIframe = parent.document.getElementById("login_"+id);
-										        myIframe.src = 'http://' + url + '/login.xml?user='+user+"&usr="+user+"&password="+ pass +"&pwd="+ pass;
-										    }
-										    function camLeft(url, id){
-										        var myIframe = parent.document.getElementById("move_"+id);
-										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=left';
-										    }
-										    function camRight(url, id){
-										        var myIframe = parent.document.getElementById("move_"+id);
-										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=right';
-										    }
-										    function camUp(url, id){
-										        var myIframe = parent.document.getElementById("move_"+id);
-										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=up';
-										    }
-										    function camDown(url, id){
-										        var myIframe = parent.document.getElementById("move_"+id);
-										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=down';
-										    }
-										    function camStop(url, id){
-										        var myIframe = parent.document.getElementById("move_"+id);
-										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=stop';
-										    }
-										    
-										    function camLeftMobile(url, id){
-										        var myIframe = parent.document.getElementById("move_"+id);
-										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=left';
-										    }
-										    function camRightMobile(url, id){
-										        var myIframe = parent.document.getElementById("move_"+id);
-										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=right';
-										    }
-										    function camUpMobile(url, id){
-										        var myIframe = parent.document.getElementById("move_"+id);
-										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=up';
-										    }
-										    function camDownMobile(url, id){
-										        var myIframe = parent.document.getElementById("move_"+id);
-										        myIframe.src = 'http://' + url + '/moveptz.xml?dir=down';
-										    }
-										    
 
-										    
-										</script>
 									  <!-- Carousel nav -->
 									  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
 									  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
