@@ -124,7 +124,8 @@
 					 		function OnBtnRefresh_<%= cam.id %>(){
 								alert("OnBtnRefresh_");
 								g_nIndex_<%= cam.id %>++;
-								var bla = document.getElementById("imgDisplay_<%= cam.id %>")
+								var bla = document.getElementById("imgDisplay_<%= cam.id %>");
+								alert(bla.src);
 								window.status=" ";
 							}
 					 		function OnImgLoad_<%= cam.id %>(){
