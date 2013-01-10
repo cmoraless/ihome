@@ -162,10 +162,8 @@
 											<%end%>
 										<%end%>	
 										<script type="text/javascript">
-											alert("PTZ");
 											var g_nIndex = 0;
 											Login("<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>", "<%= @cameras[i][:id].to_s %>", "<%= @cameras[i][:user].to_s %>", "<%= @cameras[i][:password].to_s %>");
-											
 											function OnBtnRefresh(){
 												//alert("OnBtnRefresh");
 												alert(g_nIndex);	
@@ -179,7 +177,7 @@
 												setTimeout("OnBtnRefresh()",1000);
 											}
 											function Login(url, id, user, pass){
-												alert("Login");
+												alert("Login: " +url + id + user + pass);
 										        var myIframe = parent.document.getElementById("login_"+id);
 										        myIframe.src = 'http://' + url + '/login.xml?user='+user+"&usr="+user+"&password="+ pass +"&pwd="+ pass;
 										    }
