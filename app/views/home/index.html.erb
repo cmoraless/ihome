@@ -231,7 +231,7 @@
 										    			<div class="active item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id => @cameras[i][:id]) %>'></div>
 										    		<% elsif @cameras[i][:model].to_s == 'PTZ' %>
 										    			<div class="active item"><img src="http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/snap.jpg" alt="snapshot" id="imgDisplay_<%= @cameras[i][:id].to_s %>" NOSAVE onLoad="OnImgLoad_<%= @cameras[i][:id].to_s %>()">
-										    			<table border="0" cellspacing="0" cellpadding="0" STYLE="margin-left:24%;">
+										    			<table border="0" cellspacing="0" cellpadding="0" STYLE="margin-left:20%;">
 															<tr>
 																<td align="center">
 																	<th>
