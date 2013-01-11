@@ -136,7 +136,7 @@
 								
 						 		function OnImgLoad_<%= cam.id %>(){
 									window.status=" ";
-									setTimeout("OnBtnRefresh_<%= cam.id %>()",1000);
+									setTimeout("OnBtnRefresh_<%= cam.id %>()",800);
 								}
 								
 								function StopMove_<%= cam.id %>(){			 			
@@ -144,7 +144,7 @@
 									//alert("entra");
 									var myIframe = parent.document.getElementById("move_<%=cam.id %>");
 						        	myIframe.src = 'http://' + '<%= cam.ip%>' + ':' + '<%=cam.port %>' + '/cmd.xml?cmd=moveptz&dir=none';
-						        	alert("stoped");
+						        	//alert("stoped");
 								}
 
 							</script>
