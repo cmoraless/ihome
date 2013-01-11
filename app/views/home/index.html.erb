@@ -211,10 +211,10 @@
 																<td align="center">
 																	<th>
 																		<div class="btn-group" >
-																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'left' );" onmouseup="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'stop' );"><i class="icon-chevron-left"></i></a>
-																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'right' ;" onmouseup="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'stop' );"><i class="icon-chevron-right"></i></a>
-																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'up'  );" onmouseup="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'stop' );"><i class="icon-chevron-up"></i></a>
-																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'down' );" onmouseup="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'stop' );"><i class="icon-chevron-down"></i></a>
+																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= camera.id %>', 'left' );" onmouseup="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-left"></i></a>
+																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= camera.id %>', 'right' ;" onmouseup="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-right"></i></a>
+																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= camera.id %>', 'up'  );" onmouseup="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-up"></i></a>
+																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= camera.id %>', 'down' );" onmouseup="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-down"></i></a>
 																		</div>
 																	</th>
 																</td>
