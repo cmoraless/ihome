@@ -212,10 +212,7 @@
 																<td align="center">
 																	<th>
 																		<div class="btn-group" >
-																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= camera.id %>', 'left' );" onmouseup="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-left"></i></a>
-																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= camera.id %>', 'right' ;" onmouseup="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-right"></i></a>
-																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= camera.id %>', 'up'  );" onmouseup="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-up"></i></a>
-																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= camera.id %>', 'down' );" onmouseup="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-down"></i></a>
+																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'left' );" onmouseup="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-left"></i></a>
 																		</div>
 																	</th>
 																</td>
@@ -227,20 +224,6 @@
 										    			<div class="item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div></div>
 										    		<% elsif @cameras[i][:model].to_s == 'PTZ' %>
 										    			<div class="item"><img src="http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/snap.jpg" alt="snapshot" id="imgDisplay_<%= @cameras[i][:id].to_s %>" NOSAVE onLoad="OnImgLoad_<%= @cameras[i][:id].to_s %>();"></div>
-										    			<table border="0" cellspacing="0" cellpadding="0" STYLE="margin-left:24%;">
-															<tr>
-																<td align="center">
-																	<th>
-																		<div class="btn-group" >
-																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= camera.id %>', 'left' );" onmouseup="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-left"></i></a>
-																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= camera.id %>', 'right' ;" onmouseup="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-right"></i></a>
-																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= camera.id %>', 'up'  );" onmouseup="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-up"></i></a>
-																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= camera.id %>', 'down' );" onmouseup="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-down"></i></a>
-																		</div>
-																	</th>
-																</td>
-															</tr>
-														</table>
 										    		<%end%>												
 										    	<%end%>											    	
 										    <%end%>
