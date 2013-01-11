@@ -143,15 +143,13 @@
 						 			//alert("stop");
 									window.status=" ";
 									var myIframe = parent.document.getElementById("move_"+id);
-						        	myIframe.src = 'http://' + '<%= cam.ip%>' + ':' + '<%=cam.port %>' + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' +0;
+						        	myIframe.src = 'http://' + '<%= cam.ip%>' + ':' + '<%=cam.port %>' + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' +100;
 								}
 
 							</script>
 					 	<%end%>
 					 	<script type="text/javascript">
-					 			function hola(){
-									alert("hola");
-								}
+
 							function camMobileMouseDown(url, id, dir, val){
 								//alert("mover");
 						        var myIframe = parent.document.getElementById("move_"+id);
