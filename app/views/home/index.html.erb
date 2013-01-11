@@ -142,12 +142,12 @@
 					 	<script type="text/javascript">
 							function camMobileMouseDown(url, id, dir, val){
 						        var myIframe = parent.document.getElementById("move_"+id);
-						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + g_ptzTimes++;
+						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val;
 						        alert('http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val);
 						    }
 						    function camMobileMouseUp(url, id, val){
 						        var myIframe = parent.document.getElementById("move_"+id);
-						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' + g_ptzTimes++;
+						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' + val;
 						        alert('http://' + url + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' + val);
 						    }
 					    </script>
