@@ -141,9 +141,10 @@
 					 	<%end%>
 					 	<script type="text/javascript">
 							function camMoveMobile(url, id, dir){
-						        var myIframe = parent.document.getElementById("move_"+id);
-						        var g_ptzTimes = parent.document.getElementByName("g_ptzTimes_"+id);
-						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +"&nPtzTimes=" + g_ptzTimes++;
+								alert("hoola");
+						        //var myIframe = parent.document.getElementById("move_"+id);
+						        //var g_ptzTimes = parent.document.getElementByName("g_ptzTimes_"+id);
+						        //myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +"&nPtzTimes=" + g_ptzTimes++;
 						    }
 					    </script>
 					<%else%>
