@@ -141,16 +141,16 @@
 					 	<%end%>
 					 	<script type="text/javascript">
 							function camMobileMouseDown(url, id, dir){
-								alert("hoola");
 						        var myIframe = parent.document.getElementById("move_"+id);
 						        var g_ptzTimes = parent.document.getElementByName("g_ptzTimes_"+id);
 						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + g_ptzTimes++;
+						        alert('http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + g_ptzTimes++);
 						    }
 						    function camMobileMouseUp(url, id){
-								alert("hoola");
 						        var myIframe = parent.document.getElementById("move_"+id);
 						        var g_ptzTimes = parent.document.getElementByName("g_ptzTimes_"+id);
 						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' + g_ptzTimes++;
+						        alert('http://' + url + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' + g_ptzTimes++);
 						    }
 					    </script>
 					<%else%>
