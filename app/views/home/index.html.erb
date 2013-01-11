@@ -127,49 +127,29 @@
 		 					<script type="text/javascript">
 						 		var g_nIndex_<%= cam.id %> = 0;
 								var g_ptzTimes_<%= cam.id %> = 0;
-								
 						 		function OnBtnRefresh_<%= cam.id %>(){
 									g_nIndex_<%= cam.id %>++;
 									document.getElementById("imgDisplay_<%= cam.id %>").src = "http://"+ "<%= cam.ip%>" + ":" + "<%=cam.port %>" +"/snap.jpg?" + g_nIndex_<%= cam.id %>;
 									window.status=" ";
 								}
-								
 						 		function OnImgLoad_<%= cam.id %>(){
 									window.status=" ";
 									setTimeout("OnBtnRefresh_<%= cam.id %>()",800);
 								}
-								
 								function StopMove_<%= cam.id %>(){			 			
 									window.status=" ";
-									//alert("entra");
 									var myIframe = parent.document.getElementById("move_<%=cam.id %>");
 						        	myIframe.src = 'http://' + '<%= cam.ip%>' + ':' + '<%=cam.port %>' + '/cmd.xml?cmd=moveptz&dir=none';
-						        	//alert("stoped");
 								}
-
 							</script>
 					 	<%end%>
 					 	<script type="text/javascript">
-
 							function camMobileMouseDown(url, id, dir, val){
-								//alert("mover");
 						        var myIframe = parent.document.getElementById("move_"+id);
 						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val;
 						        setTimeout("StopMove_"+ id +"();",500);
-						        //camMobileMouseUp(url, id, val);
-						        
-						        //alert('http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val);
 						    }
-						    function camMobileMouseUp(url, id, val){
-						    	//setTimeout("stopMoving_"+id +"();",3000);
-						    	//alert("entra");
-						    	//sleep(2000);
-						        //var myIframe = parent.document.getElementById("move_"+id);
-						        //myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' + val;
-						        //alert("ejecutar stop");
-						        //alert("2 sec");
-						        //alert('http://' + url + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' + val++);
-						    }
+						    function camMobileMouseUp(url, id, val){}
 					    </script>
 					<%else%>
 					 	<% @cameras.each do |cam| %>
@@ -239,12 +219,10 @@
 																<tr>
 																	<td align="center">
 																		<th>
-																			<div class="btn-group" >
 																				<a class="btn btn-large btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'left' );" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-left"></i></a>
 																				<a class="btn btn-large btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'right');" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-right"></i></a>
 																				<a class="btn btn-large btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'up'  );" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-up"></i></a>
 																				<a class="btn btn-large btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'down' );" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-down"></i></a>																																					
-																			</div>
 																		</th>
 																	</td>
 																</tr>
