@@ -141,7 +141,7 @@
 								
 								function StopMove_<%= cam.id %>(){			 			
 									window.status=" ";
-									alert("entra");
+									//alert("entra");
 									var myIframe = parent.document.getElementById("move_<%=cam.id %>");
 						        	myIframe.src = 'http://' + '<%= cam.ip%>' + ':' + '<%=cam.port %>' + '/cmd.xml?cmd=moveptz&dir=none';
 						        	alert("stoped");
@@ -155,7 +155,7 @@
 								//alert("mover");
 						        var myIframe = parent.document.getElementById("move_"+id);
 						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val;
-						        setTimeout("StopMove_"+ id +"();",500);
+						        setTimeout("StopMove_"+ id +"();",1000);
 						        //camMobileMouseUp(url, id, val);
 						        
 						        //alert('http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val);
