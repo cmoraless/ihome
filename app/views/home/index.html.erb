@@ -153,9 +153,12 @@
 						    }
 						    function camMobileMouseUp(url, id, val){
 						        var myIframe = parent.document.getElementById("move_"+id);
-						        sleep(2000);
+						        var start = new Date().getTime();
+								while ((new Date().getTime() - start) < 2000){
+									// Do nothing
+								}
 						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' + val;
-						        alert('http://' + url + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' + val);
+						        //alert('http://' + url + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' + val);
 						    }
 					    </script>
 					<%else%>
