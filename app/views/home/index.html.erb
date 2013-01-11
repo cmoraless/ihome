@@ -140,11 +140,17 @@
 							</script>
 					 	<%end%>
 					 	<script type="text/javascript">
-							function camMoveMobile(url, id, dir){
+							function camMobileMouseDown(url, id, dir){
 								alert("hoola");
-						        //var myIframe = parent.document.getElementById("move_"+id);
-						        //var g_ptzTimes = parent.document.getElementByName("g_ptzTimes_"+id);
-						        //myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +"&nPtzTimes=" + g_ptzTimes++;
+						        var myIframe = parent.document.getElementById("move_"+id);
+						        var g_ptzTimes = parent.document.getElementByName("g_ptzTimes_"+id);
+						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + g_ptzTimes++;
+						    }
+						    function camMobileMouseUp(url, id, dir){
+								alert("hoola");
+						        var myIframe = parent.document.getElementById("move_"+id);
+						        var g_ptzTimes = parent.document.getElementByName("g_ptzTimes_"+id);
+						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' + g_ptzTimes++;
 						    }
 					    </script>
 					<%else%>
@@ -212,7 +218,7 @@
 																<td align="center">
 																	<th>
 																		<div class="btn-group" >
-																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'left' );" onmouseup="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-left"></i></a>
+																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'left' );" onmouseup="camMoveMobile('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'none' );"><i class="icon-chevron-left"></i></a>
 																		</div>
 																	</th>
 																</td>
