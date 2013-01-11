@@ -117,6 +117,7 @@
 				</script>
 				
 				<script type="text/javascript">
+					alert("hola1");
 					function Login(url, id, user, pass){
 						alert("log");
 				        var myIframe = parent.document.getElementById("login_"+id);
@@ -126,6 +127,7 @@
 					<% if session[:mobile] == true %>
 					 	<% @cameras.each do |cam| %>
 		 					<script type="text/javascript">
+		 						alert("hola2");
 						 		var g_nIndex_<%= cam.id %> = 0;
 								var g_ptzTimes_<%= cam.id %> = 0;
 								
@@ -135,7 +137,7 @@
 									document.getElementById("imgDisplay_<%= cam.id %>").src = "http://"+ "<%= cam.ip%>" + ":" + "<%=cam.port %>" +"/snap.jpg?" + g_nIndex_<%= cam.id %>;
 									window.status=" ";
 								}
-								alert("hola");
+								
 						 		function OnImgLoad_<%= cam.id %>(){
 						 			alert("load");
 									window.status=" ";
@@ -143,7 +145,7 @@
 								}
 								
 
-						    }
+						    
 							</script>
 					 	<%end%>
 					 	<script type="text/javascript">
