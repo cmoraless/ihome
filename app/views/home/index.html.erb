@@ -142,7 +142,7 @@
 								function StopMove_<%= cam.id %>(){			 			
 									window.status=" ";
 									alert("entra");
-									var myIframe = parent.document.getElementById("move_"+id);
+									var myIframe = parent.document.getElementById("move_<%=cam.id %>");
 						        	myIframe.src = 'http://' + '<%= cam.ip%>' + ':' + '<%=cam.port %>' + '/cmd.xml?cmd=moveptz&dir=none';
 						        	alert("stoped");
 								}
