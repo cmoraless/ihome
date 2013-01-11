@@ -152,10 +152,11 @@
 								//alert("mover");
 						        var myIframe = parent.document.getElementById("move_"+id);
 						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val;
-						        setTimeout("camMobileMouseUp(url, id, val);", 2000);
+						        camMobileMouseUp(url, id, val);
 						        //alert('http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val);
 						    }
 						    function camMobileMouseUp(url, id, val){
+						    	sleep(2000);
 						        //var myIframe = parent.document.getElementById("move_"+id);
 						        //myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' + val++;
 						        alert("2 sec");
