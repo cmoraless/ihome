@@ -141,13 +141,14 @@
 									//setTimeout("OnBtnRefresh_<%= cam.id %>()",1000);
 								}
 								
-								function test(){
-									alert("hola");
-								}
+
 						    }
 							</script>
 					 	<%end%>
 					 	<script type="text/javascript">
+					 			function test(){
+									alert("hola");
+								}
 							function camMobileMouseDown(url, id, dir, val){
 								//alert("mover");
 						        var myIframe = parent.document.getElementById("move_"+id);
@@ -227,21 +228,10 @@
 										    			<div class="active item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id => @cameras[i][:id]) %>'></div>
 										    		<% elsif @cameras[i][:model].to_s == 'PTZ' %>
 										    			<div class="active item"><img src="http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/snap.jpg" alt="snapshot" id="imgDisplay_<%= @cameras[i][:id].to_s %>" NOSAVE onLoad="test()"></div>
-										    			<table border="0" cellspacing="0" cellpadding="0" STYLE="margin-left:24%;">
-															<tr>
-																<td align="center">
-																	<th>
-																		<div class="btn-group" >
-																			
-																		</div>
-																	</th>
-																</td>
-															</tr>
-														</table>
 										    		<%end%>												    																	
 										    	<%else%>
 										    		<% if @cameras[i][:model].to_s == 'linksys'%>
-										    			<div class="item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div></div>
+										    			<div class="item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div>
 										    		<% elsif @cameras[i][:model].to_s == 'PTZ' %>
 										    			<div class="item"><img src="http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/snap.jpg" alt="snapshot" id="imgDisplay_<%= @cameras[i][:id].to_s %>" NOSAVE onLoad="OnImgLoad_<%= @cameras[i][:id].to_s %>();"></div>
 										    		<%end%>												
