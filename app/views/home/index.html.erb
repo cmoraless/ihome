@@ -139,13 +139,11 @@
 									setTimeout("OnBtnRefresh_<%= cam.id %>()",1000);
 								}
 								
-								function StopMove_<%= cam.id %>(){
-						 			//alert("stop");
-						 			alert('http://' + '<%= cam.ip%>' + ':' + '<%=cam.port %>' + '/cmd.xml?cmd=moveptz&dir=none');
+								function StopMove_<%= cam.id %>(){			 			
 									window.status=" ";
 									var myIframe = parent.document.getElementById("move_"+id);
 						        	myIframe.src = 'http://' + '<%= cam.ip%>' + ':' + '<%=cam.port %>' + '/cmd.xml?cmd=moveptz&dir=none';
-						        	
+						        	alert("stoped");
 								}
 
 							</script>
