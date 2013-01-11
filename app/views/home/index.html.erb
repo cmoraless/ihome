@@ -147,7 +147,7 @@
 						    }
 						    function camMobileMouseUp(url, id, val){
 						        var myIframe = parent.document.getElementById("move_"+id);
-						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' + val;
+						        //myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' + val;
 						        alert('http://' + url + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' + val);
 						    }
 					    </script>
@@ -217,6 +217,7 @@
 																	<th>
 																		<div class="btn-group" >
 																			<a class="btn btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'left', g_ptzTimes_<%= @cameras[i][:id].to_s %>++  );" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', g_ptzTimes_<%= @cameras[i][:id].to_s %>++);"><i class="icon-chevron-left"></i></a>
+																			<a class="btn btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'right', g_ptzTimes_<%= @cameras[i][:id].to_s %>++  );" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', g_ptzTimes_<%= @cameras[i][:id].to_s %>++);"><i class="icon-chevron-right"></i></a>
 																		</div>
 																	</th>
 																</td>
