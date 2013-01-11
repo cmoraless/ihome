@@ -118,6 +118,7 @@
 				
 				<script type="text/javascript">
 					function Login(url, id, user, pass){
+						alert("log");
 				        var myIframe = parent.document.getElementById("login_"+id);
 				        myIframe.src = 'http://' + url + '/login.xml?user='+user+"&usr="+user+"&password="+ pass +"&pwd="+ pass;
 				    }
@@ -128,6 +129,7 @@
 						 		var g_nIndex_<%= cam.id %> = 0;
 								var g_ptzTimes_<%= cam.id %> = 0;
 						 		function OnBtnRefresh_<%= cam.id %>(){
+						 			alert("refresh");
 									g_nIndex_<%= cam.id %>++;
 									document.getElementById("imgDisplay_<%= cam.id %>").src = "http://"+ "<%= cam.ip%>" + ":" + "<%=cam.port %>" +"/snap.jpg?" + g_nIndex_<%= cam.id %>;
 									window.status=" ";
