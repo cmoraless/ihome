@@ -149,10 +149,11 @@
 						        var myIframe = parent.document.getElementById("move_"+id);
 						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val;
 						        //camMobileMouseUp(url, id, val);
-						        setTimeout("stopMoving_"+id +"()",3000);
+						        
 						        //alert('http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val);
 						    }
 						    function camMobileMouseUp(url, id, val){
+						    	setTimeout("stopMoving_"+id +"();",3000);
 						    	//alert("entra");
 						    	//sleep(2000);
 						        //var myIframe = parent.document.getElementById("move_"+id);
