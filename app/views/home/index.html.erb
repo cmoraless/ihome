@@ -152,7 +152,7 @@
 								//alert("mover");
 						        var myIframe = parent.document.getElementById("move_"+id);
 						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val;
-						        setTimeout("camMobileMouseUp(url, id, val)", 2000);
+						        setTimeout("camMobileMouseUp(url, id, val);", 2000);
 						        //alert('http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val);
 						    }
 						    function camMobileMouseUp(url, id, val){
