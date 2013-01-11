@@ -140,7 +140,7 @@
 								}
 								
 								function StopMove_<%= cam.id %>(){
-						 			alert("stop");
+						 			//alert("stop");
 									window.status=" ";
 									var myIframe = parent.document.getElementById("move_"+id);
 						        	myIframe.src = 'http://' + '<%= cam.ip%>' + ':' + '<%=cam.port %>' + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' +0;
@@ -156,7 +156,7 @@
 								//alert("mover");
 						        var myIframe = parent.document.getElementById("move_"+id);
 						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val;
-						        setTimeout("StopMove_"+ id +"();",1000);
+						        setTimeout("StopMove_"+ id +"();",500);
 						        //camMobileMouseUp(url, id, val);
 						        
 						        //alert('http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val);
