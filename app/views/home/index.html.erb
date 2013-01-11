@@ -140,7 +140,7 @@
 								}
 								
 								function StopMove_<%= cam.id %>(){
-						 			//alert("stop");
+						 			alert("stop");
 									window.status=" ";
 									var myIframe = parent.document.getElementById("move_"+id);
 						        	myIframe.src = 'http://' + '<%= cam.ip%>' + ':' + '<%=cam.port %>' + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' +100;
