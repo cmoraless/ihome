@@ -121,14 +121,6 @@
 				        var myIframe = parent.document.getElementById("login_"+id);
 				        myIframe.src = 'http://' + url + '/login.xml?user='+user+"&usr="+user+"&password="+ pass +"&pwd="+ pass;
 				    }
-					function sleep(milliseconds) {
-						var start = new Date().getTime();
-						for (var i = 0; i < 1e7; i++) {
-							if ((new Date().getTime() - start) > milliseconds){
-								break;
-							}
-						}
-					}
 				</script>
 					<% if session[:mobile] == true %>
 					 	<% @cameras.each do |cam| %>
@@ -235,10 +227,10 @@
 																<td align="center">
 																	<th>
 																		<div class="btn-group" >
-																			<a class="btn btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'left', g_ptzTimes_<%= @cameras[i][:id].to_s %>++  );" ><i class="icon-chevron-left"></i></a>
-																			<a class="btn btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'right', g_ptzTimes_<%= @cameras[i][:id].to_s %>++  );" ><i class="icon-chevron-right"></i></a>
-																			<a class="btn btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'up', g_ptzTimes_<%= @cameras[i][:id].to_s %>++  );" ><i class="icon-chevron-up"></i></a>
-																			<a class="btn btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'down', g_ptzTimes_<%= @cameras[i][:id].to_s %>++  );" ><i class="icon-chevron-down"></i></a>
+																			<a class="btn btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'left', g_ptzTimes_<%= @cameras[i][:id].to_s %>++  );" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', g_ptzTimes_<%= @cameras[i][:id].to_s %>++);"><i class="icon-chevron-left"></i></a>
+<a class="btn btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'right', g_ptzTimes_<%= @cameras[i][:id].to_s %>++  );" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', g_ptzTimes_<%= @cameras[i][:id].to_s %>++);"><i class="icon-chevron-right"></i></a>
+<a class="btn btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'up', g_ptzTimes_<%= @cameras[i][:id].to_s %>++  );" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', g_ptzTimes_<%= @cameras[i][:id].to_s %>++);"><i class="icon-chevron-up"></i></a>
+<a class="btn btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'down', g_ptzTimes_<%= @cameras[i][:id].to_s %>++  );" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', g_ptzTimes_<%= @cameras[i][:id].to_s %>++);"><i class="icon-chevron-down"></i></a>
 																		</div>
 																	</th>
 																</td>
