@@ -145,24 +145,25 @@
 									var myIframe = parent.document.getElementById("move_"+id);
 						        	myIframe.src = 'http://' + '<%= cam.ip%>' + ':' + '<%=cam.port %>' + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' +0;
 								}
-								function hola(){
-									alert("hola");
-								}
+
 							</script>
 					 	<%end%>
 					 	<script type="text/javascript">
+					 			function hola(){
+									alert("hola");
+								}
 							function camMobileMouseDown(url, id, dir, val){
 								alert("mover");
 						        var myIframe = parent.document.getElementById("move_"+id);
 						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val;
-						        setTimeout("hola",2000);
+						        setTimeout("hola();",2000);
 						        //camMobileMouseUp(url, id, val);
 						        
 						        //alert('http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val);
 						    }
 						    function camMobileMouseUp(url, id, val){
 						    	//setTimeout("stopMoving_"+id +"();",3000);
-						    	alert("entra");
+						    	//alert("entra");
 						    	//sleep(2000);
 						        //var myIframe = parent.document.getElementById("move_"+id);
 						        //myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' + val;
