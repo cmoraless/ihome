@@ -127,6 +127,7 @@
 					 	<% @cameras.each do |cam| %>
 		 					<script type="text/javascript">
 						 		var g_nIndex_<%= cam.id %> = 0;
+								var g_ptzTimes_<%= cam.id %>=0;
 						 		function OnBtnRefresh_<%= cam.id %>(){
 									g_nIndex_<%= cam.id %>++;
 									document.getElementById("imgDisplay_<%= cam.id %>").src = "http://"+ "<%= cam.ip%>" + ":" + "<%=cam.port %>" +"/snap.jpg?" + g_nIndex_<%= cam.id %>;
@@ -139,21 +140,10 @@
 							</script>
 					 	<%end%>
 					 	<script type="text/javascript">
-							function camLeftMobile(url, id){
+							function camMoveMobile(url, id, dir){
 						        var myIframe = parent.document.getElementById("move_"+id);
-						        myIframe.src = 'http://' + url + '/moveptz.xml?dir=left';
-						    }
-						    function camRightMobile(url, id){
-						        var myIframe = parent.document.getElementById("move_"+id);
-						        myIframe.src = 'http://' + url + '/moveptz.xml?dir=right';
-						    }
-						    function camUpMobile(url, id){
-						        var myIframe = parent.document.getElementById("move_"+id);
-						        myIframe.src = 'http://' + url + '/moveptz.xml?dir=up';
-						    }
-						    function camDownMobile(url, id){
-						        var myIframe = parent.document.getElementById("move_"+id);
-						        myIframe.src = 'http://' + url + '/moveptz.xml?dir=down';
+						        var g_ptzTimes = parent.document.getElementByName("g_ptzTimes_"+id);
+						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +"&nPtzTimes=" + g_ptzTimes++;
 						    }
 					    </script>
 					<%else%>
@@ -174,7 +164,7 @@
 						    function camRight(url, id){
 						        var myIframe = parent.document.getElementById("move_"+id);
 						        myIframe.src = 'http://' + url + '/moveptz.xml?dir=right';
-						    }
+						    }	
 						    function camUp(url, id){
 						        var myIframe = parent.document.getElementById("move_"+id);
 						        myIframe.src = 'http://' + url + '/moveptz.xml?dir=up';
@@ -216,12 +206,40 @@
 										    			<div class="active item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id => @cameras[i][:id]) %>'></div>
 										    		<% elsif @cameras[i][:model].to_s == 'PTZ' %>
 										    			<div class="active item"><img src="http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/snap.jpg" alt="snapshot" id="imgDisplay_<%= @cameras[i][:id].to_s %>" NOSAVE onLoad="OnImgLoad_<%= @cameras[i][:id].to_s %>();"></div>
+										    			<table border="0" cellspacing="0" cellpadding="0" STYLE="margin-left:24%;">
+															<tr>
+																<td align="center">
+																	<th>
+																		<div class="btn-group" >
+																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'left' );" onmouseup="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'stop' );"><i class="icon-chevron-left"></i></a>
+																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'right' ;" onmouseup="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'stop' );"><i class="icon-chevron-right"></i></a>
+																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'up'  );" onmouseup="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'stop' );"><i class="icon-chevron-up"></i></a>
+																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'down' );" onmouseup="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'stop' );"><i class="icon-chevron-down"></i></a>
+																		</div>
+																	</th>
+																</td>
+															</tr>
+														</table>
 										    		<%end%>												    																	
 										    	<%else%>
 										    		<% if @cameras[i][:model].to_s == 'linksys'%>
 										    			<div class="item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id=> @cameras[i][:id]) %>'></div></div>
 										    		<% elsif @cameras[i][:model].to_s == 'PTZ' %>
 										    			<div class="item"><img src="http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/snap.jpg" alt="snapshot" id="imgDisplay_<%= @cameras[i][:id].to_s %>" NOSAVE onLoad="OnImgLoad_<%= @cameras[i][:id].to_s %>();"></div>
+										    			<table border="0" cellspacing="0" cellpadding="0" STYLE="margin-left:24%;">
+															<tr>
+																<td align="center">
+																	<th>
+																		<div class="btn-group" >
+																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'left' );" onmouseup="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'stop' );"><i class="icon-chevron-left"></i></a>
+																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'right' ;" onmouseup="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'stop' );"><i class="icon-chevron-right"></i></a>
+																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'up'  );" onmouseup="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'stop' );"><i class="icon-chevron-up"></i></a>
+																			<a class="btn btn-primary" onmousedown="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'down' );" onmouseup="camMoveMobile('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>', 'stop' );"><i class="icon-chevron-down"></i></a>
+																		</div>
+																	</th>
+																</td>
+															</tr>
+														</table>
 										    		<%end%>												
 										    	<%end%>											    	
 										    <%end%>
