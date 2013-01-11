@@ -140,11 +140,12 @@
 								}
 								
 								function StopMove_<%= cam.id %>(){
-						 			alert("stop");
+						 			//alert("stop");
+						 			alert('http://' + '<%= cam.ip%>' + ':' + '<%=cam.port %>' + '/cmd.xml?cmd=moveptz&dir=none');
 									window.status=" ";
 									var myIframe = parent.document.getElementById("move_"+id);
 						        	myIframe.src = 'http://' + '<%= cam.ip%>' + ':' + '<%=cam.port %>' + '/cmd.xml?cmd=moveptz&dir=none';
-						        	alert('http://' + '<%= cam.ip%>' + ':' + '<%=cam.port %>' + '/cmd.xml?cmd=moveptz&dir=none');
+						        	
 								}
 
 							</script>
