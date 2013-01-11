@@ -154,8 +154,8 @@
 					 	<script type="text/javascript">
 							function camMobileMouseDown(url, id, dir, val){
 								alert("mover");
-						        var myIframe = parent.document.getElementById("move_"+id);
-						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val;
+						        //var myIframe = parent.document.getElementById("move_"+id);
+						        //myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val;
 						        //camMobileMouseUp(url, id, val);
 						        setTimeout("stopMoving_"+id +"()",2000);
 						        //alert('http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val);
