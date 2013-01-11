@@ -117,9 +117,7 @@
 				</script>
 				
 				<script type="text/javascript">
-					alert("hola1");
 					function Login(url, id, user, pass){
-						alert("log");
 				        var myIframe = parent.document.getElementById("login_"+id);
 				        myIframe.src = 'http://' + url + '/login.xml?user='+user+"&usr="+user+"&password="+ pass +"&pwd="+ pass;
 				    }
@@ -127,35 +125,36 @@
 					<% if session[:mobile] == true %>
 					 	<% @cameras.each do |cam| %>
 		 					<script type="text/javascript">
-		 						alert("hola2");
 						 		var g_nIndex_<%= cam.id %> = 0;
 								var g_ptzTimes_<%= cam.id %> = 0;
 								
 						 		function OnBtnRefresh_<%= cam.id %>(){
-						 			alert("refresh");
 									g_nIndex_<%= cam.id %>++;
 									document.getElementById("imgDisplay_<%= cam.id %>").src = "http://"+ "<%= cam.ip%>" + ":" + "<%=cam.port %>" +"/snap.jpg?" + g_nIndex_<%= cam.id %>;
 									window.status=" ";
 								}
 								
 						 		function OnImgLoad_<%= cam.id %>(){
-						 			alert("load");
 									window.status=" ";
 									setTimeout("OnBtnRefresh_<%= cam.id %>()",1000);
 								}
 								
+								function StopMove_<%= cam.id %>(){
+						 			alert("stop");
+									window.status=" ";
+									var myIframe = parent.document.getElementById("move_"+id);
+						        	myIframe.src = 'http://' + '<%= cam.ip%>' + ':' + '<%=cam.port %>' + '/cmd.xml?cmd=moveptz&dir=none&nPtzTimes=' +0;
+								}
+								
 
-						    
 							</script>
 					 	<%end%>
 					 	<script type="text/javascript">
-					 			function test(){
-									alert("hola");
-								}
 							function camMobileMouseDown(url, id, dir, val){
-								//alert("mover");
+								alert("mover");
 						        var myIframe = parent.document.getElementById("move_"+id);
 						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val;
+						        setTimeout("StopMove_<%= cam.id %>()",2000);
 						        //camMobileMouseUp(url, id, val);
 						        
 						        //alert('http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val);
@@ -231,6 +230,20 @@
 										    			<div class="active item"><img class="camera" id='camera_<%= @cameras[i][:id].to_s %>' width='320' height='240' src='<%= url_for(:controller=>"cameras", :action =>"stream_image", :id => @cameras[i][:id]) %>'></div>
 										    		<% elsif @cameras[i][:model].to_s == 'PTZ' %>
 										    			<div class="active item"><img src="http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/snap.jpg" alt="snapshot" id="imgDisplay_<%= @cameras[i][:id].to_s %>" NOSAVE onLoad="OnImgLoad_<%= @cameras[i][:id].to_s %>()"></div>
+										    			<table border="0" cellspacing="0" cellpadding="0" STYLE="margin-left:24%;">
+															<tr>
+																<td align="center">
+																	<th>
+																		<div class="btn-group" >
+																			<a class="btn btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'left' );" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-left"></i></a>
+																			<a class="btn btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'right');" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-right"></i></a>
+																			<a class="btn btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'up'  );" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-up"></i></a>
+																			<a class="btn btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'down' );" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-down"></i></a>																																					
+																		</div>
+																	</th>
+																</td>
+															</tr>
+														</table>
 										    		<%end%>												    																	
 										    	<%else%>
 										    		<% if @cameras[i][:model].to_s == 'linksys'%>
