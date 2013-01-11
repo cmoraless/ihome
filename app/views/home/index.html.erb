@@ -153,10 +153,10 @@
 									alert("hola");
 								}
 							function camMobileMouseDown(url, id, dir, val){
-								alert("mover");
+								//alert("mover");
 						        var myIframe = parent.document.getElementById("move_"+id);
 						        myIframe.src = 'http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val;
-						        setTimeout("StopMove_"+ id +"();",2000);
+						        setTimeout("StopMove_"+ id +"();",1000);
 						        //camMobileMouseUp(url, id, val);
 						        
 						        //alert('http://' + url + '/cmd.xml?cmd=moveptz&tick=100&dir='+ dir +'&nPtzTimes=' + val);
