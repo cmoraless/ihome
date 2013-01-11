@@ -215,7 +215,7 @@
 										    		<% elsif @cameras[i][:model].to_s == 'PTZ' %>
 										    			<div class="active item">
 										    				<img src="http://<%=@cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s %>/snap.jpg" alt="snapshot" id="imgDisplay_<%= @cameras[i][:id].to_s %>" NOSAVE onLoad="OnImgLoad_<%= @cameras[i][:id].to_s %>()">
-											    			<table border="0" cellspacing="0" cellpadding="0" STYLE="margin-left:20%;">
+											    			<table border="0" cellspacing="0" cellpadding="0" STYLE="margin-left:18%;">
 																<tr>
 																	<td align="center">
 																		<th>
@@ -242,12 +242,10 @@
 																<tr>
 																	<td align="center">
 																		<th>
-																			<div class="btn-group" >
 																				<a class="btn btn-large btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'left' );" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-left"></i></a>
 																				<a class="btn btn-large btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'right');" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-right"></i></a>
 																				<a class="btn btn-large btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'up'  );" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-up"></i></a>
 																				<a class="btn btn-large btn-primary" onmousedown="camMobileMouseDown('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'down' );" onmouseup="camMobileMouseUp('<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>', '<%= @cameras[i][:id].to_s %>', 'stop' );"><i class="icon-chevron-down"></i></a>																																					
-																			</div>
 																		</th>
 																	</td>
 																</tr>
