@@ -274,19 +274,33 @@
 													<script type="text/javascript">
 														Login("<%= cam.ip.to_s + ':' + cam.port.to_s %>", "<%= cam.id.to_s %>", "<%= cam.user.to_s %>", "<%= cam.password.to_s %>");
 														function refresh_<%= cam.id%>(){
+															//alert("refresh");
 															var h = document.getElementById("img_camera_<%= cam.id %>");
 															if (h != ""){
 																h.src = "http://<%= cam.ip + ':' + cam.port%>/videostream.cgi";																			
 															}
 														}
-														
 														setTimeout(
 															function(){
 																var h = document.getElementById("img_camera_<%= cam.id %>");
 																if (h != ""){
 																	h.src = "http://<%= cam.ip + ':' + cam.port%>/videostream.cgi";																			
 																}
-															},4000);
+															},1000);
+														setTimeout(
+															function(){
+																var h = document.getElementById("img_camera_<%= cam.id %>");
+																if (h != ""){
+																	h.src = "http://<%= cam.ip + ':' + cam.port%>/videostream.cgi";																			
+																}
+															},3000);
+														setTimeout(
+															function(){
+																var h = document.getElementById("img_camera_<%= cam.id %>");
+																if (h != ""){
+																	h.src = "http://<%= cam.ip + ':' + cam.port%>/videostream.cgi";																			
+																}
+															},7000);
 													</script>
 												<%end%>
 										 	<%end%>
