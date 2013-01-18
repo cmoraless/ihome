@@ -280,27 +280,11 @@
 																h.src = "http://<%= cam.ip + ':' + cam.port%>/videostream.cgi";																			
 															}
 														}
-														setTimeout(
-															function(){
-																var h = document.getElementById("img_camera_<%= cam.id %>");
-																if (h != ""){
-																	h.src = "http://<%= cam.ip + ':' + cam.port%>/videostream.cgi";																			
-																}
-															},1000);
-														setTimeout(
-															function(){
-																var h = document.getElementById("img_camera_<%= cam.id %>");
-																if (h != ""){
-																	h.src = "http://<%= cam.ip + ':' + cam.port%>/videostream.cgi";																			
-																}
-															},3000);
-														setTimeout(
-															function(){
-																var h = document.getElementById("img_camera_<%= cam.id %>");
-																if (h != ""){
-																	h.src = "http://<%= cam.ip + ':' + cam.port%>/videostream.cgi";																			
-																}
-															},7000);
+														setTimeout(	"refresh_<%= cam.id%>();",1000);
+														setTimeout(	"refresh_<%= cam.id%>();",3000);
+														setTimeout(	"refresh_<%= cam.id%>();",7000);
+														
+			
 													</script>
 												<%end%>
 										 	<%end%>
