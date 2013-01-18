@@ -120,6 +120,7 @@
 					function Login(url, id, user, pass){
 				        var myIframe = parent.document.getElementById("login_"+id);
 				        myIframe.src = 'http://' + url + '/login.xml?user='+user+"&usr="+user+"&password="+ pass +"&pwd="+ pass;
+				        //alert("login finished");
 				    }
 				</script>
 					<% if session[:mobile] == true %>
@@ -152,15 +153,6 @@
 						    function camMobileMouseUp(url, id, val){}
 					    </script>
 					<%else%>
-					 	<% @cameras.each do |cam| %>
-							<% if cam.model == 'PTZ' %>
-								<iframe id='move_<%= cam.id %>' width='0' height='0' marginwidth='0' marginheight='0' scrolling='no' frameborder='0' scrolling='no'></iframe>
-								<iframe id='login_<%= cam.id %>' width='0' height='0' marginwidth='0' marginheight='0' scrolling='no' frameborder='0' scrolling='no'></iframe>
-								<script type="text/javascript">
-									Login("<%= cam.ip.to_s + ':' + cam.port.to_s %>", "<%= cam.id.to_s %>", "<%= cam.user.to_s %>", "<%= cam.password.to_s %>");
-								</script>
-							<%end%>
-					 	<%end%>
 					 	<script type="text/javascript">
 						    function camLeft(url, id){
 						        var myIframe = parent.document.getElementById("move_"+id);
@@ -270,10 +262,27 @@
 													<iframe id='login_<%= @cameras[i][:id].to_s %>' width='0' height='0' marginwidth='0' marginheight='0' scrolling='no' frameborder='0' scrolling='no'></iframe>
 													<script type="text/javascript">
 														Login("<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>", "<%= @cameras[i][:id].to_s %>", "<%= @cameras[i][:user].to_s %>", "<%= @cameras[i][:password].to_s %>");
+														
 													</script>
 												<%end%>
 											<%end%>	
-										<%end%>
+										<%else%>
+											<% @cameras.each do |cam| %>
+												<% if cam.model == 'PTZ' %>
+													<iframe id='move_<%= cam.id %>' width='0' height='0' marginwidth='0' marginheight='0' scrolling='no' frameborder='0' scrolling='no'></iframe>
+													<iframe id='login_<%= cam.id %>' width='0' height='0' marginwidth='0' marginheight='0' scrolling='no' frameborder='0' scrolling='no'></iframe>
+													<script type="text/javascript">
+														Login("<%= cam.ip.to_s + ':' + cam.port.to_s %>", "<%= cam.id.to_s %>", "<%= cam.user.to_s %>", "<%= cam.password.to_s %>");
+														setTimeout(function(){
+																		var h = document.getElementById("img_camera_<%= cam.id %>");
+																		if (h != ""){
+																			h.src = "http://<%= cam.ip + ':' + cam.port%>/videostream.cgi";																			
+																		}
+																	},1000);
+													</script>
+												<%end%>
+										 	<%end%>
+										 <%end%>
 									  <!-- Carousel nav -->
 									  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
 									  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
