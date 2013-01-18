@@ -76,7 +76,7 @@
 			  </tr>
 			  </tbody>
 			</table>
-			<table border="0" cellspacing="0" cellpadding="0" STYLE="margin-left:24%;">
+			<table border="0" cellspacing="0" cellpadding="0" STYLE="margin-left:21%;">
 				<tr>
 					<td align="center">
 						<th>
@@ -85,6 +85,7 @@
 								<a class="btn btn-primary" onmousedown="camRight('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>' );" onmouseup="camStop('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>' );"><i class="icon-chevron-right"></i></a>
 								<a class="btn btn-primary" onmousedown="camUp('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>' );" onmouseup="camStop('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>' );"><i class="icon-chevron-up"></i></a>
 								<a class="btn btn-primary" onmousedown="camDown('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>' );" onmouseup="camStop('<%= camera.ip + ':' + camera.port%>', '<%= camera.id %>' );"><i class="icon-chevron-down"></i></a>
+								<a class="btn btn-primary" onmousedown="refresh_<%= camera.id%>();" ><i class="icon-refresh"></i></a>
 							</div>
 						</th>
 					</td>

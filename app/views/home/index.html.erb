@@ -273,12 +273,20 @@
 													<iframe id='login_<%= cam.id %>' width='0' height='0' marginwidth='0' marginheight='0' scrolling='no' frameborder='0' scrolling='no'></iframe>
 													<script type="text/javascript">
 														Login("<%= cam.ip.to_s + ':' + cam.port.to_s %>", "<%= cam.id.to_s %>", "<%= cam.user.to_s %>", "<%= cam.password.to_s %>");
-														setTimeout(function(){
-																		var h = document.getElementById("img_camera_<%= cam.id %>");
-																		if (h != ""){
-																			h.src = "http://<%= cam.ip + ':' + cam.port%>/videostream.cgi";																			
-																		}
-																	},5000);
+														function refresh_<%= cam.id%>(){
+															var h = document.getElementById("img_camera_<%= cam.id %>");
+															if (h != ""){
+																h.src = "http://<%= cam.ip + ':' + cam.port%>/videostream.cgi";																			
+															}
+														}
+														
+														setTimeout(
+															function(){
+																var h = document.getElementById("img_camera_<%= cam.id %>");
+																if (h != ""){
+																	h.src = "http://<%= cam.ip + ':' + cam.port%>/videostream.cgi";																			
+																}
+															},4000);
 													</script>
 												<%end%>
 										 	<%end%>
