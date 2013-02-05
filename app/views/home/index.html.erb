@@ -120,7 +120,7 @@
 					function Login(url, id, user, pass){
 				        var myIframe = parent.document.getElementById("login_"+id);
 				        myIframe.src = 'http://' + url + '/login.xml?user='+user+"&usr="+user+"&password="+ pass +"&pwd="+ pass;
-				        //alert("login finished");
+				        alert("login finished");
 				    }
 				</script>
 					<% if session[:mobile] == true %>
@@ -262,6 +262,9 @@
 													<iframe id='login_<%= @cameras[i][:id].to_s %>' width='0' height='0' marginwidth='0' marginheight='0' scrolling='no' frameborder='0' scrolling='no'></iframe>
 													<script type="text/javascript">
 														Login("<%= @cameras[i][:ip].to_s + ':' + @cameras[i][:port].to_s%>", "<%= @cameras[i][:id].to_s %>", "<%= @cameras[i][:user].to_s %>", "<%= @cameras[i][:password].to_s %>");
+														setTimeout(	"OnBtnRefresh_<%= @cameras[i][:id].to_s %>();", 1000);
+														setTimeout(	"OnBtnRefresh_<%= @cameras[i][:id].to_s %>();", 3000);
+														setTimeout(	"OnBtnRefresh_<%= @cameras[i][:id].to_s %>();", 5000);
 														
 													</script>
 												<%end%>
