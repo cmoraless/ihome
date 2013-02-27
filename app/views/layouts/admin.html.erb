@@ -76,6 +76,19 @@
 						</div>
 				  </div>
 				</div>
+				
+				<div class="accordion-group">
+				  <div class="accordion-heading">
+				    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#links-body">
+				     <h3><%= image_tag("help.png", :size=>"21x21")%><div style="visibility: hidden; display:inline;">&nbsp;&nbsp;&nbsp;</div>Ayuda</h3>
+				    </a>
+				  </div>
+				  <div id="links-body" class="accordion-body collapse">
+				    <div id="link" class="accordion-inner">
+							<%= yield :links %>	    
+						</div>
+				  </div>
+				</div>
 				<% end %>
 			</div>
 		</div>
